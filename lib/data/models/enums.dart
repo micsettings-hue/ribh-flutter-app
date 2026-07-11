@@ -61,6 +61,12 @@ extension KycSourceDb on KycSource {
 
 enum QueueStatus { pending, approved, declined }
 
+enum MoneyRequestKind { deposit, withdrawal }
+
+enum PaymentMethod { bkash, nagad, bank }
+
+enum MoneyRequestStatus { pending, confirmed, rejected, cancelled }
+
 enum WelfareKind { zakat, sadaqah }
 
 enum ReferralStatus { joined, verified }

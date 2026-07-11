@@ -505,6 +505,294 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save tier'**
   String get riskSave;
+
+  /// No description provided for @errorGatewayNotConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'No live payment checkout is connected in this build. Nothing has been charged.'**
+  String get errorGatewayNotConnected;
+
+  /// No description provided for @homeWalletEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Amanah Wallet'**
+  String get homeWalletEntry;
+
+  /// No description provided for @homeWalletEntrySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance, ledger, deposits and withdrawals.'**
+  String get homeWalletEntrySubtitle;
+
+  /// No description provided for @walletTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get walletTitle;
+
+  /// No description provided for @walletBalanceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Available balance'**
+  String get walletBalanceLabel;
+
+  /// No description provided for @walletBalanceDerived.
+  ///
+  /// In en, this message translates to:
+  /// **'Derived from your append-only ledger, never stored.'**
+  String get walletBalanceDerived;
+
+  /// No description provided for @walletAddFunds.
+  ///
+  /// In en, this message translates to:
+  /// **'Add funds'**
+  String get walletAddFunds;
+
+  /// No description provided for @walletWithdraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw'**
+  String get walletWithdraw;
+
+  /// No description provided for @walletPendingRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending requests'**
+  String get walletPendingRequests;
+
+  /// No description provided for @walletLedger.
+  ///
+  /// In en, this message translates to:
+  /// **'Ledger'**
+  String get walletLedger;
+
+  /// No description provided for @walletLedgerEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No transactions yet. Your ledger starts with your first confirmed deposit.'**
+  String get walletLedgerEmpty;
+
+  /// No description provided for @txDeposit.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit'**
+  String get txDeposit;
+
+  /// No description provided for @txInvestment.
+  ///
+  /// In en, this message translates to:
+  /// **'Investment'**
+  String get txInvestment;
+
+  /// No description provided for @txDistribution.
+  ///
+  /// In en, this message translates to:
+  /// **'Profit distribution'**
+  String get txDistribution;
+
+  /// No description provided for @txPayout.
+  ///
+  /// In en, this message translates to:
+  /// **'Payout'**
+  String get txPayout;
+
+  /// No description provided for @txPurification.
+  ///
+  /// In en, this message translates to:
+  /// **'Purification'**
+  String get txPurification;
+
+  /// No description provided for @txWriteDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Write-down'**
+  String get txWriteDown;
+
+  /// No description provided for @txRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery'**
+  String get txRecovery;
+
+  /// No description provided for @txSadaqah.
+  ///
+  /// In en, this message translates to:
+  /// **'Sadaqah'**
+  String get txSadaqah;
+
+  /// No description provided for @txZakat.
+  ///
+  /// In en, this message translates to:
+  /// **'Zakat'**
+  String get txZakat;
+
+  /// No description provided for @methodBkash.
+  ///
+  /// In en, this message translates to:
+  /// **'bKash'**
+  String get methodBkash;
+
+  /// No description provided for @methodNagad.
+  ///
+  /// In en, this message translates to:
+  /// **'Nagad'**
+  String get methodNagad;
+
+  /// No description provided for @methodBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank transfer'**
+  String get methodBank;
+
+  /// No description provided for @requestKindDeposit.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit'**
+  String get requestKindDeposit;
+
+  /// No description provided for @requestKindWithdrawal.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdrawal'**
+  String get requestKindWithdrawal;
+
+  /// No description provided for @requestStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get requestStatusPending;
+
+  /// No description provided for @requestStatusConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get requestStatusConfirmed;
+
+  /// No description provided for @requestStatusRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejected'**
+  String get requestStatusRejected;
+
+  /// No description provided for @requestStatusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get requestStatusCancelled;
+
+  /// No description provided for @amountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount in taka'**
+  String get amountLabel;
+
+  /// No description provided for @invalidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an amount above zero, with at most two decimal places.'**
+  String get invalidAmount;
+
+  /// No description provided for @submitting.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting...'**
+  String get submitting;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @requestRecordedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request recorded, pending'**
+  String get requestRecordedTitle;
+
+  /// No description provided for @depositTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add funds'**
+  String get depositTitle;
+
+  /// No description provided for @depositReferenceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer reference'**
+  String get depositReferenceLabel;
+
+  /// No description provided for @depositReferenceHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this reference in your bank transfer so we can match it to your request.'**
+  String get depositReferenceHelp;
+
+  /// No description provided for @depositReferenceMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'A transfer reference is required for bank deposits.'**
+  String get depositReferenceMissing;
+
+  /// No description provided for @depositOwnAccountNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposits must come from an account in your own name. Third-party deposits are refused at reconciliation.'**
+  String get depositOwnAccountNote;
+
+  /// No description provided for @depositSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Record deposit request'**
+  String get depositSubmit;
+
+  /// No description provided for @depositPendingNoCheckout.
+  ///
+  /// In en, this message translates to:
+  /// **'{method} checkout is not connected in this build, so nothing has been charged. Your request stays pending until our team confirms a real payment. It never turns into a balance by itself.'**
+  String depositPendingNoCheckout(String method);
+
+  /// No description provided for @depositPendingCheckout.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the checkout that opens next. Your wallet is credited only after the provider confirms the payment.'**
+  String get depositPendingCheckout;
+
+  /// No description provided for @depositPendingBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer from your own account using reference {reference}. Your wallet is credited after our team reconciles the transfer; until then this request stays pending.'**
+  String depositPendingBank(String reference);
+
+  /// No description provided for @withdrawTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw'**
+  String get withdrawTitle;
+
+  /// No description provided for @withdrawAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available for withdrawal: {amount}. Pending withdrawal requests are already excluded.'**
+  String withdrawAvailable(String amount);
+
+  /// No description provided for @withdrawTwoFaNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdrawals will additionally require two-factor confirmation once 2FA ships. Until the payment rail is live, transfers are sent manually after review.'**
+  String get withdrawTwoFaNote;
+
+  /// No description provided for @withdrawSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Record withdrawal request'**
+  String get withdrawSubmit;
+
+  /// No description provided for @withdrawPendingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your withdrawal request is recorded and pending review. The money leaves your balance only when the transfer is actually sent, and the ledger row appears then.'**
+  String get withdrawPendingBody;
 }
 
 class _AppLocalizationsDelegate

@@ -7,4 +7,7 @@ abstract final class RibhRoutes {
   static const grow = '/grow';
   static const barakah = '/barakah';
   static const me = '/me';
+
+  /// Pushed route over the shell; opened from Home's wallet entry.
+  static const wallet = '/wallet';
 }

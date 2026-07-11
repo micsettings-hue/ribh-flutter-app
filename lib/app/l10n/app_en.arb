@@ -116,5 +116,74 @@
   "riskQ3A3": "Widest spread of contracts",
   "riskResultTitle": "Your recommended tier",
   "riskResultBody": "Based on your answers. This is a recommendation, not advice, and you can change it anytime. Every deployment still needs your explicit approval. Returns are never guaranteed and capital is at risk.",
-  "riskSave": "Save tier"
+  "riskSave": "Save tier",
+  "errorGatewayNotConnected": "No live payment checkout is connected in this build. Nothing has been charged.",
+  "homeWalletEntry": "Amanah Wallet",
+  "homeWalletEntrySubtitle": "Balance, ledger, deposits and withdrawals.",
+  "walletTitle": "Wallet",
+  "walletBalanceLabel": "Available balance",
+  "walletBalanceDerived": "Derived from your append-only ledger, never stored.",
+  "walletAddFunds": "Add funds",
+  "walletWithdraw": "Withdraw",
+  "walletPendingRequests": "Pending requests",
+  "walletLedger": "Ledger",
+  "walletLedgerEmpty": "No transactions yet. Your ledger starts with your first confirmed deposit.",
+  "txDeposit": "Deposit",
+  "txInvestment": "Investment",
+  "txDistribution": "Profit distribution",
+  "txPayout": "Payout",
+  "txPurification": "Purification",
+  "txWriteDown": "Write-down",
+  "txRecovery": "Recovery",
+  "txSadaqah": "Sadaqah",
+  "txZakat": "Zakat",
+  "methodBkash": "bKash",
+  "methodNagad": "Nagad",
+  "methodBank": "Bank transfer",
+  "requestKindDeposit": "Deposit",
+  "requestKindWithdrawal": "Withdrawal",
+  "requestStatusPending": "Pending",
+  "requestStatusConfirmed": "Confirmed",
+  "requestStatusRejected": "Rejected",
+  "requestStatusCancelled": "Cancelled",
+  "amountLabel": "Amount in taka",
+  "invalidAmount": "Enter an amount above zero, with at most two decimal places.",
+  "submitting": "Submitting...",
+  "done": "Done",
+  "requestRecordedTitle": "Request recorded, pending",
+  "depositTitle": "Add funds",
+  "depositReferenceLabel": "Transfer reference",
+  "depositReferenceHelp": "Use this reference in your bank transfer so we can match it to your request.",
+  "depositReferenceMissing": "A transfer reference is required for bank deposits.",
+  "depositOwnAccountNote": "Deposits must come from an account in your own name. Third-party deposits are refused at reconciliation.",
+  "depositSubmit": "Record deposit request",
+  "depositPendingNoCheckout": "{method} checkout is not connected in this build, so nothing has been charged. Your request stays pending until our team confirms a real payment. It never turns into a balance by itself.",
+  "@depositPendingNoCheckout": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "depositPendingCheckout": "Complete the checkout that opens next. Your wallet is credited only after the provider confirms the payment.",
+  "depositPendingBank": "Transfer from your own account using reference {reference}. Your wallet is credited after our team reconciles the transfer; until then this request stays pending.",
+  "@depositPendingBank": {
+    "placeholders": {
+      "reference": {
+        "type": "String"
+      }
+    }
+  },
+  "withdrawTitle": "Withdraw",
+  "withdrawAvailable": "Available for withdrawal: {amount}. Pending withdrawal requests are already excluded.",
+  "@withdrawAvailable": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "withdrawTwoFaNote": "Withdrawals will additionally require two-factor confirmation once 2FA ships. Until the payment rail is live, transfers are sent manually after review.",
+  "withdrawSubmit": "Record withdrawal request",
+  "withdrawPendingBody": "Your withdrawal request is recorded and pending review. The money leaves your balance only when the transfer is actually sent, and the ledger row appears then."
 }

@@ -35,6 +35,12 @@ class NotConfiguredFailure extends Failure {
   const NotConfiguredFailure([super.message = 'backend_not_configured']);
 }
 
+/// No live payment checkout exists for the chosen method (no merchant
+/// credentials yet). The request stays honestly pending; nothing is charged.
+class GatewayNotConnectedFailure extends Failure {
+  const GatewayNotConnectedFailure([super.message = 'gateway_not_connected']);
+}
+
 class UnknownFailure extends Failure {
   const UnknownFailure(super.message);
 }

@@ -12,6 +12,7 @@ import '../../features/grow/grow_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/invest/invest_screen.dart';
 import '../../features/me/me_screen.dart';
+import '../../features/wallet/wallet_screen.dart';
 import '../../shared/ribh_shell.dart';
 import 'routes.dart';
 
@@ -54,6 +55,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RibhRoutes.auth,
         builder: (context, state) => const AuthScreen(),
+      ),
+      GoRoute(
+        path: RibhRoutes.wallet,
+        builder: (context, state) => const WalletScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => RibhShell(shell: shell),

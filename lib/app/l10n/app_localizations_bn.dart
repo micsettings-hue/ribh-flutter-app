@@ -232,4 +232,164 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get riskSave => 'স্তর সংরক্ষণ করুন';
+
+  @override
+  String get errorGatewayNotConnected =>
+      'এই বিল্ডে কোনো সরাসরি পেমেন্ট চেকআউট সংযুক্ত নেই। কোনো টাকা কাটা হয়নি।';
+
+  @override
+  String get homeWalletEntry => 'আমানাহ ওয়ালেট';
+
+  @override
+  String get homeWalletEntrySubtitle => 'ব্যালেন্স, লেজার, জমা ও উত্তোলন।';
+
+  @override
+  String get walletTitle => 'ওয়ালেট';
+
+  @override
+  String get walletBalanceLabel => 'উপলব্ধ ব্যালেন্স';
+
+  @override
+  String get walletBalanceDerived =>
+      'আপনার কেবল-সংযোজন লেজার থেকে হিসাব করা, কখনও সংরক্ষিত নয়।';
+
+  @override
+  String get walletAddFunds => 'টাকা যোগ করুন';
+
+  @override
+  String get walletWithdraw => 'উত্তোলন';
+
+  @override
+  String get walletPendingRequests => 'অপেক্ষমাণ অনুরোধ';
+
+  @override
+  String get walletLedger => 'লেজার';
+
+  @override
+  String get walletLedgerEmpty =>
+      'এখনও কোনো লেনদেন নেই। আপনার প্রথম নিশ্চিত জমা দিয়ে লেজার শুরু হবে।';
+
+  @override
+  String get txDeposit => 'জমা';
+
+  @override
+  String get txInvestment => 'বিনিয়োগ';
+
+  @override
+  String get txDistribution => 'মুনাফা বণ্টন';
+
+  @override
+  String get txPayout => 'পেআউট';
+
+  @override
+  String get txPurification => 'পরিশুদ্ধকরণ';
+
+  @override
+  String get txWriteDown => 'অবলোপন';
+
+  @override
+  String get txRecovery => 'রিকভারি';
+
+  @override
+  String get txSadaqah => 'সাদাকাহ';
+
+  @override
+  String get txZakat => 'যাকাত';
+
+  @override
+  String get methodBkash => 'বিকাশ';
+
+  @override
+  String get methodNagad => 'নগদ';
+
+  @override
+  String get methodBank => 'ব্যাংক ট্রান্সফার';
+
+  @override
+  String get requestKindDeposit => 'জমা';
+
+  @override
+  String get requestKindWithdrawal => 'উত্তোলন';
+
+  @override
+  String get requestStatusPending => 'অপেক্ষমাণ';
+
+  @override
+  String get requestStatusConfirmed => 'নিশ্চিত';
+
+  @override
+  String get requestStatusRejected => 'প্রত্যাখ্যাত';
+
+  @override
+  String get requestStatusCancelled => 'বাতিল';
+
+  @override
+  String get amountLabel => 'টাকার পরিমাণ';
+
+  @override
+  String get invalidAmount =>
+      'শূন্যের বেশি পরিমাণ লিখুন, দশমিকের পরে সর্বোচ্চ দুই সংখ্যা।';
+
+  @override
+  String get submitting => 'জমা হচ্ছে...';
+
+  @override
+  String get done => 'সম্পন্ন';
+
+  @override
+  String get requestRecordedTitle => 'অনুরোধ লিপিবদ্ধ, অপেক্ষমাণ';
+
+  @override
+  String get depositTitle => 'টাকা যোগ করুন';
+
+  @override
+  String get depositReferenceLabel => 'ট্রান্সফার রেফারেন্স';
+
+  @override
+  String get depositReferenceHelp =>
+      'ব্যাংক ট্রান্সফারে এই রেফারেন্সটি ব্যবহার করুন যাতে আমরা আপনার অনুরোধের সাথে মেলাতে পারি।';
+
+  @override
+  String get depositReferenceMissing =>
+      'ব্যাংক জমার জন্য ট্রান্সফার রেফারেন্স আবশ্যক।';
+
+  @override
+  String get depositOwnAccountNote =>
+      'জমা অবশ্যই আপনার নিজের নামের অ্যাকাউন্ট থেকে আসতে হবে। তৃতীয় পক্ষের জমা মেলানোর সময় ফেরত দেওয়া হয়।';
+
+  @override
+  String get depositSubmit => 'জমার অনুরোধ লিপিবদ্ধ করুন';
+
+  @override
+  String depositPendingNoCheckout(String method) {
+    return '$method চেকআউট এই বিল্ডে সংযুক্ত নেই, তাই কোনো টাকা কাটা হয়নি। আমাদের দল প্রকৃত পেমেন্ট নিশ্চিত না করা পর্যন্ত আপনার অনুরোধ অপেক্ষমাণ থাকবে। এটি নিজে থেকে কখনও ব্যালেন্সে পরিণত হয় না।';
+  }
+
+  @override
+  String get depositPendingCheckout =>
+      'পরবর্তী চেকআউটটি সম্পন্ন করুন। প্রদানকারী পেমেন্ট নিশ্চিত করার পরই আপনার ওয়ালেটে টাকা যোগ হয়।';
+
+  @override
+  String depositPendingBank(String reference) {
+    return 'আপনার নিজের অ্যাকাউন্ট থেকে $reference রেফারেন্স দিয়ে ট্রান্সফার করুন। আমাদের দল ট্রান্সফার মেলানোর পর আপনার ওয়ালেটে টাকা যোগ হবে; ততক্ষণ এই অনুরোধ অপেক্ষমাণ থাকবে।';
+  }
+
+  @override
+  String get withdrawTitle => 'উত্তোলন';
+
+  @override
+  String withdrawAvailable(String amount) {
+    return 'উত্তোলনের জন্য উপলব্ধ: $amount। অপেক্ষমাণ উত্তোলনের অনুরোধ আগেই বাদ দেওয়া হয়েছে।';
+  }
+
+  @override
+  String get withdrawTwoFaNote =>
+      '2FA চালু হলে উত্তোলনে অতিরিক্ত দ্বি-স্তর নিশ্চিতকরণ লাগবে। পেমেন্ট রেল চালু না হওয়া পর্যন্ত পর্যালোচনার পর ট্রান্সফার ম্যানুয়ালি পাঠানো হয়।';
+
+  @override
+  String get withdrawSubmit => 'উত্তোলনের অনুরোধ লিপিবদ্ধ করুন';
+
+  @override
+  String get withdrawPendingBody =>
+      'আপনার উত্তোলনের অনুরোধ লিপিবদ্ধ হয়েছে এবং পর্যালোচনায় আছে। ট্রান্সফার প্রকৃতপক্ষে পাঠানো হলেই ব্যালেন্স থেকে টাকা যাবে এবং তখনই লেজারে সারি দেখা যাবে।';
 }

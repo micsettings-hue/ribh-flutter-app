@@ -61,6 +61,8 @@ Failure mapPostgrestException(PostgrestException e) {
     'exceeds_pool',
     'project_not_found',
     'wallet_not_found',
+    'reference_required',
+    'request_not_pending',
   ];
   if (validation.any(message.contains)) {
     return ValidationFailure(message);

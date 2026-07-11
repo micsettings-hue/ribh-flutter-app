@@ -98,5 +98,74 @@
   "riskQ3A3": "চুক্তির বিস্তৃত পরিসর",
   "riskResultTitle": "আপনার জন্য প্রস্তাবিত স্তর",
   "riskResultBody": "আপনার উত্তরের ভিত্তিতে। এটি একটি প্রস্তাব, কোনো পরামর্শ নয়, এবং আপনি যেকোনো সময় বদলাতে পারেন। প্রতিটি বিনিয়োগে এখনও আপনার সুস্পষ্ট অনুমোদন লাগবে। মুনাফার কোনো নিশ্চয়তা নেই এবং মূলধন ঝুঁকির মধ্যে থাকে।",
-  "riskSave": "স্তর সংরক্ষণ করুন"
+  "riskSave": "স্তর সংরক্ষণ করুন",
+  "errorGatewayNotConnected": "এই বিল্ডে কোনো সরাসরি পেমেন্ট চেকআউট সংযুক্ত নেই। কোনো টাকা কাটা হয়নি।",
+  "homeWalletEntry": "আমানাহ ওয়ালেট",
+  "homeWalletEntrySubtitle": "ব্যালেন্স, লেজার, জমা ও উত্তোলন।",
+  "walletTitle": "ওয়ালেট",
+  "walletBalanceLabel": "উপলব্ধ ব্যালেন্স",
+  "walletBalanceDerived": "আপনার কেবল-সংযোজন লেজার থেকে হিসাব করা, কখনও সংরক্ষিত নয়।",
+  "walletAddFunds": "টাকা যোগ করুন",
+  "walletWithdraw": "উত্তোলন",
+  "walletPendingRequests": "অপেক্ষমাণ অনুরোধ",
+  "walletLedger": "লেজার",
+  "walletLedgerEmpty": "এখনও কোনো লেনদেন নেই। আপনার প্রথম নিশ্চিত জমা দিয়ে লেজার শুরু হবে।",
+  "txDeposit": "জমা",
+  "txInvestment": "বিনিয়োগ",
+  "txDistribution": "মুনাফা বণ্টন",
+  "txPayout": "পেআউট",
+  "txPurification": "পরিশুদ্ধকরণ",
+  "txWriteDown": "অবলোপন",
+  "txRecovery": "রিকভারি",
+  "txSadaqah": "সাদাকাহ",
+  "txZakat": "যাকাত",
+  "methodBkash": "বিকাশ",
+  "methodNagad": "নগদ",
+  "methodBank": "ব্যাংক ট্রান্সফার",
+  "requestKindDeposit": "জমা",
+  "requestKindWithdrawal": "উত্তোলন",
+  "requestStatusPending": "অপেক্ষমাণ",
+  "requestStatusConfirmed": "নিশ্চিত",
+  "requestStatusRejected": "প্রত্যাখ্যাত",
+  "requestStatusCancelled": "বাতিল",
+  "amountLabel": "টাকার পরিমাণ",
+  "invalidAmount": "শূন্যের বেশি পরিমাণ লিখুন, দশমিকের পরে সর্বোচ্চ দুই সংখ্যা।",
+  "submitting": "জমা হচ্ছে...",
+  "done": "সম্পন্ন",
+  "requestRecordedTitle": "অনুরোধ লিপিবদ্ধ, অপেক্ষমাণ",
+  "depositTitle": "টাকা যোগ করুন",
+  "depositReferenceLabel": "ট্রান্সফার রেফারেন্স",
+  "depositReferenceHelp": "ব্যাংক ট্রান্সফারে এই রেফারেন্সটি ব্যবহার করুন যাতে আমরা আপনার অনুরোধের সাথে মেলাতে পারি।",
+  "depositReferenceMissing": "ব্যাংক জমার জন্য ট্রান্সফার রেফারেন্স আবশ্যক।",
+  "depositOwnAccountNote": "জমা অবশ্যই আপনার নিজের নামের অ্যাকাউন্ট থেকে আসতে হবে। তৃতীয় পক্ষের জমা মেলানোর সময় ফেরত দেওয়া হয়।",
+  "depositSubmit": "জমার অনুরোধ লিপিবদ্ধ করুন",
+  "depositPendingNoCheckout": "{method} চেকআউট এই বিল্ডে সংযুক্ত নেই, তাই কোনো টাকা কাটা হয়নি। আমাদের দল প্রকৃত পেমেন্ট নিশ্চিত না করা পর্যন্ত আপনার অনুরোধ অপেক্ষমাণ থাকবে। এটি নিজে থেকে কখনও ব্যালেন্সে পরিণত হয় না।",
+  "@depositPendingNoCheckout": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "depositPendingCheckout": "পরবর্তী চেকআউটটি সম্পন্ন করুন। প্রদানকারী পেমেন্ট নিশ্চিত করার পরই আপনার ওয়ালেটে টাকা যোগ হয়।",
+  "depositPendingBank": "আপনার নিজের অ্যাকাউন্ট থেকে {reference} রেফারেন্স দিয়ে ট্রান্সফার করুন। আমাদের দল ট্রান্সফার মেলানোর পর আপনার ওয়ালেটে টাকা যোগ হবে; ততক্ষণ এই অনুরোধ অপেক্ষমাণ থাকবে।",
+  "@depositPendingBank": {
+    "placeholders": {
+      "reference": {
+        "type": "String"
+      }
+    }
+  },
+  "withdrawTitle": "উত্তোলন",
+  "withdrawAvailable": "উত্তোলনের জন্য উপলব্ধ: {amount}। অপেক্ষমাণ উত্তোলনের অনুরোধ আগেই বাদ দেওয়া হয়েছে।",
+  "@withdrawAvailable": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "withdrawTwoFaNote": "2FA চালু হলে উত্তোলনে অতিরিক্ত দ্বি-স্তর নিশ্চিতকরণ লাগবে। পেমেন্ট রেল চালু না হওয়া পর্যন্ত পর্যালোচনার পর ট্রান্সফার ম্যানুয়ালি পাঠানো হয়।",
+  "withdrawSubmit": "উত্তোলনের অনুরোধ লিপিবদ্ধ করুন",
+  "withdrawPendingBody": "আপনার উত্তোলনের অনুরোধ লিপিবদ্ধ হয়েছে এবং পর্যালোচনায় আছে। ট্রান্সফার প্রকৃতপক্ষে পাঠানো হলেই ব্যালেন্স থেকে টাকা যাবে এবং তখনই লেজারে সারি দেখা যাবে।"
 }

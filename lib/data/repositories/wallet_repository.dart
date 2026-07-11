@@ -33,4 +33,54 @@ class WalletRepository extends SupabaseRepository {
     final rows = await query.order('created_at', ascending: false).limit(limit);
     return rows.map(WalletTransaction.fromJson).toList();
   });
+
+  /// Records a deposit request. Nothing is credited until back-office
+  /// confirmation; the returned request is honestly pending.
+  Future<Result<String>> requestDeposit({
+    required PaymentMethod method,
+    required int amount,
+    String? reference,
+  }) => guard((db) async {
+    final id = await db.rpc<dynamic>(
+      'request_deposit',
+      params: {
+        'p_method': method.name,
+        'p_amount': amount,
+        'p_reference': reference,
+      },
+    );
+    return id as String;
+  });
+
+  /// Records a withdrawal request against the available balance (derived
+  /// balance minus withdrawals already pending, enforced server-side).
+  Future<Result<String>> requestWithdrawal({
+    required PaymentMethod method,
+    required int amount,
+  }) => guard((db) async {
+    final id = await db.rpc<dynamic>(
+      'request_withdrawal',
+      params: {'p_method': method.name, 'p_amount': amount},
+    );
+    return id as String;
+  });
+
+  /// Cancels one of the user's own requests while it is still pending.
+  Future<Result<void>> cancelMoneyRequest(String requestId) => guard(
+    (db) => db.rpc<void>(
+      'cancel_money_request',
+      params: {'p_request_id': requestId},
+    ),
+  );
+
+  /// The user's deposit and withdrawal requests, newest first.
+  Future<Result<List<MoneyRequest>>> myMoneyRequests({int limit = 20}) =>
+      guard((db) async {
+        final rows = await db
+            .from('money_requests')
+            .select()
+            .order('created_at', ascending: false)
+            .limit(limit);
+        return rows.map(MoneyRequest.fromJson).toList();
+      });
 }

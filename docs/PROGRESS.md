@@ -2,6 +2,20 @@
 
 ## Done
 
+### M3 Wallet and money rail (2026-07-12)
+- Money-request rail (migration `20260712000500_money_requests.sql`): `money_requests` table (kind deposit/withdrawal, method bkash/nagad/bank, status pending/confirmed/rejected/cancelled). A request NEVER touches the ledger; only the service_role-only `decide_money_request` writes the `wallet_transactions` row (deposit credit or payout debit) and the request status in one transaction. Client RPCs: `request_deposit` (KYC tier >= 1, bank requires a manual reference for reconciliation), `request_withdrawal` (available = derived balance minus already-pending withdrawals, so pending requests cannot double-spend), `cancel_money_request` (own, pending only). RLS: select own; no client write policies.
+- `PaymentGateway` interface (`lib/data/payments/payment_gateway.dart`): `isCheckoutAvailable` + `startCheckout` returning a `CheckoutSession` (tokenized merchant checkout URL for a WebView). The only v1 implementation is `UnconnectedPaymentGateway`: no merchant credentials exist, so it reports no checkout and fails typed (`GatewayNotConnectedFailure`). The deposit sheet's honest pending state states plainly that nothing was charged and a request never becomes balance by itself.
+- Wallet screen (`/wallet`, pushed route): balance from `my_wallet_balance()` on the amanah-gradient card with the "derived, never stored" line, pending requests with cancel, append-only ledger list via the new shared `LedgerRow`, pull-to-refresh, skeletons, real error + retry. Home gained its one real entry: an Amanah Wallet card that pushes `/wallet`; everything else on Home stays an honest placeholder until M5.
+- Deposit and withdraw sheets on `RibhSheetScaffold`: method picker, amount in taka parsed with integer math (`parseTakaToPoisha`), bank reference field, own-account AML note, inline typed errors, and the honest pending state on success. Withdraw validates against available-for-withdrawal client-side (server enforces the same), and states that 2FA confirmation arrives when 2FA ships (M5+), with manual transfer until the rail is live.
+- `core/formatters/taka.dart`: U+09F3 sign, western grouping for en, Indian grouping for bn (1,28,400), poisha-exact decimals.
+- SQL proof `supabase/tests/money_requests_test.sql`: pending requests never move the balance, confirmation does (deposit +, withdrawal -), over-available withdrawal blocked while one is pending, bank-without-reference and unverified-user refused, cancel only while pending, rejection never touches the ledger. Written but not executed locally (same CLI/Docker gap).
+- `WalletController` (Riverpod codegen) with `availableForWithdrawal` mirroring the RPC; failure mapping extended (`reference_required`, `request_not_pending`); all new strings in both ARB files.
+- Tests: 67 passing (20 new): taka format/parse (including the bn 1,28,400 design-system example), money-request RPC params and failure mapping, gateway honesty, wallet screen happy/failure+retry, Bengali grouping render, deposit sheet happy/bank-reference/repository-failure paths, withdraw sheet local insufficient-funds refusal and happy path. `flutter analyze` clean.
+
+### M3 notes
+- Confirming a request in dev: run `decide_money_request(id, true)` with the service key. The payments-reality doc (flutterv9.2.md section 4) governs when a real gateway implementation may replace `UnconnectedPaymentGateway`; no real public money moves pre-registration.
+- Wallet performance chart, Savings routing, and payout routing belong to M6/M7, not M3.
+
 ### M2 Auth and KYC (2026-07-11)
 - Supabase Auth: passwordless email OTP. `AuthRepository` gained `sendEmailOtp`, `verifyEmailOtp`, `signOut`, `isSignedIn`, `currentEmail`; a new auth user gets profile, wallet, and engagement rows via the existing database triggers.
 - Onboarding/sign-in: `/auth` route with the two-stage flow (email, then code), inline validation, real failure states from typed failures. Router redirects: signed out -> `/auth`, signed in -> tabs, driven by `onAuthStateChange` via a refresh listenable. With no backend configured the shell still opens and every surface shows its real "not configured" state.
@@ -48,6 +62,6 @@
 - `CLAUDE.md` still says the stack is React Native + Expo; the actual build is Flutter per `flutterv9.2.md`. Worth correcting in `CLAUDE.md`.
 
 ## Next
-- Close M1/M2 database side: install Supabase CLI + Docker, run all four migrations and `supabase/tests/ledger_invariant_test.sql`, fix anything surfaced.
+- Close M1/M2/M3 database side: install Supabase CLI + Docker, run all five migrations plus `supabase/tests/ledger_invariant_test.sql` and `supabase/tests/money_requests_test.sql`, fix anything surfaced.
 - Push CI workflow once the GitHub token has `workflow` scope.
-- M3 Wallet and money rail: wallet, ledger view, deposit and withdraw sheets, PaymentGateway interface with the honest pending state.
+- M4 Invest core: marketplace, campaign detail, calculator, the two-acknowledgement invest flow writing investment plus ledger atomically, portfolio on Home.

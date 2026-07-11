@@ -232,4 +232,165 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get riskSave => 'Save tier';
+
+  @override
+  String get errorGatewayNotConnected =>
+      'No live payment checkout is connected in this build. Nothing has been charged.';
+
+  @override
+  String get homeWalletEntry => 'Amanah Wallet';
+
+  @override
+  String get homeWalletEntrySubtitle =>
+      'Balance, ledger, deposits and withdrawals.';
+
+  @override
+  String get walletTitle => 'Wallet';
+
+  @override
+  String get walletBalanceLabel => 'Available balance';
+
+  @override
+  String get walletBalanceDerived =>
+      'Derived from your append-only ledger, never stored.';
+
+  @override
+  String get walletAddFunds => 'Add funds';
+
+  @override
+  String get walletWithdraw => 'Withdraw';
+
+  @override
+  String get walletPendingRequests => 'Pending requests';
+
+  @override
+  String get walletLedger => 'Ledger';
+
+  @override
+  String get walletLedgerEmpty =>
+      'No transactions yet. Your ledger starts with your first confirmed deposit.';
+
+  @override
+  String get txDeposit => 'Deposit';
+
+  @override
+  String get txInvestment => 'Investment';
+
+  @override
+  String get txDistribution => 'Profit distribution';
+
+  @override
+  String get txPayout => 'Payout';
+
+  @override
+  String get txPurification => 'Purification';
+
+  @override
+  String get txWriteDown => 'Write-down';
+
+  @override
+  String get txRecovery => 'Recovery';
+
+  @override
+  String get txSadaqah => 'Sadaqah';
+
+  @override
+  String get txZakat => 'Zakat';
+
+  @override
+  String get methodBkash => 'bKash';
+
+  @override
+  String get methodNagad => 'Nagad';
+
+  @override
+  String get methodBank => 'Bank transfer';
+
+  @override
+  String get requestKindDeposit => 'Deposit';
+
+  @override
+  String get requestKindWithdrawal => 'Withdrawal';
+
+  @override
+  String get requestStatusPending => 'Pending';
+
+  @override
+  String get requestStatusConfirmed => 'Confirmed';
+
+  @override
+  String get requestStatusRejected => 'Rejected';
+
+  @override
+  String get requestStatusCancelled => 'Cancelled';
+
+  @override
+  String get amountLabel => 'Amount in taka';
+
+  @override
+  String get invalidAmount =>
+      'Enter an amount above zero, with at most two decimal places.';
+
+  @override
+  String get submitting => 'Submitting...';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get requestRecordedTitle => 'Request recorded, pending';
+
+  @override
+  String get depositTitle => 'Add funds';
+
+  @override
+  String get depositReferenceLabel => 'Transfer reference';
+
+  @override
+  String get depositReferenceHelp =>
+      'Use this reference in your bank transfer so we can match it to your request.';
+
+  @override
+  String get depositReferenceMissing =>
+      'A transfer reference is required for bank deposits.';
+
+  @override
+  String get depositOwnAccountNote =>
+      'Deposits must come from an account in your own name. Third-party deposits are refused at reconciliation.';
+
+  @override
+  String get depositSubmit => 'Record deposit request';
+
+  @override
+  String depositPendingNoCheckout(String method) {
+    return '$method checkout is not connected in this build, so nothing has been charged. Your request stays pending until our team confirms a real payment. It never turns into a balance by itself.';
+  }
+
+  @override
+  String get depositPendingCheckout =>
+      'Complete the checkout that opens next. Your wallet is credited only after the provider confirms the payment.';
+
+  @override
+  String depositPendingBank(String reference) {
+    return 'Transfer from your own account using reference $reference. Your wallet is credited after our team reconciles the transfer; until then this request stays pending.';
+  }
+
+  @override
+  String get withdrawTitle => 'Withdraw';
+
+  @override
+  String withdrawAvailable(String amount) {
+    return 'Available for withdrawal: $amount. Pending withdrawal requests are already excluded.';
+  }
+
+  @override
+  String get withdrawTwoFaNote =>
+      'Withdrawals will additionally require two-factor confirmation once 2FA ships. Until the payment rail is live, transfers are sent manually after review.';
+
+  @override
+  String get withdrawSubmit => 'Record withdrawal request';
+
+  @override
+  String get withdrawPendingBody =>
+      'Your withdrawal request is recorded and pending review. The money leaves your balance only when the transfer is actually sent, and the ledger row appears then.';
 }

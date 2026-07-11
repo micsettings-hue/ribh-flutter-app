@@ -1,0 +1,31 @@
+{
+  "@@locale": "en",
+  "appTitle": "RIBH",
+  "@appTitle": {
+    "description": "Application title shown in the task switcher."
+  },
+  "tabHome": "Home",
+  "@tabHome": {
+    "description": "Label for the Home tab."
+  },
+  "tabInvest": "Invest",
+  "@tabInvest": {
+    "description": "Label for the Invest tab."
+  },
+  "tabGrow": "Grow",
+  "@tabGrow": {
+    "description": "Label for the Grow tab."
+  },
+  "tabBarakah": "Barakah",
+  "@tabBarakah": {
+    "description": "Label for the Barakah tab. Faith-adjacent brand term; Bengali rendering needs board sign-off. TODO(board)"
+  },
+  "tabMe": "Me",
+  "@tabMe": {
+    "description": "Label for the Me tab."
+  },
+  "milestonePlaceholderBody": "This area is not live yet. It arrives in an upcoming milestone with real data, not demo content.",
+  "@milestonePlaceholderBody": {
+    "description": "Honest empty-shell message shown on tabs before their milestone is built. Never implies working features."
+  }
+}

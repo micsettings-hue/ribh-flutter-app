@@ -1,0 +1,13 @@
+{
+  "@@locale": "bn",
+  "appTitle": "রিব",
+  "tabHome": "হোম",
+  "tabInvest": "বিনিয়োগ",
+  "tabGrow": "বৃদ্ধি",
+  "tabBarakah": "বারাকাহ",
+  "@tabBarakah": {
+    "description": "TODO(board): faith-adjacent term, Bengali rendering pending Shariah board sign-off."
+  },
+  "tabMe": "আমি",
+  "milestonePlaceholderBody": "এই অংশটি এখনও চালু হয়নি। পরবর্তী মাইলফলকে এটি প্রকৃত ডেটাসহ আসবে, কোনো ডেমো কনটেন্ট নয়।"
+}

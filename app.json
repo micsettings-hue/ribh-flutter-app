@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "RIBH Investments",
+    "slug": "ribh-app",
+    "scheme": "ribh",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.ribh.investments"
+    },
+    "android": {
+      "package": "com.ribh.investments"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

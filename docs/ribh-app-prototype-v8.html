@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>RIBH App Prototype v8.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Anek+Bangla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+.phone{
+  --teal:#0FA67A; --teal-deep:#06342A; --green:#14C48A; --mint:#C8F5E2; --mint-soft:#EAFBF3;
+  --gold:#C99A2E; --gold-soft:#F6EDD4; --ink:#0B1A15; --ink-soft:#4C6960; --line:#D6ECE2;
+  --paper:#F4FBF7; --card:#ffffff; --danger:#C2412E; --danger-soft:#FBEBE7; --amber:#8C5E0E; --amber-soft:#FBF1DC;
+  --r:18px; --shadow:0 1px 2px rgba(6,52,42,.05),0 12px 34px rgba(6,52,42,.10);
+}
+.phone[data-theme="dark"]{
+  --teal:#18C48A; --teal-deep:#0FA67A; --green:#3FE0A8; --mint:#123A2C; --mint-soft:#0C2A20;
+  --gold:#E0B84B; --gold-soft:#38300F; --ink:#E8F7EF; --ink-soft:#8FB6A6; --line:#1C4133;
+  --paper:#061710; --card:#0E241B; --danger:#E88C7A; --danger-soft:#38201A; --amber:#E0B84B; --amber-soft:#332912;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{
+  font-family:'Inter','Anek Bangla',system-ui,sans-serif;background:#04140E;
+  display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px 10px;
+  background-image:radial-gradient(900px 500px at 20% 0%,#0b3a2b 0%,transparent 55%),radial-gradient(700px 500px at 90% 100%,#08533c 0%,transparent 50%);
+}
+.stage{display:flex;gap:34px;align-items:center;flex-wrap:wrap;justify-content:center}
+.side-note{max-width:250px;color:#9fc6b6;font-size:13px;line-height:1.6}
+.side-note h1{font-family:'Hanken Grotesk',sans-serif;font-weight:500;color:#fff;font-size:26px;line-height:1.15;margin-bottom:10px}
+.side-note .tag{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7fd3b2;border:1px solid #2c5a49;padding:4px 10px;border-radius:999px;margin-bottom:14px}
+.side-note ul{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.side-note li::before{content:"+ ";color:#7fd3b2}
+@media(max-width:760px){.side-note{display:none}}
+
+.phone{width:392px;max-width:96vw;height:820px;max-height:92vh;background:var(--paper);border-radius:44px;border:10px solid #08221a;box-shadow:0 30px 80px rgba(0,0,0,.55);overflow:hidden;position:relative;display:flex;flex-direction:column;transition:background .3s}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:110px;height:26px;background:#08221a;border-radius:999px;z-index:80}
+.statusbar{height:44px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 4px;font-size:12px;font-weight:600;color:var(--ink)}
+.screens{flex:1;overflow:hidden;position:relative}
+.screen{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding:14px 18px 96px;display:none;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen.on{display:block;animation:fade .22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.ico{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block;flex:none}
+
+.nav{position:absolute;bottom:0;left:0;right:0;height:78px;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:50;padding-bottom:12px}
+.nav button{background:none;border:none;font-family:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10px;font-weight:600;color:#8aa79b;min-height:44px}
+.nav button.on{color:var(--teal)}
+
+.h-row{display:flex;align-items:center;justify-content:space-between;margin:4px 0 14px}
+.h-row .hi{font-size:13px;color:var(--ink-soft)}
+.h-row .hi b{display:block;font-family:'Hanken Grotesk','Anek Bangla',sans-serif;font-weight:500;font-size:20px;color:var(--ink)}
+.avatar{width:40px;height:40px;border-radius:14px;background:linear-gradient(145deg,var(--teal),var(--teal-deep));color:#fff;display:grid;place-items:center;font-family:'Hanken Grotesk',sans-serif;font-size:17px;cursor:pointer}
+.bell{position:relative;width:44px;height:44px;border-radius:14px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;color:var(--ink)}
+.bell .dotn{position:absolute;top:8px;right:9px;width:8px;height:8px;border-radius:50%;background:#e05a4a}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:13px}
+.card.tap{cursor:pointer;transition:transform .12s}
+.card.tap:active{transform:scale(.985)}
+.k{font-size:10.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--green)}
+h3.sec{font-family:'Hanken Grotesk','Anek Bangla',sans-serif;font-weight:500;font-size:16.5px;margin:2px 0 10px;color:var(--ink)}
+.pill{font-size:10px;font-weight:600;padding:3px 8px;border-radius:999px;letter-spacing:.02em;white-space:nowrap}
+.pill.open{color:#0a5c40;background:#d6f2e6}
+.phone[data-theme="dark"] .pill.open{color:#7fe0b8;background:#123a2c}
+.pill.matured{color:#6a5a2a;background:var(--gold-soft)}
+.phone[data-theme="dark"] .pill.matured{color:#e8c877}
+.pill.recovery{color:var(--danger);background:var(--danger-soft)}
+.pill.contract{color:var(--teal);background:var(--mint);border:1px solid var(--green)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;text-align:center;font-family:inherit;font-weight:600;font-size:14px;border:none;border-radius:13px;padding:15px;cursor:pointer;transition:.15s;min-height:48px}
+.btn.pri{background:var(--teal);color:#fff}
+.btn.pri:active{background:var(--teal-deep)}
+.btn.pri:disabled{background:#a8c9bd;cursor:not-allowed}
+.phone[data-theme="dark"] .btn.pri:disabled{background:#2a4a3c;color:#7a9a8c}
+.btn.ghost{background:var(--card);color:var(--teal);border:1.5px solid var(--line)}
+.btn.ghost:active{background:var(--mint-soft)}
+.back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;font-family:inherit;font-size:13px;font-weight:600;color:var(--teal);cursor:pointer;margin-bottom:10px;padding:8px 8px 8px 0}
+
+.kyc-banner{display:flex;gap:10px;align-items:center;background:var(--amber-soft);border:1px solid #efd9a6;border-radius:13px;padding:12px 13px;margin-bottom:13px;font-size:12px;color:var(--amber);cursor:pointer;min-height:48px}
+.phone[data-theme="dark"] .kyc-banner{border-color:#5a4a1a}
+.kyc-banner b{font-weight:600}
+.kyc-banner.done{background:var(--mint);border-color:var(--line);color:var(--teal);cursor:default}
+
+.amanah{background:linear-gradient(150deg,#0F6E56,#0A4C3B);border-radius:var(--r);padding:17px;color:#fff;margin-bottom:13px;box-shadow:var(--shadow)}
+.amanah .lab{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#9fdcc4;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.amanah .lab .lk{cursor:pointer;text-decoration:underline;text-transform:none;letter-spacing:0;font-size:11px;padding:6px 0 6px 10px}
+.amanah .big{font-family:'Hanken Grotesk',sans-serif;font-size:34px;font-weight:500;margin:6px 0 2px;text-align:center}
+.amanah .big i{font-style:normal;font-size:.55em;vertical-align:.2em;margin-right:2px}
+.amanah .sub{font-size:11.5px;color:#bfe6d7;text-align:center}
+.amanah .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.amanah .mini{background:rgba(255,255,255,.1);border-radius:10px;padding:8px 10px;text-align:center}
+.amanah .mini .l{font-size:9.5px;color:#9fdcc4;text-transform:uppercase;letter-spacing:.06em}
+.amanah .mini .v{font-size:13px;font-weight:600;margin-top:1px}
+.acts{display:flex;gap:8px;margin-top:13px}
+.acts button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-family:inherit;font-size:11.5px;font-weight:600;border:none;border-radius:999px;padding:10px 0;cursor:pointer}
+.acts .a1{background:#fff;color:#0F6E56}
+.acts .a2{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.balanced{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#9fdcc4;margin-top:12px;justify-content:center}
+
+.hscroll{display:flex;gap:11px;overflow-x:auto;padding:2px 2px 8px;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -18px;padding-left:18px;padding-right:18px}
+.hscroll::-webkit-scrollbar{display:none}
+.ccard{flex:0 0 82%;scroll-snap-align:start;background:var(--card);border:1.5px solid var(--line);border-radius:15px;padding:13px;cursor:pointer;box-shadow:var(--shadow)}
+.ccard:active{transform:scale(.985)}
+.ccard .top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.ccard .title{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.3}
+.ccard .meta{display:flex;gap:10px;margin-top:9px;font-size:10px;color:var(--ink-soft)}
+.ccard .meta b{color:var(--ink)}
+.ccard .cta{display:flex;align-items:center;justify-content:space-between;margin-top:10px;font-size:11px;font-weight:600;color:var(--teal)}
+.seeall{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+.seeall .lnk{font-size:11px;font-weight:600;color:var(--teal);cursor:pointer;padding:4px 0 4px 8px}
+
+.prayer{display:flex;gap:6px}
+.prayer .p{flex:1;text-align:center;padding:10px 2px;border-radius:12px;background:var(--mint-soft);border:1px solid var(--line);color:var(--ink)}
+.prayer .p .pn{font-size:9.5px;font-weight:600;color:var(--ink-soft)}
+.prayer .p .pt{font-size:11px;font-weight:600;margin-top:2px}
+.prayer .p svg{margin:0 auto 4px;color:var(--teal)}
+.prayer .p.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.prayer .p.on .pn{color:#dff3ea}
+.prayer .p.on svg{color:#fff}
+.nextp{font-size:10.5px;color:var(--ink-soft);text-align:center;margin-top:9px}
+
+.flow{display:flex;margin-top:6px}
+.flow .step{flex:1;text-align:center;position:relative}
+.flow .b{width:28px;height:28px;border-radius:9px;margin:0 auto 5px;display:grid;place-items:center;background:var(--mint);color:var(--teal);border:1.5px solid var(--line)}
+.flow .step.hit .b{background:var(--teal);color:#fff;border-color:var(--teal)}
+.flow .t{font-size:9px;color:var(--ink-soft);line-height:1.2}
+.flow .step:not(:last-child)::after{content:"";position:absolute;top:14px;left:calc(50% + 16px);width:calc(100% - 32px);height:2px;background:var(--line)}
+.flow .step.hit:not(:last-child)::after{background:var(--green)}
+
+.hab{list-style:none}
+.hab li{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--mint-soft);cursor:pointer;min-height:46px}
+.hab li:last-child{border-bottom:none}
+.hab .hic{flex:none;width:32px;height:32px;border-radius:10px;background:var(--mint);color:var(--teal);display:grid;place-items:center}
+.hab .t{font-size:12.5px;font-weight:600;color:var(--ink)}
+.hab .s{font-size:10.5px;color:var(--ink-soft)}
+.hab .ck{margin-left:auto;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:transparent}
+.hab li.done .ck{background:var(--teal);border-color:var(--teal);color:#fff}
+.hab li.done .t{text-decoration:line-through;color:var(--ink-soft)}
+.pbar{height:7px;background:var(--mint);border-radius:999px;overflow:hidden;margin-top:9px}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:999px;transition:width .3s}
+
+.news{display:flex;gap:11px;align-items:flex-start}
+.news .thumb{flex:none;width:44px;height:44px;border-radius:12px;background:var(--mint);display:grid;place-items:center;color:var(--teal)}
+.news .t{font-size:12.5px;font-weight:600;line-height:1.35;color:var(--ink)}
+.news .s{font-size:11px;color:var(--ink-soft);margin-top:2px}
+.feed-row{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--mint-soft);cursor:pointer;align-items:flex-start}
+.feed-row:last-child{border-bottom:none}
+.feed-row .thumb{flex:none;width:40px;height:40px;border-radius:12px;background:var(--mint);display:grid;place-items:center;color:var(--teal)}
+.feed-row .t{font-size:12px;font-weight:600;color:var(--ink);line-height:1.35}
+.feed-row .s{font-size:10.5px;color:var(--ink-soft);margin-top:2px}
+
+.camp{background:var(--card);border:1.5px solid var(--line);border-radius:15px;padding:14px;margin-bottom:12px;cursor:pointer;transition:.15s;box-shadow:var(--shadow)}
+.camp:active{transform:scale(.985)}
+.camp .top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.camp .title{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.3}
+.camp .sector{font-size:11px;color:var(--ink-soft)}
+.camp .meta{display:flex;gap:12px;margin-top:10px;font-size:10.5px;color:var(--ink-soft);flex-wrap:wrap}
+.camp .meta b{color:var(--ink)}
+.prog{height:5px;background:var(--mint);border-radius:999px;overflow:hidden;margin-top:10px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--teal))}
+.prog.bad i{background:var(--danger)}
+.seg{display:flex;background:var(--mint-soft);border:1px solid var(--line);border-radius:12px;padding:3px;margin-bottom:13px}
+.seg button{flex:1;border:none;background:none;font-family:inherit;font-size:11.5px;font-weight:600;color:var(--ink-soft);padding:10px 0;border-radius:9px;cursor:pointer;min-height:38px}
+.seg button.on{background:var(--card);color:var(--teal);box-shadow:0 1px 4px rgba(10,76,59,.12)}
+.empty{padding:26px 12px;text-align:center;font-size:12px;color:var(--ink-soft);line-height:1.6}
+
+.insight .bar{display:flex;height:10px;border-radius:999px;overflow:hidden;margin:9px 0 7px}
+.insight .bar i{display:block;height:100%}
+.leg{display:flex;gap:12px;flex-wrap:wrap;font-size:10.5px;color:var(--ink-soft)}
+.leg span{display:flex;align-items:center;gap:5px}
+.leg .sw{width:9px;height:9px;border-radius:3px}
+.pva{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.pva b{font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:var(--ink);font-weight:500;display:block;margin-top:2px}
+
+.d-hero{background:linear-gradient(150deg,#0F6E56,#0A4C3B);border-radius:var(--r);padding:16px;color:#fff;margin-bottom:13px}
+.d-hero .title{font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:19px;line-height:1.2;margin:6px 0 2px}
+.d-hero .sub{font-size:11.5px;color:#bfe6d7}
+.d-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px}
+.d-stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.d-stat .l{font-size:10px;color:var(--ink-soft)}
+.d-stat .v{font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:500;color:var(--ink);margin-top:1px}
+.calcbox .wrapin{position:relative}
+.calcbox .cur{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:'Hanken Grotesk',sans-serif;font-size:17px;color:var(--teal)}
+.calcbox input{width:100%;font-family:'Hanken Grotesk',sans-serif;font-size:20px;font-weight:500;color:var(--ink);padding:12px 12px 12px 30px;border:1.5px solid var(--line);border-radius:11px;background:var(--mint-soft)}
+.calcbox input:focus{outline:none;border-color:var(--teal);background:var(--card)}
+.proj{display:flex;justify-content:space-between;align-items:baseline;margin-top:11px;padding-top:11px;border-top:1px dashed var(--line)}
+.proj .l{font-size:11px;color:var(--ink-soft)}
+.proj .v{font-family:'Hanken Grotesk',sans-serif;font-size:22px;font-weight:500;color:var(--gold)}
+.formula-note{font-size:10.5px;color:var(--ink-soft);margin-top:8px;line-height:1.5;background:var(--mint-soft);border-radius:9px;padding:8px 10px}
+.slist{list-style:none;display:flex;flex-direction:column;gap:9px}
+.slist li{display:flex;gap:9px;font-size:11.5px;color:var(--ink-soft);line-height:1.45}
+.slist .ic{flex:none;width:20px;height:20px;border-radius:6px;background:var(--mint);color:var(--teal);display:grid;place-items:center;margin-top:1px}
+.slist b{color:var(--ink)}
+.riskbox{background:var(--danger-soft);border:1px solid #ecd0c8;border-radius:13px;padding:12px 13px;font-size:11px;color:#6b463c;line-height:1.5;margin-bottom:13px}
+.phone[data-theme="dark"] .riskbox{border-color:#5a2f26;color:#e8b0a4}
+.riskbox b{color:var(--danger)}
+
+.rec-steps{list-style:none;display:flex;flex-direction:column}
+.rec-steps li{display:flex;gap:11px;position:relative;padding-bottom:16px}
+.rec-steps li:last-child{padding-bottom:0}
+.rec-steps .n{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;z-index:1}
+.rec-steps li:not(:last-child)::before{content:"";position:absolute;left:10.5px;top:22px;bottom:0;width:1.5px;background:var(--line)}
+.rec-steps .done .n{background:var(--teal);color:#fff}
+.rec-steps .now .n{background:var(--gold);color:#fff}
+.rec-steps .todo .n{background:var(--mint);color:var(--teal)}
+.rec-steps .t{font-size:12px;font-weight:600;color:var(--ink)}
+.rec-steps .s{font-size:10.5px;color:var(--ink-soft);margin-top:1px}
+
+.ledger{list-style:none}
+.ledger li{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--mint-soft)}
+.ledger .lic{flex:none;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--mint);color:var(--teal)}
+.ledger .neg .lic{background:var(--danger-soft);color:var(--danger)}
+.ledger .t{font-size:12px;font-weight:600;color:var(--ink)}
+.ledger .s{font-size:10.5px;color:var(--ink-soft)}
+.ledger .amt{margin-left:auto;font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:500;color:var(--teal);white-space:nowrap;padding-left:8px}
+.ledger .neg .amt{color:var(--danger)}
+.ledger li.new{animation:flashin 1.2s ease}
+@keyframes flashin{0%{background:var(--mint)}100%{background:transparent}}
+.payout-pend{display:flex;align-items:center;gap:11px;background:var(--gold-soft);border:1px solid #e8d5a8;border-radius:13px;padding:12px 13px;margin-bottom:12px}
+.phone[data-theme="dark"] .payout-pend{border-color:#5a4a1a}
+.payout-pend .t{font-size:12px;font-weight:600;color:var(--ink)}
+.payout-pend .s{font-size:10.5px;color:var(--ink-soft)}
+.payout-pend .amt{margin-left:auto;font-family:'Hanken Grotesk',sans-serif;font-size:16px;color:var(--gold);font-weight:500}
+
+.azkar{background:linear-gradient(150deg,#123a2e,#0a2b21);border-radius:var(--r);padding:17px;color:#e7f4ee;margin-bottom:13px;text-align:center}
+.azkar .ar{font-size:21px;line-height:1.8;font-weight:500}
+.azkar .tr{font-size:11px;color:#9fc6b6;margin-top:7px;line-height:1.5}
+.ring{margin:14px auto 0;width:96px;height:96px;position:relative;cursor:pointer;user-select:none}
+.ring:active{transform:scale(.95)}
+.ring svg.rg{width:96px;height:96px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:5}
+.ring .bgc{stroke:#20503f}
+.ring .fgc{stroke:#2fbd8c;stroke-linecap:round;transition:stroke-dashoffset .15s}
+.ring .mid{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring .mid b{font-family:'Hanken Grotesk',sans-serif;font-size:24px;font-weight:500}
+.ring .mid span{display:block;font-size:8.5px;color:#9fc6b6;text-transform:uppercase;letter-spacing:.08em}
+.score .ring2{margin:6px auto 2px;width:120px;height:120px;position:relative}
+.score svg.rg{width:120px;height:120px;transform:rotate(-90deg)}
+.score circle{fill:none;stroke-width:8}
+.score .bgc{stroke:var(--mint)}
+.score .fgc{stroke:var(--teal);stroke-linecap:round;transition:stroke-dashoffset .4s}
+.score .mid{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.score .mid b{font-family:'Hanken Grotesk',sans-serif;font-size:28px;font-weight:500;color:var(--ink)}
+.score .mid span{display:block;font-size:9px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.07em}
+.give-row{display:flex;gap:8px;margin-top:10px}
+.give-row button{flex:1;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--teal);background:var(--mint-soft);border:1.5px solid var(--line);border-radius:11px;padding:12px 0;cursor:pointer;min-height:44px}
+.give-row button:active{background:var(--mint)}
+.impact{display:flex;gap:9px;margin-top:11px}
+.impact .box{flex:1;background:var(--mint-soft);border:1px solid var(--line);border-radius:11px;padding:9px 11px}
+.impact .l{font-size:9.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em}
+.impact .v{font-family:'Hanken Grotesk',sans-serif;font-size:16px;color:var(--teal);font-weight:500}
+
+.dotg{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:10px}
+.dg{width:100%;aspect-ratio:1;border-radius:50%;background:var(--mint)}
+.dg.f{background:var(--green)}
+.dg.t{background:var(--gold)}
+.zk input{width:100%;font-family:inherit;font-size:13px;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:var(--mint-soft);margin-top:5px;color:var(--ink)}
+.zk input:focus{outline:none;border-color:var(--teal);background:var(--card)}
+.zk label{font-size:11px;font-weight:600;color:var(--ink);display:block;margin-top:9px}
+.zk .out{margin-top:12px;padding-top:11px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.zk .out .v{font-family:'Hanken Grotesk',sans-serif;font-size:21px;color:var(--gold);font-weight:500}
+.streak{display:flex;gap:4px;margin-top:9px}
+.streak .d{flex:1;height:28px;border-radius:7px;background:var(--mint);display:grid;place-items:center;font-size:9px;color:var(--teal);font-weight:600}
+.streak .d.hit{background:var(--teal);color:#fff}
+.alloc{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.alloc .row{display:flex;align-items:center;gap:9px;font-size:10.5px;color:var(--ink-soft)}
+.alloc .nm{width:86px;flex:none}
+.alloc .tr2{flex:1;height:7px;background:var(--mint);border-radius:99px;overflow:hidden}
+.alloc .tr2 i{display:block;height:100%;background:var(--green)}
+
+.me-row{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid var(--mint-soft);cursor:pointer;min-height:56px}
+.me-row:active{background:var(--mint-soft)}
+.me-row .mic{flex:none;width:36px;height:36px;border-radius:12px;background:var(--mint);color:var(--teal);display:grid;place-items:center}
+.me-row .t{font-size:13px;font-weight:600;color:var(--ink)}
+.me-row .s{font-size:10.5px;color:var(--ink-soft)}
+.me-row .go{margin-left:auto;color:var(--ink-soft);display:flex;align-items:center;gap:8px}
+.scholar{display:flex;gap:12px;align-items:flex-start}
+.scholar .ph{flex:none;width:52px;height:52px;border-radius:16px;background:linear-gradient(145deg,var(--teal),var(--teal-deep));color:#fff;display:grid;place-items:center;font-family:'Hanken Grotesk',sans-serif;font-size:20px}
+.scholar .n{font-size:14px;font-weight:600;color:var(--ink)}
+.scholar .r{font-size:11px;color:var(--ink-soft);line-height:1.5;margin-top:2px}
+.sw2{position:relative;width:42px;height:24px;border-radius:99px;background:var(--line);cursor:pointer;transition:.2s;flex:none}
+.sw2.on{background:var(--teal)}
+.sw2::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.sw2.on::after{left:21px}
+
+.doc-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--mint-soft);font-size:12px;color:var(--ink)}
+.doc-row:last-child{border-bottom:none}
+.doc-row .dic{flex:none;width:30px;height:30px;border-radius:9px;background:var(--mint);color:var(--teal);display:grid;place-items:center}
+.doc-row .st{margin-left:auto;font-size:10px;font-weight:600}
+.doc-row .st.ok{color:var(--teal)}
+.doc-row .st.wait{color:var(--amber)}
+.rep-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--mint-soft);font-size:11.5px;color:var(--ink-soft)}
+.rep-row b{color:var(--ink)}
+.rep-row .amt{margin-left:auto;font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;color:var(--ink);font-weight:500}
+
+.qibla{width:170px;height:170px;margin:8px auto;position:relative}
+.qibla .dial{width:100%;height:100%;border-radius:50%;border:2px solid var(--line);background:var(--mint-soft);position:relative}
+.qibla .needle{position:absolute;left:50%;top:50%;width:4px;height:66px;background:var(--teal);border-radius:99px;transform-origin:50% 100%;transform:translate(-50%,-100%) rotate(277deg)}
+.qibla .hub{position:absolute;left:50%;top:50%;width:14px;height:14px;border-radius:50%;background:var(--gold);transform:translate(-50%,-50%)}
+.qibla .nlab{position:absolute;left:50%;top:8px;transform:translateX(-50%);font-size:10px;font-weight:700;color:var(--ink-soft)}
+.kstep{display:flex;gap:8px;margin-bottom:14px}
+.kstep .s{flex:1;height:5px;border-radius:99px;background:var(--mint)}
+.kstep .s.on{background:var(--teal)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
+.chips button{font-family:inherit;font-size:12px;font-weight:600;color:var(--teal);background:var(--mint-soft);border:1.5px solid var(--line);border-radius:999px;padding:9px 14px;cursor:pointer}
+.chips button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+.sheet-veil{position:absolute;inset:0;background:rgba(8,30,23,.45);opacity:0;pointer-events:none;transition:.25s;z-index:90}
+.sheet-veil.on{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:26px 26px 0 0;transform:translateY(105%);transition:transform .3s cubic-bezier(.3,.9,.3,1);z-index:95;max-height:82%;display:flex;flex-direction:column;box-shadow:0 -10px 40px rgba(8,30,23,.25)}
+.sheet.on{transform:none}
+.sheet .grab{width:40px;height:4px;border-radius:99px;background:var(--line);margin:10px auto 2px;flex:none}
+.sheet .body{padding:12px 20px 26px;overflow-y:auto}
+.sheet h4{font-family:'Hanken Grotesk','Anek Bangla',sans-serif;font-weight:500;font-size:18px;color:var(--ink);margin-bottom:4px}
+.sheet .sub{font-size:12px;color:var(--ink-soft);margin-bottom:14px;line-height:1.5}
+.sheet input.amt{width:100%;font-family:'Hanken Grotesk',sans-serif;font-size:24px;font-weight:500;color:var(--ink);padding:13px 14px 13px 32px;border:1.5px solid var(--line);border-radius:12px;background:var(--mint-soft)}
+.sheet input.amt:focus{outline:none;border-color:var(--teal);background:var(--card)}
+.sheet input.plain{width:100%;font-family:inherit;font-size:14px;color:var(--ink);padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--mint-soft);margin-bottom:10px}
+.sheet input.plain:focus{outline:none;border-color:var(--teal);background:var(--card)}
+.sheet .win{position:relative;margin-bottom:12px}
+.sheet .win .cur{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-family:'Hanken Grotesk',sans-serif;font-size:19px;color:var(--teal)}
+.notif{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--mint-soft);align-items:flex-start}
+.notif .nic{flex:none;width:36px;height:36px;border-radius:12px;background:var(--mint);display:grid;place-items:center;color:var(--teal)}
+.notif .t{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.35}
+.notif .s{font-size:10.5px;color:var(--ink-soft);margin-top:2px;line-height:1.45}
+.setrow{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--mint-soft);font-size:12.5px;color:var(--ink);font-weight:600}
+.setrow:last-child{border-bottom:none}
+.setrow .s{display:block;font-size:10.5px;color:var(--ink-soft);font-weight:400;margin-top:1px}
+.ack{display:flex;gap:10px;align-items:flex-start;font-size:11.5px;color:var(--ink-soft);line-height:1.5;padding:10px 0;cursor:pointer}
+.ack input{width:18px;height:18px;accent-color:var(--teal);flex:none;margin-top:1px}
+.toast{position:absolute;left:50%;bottom:96px;transform:translateX(-50%) translateY(8px);background:#0c2c22;color:#e7f4ee;font-size:12px;font-weight:500;padding:11px 17px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:120;white-space:nowrap;box-shadow:var(--shadow);max-width:90%;overflow:hidden;text-overflow:ellipsis}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.foot-dis{font-size:9.5px;color:var(--ink-soft);text-align:center;line-height:1.6;margin-top:4px;padding:0 8px}
+
+.hijri{display:block;font-size:10.5px;color:var(--ink-soft);font-weight:500;margin-top:1px}
+.spark{margin-top:12px}
+.spark .sl{font-size:9.5px;color:#9fdcc4;text-transform:uppercase;letter-spacing:.07em}
+.spark svg{display:block;width:100%;height:38px;margin-top:4px}
+.qa{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:13px}
+.qa button{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 4px;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:inherit;font-size:10.5px;font-weight:600;color:var(--ink);cursor:pointer;min-height:64px;box-shadow:var(--shadow)}
+.qa button:active{transform:scale(.97)}
+.qa .qic{width:34px;height:34px;border-radius:11px;background:var(--mint);color:var(--teal-deep);display:grid;place-items:center}
+.phone[data-theme="dark"] .qa .qic{color:var(--green)}
+
+.goal{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--mint-soft);cursor:pointer}
+.goal:last-child{border-bottom:none}
+.goal .gic{flex:none;width:38px;height:38px;border-radius:12px;background:var(--mint);color:var(--teal-deep);display:grid;place-items:center}
+.phone[data-theme="dark"] .goal .gic{color:var(--green)}
+.goal .gmid{flex:1;min-width:0}
+.goal .gt{font-size:12.5px;font-weight:600;color:var(--ink)}
+.goal .gs{font-size:10.5px;color:var(--ink-soft);margin-top:1px}
+.goal .gbar{height:6px;background:var(--mint);border-radius:99px;overflow:hidden;margin-top:6px}
+.goal .gbar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:99px}
+.goal .gpct{font-size:11px;font-weight:700;color:var(--teal);flex:none}
+
+.searchbar{display:flex;align-items:center;gap:9px;background:var(--card);border:1.5px solid var(--line);border-radius:13px;padding:11px 13px;margin-bottom:11px}
+.searchbar input{flex:1;border:none;background:none;font-family:inherit;font-size:13px;color:var(--ink);outline:none}
+.searchbar .fbtn{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--teal);cursor:pointer;padding-left:9px;border-left:1px solid var(--line)}
+.fbadge{background:var(--green);color:#03251d;font-size:9px;font-weight:700;border-radius:99px;padding:1px 6px;margin-left:3px}
+.starbtn{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:9px;background:var(--mint-soft);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink-soft);cursor:pointer;z-index:2}
+.starbtn.on{color:var(--gold);background:var(--gold-soft);border-color:var(--gold)}
+.camp,.ccard{position:relative}
+.filtsec{margin-bottom:14px}
+.filtsec .lab{font-size:11px;font-weight:600;color:var(--ink);margin-bottom:7px;display:block}
+.optrow{display:flex;gap:7px;flex-wrap:wrap}
+.optrow button{font-family:inherit;font-size:11.5px;font-weight:600;color:var(--teal);background:var(--mint-soft);border:1.5px solid var(--line);border-radius:999px;padding:8px 13px;cursor:pointer}
+.optrow button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+.cmp-wrap{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:0 20px 4px}
+.cmp-wrap::-webkit-scrollbar{display:none}
+.cmp-col{flex:0 0 160px;background:var(--mint-soft);border:1px solid var(--line);border-radius:13px;padding:12px;font-size:11px}
+.cmp-col .ct{font-size:12px;font-weight:600;color:var(--ink);line-height:1.3;min-height:32px}
+.cmp-col .cr{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line);color:var(--ink-soft)}
+.cmp-col .cr b{color:var(--ink)}
+.cmp-pick{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--mint-soft)}
+.cmp-pick input{width:18px;height:18px;accent-color:var(--teal);flex:none}
+.cmp-pick .t{font-size:12px;font-weight:600;color:var(--ink)}
+.cmp-pick .s{font-size:10.5px;color:var(--ink-soft)}
+
+.strat{border:1.5px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px;cursor:pointer}
+.strat.on{border-color:var(--teal);background:var(--mint-soft)}
+.strat .st{font-size:13px;font-weight:600;color:var(--ink);display:flex;align-items:center;justify-content:space-between}
+.strat .sd{font-size:11px;color:var(--ink-soft);margin-top:3px;line-height:1.45}
+.strat .mixbar{display:flex;height:8px;border-radius:99px;overflow:hidden;margin-top:9px}
+.strat .mixbar i{height:100%}
+.strat .rad{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex:none;display:grid;place-items:center;color:transparent}
+.strat.on .rad{border-color:var(--teal);background:var(--teal);color:#fff}
+
+.nisab .nrow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--mint-soft);font-size:12px}
+.nisab .nrow:last-child{border-bottom:none}
+.nisab .nrow .l{color:var(--ink-soft)}
+.nisab .nrow .v{font-weight:600;color:var(--ink)}
+.nisab .verdict{margin-top:11px;padding:11px 13px;border-radius:12px;font-size:11.5px;line-height:1.5;font-weight:600}
+.nisab .verdict.above{background:var(--mint-soft);color:var(--teal-deep);border:1px solid var(--line)}
+.phone[data-theme="dark"] .nisab .verdict.above{color:var(--green)}
+.priceclock{font-size:9.5px;color:var(--ink-soft);margin-top:8px;text-align:right}
+
+.roundup .accum{text-align:center;padding:6px 0 2px}
+.roundup .accum .v{font-family:'Hanken Grotesk',sans-serif;font-size:30px;font-weight:600;color:var(--teal)}
+.roundup .accum .l{font-size:11px;color:var(--ink-soft)}
+
+.chal .ch-top{display:flex;align-items:center;gap:13px}
+.chal .cring{flex:none;width:64px;height:64px;position:relative}
+.chal .cring svg{width:64px;height:64px;transform:rotate(-90deg)}
+.chal .cring circle{fill:none;stroke-width:6}
+.chal .cring .bgc{stroke:var(--mint)}
+.chal .cring .fgc{stroke:var(--green);stroke-linecap:round}
+.chal .cring .mid{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--ink)}
+.chal .cinfo .t{font-size:13px;font-weight:600;color:var(--ink)}
+.chal .cinfo .s{font-size:11px;color:var(--ink-soft);margin-top:2px;line-height:1.45}
+
+.lesson{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--mint-soft);cursor:pointer}
+.lesson:last-child{border-bottom:none}
+.lesson .lnum{flex:none;width:30px;height:30px;border-radius:9px;background:var(--mint);color:var(--teal-deep);display:grid;place-items:center;font-size:12px;font-weight:700}
+.phone[data-theme="dark"] .lesson .lnum{color:var(--green)}
+.lesson .lt{font-size:12.5px;font-weight:600;color:var(--ink)}
+.lesson .ls{font-size:10.5px;color:var(--ink-soft)}
+.lesson .ldone{margin-left:auto;color:var(--teal);flex:none}
+.welfare-badge{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-deep);background:var(--mint);border-radius:99px;padding:3px 9px;margin-bottom:8px}
+.phone[data-theme="dark"] .welfare-badge{color:var(--green)}
+
+/* v0.6 premium layer */
+.phone{border-width:9px;box-shadow:0 44px 110px rgba(0,0,0,.62),0 0 0 1px rgba(255,255,255,.05)}
+.statusbar{font-weight:700;letter-spacing:.02em}
+.nav{background:var(--card);background:color-mix(in srgb,var(--card) 80%,transparent);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4)}
+.sheet{border-radius:30px 30px 0 0;background:var(--card);background:color-mix(in srgb,var(--card) 93%,transparent);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4)}
+.card,.ccard,.camp{border-radius:20px}
+.card{padding:17px}
+.btn.pri{background:linear-gradient(135deg,var(--teal),var(--green));box-shadow:0 8px 22px rgba(15,166,122,.30)}
+.btn.pri:active{filter:brightness(.93);box-shadow:0 4px 12px rgba(15,166,122,.24)}
+.btn.pri:disabled{background:#a9d8c6;box-shadow:none}
+.phone[data-theme="dark"] .btn.pri:disabled{background:#22503f;color:#6f9a89}
+.btn{border-radius:15px}
+.amanah{background:linear-gradient(155deg,#052B22 0%,#0A5743 52%,#0FA67A 135%);border:1px solid rgba(255,255,255,.09);box-shadow:0 20px 48px rgba(5,43,34,.38);border-radius:22px}
+.d-hero{background:linear-gradient(155deg,#052B22 0%,#0A5743 52%,#0FA67A 135%);border:1px solid rgba(255,255,255,.09);border-radius:22px}
+.acts .a1{box-shadow:0 5px 14px rgba(0,0,0,.20)}
+.acts button{min-height:40px}
+.seg{border-radius:15px;padding:4px}
+.seg button.on{box-shadow:0 2px 12px rgba(6,52,42,.15);border-radius:11px}
+.toast{background:rgba(5,38,29,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+h3.sec{letter-spacing:-.012em}
+.k{letter-spacing:.14em}
+.h-row .hi b{letter-spacing:-.015em;font-size:21px}
+.qa button{border-radius:16px}
+.hab .hic,.goal .gic,.me-row .mic,.news .thumb,.feed-row .thumb,.notif .nic,.ledger .lic{border-radius:13px}
+.prayer .p{border-radius:13px}
+.prayer .p.on{box-shadow:0 4px 12px rgba(15,166,122,.30)}
+.starbtn{border-radius:10px;backdrop-filter:blur(4px)}
+.avatar,.scholar .ph{background:linear-gradient(145deg,var(--green),var(--teal-deep));box-shadow:0 4px 12px rgba(15,166,122,.28)}
+.kyc-banner,.payout-pend,.riskbox{border-radius:15px}
+.gdel{margin-left:auto;flex:none;width:34px;height:34px;border-radius:11px;border:1px solid var(--line);background:var(--danger-soft);color:var(--danger);display:grid;place-items:center;cursor:pointer}
+.gdel:active{transform:scale(.94)}
+
+/* v0.7 balanced-minimal layer */
+.phone{--paper:#FBFDFC}
+.phone[data-theme="dark"]{--paper:#05130D}
+.screen{padding:16px 20px 100px}
+.card{background:transparent;border:none;box-shadow:none;border-radius:0;padding:16px 0;margin-bottom:0;border-bottom:1px solid var(--line)}
+.card:last-of-type{border-bottom:none}
+.card.solid{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:13px;box-shadow:var(--shadow)}
+.card.solid:last-of-type{border-bottom:1px solid var(--line)}
+.card.tap{border-radius:0}
+.card.solid.tap{border-radius:20px}
+h3.sec{font-size:16px}
+.k{color:var(--ink-soft)}
+.seg{background:transparent;border:none;border-bottom:1px solid var(--line);border-radius:0;padding:0;gap:4px;margin-bottom:6px}
+.seg button{color:var(--ink-soft);padding:11px 2px;border-radius:0;position:relative}
+.seg button.on{background:transparent;color:var(--ink);box-shadow:none}
+.seg button.on::after{content:"";position:absolute;left:14%;right:14%;bottom:-1px;height:2px;background:var(--teal);border-radius:2px}
+.searchbar{background:var(--mint-soft);border:none;border-radius:14px}
+.camp{background:transparent;border:none;box-shadow:none;border-radius:0;border-bottom:1px solid var(--line);padding:15px 0;margin-bottom:0}
+.camp:last-child{border-bottom:none}
+.camp .starbtn{background:transparent;border:none;top:14px;right:0}
+.camp .starbtn.on{background:transparent;border:none}
+.ccard{border:1px solid var(--line);box-shadow:none}
+.qa button{background:transparent;border:none;box-shadow:none;border-radius:14px}
+.qa button:active{background:var(--mint-soft)}
+.qa .qic{background:var(--mint-soft)}
+.pill.contract{background:transparent;border:1px solid var(--line);color:var(--ink-soft)}
+.prayer .p{background:transparent;border:1px solid var(--line)}
+.prayer .p.on{background:var(--teal);border-color:var(--teal);box-shadow:none}
+.nav{background:var(--card);backdrop-filter:none;-webkit-backdrop-filter:none;border-top:1px solid var(--line)}
+.btn.ghost{border-color:var(--line)}
+.d-stat{background:var(--mint-soft);border:none}
+.riskbox{border-radius:14px}
+.foot-dis{margin-top:10px}
+
+.srow{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.srow:last-of-type{border-bottom:none}
+.srow .srad{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:transparent}
+.srow.on .srad{border-color:var(--teal);background:var(--teal);color:#fff}
+.srow .smid{flex:1;min-width:0}
+.srow .sname{font-size:13px;font-weight:600;color:var(--ink)}
+.srow .sallo{display:flex;height:6px;border-radius:99px;overflow:hidden;margin:7px 0 5px}
+.srow .sallo i{height:100%}
+.srow .sband{font-size:10.5px;color:var(--ink-soft)}
+.qcard{border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:11px}
+.qcard .qt{font-size:13px;font-weight:600;color:var(--ink)}
+.qcard .qm{font-size:11px;color:var(--ink-soft);margin-top:2px;line-height:1.45}
+.qcard .qamt{font-family:'Hanken Grotesk',sans-serif;font-size:18px;font-weight:600;color:var(--ink);margin-top:8px}
+.qcard .qacts{display:flex;gap:9px;margin-top:11px}
+.qcard .qacts button{flex:1;font-family:inherit;font-size:12.5px;font-weight:600;border-radius:12px;padding:11px 0;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
+.qcard .qapprove{background:linear-gradient(135deg,var(--teal),var(--green));color:#fff;border:none}
+.qcard .qskip{background:transparent;color:var(--ink-soft);border:1px solid var(--line)}
+.qempty{text-align:center;padding:22px 12px;font-size:12px;color:var(--ink-soft);line-height:1.6}
+.qtag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);background:var(--amber-soft);border-radius:99px;padding:3px 9px;margin-bottom:9px}
+.autotabs{display:flex;gap:6px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.autotabs button{flex:1;background:none;border:none;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink-soft);padding:10px 0;cursor:pointer;position:relative}
+.autotabs button.on{color:var(--ink)}
+.autotabs button.on::after{content:"";position:absolute;left:20%;right:20%;bottom:-1px;height:2px;background:var(--teal);border-radius:2px}
+.autotabs .cnt{display:inline-block;min-width:16px;font-size:10px;background:var(--teal);color:#fff;border-radius:99px;padding:0 5px;margin-left:4px}
+
+
+
+
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="side-note">
+    <span class="tag">Prototype v8.0 · pre-launch</span>
+    <h1>RIBH<br>Halal Wealth Companion</h1>
+    <p>New in this build:</p>
+    <ul>
+      <li>bKash and Nagad deposit rail</li>
+      <li>Weekly auto-save from Tk250</li>
+      <li>Risk profiling and tier switching</li>
+      <li>Named Shariah board, nominee, referrals</li>
+      <li>Purification tool, onboarding tour</li>
+    </ul>
+  </div>
+
+  <div class="phone" id="phone" data-theme="light">
+    <div class="notch"></div>
+    <div class="statusbar"><span id="clockOut">9:41</span><span>Ribh</span></div>
+    <div class="screens">
+
+      <!-- HOME (redesigned) -->
+      <section class="screen on" id="scr-home">
+        <div class="h-row">
+          <div class="hi"><span data-t="salam">As-salamu alaykum,</span><b>Muzahid</b><span class="hijri" id="hijriOut">21 Muharram 1448</span></div>
+          <div style="display:flex;gap:8px">
+            <div class="bell" data-act="sheet" data-sheet="notifs"><span data-ic="bell" data-sz="20"></span><span class="dotn" id="notifDot"></span></div>
+            <div class="avatar" data-act="goto" data-to="me">M</div>
+          </div>
+        </div>
+
+        <div class="kyc-banner" id="kycBanner" data-act="kycstart">
+          <span data-ic="id" data-sz="20"></span>
+          <span><b data-t="kycTitle">Complete verification (NID)</b><br><span data-t="kycSub">Required before your next deposit · Tier 1 of 2 · tap to verify</span></span>
+        </div>
+
+        <div class="amanah">
+          <div class="lab"><span data-t="amanah">Your Amanah with Ribh</span><span class="lk" data-act="goto" data-to="wallet" data-t="ledger">Ledger</span></div>
+          <div class="big"><i>&#2547;</i><span id="totalOut">4,86,450</span></div>
+          <div class="sub" data-t="profitToDate">Total portfolio · profit to date &#2547;21,300</div>
+          <div class="spark"><div class="sl" data-t="profit6">Profit received · last 6 months</div><svg id="sparkSvg" viewBox="0 0 300 38" preserveAspectRatio="none"></svg></div>
+          <div class="row3">
+            <div class="mini"><div class="l" data-t="avail">Available</div><div class="v">&#2547;<span id="availOut">86,450</span></div></div>
+            <div class="mini"><div class="l" data-t="deployed">Deployed</div><div class="v">&#2547;<span id="depOut">4,00,000</span></div></div>
+            <div class="mini"><div class="l" data-t="inrec">In recovery</div><div class="v">&#2547;50,000</div></div>
+          </div>
+          <div class="acts">
+            <button class="a1" data-act="sheet" data-sheet="deposit"><span data-ic="arrdown" data-sz="15"></span><span data-t="add">Add funds</span></button>
+            <button class="a2" data-act="sheet" data-sheet="withdraw"><span data-ic="arrup" data-sz="15"></span><span data-t="withdraw">Withdraw</span></button>
+            <button class="a2" data-act="goto" data-to="invest"><span data-ic="trend" data-sz="15"></span><span data-t="invest">Invest</span></button>
+          </div>
+          <div class="balanced"><span data-ic="shield" data-sz="13"></span> <span data-t="balanced">Books balanced · reconciled today, 6:00 AM</span></div>
+        </div>
+
+        <div class="qa">
+          <button data-act="goto" data-to="grow"><span class="qic" data-ic="scale" data-sz="17"></span><span data-t="qaZakat">Zakat</span></button>
+          <button data-act="goto" data-to="barakah"><span class="qic" data-ic="heart" data-sz="17"></span><span data-t="qaGive">Sadaqah</span></button>
+          <button data-act="sheet" data-sheet="statements"><span class="qic" data-ic="file" data-sz="17"></span><span data-t="qaStmt">Statements</span></button>
+          <button data-act="sheet" data-sheet="referral"><span class="qic" data-ic="gift" data-sz="17"></span><span data-t="qaInvite">Invite</span></button>
+        </div>
+
+        <div class="card tap" data-act="goto" data-to="grow">
+          <div class="seeall" style="margin-bottom:2px"><span class="k" data-t="yourGoals">Your goals</span><span class="lnk" data-t="seeAll">See all</span></div>
+          <div id="homeGoals"></div>
+        </div>
+
+        <div class="seeall">
+          <span class="k" data-t="openCamps">Open campaigns</span>
+          <span class="lnk" data-act="goto" data-to="invest" data-t="seeAll">See all</span>
+        </div>
+        <div class="hscroll" id="homeCamps"></div>
+
+        <div class="card tap" data-act="goto" data-to="wallet" style="margin-top:4px">
+          <span class="k" data-t="wmm">Where's my money?</span>
+          <h3 class="sec" style="margin-bottom:12px">&#2547;1,00,000 · Printing Zone (Wakalah)</h3>
+          <div class="flow">
+            <div class="step hit"><div class="b"><span data-ic="wallet" data-sz="14"></span></div><div class="t" data-t="fWallet">Wallet</div></div>
+            <div class="step hit"><div class="b"><span data-ic="building" data-sz="14"></span></div><div class="t" data-t="fSupp">Supplier paid</div></div>
+            <div class="step hit"><div class="b"><span data-ic="box" data-sz="14"></span></div><div class="t" data-t="fGoods">Goods with merchant</div></div>
+            <div class="step"><div class="b"><span data-ic="arrdown" data-sz="14"></span></div><div class="t" data-t="fRepay">Repayment</div></div>
+            <div class="step"><div class="b"><span data-ic="sprout" data-sz="14"></span></div><div class="t" data-t="fProfit">Profit</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span class="k" data-t="prayerT">Prayer times · Dhaka</span>
+            <span class="lnk" style="font-size:11px;font-weight:600;color:var(--teal);cursor:pointer;padding:4px 0 4px 8px" data-act="sheet" data-sheet="qibla" data-t="qibla">Qibla</span>
+          </div>
+          <div class="prayer" id="prayerRow" style="margin-top:9px"></div>
+          <div class="nextp" id="nextPrayer"></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span class="k" data-t="daily">Daily activity</span>
+            <span style="font-size:11px;font-weight:600;color:var(--teal)" id="habCount">0 of 5</span>
+          </div>
+          <div class="pbar"><i id="habBar" style="width:0%"></i></div>
+          <ul class="hab" id="habList" style="margin-top:5px"></ul>
+        </div>
+
+        <div class="card">
+          <div class="seeall" style="margin-bottom:2px">
+            <span class="k" data-t="hub">Knowledge Hub</span>
+            <span class="lnk" data-act="goto" data-to="barakah" data-t="seeAll">See all</span>
+          </div>
+          <div class="feed-row" data-act="sheet" data-sheet="article">
+            <div class="thumb"><span data-ic="file" data-sz="16"></span></div>
+            <div><div class="t">AAOIFI publishes revised guidance on agency-based investment</div><div class="s">News · why it matters to your Wakalah campaign · 3 min</div></div>
+          </div>
+        </div>
+        <p class="foot-dis" data-t="disc">Capital at risk. Returns are projections, not guarantees. Ribh Investments · AAOIFI-aligned · regulatory registration under process.</p>
+      </section>
+
+      <!-- INVEST -->
+      <section class="screen" id="scr-invest">
+        <div class="h-row"><div class="hi"><span data-t="marketplace">Marketplace</span><b data-t="campaigns">Campaigns</b></div><div class="avatar" data-act="goto" data-to="me">M</div></div>
+
+        <div class="searchbar">
+          <span data-ic="search" data-sz="16" style="color:var(--ink-soft)"></span>
+          <input id="searchInput" data-t-ph="searchPh" placeholder="Search campaigns, sectors">
+          <span class="fbtn" data-act="sheet" data-sheet="filters"><span data-ic="filter" data-sz="14"></span><span data-t="filters">Filters</span><span class="fbadge" id="fbadge" style="display:none">0</span></span>
+        </div>
+
+        <div class="card solid tap" data-act="sheet" data-sheet="autoinvest">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="flex:none;width:40px;height:40px;border-radius:13px;background:var(--mint);color:var(--teal-deep);display:grid;place-items:center"><span data-ic="refresh" data-sz="18"></span></div>
+            <div style="flex:1;min-width:0"><div style="font-size:13.5px;font-weight:600;color:var(--ink)" data-t="autoT">Auto-invest strategy</div><div style="font-size:11px;color:var(--ink-soft);margin-top:1px" id="autoStatus" data-t="autoOff">Off · pick a strategy, approve each deployment</div></div>
+            <span data-ic="chev" data-sz="16" style="color:var(--ink-soft)"></span>
+          </div>
+          <div id="autoQueueHint" style="display:none;margin-top:11px;padding-top:11px;border-top:1px solid var(--line);display:none;align-items:center;gap:8px;font-size:11.5px;color:var(--amber)">
+            <span data-ic="clock" data-sz="15"></span><span id="autoQueueText">2 campaigns awaiting your approval</span>
+          </div>
+        </div>
+
+        <div class="seg" id="segBar">
+          <button class="on" data-f="all" data-t="all">All</button>
+          <button data-f="open" data-t="open">Open</button>
+          <button data-f="matured" data-t="matured">Matured</button>
+          <button data-f="saved" data-t="saved">Saved</button>
+        </div>
+        <div id="campList"></div>
+
+        <button class="btn ghost" data-act="sheet" data-sheet="compareCamps" style="margin-bottom:13px"><span data-ic="columns" data-sz="16"></span><span data-t="compareCamps">Compare campaigns side by side</span></button>
+
+        <div class="card insight">
+          <span class="k" data-t="insights">Portfolio insights</span>
+          <h3 class="sec" data-t="divers">Your diversification</h3>
+          <div class="bar" id="divBar"></div>
+          <div class="leg" id="divLeg"></div>
+          <div class="pva">
+            <span data-t="projm">Projected (matured)<b>&#2547;3,937</b></span>
+            <span data-t="actual">Actual received<b>&#2547;3,937</b></span>
+            <span data-t="acc">Accuracy<b>100%</b></span>
+          </div>
+        </div>
+        <p class="foot-dis">Every campaign is screened for riba, gharar and maysir, and reviewed under our Shariah framework before listing.</p>
+      </section>
+
+      <!-- DETAIL -->
+      <section class="screen" id="scr-detail">
+        <button class="back" data-act="goto" data-to="invest"><span data-ic="chevl" data-sz="15"></span> <span data-t="campaigns">Campaigns</span></button>
+        <div id="detailBody"></div>
+      </section>
+
+      <!-- WALLET -->
+      <section class="screen" id="scr-wallet">
+        <button class="back" data-act="goto" data-to="home"><span data-ic="chevl" data-sz="15"></span> <span data-t="home">Home</span></button>
+
+        <div class="card" id="payoutCard">
+          <span class="k" data-t="payouts">Payouts</span>
+          <h3 class="sec" data-t="pendPayout">Pending payout</h3>
+          <div class="payout-pend">
+            <span data-ic="gift" data-sz="18" style="color:var(--gold)"></span>
+            <div><div class="t">Profit · Printing Mach. Trading</div><div class="s"><span data-t="plan">Plan</span>: <span id="planInline">Per campaign</span></div></div>
+            <div class="amt">&#2547;2,450</div>
+          </div>
+          <div style="display:flex;gap:9px">
+            <button class="btn ghost" style="flex:1" data-act="payoutbank"><span data-ic="arrup" data-sz="15"></span><span data-t="toBank">To bank</span></button>
+            <button class="btn pri" style="flex:1" data-act="reinvest"><span data-ic="refresh" data-sz="15"></span><span data-t="reinvest">Reinvest</span></button>
+          </div>
+          <p class="foot-dis" style="text-align:left;padding:8px 0 0">Reinvesting returns the payout to your available balance as a new commitment. Capital remains at risk.</p>
+        </div>
+
+        <div class="card">
+          <span class="k" data-t="ledgerK">Signed ledger</span>
+          <h3 class="sec" data-t="everyTaka">Every taka, accounted</h3>
+          <ul class="ledger" id="ledgerList"></ul>
+          <p class="foot-dis" style="text-align:left;padding:8px 0 0">Ledger is append-only. Balance equals the sum of all signed entries, reconciled daily.</p>
+        </div>
+        <button class="btn ghost" data-act="sheet" data-sheet="deposit"><span data-ic="arrdown" data-sz="16"></span><span data-t="add">Add funds</span></button>
+        <div style="height:9px"></div>
+        <button class="btn ghost" data-act="sheet" data-sheet="withdraw"><span data-ic="arrup" data-sz="16"></span><span data-t="withdraw">Withdraw</span></button>
+      </section>
+
+      <!-- GROW -->
+      <section class="screen" id="scr-grow">
+        <div class="h-row"><div class="hi"><span data-t="miniapps">Mini-apps</span><b data-t="grow">Grow</b></div><div class="avatar" data-act="goto" data-to="me">M</div></div>
+
+        <div class="card solid zk">
+          <span class="k" data-t="zakat">Zakat calculator</span>
+          <h3 class="sec" data-t="purify">Purify your wealth</h3>
+          <label data-t="zkCashL">Cash and bank (&#2547;)</label><input id="zkCash" inputmode="numeric" value="200000">
+          <label data-t="zkInvL">Ribh investments, auto-filled (&#2547;)</label><input id="zkInv" inputmode="numeric" value="450000">
+          <label data-t="zkGoldL">Gold and other zakatable assets (&#2547;)</label><input id="zkGold" inputmode="numeric" value="80000">
+          <div class="out"><span style="font-size:11px;color:var(--ink-soft)" data-t="zkDue">Zakat due (2.5%)</span><span class="v" id="zkOut">&#2547;0</span></div>
+          <div style="height:10px"></div>
+          <button class="btn pri" data-act="payzakat"><span data-ic="heart" data-sz="16"></span><span data-t="payCharity">Pay via Ribh charity</span></button>
+        </div>
+
+        <div class="card">
+          <div class="seeall" style="margin-bottom:2px"><span class="k" data-t="goalPots">Goal pots</span><span class="lnk" data-act="sheet" data-sheet="newgoal" data-t="newGoal">New goal</span></div>
+          <h3 class="sec" data-t="saveWithNiyyah">Save with a niyyah</h3>
+          <div id="growGoals"></div>
+          <p class="foot-dis" style="text-align:left;padding:8px 0 0" data-t="goalNote">Goals are targets you save toward. Money placed in campaigns or the fund remains at risk; targets are not guaranteed.</p>
+        </div>
+
+        <div class="card solid nisab">
+          <span class="k" data-t="nisabK">Nisab tracker</span>
+          <h3 class="sec" data-t="areYouLiable">Are you above nisab?</h3>
+          <div class="nrow"><span class="l" data-t="goldNisab">Gold nisab (85g)</span><span class="v">&#2547;10,54,000</span></div>
+          <div class="nrow"><span class="l" data-t="silverNisab">Silver nisab (595g)</span><span class="v">&#2547;89,250</span></div>
+          <div class="nrow"><span class="l" data-t="yourZakatable">Your zakatable wealth</span><span class="v" id="nisabWealth">&#2547;7,30,000</span></div>
+          <div class="verdict above" id="nisabVerdict" data-t="aboveSilver">Above the silver nisab. Zakat is due on your wealth once a lunar year passes on it (hawl).</div>
+          <div class="priceclock" data-t="priceNote">Prices illustrative, as of today. Live feed in the native app.</div>
+        </div>
+
+        <div class="card">
+          <span class="k">Ribh Fund · &#2547;10 <span data-t="aday">a day</span></span>
+          <h3 class="sec" data-t="smallDaily">Small daily, big barakah</h3>
+          <p style="font-size:11.5px;color:var(--ink-soft);line-height:1.5" data-t="fundNote">Your daily &#2547;10 flows into the diversified Ribh Fund. Profit is projected, never guaranteed.</p>
+          <div class="streak" id="streakRow">
+            <div class="d hit">S</div><div class="d hit">M</div><div class="d hit">T</div><div class="d hit">W</div><div class="d hit">T</div><div class="d" id="todayCell">F</div><div class="d">S</div>
+          </div>
+          <div class="impact">
+            <div class="box"><div class="l" data-t="saved">Saved so far</div><div class="v" id="savedOut">&#2547;1,830</div></div>
+            <div class="box"><div class="l" data-t="streak">Streak</div><div class="v" id="streakOut">61 days</div></div>
+            <div class="box"><div class="l" data-t="projVal">Projected value</div><div class="v">&#2547;1,905</div></div>
+          </div>
+          <div class="alloc">
+            <div class="row"><span class="nm">Murabaha</span><span class="tr2"><i style="width:62%"></i></span><span>62%</span></div>
+            <div class="row"><span class="nm">Wakalah</span><span class="tr2"><i style="width:28%"></i></span><span>28%</span></div>
+            <div class="row"><span class="nm" data-t="liq">Liquidity</span><span class="tr2"><i style="width:10%"></i></span><span>10%</span></div>
+          </div>
+          <div style="height:10px"></div>
+          <button class="btn ghost" id="saveTodayBtn" data-act="savetoday"><span data-ic="check" data-sz="16"></span><span data-t="markSaved">Mark today's &#2547;10 saved</span></button>
+          <div style="height:8px"></div>
+          <button class="btn ghost" data-act="sheet" data-sheet="autosave"><span data-ic="repeat" data-sz="16"></span><span data-t="setupAutosave" id="autosaveGrow">Set up weekly auto-save</span></button>
+        </div>
+
+        <div class="card solid roundup">
+          <div class="setrow" style="border:none;padding:0"><span data-t="roundupT">Round-up saving<span class="s" data-t="roundupSub">Round each payment up, sweep the change</span></span><div class="sw2" id="roundupSw" data-act="toggleroundup"></div></div>
+          <div class="accum"><div class="v" id="roundupAccum">&#2547;74</div><div class="l" data-t="roundupAccumL">rounded up, ready to sweep</div></div>
+          <button class="btn ghost" id="sweepBtn" data-act="sweep" disabled><span data-ic="arrdown" data-sz="16"></span><span data-t="sweepBtn">Sweep into Ribh Fund</span></button>
+          <p class="foot-dis" style="text-align:left;padding:8px 0 0" data-t="roundupNote">Round-ups move only your own verified funds. Nothing is added from outside your wallet.</p>
+        </div>
+
+        <div class="card solid chal">
+          <span class="k" data-t="challengeK">Seasonal challenge</span>
+          <h3 class="sec" data-t="challengeT">30-day barakah challenge</h3>
+          <div class="ch-top">
+            <div class="cring"><svg viewBox="0 0 64 64"><circle class="bgc" cx="32" cy="32" r="27"/><circle class="fgc" id="chalRing" cx="32" cy="32" r="27" stroke-dasharray="170" stroke-dashoffset="170"/></svg><div class="mid" id="chalDay">0</div></div>
+            <div class="cinfo"><div class="t" data-t="challengeName">Save and give, every day</div><div class="s" data-t="challengeDesc">Complete all five daily activities to advance. Consistency, not competition.</div></div>
+          </div>
+          <div style="height:11px"></div>
+          <button class="btn pri" id="chalBtn" data-act="joinchal"><span data-ic="check" data-sz="16"></span><span data-t="joinChallenge">Join the challenge</span></button>
+        </div>
+
+        <div class="card">
+          <span class="welfare-badge" data-t="byWelfare">By Ribh Welfare</span>
+          <div class="seeall" style="margin-bottom:2px"><span class="k" data-t="learnK">Halal money lessons</span></div>
+          <h3 class="sec" data-t="learnT">Five minutes to wiser wealth</h3>
+          <div class="lesson" data-act="sheet" data-sheet="lesson1"><div class="lnum">1</div><div><div class="lt">What makes a return halal</div><div class="ls">Riba vs. profit from real trade · 4 min</div></div><span class="ldone" id="l1done" style="display:none" data-ic="check" data-sz="16"></span></div>
+          <div class="lesson" data-act="sheet" data-sheet="lesson2"><div class="lnum">2</div><div><div class="lt">Reading a Murabaha contract</div><div class="ls">Cost, markup, and why time cannot change it · 5 min</div></div><span class="ldone" id="l2done" style="display:none" data-ic="check" data-sz="16"></span></div>
+          <div class="lesson" data-act="sheet" data-sheet="lesson3"><div class="lnum">3</div><div><div class="lt">Zakat on investments</div><div class="ls">What counts, and when the hawl completes · 4 min</div></div><span class="ldone" id="l3done" style="display:none" data-ic="check" data-sz="16"></span></div>
+        </div>
+
+        <div class="card solid">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span class="k" data-t="forest">Your forest</span>
+            <span style="font-size:10.5px;color:var(--ink-soft)">Nilphamari</span>
+          </div>
+          <h3 class="sec" data-t="oneTree">1 tree, every month</h3>
+          <div class="impact" style="margin-top:2px">
+            <div class="box"><div class="l" data-t="trees">Trees</div><div class="v" id="treeCount">8</div></div>
+            <div class="box"><div class="l">CO2</div><div class="v">1.9 t</div></div>
+            <div class="box"><div class="l" data-t="survival">Survival</div><div class="v">100%</div></div>
+          </div>
+          <div class="dotg" id="forestGrid"></div>
+          <p class="foot-dis" style="text-align:left;padding:8px 0 0" data-t="forestNote">Each dot is a month of membership. Gold dots are trees planted this year, sadaqah jariyah in your name.</p>
+        </div>
+
+        <div class="card tap" data-act="sheet" data-sheet="compare">
+          <span class="k" data-t="compare">Halal comparison</span>
+          <h3 class="sec" style="margin-bottom:2px" data-t="compareT">Compare before you commit</h3>
+          <p style="font-size:11.5px;color:var(--ink-soft)" data-t="compareS">Contract type, asset-backing and risk, not just headline return.</p>
+        </div>
+      </section>
+
+      <!-- BARAKAH -->
+      <section class="screen" id="scr-barakah">
+        <div class="h-row"><div class="hi"><span data-t="faithGiving">Faith and giving</span><b data-t="barakah">Barakah</b></div><div class="avatar" data-act="goto" data-to="me">M</div></div>
+
+        <div class="card solid score">
+          <span class="k" data-t="bscore">Barakah score</span>
+          <div class="ring2">
+            <svg class="rg" viewBox="0 0 120 120"><circle class="bgc" cx="60" cy="60" r="52"/><circle class="fgc" id="scoreFg" cx="60" cy="60" r="52" stroke-dasharray="327" stroke-dashoffset="327"/></svg>
+            <div class="mid"><div><b id="scoreOut">0</b><span data-t="consistency">consistency</span></div></div>
+          </div>
+          <p class="foot-dis" style="text-align:center" data-t="scoreNote">Measures your habit consistency and good done: streaks, sadaqah, trees. It never measures worship itself.</p>
+        </div>
+
+        <div class="azkar">
+          <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#7fd3b2;margin-bottom:9px" data-t="morningAdhkar">Morning adhkar · after Fajr</div>
+          <div class="ar">&#1587;&#1615;&#1576;&#1618;&#1581;&#1614;&#1575;&#1606;&#1614; &#1575;&#1604;&#1604;&#1614;&#1617;&#1607;&#1616; &#1608;&#1614;&#1576;&#1616;&#1581;&#1614;&#1605;&#1618;&#1583;&#1616;&#1607;&#1616;</div>
+          <div class="tr">SubhanAllahi wa bihamdih. "Glory be to Allah and praise Him." Recite 100 times for sins to be erased, though they be like the foam of the sea.</div>
+          <div class="ring" data-act="tasbih" role="button" aria-label="Tasbih counter">
+            <svg class="rg" viewBox="0 0 96 96"><circle class="bgc" cx="48" cy="48" r="43"/><circle class="fgc" id="ringFg" cx="48" cy="48" r="43" stroke-dasharray="270" stroke-dashoffset="270"/></svg>
+            <div class="mid"><div><b id="tasCount">0</b><span data-t="of100">of 100 · tap</span></div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="k" data-t="dailySadaqah">Daily sadaqah</span>
+          <h3 class="sec" data-t="giveFirst">Give before the day gives to you</h3>
+          <div class="give-row">
+            <button data-act="give" data-a="10">&#2547;10</button><button data-act="give" data-a="20">&#2547;20</button><button data-act="give" data-a="50">&#2547;50</button><button data-act="sheet" data-sheet="giveCustom" data-t="other">Other</button>
+          </div>
+          <div class="impact">
+            <div class="box"><div class="l" data-t="givenYear">Given this year</div><div class="v" id="givenTotal">&#2547;2,340</div></div>
+            <div class="box"><div class="l" data-t="meals">Meals funded</div><div class="v" id="mealsOut">47</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="seeall" style="margin-bottom:2px"><span class="k" data-t="hub">Knowledge Hub</span></div>
+          <div class="feed-row" data-act="sheet" data-sheet="article">
+            <div class="thumb"><span data-ic="file" data-sz="16"></span></div>
+            <div><div class="t">AAOIFI publishes revised guidance on agency-based investment</div><div class="s">News · 3 min</div></div>
+          </div>
+          <div class="feed-row" data-act="sheet" data-sheet="news2">
+            <div class="thumb"><span data-ic="trend" data-sz="16"></span></div>
+            <div><div class="t">Bangladesh sukuk market grows 22% year on year</div><div class="s">News · why local halal instruments matter · 4 min</div></div>
+          </div>
+          <div class="feed-row" data-act="sheet" data-sheet="tip">
+            <div class="thumb"><span data-ic="book" data-sz="16"></span></div>
+            <div><div class="t">Tip: pay yourself first, the halal way</div><div class="s">1 data point · 1 hadith · 1 action · 2 min</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="k" data-t="monthHabits">This month's habits</span>
+          <h3 class="sec" data-t="julyCon">July consistency</h3>
+          <div class="dotg" id="monthGrid"></div>
+          <p class="foot-dis" style="text-align:left;padding:8px 0 0" data-t="gridNote">A dot fills green when you complete all five daily activities. Today updates live from your checklist.</p>
+        </div>
+
+        <div class="card tap" data-act="sheet" data-sheet="welfare">
+          <span class="k">Ribh Welfare</span>
+          <h3 class="sec" style="margin-bottom:2px" data-t="welfareT">Financial literacy for the ummah</h3>
+          <p style="font-size:11.5px;color:var(--ink-soft)" data-t="welfareS">Ribh Capital Group's non-profit arm, researching and building halal financial literacy.</p>
+        </div>
+      </section>
+
+      <!-- ME -->
+      <section class="screen" id="scr-me">
+        <div class="h-row"><div class="hi"><span data-t="account">Account</span><b>Muzahid Islam</b></div><div class="avatar">M</div></div>
+
+        <div class="card solid">
+          <span class="k" data-t="settings">Settings</span>
+          <div class="setrow"><span data-t="langLabel">Language<span class="s">English / &#2476;&#2494;&#2434;&#2482;&#2494;</span></span><div class="sw2" id="langSw" data-act="togglelang"></div></div>
+          <div class="setrow"><span data-t="darkLabel">Dark appearance<span class="s" data-t="darkSub">Easier on the eyes at night</span></span><div class="sw2" id="themeSw" data-act="toggletheme"></div></div>
+          <div class="setrow"><span data-t="quietLabel">Salah quiet hours<span class="s" data-t="quietSub">Pause notifications around prayer times</span></span><div class="sw2 on" id="quietSw" data-act="togglequiet"></div></div>
+          <div class="setrow"><span data-t="remLabel">Payment reminders<span class="s" data-t="remSub">Due dates and campaigns closing soon</span></span><div class="sw2 on" id="remSw" data-act="togglerem"></div></div>
+        </div>
+
+        <div class="card solid">
+          <span class="k" data-t="shariahK">Shariah oversight</span>
+          <h3 class="sec" data-t="whoReviews">Ribh's Shariah board</h3>
+          <div class="scholar">
+            <div class="ph">AJ</div>
+            <div>
+              <div class="n">Abdullah Jubair <span style="font-size:10px;font-weight:600;color:var(--teal)">· Chair</span></div>
+              <div class="r">M.A. Islamic Studies (gold medalist) and B.A., University of Dhaka · Editor-in-Chief, monthly Sawtul Madina</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--ink-soft);margin-top:9px" data-t="plusTwo">Plus Mufti Mahmudur Rahman and Dr. Sadia Haque</div>
+          <div style="height:11px"></div>
+          <button class="btn ghost" data-act="sheet" data-sheet="board"><span data-ic="scholar2" data-sz="16"></span><span data-t="meetBoard">Meet the board</span></button>
+          <div style="height:8px"></div>
+          <button class="btn ghost" data-act="sheet" data-sheet="shariah"><span data-ic="scale" data-sz="16"></span><span data-t="readNotes">Read Shariah notes per contract</span></button>
+        </div>
+
+        <div class="card solid">
+          <ul style="list-style:none">
+            <li class="me-row" data-act="sheet" data-sheet="risktier"><div class="mic"><span data-ic="chartbar" data-sz="17"></span></div><div><div class="t" data-t="tierRow">Risk tier</div><div class="s" id="tierMe" data-t="tierUnset">Not set · take the 3-question quiz</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="autosave"><div class="mic"><span data-ic="repeat" data-sz="17"></span></div><div><div class="t" data-t="autosaveRow">Weekly auto-save</div><div class="s" id="autosaveMe" data-t="autosaveOff">Off · build the habit from Tk250</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="nominee"><div class="mic"><span data-ic="users" data-sz="17"></span></div><div><div class="t" data-t="nomineeRow">Nominee</div><div class="s" id="nomineeMe" data-t="nomineeUnset">Not set · name a beneficiary</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+          </ul>
+        </div>
+
+        <div class="card solid">
+          <ul style="list-style:none">
+            <li class="me-row" data-act="goto" data-to="business"><div class="mic"><span data-ic="briefcase" data-sz="17"></span></div><div><div class="t" data-t="bizMode">Business mode</div><div class="s">Musannif Corp. dashboard</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="kycstart"><div class="mic"><span data-ic="id" data-sz="17"></span></div><div><div class="t" data-t="kycRow">Identity and KYC</div><div class="s" id="kycMe">Tier 1 · NID pending · tap to verify</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="payout"><div class="mic"><span data-ic="calendar" data-sz="17"></span></div><div><div class="t" data-t="payoutRow">Payout plan</div><div class="s" id="payoutLabel">Per campaign · bank ····4192</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="goalsettings"><div class="mic"><span data-ic="target" data-sz="17"></span></div><div><div class="t" data-t="goalsRow">Goal settings</div><div class="s" id="goalsMeSub">3 active goals</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="security"><div class="mic"><span data-ic="lock" data-sz="17"></span></div><div><div class="t" data-t="secRow">Security</div><div class="s" data-t="secSub">Biometric on · 2FA on</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="statements"><div class="mic"><span data-ic="file" data-sz="17"></span></div><div><div class="t" data-t="stmtRow">Statements and receipts</div><div class="s" data-t="stmtSub">Zakat-ready annual summary</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="purify"><div class="mic"><span data-ic="sparkles" data-sz="17"></span></div><div><div class="t" data-t="purifyRow">Interest purification</div><div class="s" data-t="purifySub">Cleanse incidental interest</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="referral"><div class="mic"><span data-ic="gift" data-sz="17"></span></div><div><div class="t" data-t="inviteRow">Invite a friend</div><div class="s" data-t="inviteSub">You both plant a tree</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="tour"><div class="mic"><span data-ic="route" data-sz="17"></span></div><div><div class="t" data-t="tourRow">How Ribh works</div><div class="s" data-t="tourSub">A quick tour</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="about"><div class="mic"><span data-ic="info" data-sz="17"></span></div><div><div class="t" data-t="aboutRow">About Ribh Investments</div><div class="s" data-t="aboutSub">Who we are, in brief</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="dbinfo"><div class="mic"><span data-ic="db" data-sz="17"></span></div><div><div class="t" data-t="dbRow">Local database</div><div class="s" data-t="dbSub">Prototype data on this device</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+            <li class="me-row" data-act="sheet" data-sheet="support"><div class="mic"><span data-ic="chat" data-sz="17"></span></div><div><div class="t" data-t="helpRow">Help and disputes</div><div class="s" data-t="helpSub">Negotiation to arbitration path</div></div><div class="go"><span data-ic="chev" data-sz="16"></span></div></li>
+          </ul>
+        </div>
+        <p class="foot-dis">Ribh Investments · Dhanmondi, Dhaka · support@ribhcapital.com · Client funds held segregated as amanah. BSEC and Bangladesh Bank registration under process.</p>
+      </section>
+
+      <!-- BUSINESS -->
+      <section class="screen" id="scr-business">
+        <button class="back" data-act="goto" data-to="me"><span data-ic="chevl" data-sz="15"></span> <span data-t="invMode">Investor mode</span></button>
+        <div class="h-row"><div class="hi"><span data-t="bizDash">Business dashboard</span><b>Musannif Corporation</b></div></div>
+
+        <div class="amanah">
+          <div class="lab"><span>Cement Supply · Murabaha</span></div>
+          <div class="big"><i>&#2547;</i>18,40,000</div>
+          <div class="sub">Raised of &#2547;25,00,000 pool · matured 21 Jul</div>
+          <div class="row3">
+            <div class="mini"><div class="l" data-t="owed">Owed total</div><div class="v">&#2547;20,10,670</div></div>
+            <div class="mini"><div class="l" data-t="repaid">Repaid</div><div class="v">&#2547;12,00,000</div></div>
+            <div class="mini"><div class="l" data-t="outst">Outstanding</div><div class="v">&#2547;8,10,670</div></div>
+          </div>
+        </div>
+
+        <div class="riskbox"><b data-t="overdue">Repayment overdue.</b> <span data-t="overdueBody">The recovery process is active. Settle the outstanding amount or contact operations to update your contingency schedule. Late settlement never increases the amount owed; any late charge goes to charity.</span></div>
+
+        <div class="card">
+          <span class="k" data-t="repSched">Repayment schedule</span>
+          <h3 class="sec" data-t="fixedPrice">Total sale price, fixed</h3>
+          <div class="rep-row"><span data-ic="check" data-sz="15" style="color:var(--teal)"></span><span><b>Instalment 1</b> · 21 May</span><span class="amt">&#2547;6,00,000</span></div>
+          <div class="rep-row"><span data-ic="check" data-sz="15" style="color:var(--teal)"></span><span><b>Instalment 2</b> · 21 Jun</span><span class="amt">&#2547;6,00,000</span></div>
+          <div class="rep-row"><span data-ic="alert" data-sz="15" style="color:var(--danger)"></span><span><b data-t="finalSet">Final settlement</b> · 21 Jul · <span data-t="overdueW">overdue</span></span><span class="amt">&#2547;8,10,670</span></div>
+          <div style="height:10px"></div>
+          <button class="btn pri" data-act="msg" data-m="Settlement flow opened, operations notified"><span data-ic="arrup" data-sz="16"></span><span data-t="settle">Settle outstanding</span></button>
+        </div>
+
+        <div class="card">
+          <span class="k" data-t="vault">Document vault</span>
+          <h3 class="sec" data-t="secInstr">Security instruments</h3>
+          <div class="doc-row"><div class="dic"><span data-ic="file" data-sz="15"></span></div><span data-t="deed">Deed of Agreement ('aqd)</span><span class="st ok" data-t="executed">Executed</span></div>
+          <div class="doc-row"><div class="dic"><span data-ic="users" data-sz="15"></span></div>Kafalah · 4 <span data-t="guarantors">guarantors</span><span class="st ok" data-t="executed">Executed</span></div>
+          <div class="doc-row"><div class="dic"><span data-ic="file" data-sz="15"></span></div><span data-t="cheques">Security cheques (4)</span><span class="st ok" data-t="held">Held</span></div>
+          <div class="doc-row"><div class="dic"><span data-ic="shield" data-sz="15"></span></div><span data-t="contPlan">Contingency plan</span><span class="st wait" data-t="activated">Activated</span></div>
+        </div>
+
+        <div class="card">
+          <span class="k" data-t="compliance">Compliance</span>
+          <h3 class="sec" data-t="statusCheck">Status checklist</h3>
+          <ul class="slist">
+            <li><span class="ic"><span data-ic="check" data-sz="12"></span></span><span><b>Business KYC</b> · verified, trade licence on file.</span></li>
+            <li><span class="ic"><span data-ic="check" data-sz="12"></span></span><span><b>Shariah review</b> · Murabaha structure approved before listing.</span></li>
+            <li><span class="ic"><span data-ic="alert" data-sz="12"></span></span><span><b>Repayment standing</b> · overdue, recovery step 2 of 4 active.</span></li>
+          </ul>
+          <div style="height:10px"></div>
+          <button class="btn ghost" data-act="msg" data-m="Chat opened with Ribh operations"><span data-ic="chat" data-sz="16"></span><span data-t="msgOps">Message operations</span></button>
+        </div>
+      </section>
+
+    </div>
+
+    <nav class="nav">
+      <button class="on" data-s="home"><span data-ic="home" data-sz="22"></span><span data-t="home">Home</span></button>
+      <button data-s="invest"><span data-ic="trend" data-sz="22"></span><span data-t="invest">Invest</span></button>
+      <button data-s="grow"><span data-ic="sprout" data-sz="22"></span><span data-t="grow">Grow</span></button>
+      <button data-s="barakah"><span data-ic="heart" data-sz="22"></span><span data-t="barakah">Barakah</span></button>
+      <button data-s="me"><span data-ic="user" data-sz="22"></span><span data-t="me">Me</span></button>
+    </nav>
+
+    <div class="sheet-veil" id="veil"></div>
+    <div class="sheet" id="sheet"><div class="grab"></div><div class="body" id="sheetBody"></div></div>
+    <div class="toast" id="toast"></div>
+  </div>
+</div>
+
+<script>
+/* ============ icons ============ */
+const P = {
+  home:'<path d="M3 11l9-8 9 8v9a2 2 0 0 1-2 2h-4v-6h-6v6H5a2 2 0 0 1-2-2z"/>',
+  trend:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+  sprout:'<path d="M12 22V9"/><path d="M12 9C12 5 9 3 5 3c0 4 3 6 7 6zM12 13c0-4 3-6 7-6 0 4-3 6-7 6z"/>',
+  heart:'<path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/>',
+  users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1.2-3.3 3.8-5 6.5-5s5.3 1.7 6.5 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 15c2.4.2 4.5 1.8 5.5 4.5"/>',
+  bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+  wallet:'<path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12h2"/>',
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
+  id:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M14 9.5h5M14 13h4M5.5 16.5c.6-1.4 1.7-2.2 3-2.2s2.4.8 3 2.2"/>',
+  calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/>',
+  lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/>',
+  gift:'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
+  chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  chev:'<path d="M9 18l6-6-6-6"/>',
+  chevl:'<path d="M15 18l-6-6 6-6"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  minus:'<path d="M5 12h14"/>',
+  check:'<path d="M20 6L9 17l-5-5"/>',
+  alert:'<path d="M10.3 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  sunrise:'<path d="M12 9V3M9 6l3-3 3 3"/><path d="M4 18a8 8 0 0 1 16 0"/><path d="M2 21h20"/>',
+  sunlow:'<circle cx="12" cy="14" r="4"/><path d="M12 6V4M6.3 8.3L4.9 6.9M17.7 8.3l1.4-1.4M2 14h2M20 14h2M3 21h18"/>',
+  sunset:'<path d="M12 3v6M9 6l3 3 3-3"/><path d="M4 18a8 8 0 0 1 16 0"/><path d="M2 21h20"/>',
+  moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>',
+  building:'<path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9.5 9.5h1M13.5 9.5h1M9.5 13h1M13.5 13h1M9.5 16.5h1M13.5 16.5h1"/>',
+  briefcase:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>',
+  box:'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+  refresh:'<path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0 1 14.9-3L23 10M20.5 15a9 9 0 0 1-14.9 3L1 14"/>',
+  arrdown:'<path d="M12 4v12M7 11l5 5 5-5"/><path d="M5 20h14"/>',
+  arrup:'<path d="M12 20V8M7 13l5-5 5 5"/><path d="M5 4h14"/>',
+  scale:'<path d="M12 3v18M8 21h8"/><path d="M6 7L2 13a4 4 0 0 0 8 0zM18 7l-4 6a4 4 0 0 0 8 0z"/><path d="M5 7h14"/>',
+  book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+  copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+  camera:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+  pin:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+  filter:'<path d="M3 5h18l-7 8v6l-4 2v-8z"/>',
+  columns:'<rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="16" rx="1.5"/>',
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  flame:'<path d="M12 3c1 3 4 4 4 8a4 4 0 0 1-8 0c0-1 .5-2 1-2.5C9 10 9 7 12 3z"/><path d="M12 21a5 5 0 0 0 5-5c0-2-1-3-2-4"/>',
+  star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17.8 6.6 20l1-6.1L3.2 9.5l6.1-.9z"/>',
+  bookmark:'<path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/>',
+  graduation:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1 3 2.5 6 2.5s6-1.5 6-2.5v-5"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+  db:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+  trash:'<path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  skip:'<path d="M6 6l8 6-8 6zM18 6v12"/>',
+  phone:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>',
+  repeat:'<path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>',
+  scholar2:'<circle cx="12" cy="7" r="3.2"/><path d="M5.5 20c.6-3.2 3.2-5 6.5-5s5.9 1.8 6.5 5"/><path d="M9 4.5l3-1.8 3 1.8"/>',
+  sparkles:'<path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z"/><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8z"/>',
+  route:'<circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H15a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h6.5"/>',
+  chartbar:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'
+};
+function ic(name,sz){return '<svg class="ico" width="'+sz+'" height="'+sz+'" viewBox="0 0 24 24">'+(P[name]||P.check)+'</svg>';}
+function mountIcons(root){
+  (root||document).querySelectorAll('[data-ic]').forEach(el=>{
+    el.innerHTML=ic(el.dataset.ic, el.dataset.sz||16);
+    el.removeAttribute('data-ic');
+  });
+}
+
+/* ============ i18n ============ */
+const T={
+  salam:['As-salamu alaykum,','\u0986\u09b8\u09b8\u09be\u09b2\u09be\u09ae\u09c1 \u0986\u09b2\u09be\u0987\u0995\u09c1\u09ae,'],
+  home:['Home','\u09b9\u09cb\u09ae'], invest:['Invest','\u09ac\u09bf\u09a8\u09bf\u09df\u09cb\u0997'], grow:['Grow','\u09b8\u099e\u09cd\u099a\u09df'], barakah:['Barakah','\u09ac\u09b0\u0995\u09a4'], me:['Me','\u0986\u09ae\u09bf'],
+  amanah:['Your Amanah with Ribh','\u09b0\u09bf\u09ac\u09c7\u09b0 \u0995\u09be\u099b\u09c7 \u0986\u09aa\u09a8\u09be\u09b0 \u0986\u09ae\u09be\u09a8\u09a4'],
+  ledger:['Ledger','\u09b2\u09c7\u099c\u09be\u09b0'], avail:['Available','\u0989\u09aa\u09b2\u09ad\u09cd\u09af'], deployed:['Deployed','\u09ac\u09bf\u09a8\u09bf\u09df\u09cb\u0997\u0995\u09c3\u09a4'], inrec:['In recovery','\u09aa\u09c1\u09a8\u09b0\u09c1\u09a6\u09cd\u09a7\u09be\u09b0\u09c7'],
+  add:['Add funds','\u099f\u09be\u0995\u09be \u09af\u09cb\u0997 \u0995\u09b0\u09c1\u09a8'], withdraw:['Withdraw','\u0989\u09a4\u09cd\u09a4\u09cb\u09b2\u09a8'],
+  balanced:['Books balanced · reconciled today, 6:00 AM','\u09b9\u09bf\u09b8\u09be\u09ac \u09ae\u09bf\u09b2\u09c7\u099b\u09c7 · \u0986\u099c \u09b8\u0995\u09be\u09b2 \u09ec\u099f\u09be\u09df \u09af\u09be\u099a\u09be\u0987'],
+  openCamps:['Open campaigns','\u099a\u09b2\u09ae\u09be\u09a8 \u0995\u09cd\u09af\u09be\u09ae\u09cd\u09aa\u09c7\u0987\u09a8'], seeAll:['See all','\u09b8\u09ac \u09a6\u09c7\u0996\u09c1\u09a8'],
+  wmm:["Where's my money?",'\u0986\u09ae\u09be\u09b0 \u099f\u09be\u0995\u09be \u0995\u09cb\u09a5\u09be\u09df?'],
+  fWallet:['Wallet','\u0993\u09df\u09be\u09b2\u09c7\u099f'], fSupp:['Supplier paid','\u09b8\u09b0\u09ac\u09b0\u09be\u09b9\u0995\u09be\u09b0\u09c0 \u09aa\u09c7\u09df\u09c7\u099b\u09c7'], fGoods:['Goods with merchant','\u09aa\u09a3\u09cd\u09af \u09ac\u09cd\u09af\u09ac\u09b8\u09be\u09df\u09c0\u09b0 \u0995\u09be\u099b\u09c7'], fRepay:['Repayment','\u09aa\u09b0\u09bf\u09b6\u09cb\u09a7'], fProfit:['Profit','\u09ae\u09c1\u09a8\u09be\u09ab\u09be'],
+  prayerT:['Prayer times · Dhaka','\u09a8\u09be\u09ae\u09be\u099c\u09c7\u09b0 \u09b8\u09ae\u09df · \u09a2\u09be\u0995\u09be'], qibla:['Qibla','\u0995\u09bf\u09ac\u09b2\u09be'],
+  daily:['Daily activity','\u09a6\u09c8\u09a8\u09bf\u0995 \u0986\u09ae\u09b2'],
+  hub:['Knowledge Hub','\u099c\u09cd\u099e\u09be\u09a8 \u0995\u09c7\u09a8\u09cd\u09a6\u09cd\u09b0'],
+  kycTitle:['Complete verification (NID)','\u09aa\u09b0\u09bf\u099a\u09df \u09af\u09be\u099a\u09be\u0987 \u0995\u09b0\u09c1\u09a8 (NID)'],
+  kycSub:['Required before your next deposit · Tier 1 of 2 · tap to verify','\u09aa\u09b0\u09ac\u09b0\u09cd\u09a4\u09c0 \u099c\u09ae\u09be\u09b0 \u0986\u0997\u09c7 \u09aa\u09cd\u09b0\u09df\u09cb\u099c\u09a8 · \u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09c1\u09a8'],
+  settings:['Settings','\u09b8\u09c7\u099f\u09bf\u0982\u09b8'],
+  profitToDate:['Total portfolio · profit to date \u09f321,300','\u09ae\u09cb\u099f \u09aa\u09cb\u09b0\u09cd\u099f\u09ab\u09cb\u09b2\u09bf\u0993 · \u098f \u09aa\u09b0\u09cd\u09af\u09a8\u09cd\u09a4 \u09ae\u09c1\u09a8\u09be\u09ab\u09be \u09f321,300'],
+  disc:['Capital at risk. Returns are projections, not guarantees. Ribh Investments · AAOIFI-aligned · regulatory registration under process.','\u09ae\u09c2\u09b2\u09a7\u09a8 \u099d\u09c1\u0981\u0995\u09bf\u09aa\u09c2\u09b0\u09cd\u09a3\u0964 \u09b0\u09bf\u099f\u09be\u09b0\u09cd\u09a8 \u09aa\u09cd\u09b0\u0995\u09cd\u09b7\u09c7\u09aa\u09a3, \u0997\u09cd\u09af\u09be\u09b0\u09be\u09a8\u09cd\u099f\u09bf \u09a8\u09df\u0964'],
+  marketplace:['Marketplace','\u09ae\u09be\u09b0\u09cd\u0995\u09c7\u099f\u09aa\u09cd\u09b2\u09c7\u09b8'], campaigns:['Campaigns','\u0995\u09cd\u09af\u09be\u09ae\u09cd\u09aa\u09c7\u0987\u09a8'],
+  all:['All','\u09b8\u09ac'], open:['Open','\u099a\u09b2\u09ae\u09be\u09a8'], matured:['Matured','\u09aa\u09b0\u09bf\u09aa\u0995\u09cd\u0995'], recovery:['Recovery','\u09aa\u09c1\u09a8\u09b0\u09c1\u09a6\u09cd\u09a7\u09be\u09b0'],
+  insights:['Portfolio insights','\u09aa\u09cb\u09b0\u09cd\u099f\u09ab\u09cb\u09b2\u09bf\u0993 \u0987\u09a8\u09b8\u09be\u0987\u099f'], divers:['Your diversification','\u0986\u09aa\u09a8\u09be\u09b0 \u09ac\u09c8\u099a\u09bf\u09a4\u09cd\u09b0\u09cd\u09af'],
+  payouts:['Payouts','\u09aa\u09c7\u0986\u0989\u099f'], pendPayout:['Pending payout','\u0985\u09aa\u09c7\u0995\u09cd\u09b7\u09ae\u09be\u09a3 \u09aa\u09c7\u0986\u0989\u099f'], plan:['Plan','\u09aa\u09b0\u09bf\u0995\u09b2\u09cd\u09aa\u09a8\u09be'],
+  toBank:['To bank','\u09ac\u09cd\u09af\u09be\u0982\u0995\u09c7'], reinvest:['Reinvest','\u09aa\u09c1\u09a8\u0983\u09ac\u09bf\u09a8\u09bf\u09df\u09cb\u0997'],
+  ledgerK:['Signed ledger','\u09b8\u09cd\u09ac\u09be\u0995\u09cd\u09b7\u09b0\u09bf\u09a4 \u09b2\u09c7\u099c\u09be\u09b0'], everyTaka:['Every taka, accounted','\u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u099f\u09be\u0995\u09be\u09b0 \u09b9\u09bf\u09b8\u09be\u09ac'],
+  miniapps:['Mini-apps','\u09ae\u09bf\u09a8\u09bf \u0985\u09cd\u09af\u09be\u09aa\u09b8'],
+  zakat:['Zakat calculator','\u09af\u09be\u0995\u09be\u09a4 \u0995\u09cd\u09af\u09be\u09b2\u0995\u09c1\u09b2\u09c7\u099f\u09b0'], purify:['Purify your wealth','\u09b8\u09ae\u09cd\u09aa\u09a6 \u09aa\u09ac\u09bf\u09a4\u09cd\u09b0 \u0995\u09b0\u09c1\u09a8'],
+  zkCashL:['Cash and bank (\u09f3)','\u09a8\u0997\u09a6 \u0993 \u09ac\u09cd\u09af\u09be\u0982\u0995 (\u09f3)'], zkInvL:['Ribh investments, auto-filled (\u09f3)','\u09b0\u09bf\u09ac \u09ac\u09bf\u09a8\u09bf\u09df\u09cb\u0997 (\u09f3)'], zkGoldL:['Gold and other zakatable assets (\u09f3)','\u09b8\u09cb\u09a8\u09be \u0993 \u0985\u09a8\u09cd\u09af\u09be\u09a8\u09cd\u09af \u09b8\u09ae\u09cd\u09aa\u09a6 (\u09f3)'],
+  zkDue:['Zakat due (2.5%)','\u09aa\u09cd\u09b0\u09a6\u09c7\u09df \u09af\u09be\u0995\u09be\u09a4 (\u09e8.\u09eb%)'], payCharity:['Pay via Ribh charity','\u09b0\u09bf\u09ac \u099a\u09cd\u09af\u09be\u09b0\u09bf\u099f\u09bf\u09b0 \u09ae\u09be\u09a7\u09cd\u09af\u09ae\u09c7 \u09a6\u09bf\u09a8'],
+  aday:['a day','\u09aa\u09cd\u09b0\u09a4\u09bf\u09a6\u09bf\u09a8'], smallDaily:['Small daily, big barakah','\u09aa\u09cd\u09b0\u09a4\u09bf\u09a6\u09bf\u09a8 \u0985\u09b2\u09cd\u09aa, \u09ac\u09dc \u09ac\u09b0\u0995\u09a4'],
+  fundNote:['Your daily \u09f310 flows into the diversified Ribh Fund. Profit is projected, never guaranteed.','\u0986\u09aa\u09a8\u09be\u09b0 \u09a6\u09c8\u09a8\u09bf\u0995 \u09f3\u09e7\u09e6 \u09b0\u09bf\u09ac \u09ab\u09be\u09a8\u09cd\u09a1\u09c7 \u09af\u09be\u09df\u0964 \u09ae\u09c1\u09a8\u09be\u09ab\u09be \u09aa\u09cd\u09b0\u0995\u09cd\u09b7\u09c7\u09aa\u09bf\u09a4, \u0997\u09cd\u09af\u09be\u09b0\u09be\u09a8\u09cd\u099f\u09bf\u0995\u09c3\u09a4 \u09a8\u09df\u0964'],
+  saved:['Saved so far','\u098f \u09aa\u09b0\u09cd\u09af\u09a8\u09cd\u09a4 \u09b8\u099e\u09cd\u099a\u09df'], streak:['Streak','\u09a7\u09be\u09b0\u09be'], projVal:['Projected value','\u09aa\u09cd\u09b0\u0995\u09cd\u09b7\u09c7\u09aa\u09bf\u09a4 \u09ae\u09c2\u09b2\u09cd\u09af'], liq:['Liquidity','\u09a4\u09be\u09b0\u09b2\u09cd\u09af'],
+  markSaved:["Mark today's \u09f310 saved",'\u0986\u099c\u0995\u09c7\u09b0 \u09f3\u09e7\u09e6 \u09b8\u099e\u09cd\u099a\u09df \u099a\u09bf\u09b9\u09cd\u09a8\u09bf\u09a4 \u0995\u09b0\u09c1\u09a8'],
+  forest:['Your forest','\u0986\u09aa\u09a8\u09be\u09b0 \u09ac\u09a8'], oneTree:['1 tree, every month','\u09aa\u09cd\u09b0\u09a4\u09bf \u09ae\u09be\u09b8\u09c7 \u09e7\u099f\u09bf \u0997\u09be\u099b'], trees:['Trees','\u0997\u09be\u099b'], survival:['Survival','\u099f\u09bf\u0995\u09c7 \u0986\u099b\u09c7'],
+  forestNote:['Each dot is a month of membership. Gold dots are trees planted this year, sadaqah jariyah in your name.','\u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u09ac\u09bf\u09a8\u09cd\u09a6\u09c1 \u09b8\u09a6\u09b8\u09cd\u09af\u09aa\u09a6\u09c7\u09b0 \u098f\u0995 \u09ae\u09be\u09b8\u0964 \u09b8\u09cb\u09a8\u09be\u09b2\u09bf \u09ac\u09bf\u09a8\u09cd\u09a6\u09c1 \u098f \u09ac\u099b\u09b0\u09c7\u09b0 \u09b0\u09cb\u09aa\u09a3 \u0995\u09b0\u09be \u0997\u09be\u099b\u0964'],
+  compare:['Halal comparison','\u09b9\u09be\u09b2\u09be\u09b2 \u09a4\u09c1\u09b2\u09a8\u09be'], compareT:['Compare before you commit','\u09ac\u09bf\u09a8\u09bf\u09df\u09cb\u0997\u09c7\u09b0 \u0986\u0997\u09c7 \u09a4\u09c1\u09b2\u09a8\u09be \u0995\u09b0\u09c1\u09a8'], compareS:['Contract type, asset-backing and risk, not just headline return.','\u099a\u09c1\u0995\u09cd\u09a4\u09bf\u09b0 \u09a7\u09b0\u09a8, \u09b8\u09ae\u09cd\u09aa\u09a6 \u0993 \u099d\u09c1\u0981\u0995\u09bf \u09a6\u09c7\u0996\u09c1\u09a8\u0964'],
+  faithGiving:['Faith and giving','\u0988\u09ae\u09be\u09a8 \u0993 \u09a6\u09be\u09a8'],
+  bscore:['Barakah score','\u09ac\u09b0\u0995\u09a4 \u09b8\u09cd\u0995\u09cb\u09b0'], consistency:['consistency','\u09a8\u09bf\u09df\u09ae\u09bf\u09a4\u09a4\u09be'],
+  scoreNote:['Measures your habit consistency and good done: streaks, sadaqah, trees. It never measures worship itself.','\u0985\u09ad\u09cd\u09af\u09be\u09b8\u09c7\u09b0 \u09a8\u09bf\u09df\u09ae\u09bf\u09a4\u09a4\u09be \u0993 \u09ad\u09be\u09b2\u09cb \u0995\u09be\u099c \u09ae\u09be\u09aa\u09c7; \u0987\u09ac\u09be\u09a6\u09a4 \u09ae\u09be\u09aa\u09c7 \u09a8\u09be\u0964'],
+  morningAdhkar:['Morning adhkar · after Fajr','\u09b8\u0995\u09be\u09b2\u09c7\u09b0 \u0986\u09af\u09bc\u0995\u09be\u09b0 · \u09ab\u099c\u09b0\u09c7\u09b0 \u09aa\u09b0'],
+  of100:['of 100 · tap','\u09e7\u09e6\u09e6 \u098f\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 · \u099f\u09cd\u09af\u09be\u09aa'],
+  dailySadaqah:['Daily sadaqah','\u09a6\u09c8\u09a8\u09bf\u0995 \u09b8\u09be\u09a6\u0995\u09be'], giveFirst:['Give before the day gives to you','\u09a6\u09bf\u09a8 \u09b6\u09c1\u09b0\u09c1 \u0995\u09b0\u09c1\u09a8 \u09a6\u09be\u09a8 \u09a6\u09bf\u09df\u09c7'],
+  other:['Other','\u0985\u09a8\u09cd\u09af\u09be\u09a8\u09cd\u09af'], givenYear:['Given this year','\u098f \u09ac\u099b\u09b0 \u09a6\u09be\u09a8'], meals:['Meals funded','\u0996\u09be\u09ac\u09be\u09b0 \u09a6\u09c7\u0993\u09df\u09be \u09b9\u09df\u09c7\u099b\u09c7'],
+  monthHabits:["This month's habits",'\u098f \u09ae\u09be\u09b8\u09c7\u09b0 \u0986\u09ae\u09b2'], julyCon:['July consistency','\u099c\u09c1\u09b2\u09be\u0987\u09df\u09c7\u09b0 \u09a8\u09bf\u09df\u09ae\u09bf\u09a4\u09a4\u09be'],
+  gridNote:['A dot fills green when you complete all five daily activities. Today updates live from your checklist.','\u09aa\u09be\u0981\u099a\u099f\u09bf \u0986\u09ae\u09b2 \u09b8\u09ae\u09cd\u09aa\u09a8\u09cd\u09a8 \u09b9\u09b2\u09c7 \u09ac\u09bf\u09a8\u09cd\u09a6\u09c1 \u09b8\u09ac\u09c1\u099c \u09b9\u09df\u0964'],
+  welfareT:['Community mutual-aid fund','\u09b8\u09be\u09ae\u09be\u099c\u09bf\u0995 \u09b8\u09b9\u09be\u09df\u09a4\u09be \u09a4\u09b9\u09ac\u09bf\u09b2'], welfareS:['Contribute to Qard Hasan relief; published accounts, clear eligibility.','\u0995\u09b0\u09cd\u099c\u09c7 \u09b9\u09be\u09b8\u09be\u09a8\u09be\u09df \u0985\u09ac\u09a6\u09be\u09a8 \u09b0\u09be\u0996\u09c1\u09a8\u0964'],
+  account:['Account','\u0985\u09cd\u09af\u09be\u0995\u09be\u0989\u09a8\u09cd\u099f'],
+  langLabel:['Language','\u09ad\u09be\u09b7\u09be'], darkLabel:['Dark appearance','\u09a1\u09be\u09b0\u09cd\u0995 \u09ae\u09cb\u09a1'], darkSub:['Easier on the eyes at night','\u09b0\u09be\u09a4\u09c7 \u099a\u09cb\u0996\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u0986\u09b0\u09be\u09ae\u09a6\u09be\u09df\u0995'],
+  quietLabel:['Salah quiet hours','\u09a8\u09be\u09ae\u09be\u099c\u09c7\u09b0 \u09b8\u09ae\u09df \u09a8\u09c0\u09b0\u09ac'], quietSub:['Pause notifications around prayer times','\u09a8\u09be\u09ae\u09be\u099c\u09c7\u09b0 \u09b8\u09ae\u09df \u09a8\u09cb\u099f\u09bf\u09ab\u09bf\u0995\u09c7\u09b6\u09a8 \u09ac\u09a8\u09cd\u09a7'],
+  shariahK:['Shariah oversight','\u09b6\u09b0\u09bf\u09df\u09be\u09b9 \u09a4\u09a4\u09cd\u09a4\u09cd\u09ac\u09be\u09ac\u09a7\u09be\u09a8'], whoReviews:["Who reviews Ribh's contracts",'\u09b0\u09bf\u09ac\u09c7\u09b0 \u099a\u09c1\u0995\u09cd\u09a4\u09bf \u0995\u09c7 \u09aa\u09b0\u09cd\u09af\u09be\u09b2\u09cb\u099a\u09a8\u09be \u0995\u09b0\u09c7\u09a8'],
+  readNotes:['Read Shariah notes per contract','\u099a\u09c1\u0995\u09cd\u09a4\u09bf \u0985\u09a8\u09c1\u09af\u09be\u09df\u09c0 \u09b6\u09b0\u09bf\u09df\u09be\u09b9 \u09a8\u09cb\u099f \u09aa\u09dc\u09c1\u09a8'],
+  bizMode:['Business mode','\u09ac\u09cd\u09af\u09ac\u09b8\u09be \u09ae\u09cb\u09a1'], kycRow:['Identity and KYC','\u09aa\u09b0\u09bf\u099a\u09df \u0993 KYC'], payoutRow:['Payout plan','\u09aa\u09c7\u0986\u0989\u099f \u09aa\u09b0\u09bf\u0995\u09b2\u09cd\u09aa\u09a8\u09be'],
+  secRow:['Security','\u09a8\u09bf\u09b0\u09be\u09aa\u09a4\u09cd\u09a4\u09be'], secSub:['Biometric on · 2FA on','\u09ac\u09be\u09df\u09cb\u09ae\u09c7\u099f\u09cd\u09b0\u09bf\u0995 \u099a\u09be\u09b2\u09c1 · 2FA \u099a\u09be\u09b2\u09c1'],
+  stmtRow:['Statements and receipts','\u09b8\u09cd\u099f\u09c7\u099f\u09ae\u09c7\u09a8\u09cd\u099f \u0993 \u09b0\u09b8\u09bf\u09a6'], stmtSub:['Zakat-ready annual summary','\u09af\u09be\u0995\u09be\u09a4-\u09aa\u09cd\u09b0\u09b8\u09cd\u09a4\u09c1\u09a4 \u09ac\u09be\u09b0\u09cd\u09b7\u09bf\u0995 \u09b8\u09be\u09b0\u09b8\u0982\u0995\u09cd\u09b7\u09c7\u09aa'],
+  inviteRow:['Invite a friend','\u09ac\u09a8\u09cd\u09a7\u09c1\u0995\u09c7 \u0986\u09ae\u09a8\u09cd\u09a4\u09cd\u09b0\u09a3 \u0995\u09b0\u09c1\u09a8'], inviteSub:['You both plant a tree','\u09a6\u09c1\u099c\u09a8\u09c7\u0987 \u0997\u09be\u099b \u09b0\u09cb\u09aa\u09a3 \u0995\u09b0\u09ac\u09c7\u09a8'],
+  helpRow:['Help and disputes','\u09b8\u09b9\u09be\u09df\u09a4\u09be \u0993 \u09ac\u09bf\u09b0\u09cb\u09a7'], helpSub:['Negotiation to arbitration path','\u0986\u09b2\u09cb\u099a\u09a8\u09be \u09a5\u09c7\u0995\u09c7 \u09b8\u09be\u09b2\u09bf\u09b8\u09bf'],
+  invMode:['Investor mode','\u09ac\u09bf\u09a8\u09bf\u09df\u09cb\u0997\u0995\u09be\u09b0\u09c0 \u09ae\u09cb\u09a1'], bizDash:['Business dashboard','\u09ac\u09cd\u09af\u09ac\u09b8\u09be \u09a1\u09cd\u09af\u09be\u09b6\u09ac\u09cb\u09b0\u09cd\u09a1'],
+  projm:['Projected (matured)','\u09aa\u09cd\u09b0\u0995\u09cd\u09b7\u09c7\u09aa\u09bf\u09a4 (\u09aa\u09b0\u09bf\u09aa\u0995\u09cd\u0995)'], actual:['Actual received','\u09aa\u09cd\u09b0\u0995\u09c3\u09a4 \u09aa\u09cd\u09b0\u09be\u09aa\u09cd\u09a4\u09bf'], acc:['Accuracy','\u09a8\u09bf\u09b0\u09cd\u09ad\u09c1\u09b2\u09a4\u09be'],
+  owed:['Owed total','\u09ae\u09cb\u099f \u09aa\u09cd\u09b0\u09a6\u09c7\u09df'], repaid:['Repaid','\u09aa\u09b0\u09bf\u09b6\u09cb\u09a7\u09bf\u09a4'], outst:['Outstanding','\u09ac\u0995\u09c7\u09df\u09be'],
+  overdue:['Repayment overdue.','\u09aa\u09b0\u09bf\u09b6\u09cb\u09a7 \u09ac\u0995\u09c7\u09df\u09be\u0964'],
+  overdueBody:['The recovery process is active. Settle the outstanding amount or contact operations to update your contingency schedule. Late settlement never increases the amount owed; any late charge goes to charity.','\u09aa\u09c1\u09a8\u09b0\u09c1\u09a6\u09cd\u09a7\u09be\u09b0 \u09aa\u09cd\u09b0\u0995\u09cd\u09b0\u09bf\u09df\u09be \u099a\u09b2\u099b\u09c7\u0964 \u09ac\u0995\u09c7\u09df\u09be \u09aa\u09b0\u09bf\u09b6\u09cb\u09a7 \u0995\u09b0\u09c1\u09a8 \u0985\u09a5\u09ac\u09be \u0985\u09aa\u09be\u09b0\u09c7\u09b6\u09a8\u09b8\u09c7 \u09af\u09cb\u0997\u09be\u09af\u09cb\u0997 \u0995\u09b0\u09c1\u09a8\u0964 \u09ac\u09bf\u09b2\u09ae\u09cd\u09ac\u09c7 \u09aa\u09cd\u09b0\u09a6\u09c7\u09df \u0985\u09b0\u09cd\u09a5 \u0995\u0996\u09a8\u0993 \u09ac\u09be\u09dc\u09c7 \u09a8\u09be\u0964'],
+  repSched:['Repayment schedule','\u09aa\u09b0\u09bf\u09b6\u09cb\u09a7 \u09b8\u09c2\u099a\u09bf'], fixedPrice:['Total sale price, fixed','\u09ae\u09cb\u099f \u09ac\u09bf\u0995\u09cd\u09b0\u09df\u09ae\u09c2\u09b2\u09cd\u09af, \u09a8\u09bf\u09b0\u09cd\u09a7\u09be\u09b0\u09bf\u09a4'],
+  finalSet:['Final settlement','\u099a\u09c2\u09dc\u09be\u09a8\u09cd\u09a4 \u09a8\u09bf\u09b7\u09cd\u09aa\u09a4\u09cd\u09a4\u09bf'], overdueW:['overdue','\u09ac\u0995\u09c7\u09df\u09be'], settle:['Settle outstanding','\u09ac\u0995\u09c7\u09df\u09be \u09aa\u09b0\u09bf\u09b6\u09cb\u09a7 \u0995\u09b0\u09c1\u09a8'],
+  vault:['Document vault','\u09a8\u09a5\u09bf \u09ad\u09be\u09a3\u09cd\u09a1\u09be\u09b0'], secInstr:['Security instruments','\u09a8\u09bf\u09b0\u09be\u09aa\u09a4\u09cd\u09a4\u09be \u09a6\u09b2\u09bf\u09b2'],
+  deed:["Deed of Agreement ('aqd)",'\u099a\u09c1\u0995\u09cd\u09a4\u09bf\u09aa\u09a4\u09cd\u09b0 (\u0986\u0995\u09a6)'], guarantors:['guarantors','\u099c\u09be\u09ae\u09bf\u09a8\u09a6\u09be\u09b0'],
+  cheques:['Security cheques (4)','\u09a8\u09bf\u09b0\u09be\u09aa\u09a4\u09cd\u09a4\u09be \u099a\u09c7\u0995 (\u09ea)'], contPlan:['Contingency plan','\u099c\u09b0\u09c1\u09b0\u09bf \u09aa\u09b0\u09bf\u0995\u09b2\u09cd\u09aa\u09a8\u09be'],
+  executed:['Executed','\u09b8\u09ae\u09cd\u09aa\u09be\u09a6\u09bf\u09a4'], held:['Held','\u09b8\u0982\u09b0\u0995\u09cd\u09b7\u09bf\u09a4'], activated:['Activated','\u09b8\u0995\u09cd\u09b0\u09bf\u09df'],
+  compliance:['Compliance','\u0995\u09ae\u09aa\u09cd\u09b2\u09be\u09df\u09c7\u09a8\u09cd\u09b8'], statusCheck:['Status checklist','\u0985\u09ac\u09b8\u09cd\u09a5\u09be \u09a4\u09be\u09b2\u09bf\u0995\u09be'],
+  msgOps:['Message operations','\u0985\u09aa\u09be\u09b0\u09c7\u09b6\u09a8\u09b8\u0995\u09c7 \u09ac\u09be\u09b0\u09cd\u09a4\u09be \u09a6\u09bf\u09a8'],
+  saved:['Saved','\u09b8\u0982\u09b0\u0995\u09cd\u09b7\u09bf\u09a4'], searchPh:['Search campaigns, sectors','\u0995\u09cd\u09af\u09be\u09ae\u09cd\u09aa\u09c7\u0987\u09a8, \u0996\u09be\u09a4 \u0996\u09c1\u0981\u099c\u09c1\u09a8'], filters:['Filters','\u09ab\u09bf\u09b2\u09cd\u099f\u09be\u09b0'],
+  profit6:['Profit received · last 6 months','\u09aa\u09cd\u09b0\u09be\u09aa\u09cd\u09a4 \u09ae\u09c1\u09a8\u09be\u09ab\u09be · \u0997\u09a4 \u09ec \u09ae\u09be\u09b8'],
+  yourGoals:['Your goals','\u0986\u09aa\u09a8\u09be\u09b0 \u09b2\u0995\u09cd\u09b7\u09cd\u09af'], qaZakat:['Zakat','\u09af\u09be\u0995\u09be\u09a4'], qaGive:['Sadaqah','\u09b8\u09be\u09a6\u0995\u09be'], qaStmt:['Statements','\u09b8\u09cd\u099f\u09c7\u099f\u09ae\u09c7\u09a8\u09cd\u099f'], qaInvite:['Invite','\u0986\u09ae\u09a8\u09cd\u09a4\u09cd\u09b0\u09a3'],
+  autoT:['Auto-invest strategy','\u0985\u099f\u09cb-\u0987\u09a8\u09ad\u09c7\u09b8\u09cd\u099f \u09b0\u09a3\u09a8\u09c0\u09a4\u09bf'], autoOff:['Off · pick a strategy, confirm each deployment','\u09ac\u09a8\u09cd\u09a7 · \u09b0\u09a3\u09a8\u09c0\u09a4\u09bf \u09ac\u09be\u099b\u09c1\u09a8, \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u09ac\u09bf\u09a8\u09bf\u09df\u09cb\u0997 \u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4 \u0995\u09b0\u09c1\u09a8'],
+  compareCamps:['Compare campaigns side by side','\u0995\u09cd\u09af\u09be\u09ae\u09cd\u09aa\u09c7\u0987\u09a8 \u09aa\u09be\u09b6\u09be\u09aa\u09be\u09b6\u09bf \u09a4\u09c1\u09b2\u09a8\u09be \u0995\u09b0\u09c1\u09a8'],
+  goalPots:['Goal pots','\u09b2\u0995\u09cd\u09b7\u09cd\u09af \u09aa\u099f'], newGoal:['New goal','\u09a8\u09a4\u09c1\u09a8 \u09b2\u0995\u09cd\u09b7\u09cd\u09af'], saveWithNiyyah:['Save with a niyyah','\u09a8\u09bf\u09df\u09cd\u09af\u09a4 \u0995\u09b0\u09c7 \u09b8\u099e\u09cd\u099a\u09df \u0995\u09b0\u09c1\u09a8'],
+  goalNote:['Goals are targets you save toward. Money placed in campaigns or the fund remains at risk; targets are not guaranteed.','\u09b2\u0995\u09cd\u09b7\u09cd\u09af \u09b9\u09b2\u09cb \u09b8\u099e\u09cd\u099a\u09df\u09c7\u09b0 \u09b2\u0995\u09cd\u09b7\u09cd\u09af\u09ae\u09be\u09a4\u09cd\u09b0\u09be\u0964 \u09ac\u09bf\u09a8\u09bf\u09df\u09cb\u0997\u0995\u09c3\u09a4 \u0985\u09b0\u09cd\u09a5 \u099d\u09c1\u0981\u0995\u09bf\u09aa\u09c2\u09b0\u09cd\u09a3; \u09b2\u0995\u09cd\u09b7\u09cd\u09af \u0997\u09cd\u09af\u09be\u09b0\u09be\u09a8\u09cd\u099f\u09bf\u0995\u09c3\u09a4 \u09a8\u09df\u0964'],
+  nisabK:['Nisab tracker','\u09a8\u09bf\u09b8\u09be\u09ac \u099f\u09cd\u09b0\u09cd\u09af\u09be\u0995\u09be\u09b0'], areYouLiable:['Are you above nisab?','\u0986\u09aa\u09a8\u09bf \u0995\u09bf \u09a8\u09bf\u09b8\u09be\u09ac\u09c7\u09b0 \u0989\u09aa\u09b0\u09c7?'],
+  goldNisab:['Gold nisab (85g)','\u09b8\u09cd\u09ac\u09b0\u09cd\u09a3 \u09a8\u09bf\u09b8\u09be\u09ac (\u09ee\u09eb\u0997\u09cd\u09b0\u09be\u09ae)'], silverNisab:['Silver nisab (595g)','\u09b0\u09c1\u09aa\u09be \u09a8\u09bf\u09b8\u09be\u09ac (\u09eb\u09ef\u09eb\u0997\u09cd\u09b0\u09be\u09ae)'], yourZakatable:['Your zakatable wealth','\u0986\u09aa\u09a8\u09be\u09b0 \u09af\u09be\u0995\u09be\u09a4\u09af\u09cb\u0997\u09cd\u09af \u09b8\u09ae\u09cd\u09aa\u09a6'],
+  aboveSilver:['Above the silver nisab. Zakat is due on your wealth once a lunar year passes on it (hawl).','\u09b0\u09c1\u09aa\u09be \u09a8\u09bf\u09b8\u09be\u09ac\u09c7\u09b0 \u0989\u09aa\u09b0\u09c7\u0964 \u098f\u0995 \u099a\u09be\u09a8\u09cd\u09a6\u09cd\u09b0 \u09ac\u099b\u09b0 (\u09b9\u09be\u0989\u09b2) \u09aa\u09c2\u09b0\u09cd\u09a3 \u09b9\u09b2\u09c7 \u09af\u09be\u0995\u09be\u09a4 \u09ab\u09b0\u099c\u0964'],
+  priceNote:['Prices illustrative, as of today. Live feed in the native app.','\u09a6\u09be\u09ae \u0986\u099c\u0995\u09c7\u09b0, \u09a6\u09c3\u09b7\u09cd\u099f\u09be\u09a8\u09cd\u09a4\u09ae\u09c2\u09b2\u0995\u0964 \u09a8\u09c7\u099f\u09bf\u09ad \u0985\u09cd\u09af\u09be\u09aa\u09c7 \u09b2\u09be\u0987\u09ad\u0964'],
+  roundupT:['Round-up saving','\u09b0\u09be\u0989\u09a8\u09cd\u09a1-\u0986\u09aa \u09b8\u099e\u09cd\u099a\u09df'], roundupSub:['Round each payment up, sweep the change','\u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u09aa\u09c7\u09ae\u09c7\u09a8\u09cd\u099f \u09b0\u09be\u0989\u09a8\u09cd\u09a1 \u0995\u09b0\u09c7 \u099c\u09ae\u09be \u0995\u09b0\u09c1\u09a8'],
+  roundupAccumL:['rounded up, ready to sweep','\u099c\u09ae\u09be \u09b9\u09df\u09c7\u099b\u09c7, \u09b8\u09cd\u09ac\u09c0\u09aa\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09aa\u09cd\u09b0\u09b8\u09cd\u09a4\u09c1\u09a4'], sweepBtn:['Sweep into Ribh Fund','\u09b0\u09bf\u09ac \u09ab\u09be\u09a8\u09cd\u09a1\u09c7 \u09b8\u09cd\u09ac\u09c0\u09aa \u0995\u09b0\u09c1\u09a8'],
+  roundupNote:['Round-ups move only your own verified funds. Nothing is added from outside your wallet.','\u09b0\u09be\u0989\u09a8\u09cd\u09a1-\u0986\u09aa \u0995\u09c7\u09ac\u09b2 \u0986\u09aa\u09a8\u09be\u09b0 \u09a8\u09bf\u099c\u09b8\u09cd\u09ac \u09af\u09be\u099a\u09be\u0987\u0995\u09c3\u09a4 \u0985\u09b0\u09cd\u09a5 \u09b8\u09cd\u09a5\u09be\u09a8\u09be\u09a8\u09cd\u09a4\u09b0 \u0995\u09b0\u09c7\u0964'],
+  challengeK:['Seasonal challenge','\u09ae\u09cc\u09b8\u09c1\u09ae\u09bf \u099a\u09cd\u09af\u09be\u09b2\u09c7\u099e\u09cd\u099c'], challengeT:['30-day barakah challenge','\u09e9\u09e6 \u09a6\u09bf\u09a8\u09c7\u09b0 \u09ac\u09b0\u0995\u09a4 \u099a\u09cd\u09af\u09be\u09b2\u09c7\u099e\u09cd\u099c'],
+  challengeName:['Save and give, every day','\u09aa\u09cd\u09b0\u09a4\u09bf\u09a6\u09bf\u09a8 \u09b8\u099e\u09cd\u099a\u09df \u0993 \u09a6\u09be\u09a8'], challengeDesc:['Complete all five daily activities to advance. Consistency, not competition.','\u09aa\u09be\u0981\u099a\u099f\u09bf \u0986\u09ae\u09b2 \u09b8\u09ae\u09cd\u09aa\u09a8\u09cd\u09a8 \u0995\u09b0\u09c1\u09a8\u0964 \u09aa\u09cd\u09b0\u09a4\u09bf\u09af\u09cb\u0997\u09bf\u09a4\u09be \u09a8\u09df, \u09a8\u09bf\u09df\u09ae\u09bf\u09a4\u09a4\u09be\u0964'], joinChallenge:['Join the challenge','\u099a\u09cd\u09af\u09be\u09b2\u09c7\u099e\u09cd\u099c\u09c7 \u09af\u09cb\u0997 \u09a6\u09bf\u09a8'],
+  byWelfare:['By Ribh Welfare','\u09b0\u09bf\u09ac \u0993\u09df\u09c7\u09b2\u09ab\u09c7\u09df\u09be\u09b0 \u0995\u09b0\u09cd\u09a4\u09c3\u0995'], learnK:['Halal money lessons','\u09b9\u09be\u09b2\u09be\u09b2 \u0985\u09b0\u09cd\u09a5 \u09aa\u09be\u09a0'], learnT:['Five minutes to wiser wealth','\u09aa\u09be\u0981\u099a \u09ae\u09bf\u09a8\u09bf\u099f\u09c7 \u099c\u09cd\u099e\u09be\u09a8\u09c0 \u09b8\u09ae\u09cd\u09aa\u09a6'],
+  goalsRow:['Goal settings','\u09b2\u0995\u09cd\u09b7\u09cd\u09af \u09b8\u09c7\u099f\u09bf\u0982\u09b8'],
+  aboutRow:['About Ribh Investments','\u09b0\u09bf\u09ac \u0987\u09a8\u09ad\u09c7\u09b8\u09cd\u099f\u09ae\u09c7\u09a8\u09cd\u099f\u09b8 \u09b8\u09ae\u09cd\u09aa\u09b0\u09cd\u0995\u09c7'],
+  aboutSub:['Who we are, in brief','\u0986\u09ae\u09b0\u09be \u0995\u09be\u09b0\u09be, \u09b8\u0982\u0995\u09cd\u09b7\u09c7\u09aa\u09c7'],
+  dbRow:['Local database','\u09b2\u09cb\u0995\u09be\u09b2 \u09a1\u09c7\u099f\u09be\u09ac\u09c7\u09b8'],
+ dbSub:['Prototype data on this device','\u098f\u0987 \u09a1\u09bf\u09ad\u09be\u0987\u09b8\u09c7 \u09aa\u09cd\u09b0\u09cb\u099f\u09cb\u099f\u09be\u0987\u09aa \u09a1\u09c7\u099f\u09be'],
+  meetBoard:['Meet the board','\u09ac\u09cb\u09b0\u09cd\u09a1 \u09a6\u09c7\u0996\u09c1\u09a8'], plusTwo:['Plus Mufti Mahmudur Rahman and Dr. Sadia Haque','\u098f\u09ac\u0982 \u0986\u09b0\u09cb \u09e8 \u099c\u09a8 \u0986\u09b2\u09c7\u09ae'],
+  tierRow:['Risk tier','\u099d\u09c1\u0981\u0995\u09bf \u09b8\u09cd\u09a4\u09b0'], tierUnset:['Not set · take the 3-question quiz','\u09a8\u09bf\u09b0\u09cd\u09a7\u09be\u09b0\u09bf\u09a4 \u09a8\u09df · \u09e9\u099f\u09bf \u09aa\u09cd\u09b0\u09b6\u09cd\u09a8\u09c7\u09b0 \u0995\u09c1\u0987\u099c \u09a6\u09bf\u09a8'],
+  autosaveRow:['Weekly auto-save','\u09b8\u09be\u09aa\u09cd\u09a4\u09be\u09b9\u09bf\u0995 \u0985\u099f\u09cb-\u09b8\u09c7\u09ad'], autosaveOff:['Off · build the habit from Tk250','\u09ac\u09a8\u09cd\u09a7 · \u09f3\u09e8\u09eb\u09e6 \u09a5\u09c7\u0995\u09c7 \u0985\u09ad\u09cd\u09af\u09be\u09b8 \u0997\u09dc\u09c1\u09a8'],
+  setupAutosave:['Set up weekly auto-save','\u09b8\u09be\u09aa\u09cd\u09a4\u09be\u09b9\u09bf\u0995 \u0985\u099f\u09cb-\u09b8\u09c7\u09ad \u09b8\u09c7\u099f \u0995\u09b0\u09c1\u09a8'],
+  nomineeRow:['Nominee','\u09a8\u09ae\u09bf\u09a8\u09bf'], nomineeUnset:['Not set · name a beneficiary','\u09a8\u09bf\u09b0\u09cd\u09a7\u09be\u09b0\u09bf\u09a4 \u09a8\u09df · \u098f\u0995\u099c\u09a8 \u0989\u09a4\u09cd\u09a4\u09b0\u09be\u09a7\u09bf\u0995\u09be\u09b0\u09c0 \u09a6\u09bf\u09a8'],
+  purifyRow:['Interest purification','\u09b8\u09c1\u09a6 \u09aa\u09ac\u09bf\u09a4\u09cd\u09b0\u0995\u09b0\u09a3'], purifySub:['Cleanse incidental interest','\u0986\u0995\u09b8\u09cd\u09ae\u09bf\u0995 \u09b8\u09c1\u09a6 \u09aa\u09b0\u09bf\u09b6\u09cb\u09a7\u09a8'],
+  tourRow:['How Ribh works','\u09b0\u09bf\u09ac \u0995\u09bf\u09ad\u09be\u09ac\u09c7 \u0995\u09be\u099c \u0995\u09b0\u09c7'], tourSub:['A quick tour','\u09a6\u09cd\u09b0\u09c1\u09a4 \u099f\u09c1\u09b0'],
+  remLabel:['Payment reminders','\u09aa\u09c7\u09ae\u09c7\u09a8\u09cd\u099f \u09b0\u09bf\u09ae\u09be\u0987\u09a8\u09cd\u09a1\u09be\u09b0'], remSub:['Due dates and campaigns closing soon','\u09a1\u09bf\u0989 \u09a1\u09c7\u099f \u0993 \u09b6\u09c7\u09b7 \u09b9\u0993\u09df\u09be \u0995\u09cd\u09af\u09be\u09ae\u09cd\u09aa\u09c7\u0987\u09a8']
+};
+function applyLang(){
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const k=el.dataset.t;
+    if(T[k]) el.innerHTML=T[k][S.lang==='bn'?1:0];
+  });
+  document.querySelectorAll('[data-t-ph]').forEach(el=>{
+    const k=el.getAttribute('data-t-ph');
+    if(T[k]) el.setAttribute('placeholder',T[k][S.lang==='bn'?1:0]);
+  });
+}
+
+/* ============ state ============ */
+const S = {
+  kyc:false, kycStep:0, kycSrc:null,
+  avail:86450, deployed:400000,
+  given:2340, meals:47, saved:1830, streak:61, savedToday:false, tas:0,
+  payout:'Per campaign', pendingPayout:2450,
+  lang:'en', theme:'light', quiet:true, bio:true, tfa:true,
+  watch:[], filterContract:'any', filterSector:'any', search:'',
+  autoStrategy:null, roundup:false, roundupAccum:74, challenge:false, chalDay:0,
+  autoQueue:[], autoTab:'strategy',
+  riskTier:null, depositProvider:'bkash',
+  autosave:{on:false, amount:250, freq:'weekly'},
+  nominee:null,
+  referrals:{count:3, trees:2, code:'MUZAHID26'},
+  purified:0,
+  reminders:true,
+  tourDone:false,
+  lessons:{l1:false,l2:false,l3:false},
+  goals:[
+    {id:'hajj', t:'Hajj 2028', ic:'pin', saved:180000, target:650000},
+    {id:'emergency', t:'Emergency amanah', ic:'shield', saved:95000, target:150000},
+    {id:'qurbani', t:'Qurbani', ic:'gift', saved:12000, target:35000},
+  ],
+  habits:[
+    {id:'fajr', t:'Pray Fajr on time', s:'First light, first win', ic:'sunrise', done:true},
+    {id:'azkar', t:'Morning adhkar', s:'Tap through in Barakah', ic:'moon', done:false},
+    {id:'save', t:'Save today\u2019s \u09F310', s:'Ribh Fund habit', ic:'wallet', done:false},
+    {id:'sadaqah', t:'Give any sadaqah', s:'Even \u09F310 counts', ic:'heart', done:false},
+    {id:'quran', t:'Read one page of Quran', s:'Consistency over volume', ic:'book', done:true},
+  ],
+  ledger:[
+    {sign:'+',t:'Profit · Printing Mach. Trading', s:'1 Jul · Murabaha matured', amt:'+\u09F33,937'},
+    {sign:'+',t:'Refund (principal) · PM Trading', s:'1 Jul · capital returned', amt:'+\u09F31,00,000'},
+    {sign:'-',t:'Investment · Printing Zone', s:'3 Jul · Wakalah deployment', amt:'\u2212\u09F31,00,000'},
+    {sign:'+',t:'Deposit · bKash verified', s:'28 Jun · name-matched source', amt:'+\u09F350,000'},
+    {sign:'!',t:'Write-down provision · Cement Supply', s:'24 Jun · recovery in progress, not final', amt:'\u09F30 held'},
+  ]
+};
+const CAMPS = [
+  { id:'zone', title:'Printing Zone · Industrial Binding Glue', sector:'Printing and Packaging', contract:'Wakalah',
+    pool:1000000, raised:946950, ppl:3500, share:70, tenure:15, status:'open', investors:38, daysLeft:2, risk:'Lower',
+    note:'Agency-based procurement. Return is projected and indicative under Wakalah, never fixed.' },
+  { id:'purchase', title:'Printing Machinery Purchase', sector:'Printing Equipment', contract:'Murabaha',
+    pool:500000, raised:337000, ppl:3500, share:70, tenure:30, status:'open', investors:21, daysLeft:11, risk:'Lower',
+    note:'Ribh, as your Wakil, buys the machinery, takes ownership, then sells to the merchant at a fixed disclosed markup.' },
+  { id:'trading', title:'Printing Machinery Trading', sector:'Printing Equipment', contract:'Murabaha',
+    pool:500000, raised:500000, ppl:5250, share:75, tenure:61, status:'matured', investors:44, daysLeft:0, risk:'Lower',
+    note:'Matured 1 Jul, fully disbursed. Actual profit matched projection.' },
+  { id:'musannif', title:'Musannif Corp. · Cement Supply', sector:'Building Materials', contract:'Murabaha',
+    pool:2500000, raised:1840000, ppl:9275, share:70, tenure:91, status:'recovery', investors:73, daysLeft:0, risk:'Higher',
+    note:'Merchant repayment delayed at maturity. Recovery process active, see the live tracker below.' },
+];
+const STRATEGIES=[
+  {id:'short', name:'Short-tenure Murabaha', desc:'Asset-backed trade only, tenures under 30 days. Steadier, lower indicative return.', mix:[['Murabaha',85,'#0FA67A'],['Liquidity',15,'#C8F5E2']], band:'Lower risk'},
+  {id:'balanced', name:'Balanced trade', desc:'A blend of Murabaha and Wakalah across sectors. Middle ground.', mix:[['Murabaha',55,'#0FA67A'],['Wakalah',35,'#C99A2E'],['Liquidity',10,'#C8F5E2']], band:'Moderate risk'},
+  {id:'diversified', name:'Ribh Fund diversified', desc:'The broad diversified pool across all live contracts. Widest spread.', mix:[['Murabaha',50,'#0FA67A'],['Wakalah',30,'#C99A2E'],['Musharakah',12,'#14C48A'],['Liquidity',8,'#C8F5E2']], band:'Moderate risk'},
+];
+const PRAYERS=[
+  {n:'Fajr', t:'4:50', m:290, ic:'sunrise'},
+  {n:'Dhuhr', t:'1:05', m:785, ic:'sun'},
+  {n:'Asr', t:'4:45', m:1005, ic:'sunlow'},
+  {n:'Maghrib', t:'6:52', m:1132, ic:'sunset'},
+  {n:'Isha', t:'8:15', m:1215, ic:'moon'},
+];
+const $=s=>document.querySelector(s);
+const fmt=n=>Math.round(n).toLocaleString('en-IN');
+const num=v=>parseInt(String(v).replace(/[^0-9]/g,'')||'0',10);
+const TK='\u09F3';
+let currentCamp=null, tmr;
+
+/* ============ toast, nav, sheets ============ */
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tmr);tmr=setTimeout(()=>t.classList.remove('show'),2100);}
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  const el=$('#scr-'+id); if(!el) return;
+  el.classList.add('on'); el.scrollTop=0;
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===id));
+  closeSheet();
+}
+function openSheet(html){$('#sheetBody').innerHTML=html;mountIcons($('#sheetBody'));$('#sheet').classList.add('on');$('#veil').classList.add('on');}
+function closeSheet(){$('#sheet').classList.remove('on');$('#veil').classList.remove('on');}
+$('#veil').addEventListener('click',closeSheet);
+
+const SHEETS={
+  notifs:()=>'<h4>Notifications</h4><p class="sub">'+(S.quiet?'Quiet hours active around salah times.':'Quiet hours are off. Enable them in Settings.')+'</p>'
+    +'<div class="notif"><div class="nic"><span data-ic="sprout" data-sz="16"></span></div><div><div class="t">Profit received, '+TK+'3,937</div><div class="s">Printing Machinery Trading matured. Open Wallet to reinvest or withdraw.</div></div></div>'
+    +'<div class="notif"><div class="nic"><span data-ic="trend" data-sz="16"></span></div><div><div class="t">Printing Zone closes in 2 days</div><div class="s">94.7% funded. You viewed this campaign yesterday.</div></div></div>'
+    +'<div class="notif"><div class="nic"><span data-ic="heart" data-sz="16"></span></div><div><div class="t">Jumu\u2019ah sadaqah reminder</div><div class="s">Give '+TK+'10 before Maghrib; the best charity is given from surplus.</div></div></div>'
+    +'<div style="height:12px"></div><button class="btn ghost" data-act="clearnotifs"><span data-ic="check" data-sz="16"></span>Mark all read</button>',
+  deposit:()=>{
+    const prov={bkash:['bKash','····211'],nagad:['Nagad','····874'],bank:['Bank transfer','····4192']};
+    let chips='';
+    Object.keys(prov).forEach(k=>{ chips+='<button class="'+(S.depositProvider===k?'on':'')+'" data-prov="'+k+'">'+prov[k][0]+'</button>'; });
+    const p=prov[S.depositProvider];
+    return '<h4>Add funds</h4><p class="sub">Funds must arrive from your <b>own verified '+p[0]+' account</b> in a name that matches your NID (AML rule). '+(S.kyc?'':'Complete KYC first; deposits are locked at Tier 1.')+'</p>'
+    +'<div class="optrow" id="provRow" style="margin-bottom:14px">'+chips+'</div>'
+    +'<div class="win"><span class="cur">'+TK+'</span><input class="amt" id="depAmt" inputmode="numeric" value="5,000" data-live="commas"></div>'
+    +'<div class="optrow" style="margin-bottom:14px"><button data-act="depquick" data-a="1000">'+TK+'1,000</button><button data-act="depquick" data-a="5000">'+TK+'5,000</button><button data-act="depquick" data-a="25000">'+TK+'25,000</button></div>'
+    +'<button class="btn pri" data-act="dodeposit" '+(S.kyc?'':'disabled')+'><span data-ic="arrdown" data-sz="16"></span>Confirm via '+p[0]+' '+p[1]+'</button>'
+    +(S.kyc?'':'<div style="height:9px"></div><button class="btn ghost" data-act="kycstart"><span data-ic="id" data-sz="16"></span>Verify identity now</button>')
+    +'<p class="foot-dis" style="text-align:left">You will approve the charge inside your '+p[0]+' app. Ribh never sees your '+p[0]+' PIN.</p>';
+  },
+  withdraw:()=>'<h4>Withdraw to bank</h4><p class="sub">Available: '+TK+fmt(S.avail)+' · sent to your verified account ····4192. Withdrawals reduce your fund total.</p>'
+    +'<div class="win"><span class="cur">'+TK+'</span><input class="amt" id="wdAmt" inputmode="numeric" value="10,000" data-live="commas"></div>'
+    +'<label class="ack"><input type="checkbox" id="wdAck"><span>I confirm this withdrawal goes to my own account and understand it may take 1 business day.</span></label>'
+    +'<button class="btn pri" data-act="dowithdraw"><span data-ic="arrup" data-sz="16"></span>Confirm withdrawal</button>',
+  invest:()=>{const c=currentCamp;return '<h4>Commit to '+c.title+'</h4>'
+    +'<p class="sub">'+c.contract+' · '+c.tenure+'-day tenure · your share '+c.share+'%</p>'
+    +'<div class="win"><span class="cur">'+TK+'</span><input class="amt" id="invAmt" inputmode="numeric" value="50,000" data-live="invcalc"></div>'
+    +'<p class="sub" style="margin-bottom:8px">Projected profit: <b id="invProj" style="color:var(--gold)">'+TK+'0</b>. A projection, not a promise.</p>'
+    +'<label class="ack"><input type="checkbox" class="invAck"><span><b>Capital at risk.</b> I understand returns are not guaranteed and, if recovery is exhausted after default, I bear loss proportionally (Rabb al-Mal).</span></label>'
+    +'<label class="ack"><input type="checkbox" class="invAck"><span>I have read the '+c.contract+' contract basis and the security instruments for this campaign.</span></label>'
+    +'<button class="btn pri" id="invGo" data-act="doinvest" disabled><span data-ic="check" data-sz="16"></span>Invest now</button>';},
+  kyc1:()=>'<h4>Verify identity · step 1 of 3</h4>'
+    +'<div class="kstep"><div class="s on"></div><div class="s"></div><div class="s"></div></div>'
+    +'<p class="sub">Enter your National ID exactly as printed. We verify against the national register.</p>'
+    +'<input class="plain" id="nidNo" inputmode="numeric" placeholder="NID number" value="1992 2694 8615">'
+    +'<input class="plain" id="nidDob" placeholder="Date of birth (DD-MM-YYYY)" value="14-02-1992">'
+    +'<button class="btn pri" data-act="kyc2"><span data-ic="chev" data-sz="16"></span>Continue</button>',
+  kyc2:()=>'<h4>Verify identity · step 2 of 3</h4>'
+    +'<div class="kstep"><div class="s on"></div><div class="s on"></div><div class="s"></div></div>'
+    +'<p class="sub">Liveness check: hold your face inside the frame. We match your selfie to the NID photo.</p>'
+    +'<div style="width:150px;height:150px;border-radius:50%;border:3px dashed var(--teal);margin:6px auto 16px;display:grid;place-items:center;color:var(--teal)">'+ic('camera',34)+'</div>'
+    +'<button class="btn pri" data-act="kyc3"><span data-ic="camera" data-sz="16"></span>Capture and match</button>',
+  kyc3:()=>'<h4>Verify identity · step 3 of 3</h4>'
+    +'<div class="kstep"><div class="s on"></div><div class="s on"></div><div class="s on"></div></div>'
+    +'<p class="sub">Source of funds (AML requirement). Pick the main origin of the money you will invest.</p>'
+    +'<div class="chips" id="srcChips">'
+    +'<button data-src="Salary">Salary</button><button data-src="Business income">Business income</button><button data-src="Savings">Savings</button><button data-src="Remittance">Remittance</button>'
+    +'</div>'
+    +'<button class="btn pri" id="kycFinish" data-act="kycdone" disabled><span data-ic="check" data-sz="16"></span>Finish verification</button>',
+  qibla:()=>'<h4>Qibla · from Dhaka</h4><p class="sub">Face 277 degrees, roughly west-northwest, toward the Kaaba in Makkah.</p>'
+    +'<div class="qibla"><div class="dial"><span class="nlab">N</span><div class="needle"></div><div class="hub"></div></div></div>'
+    +'<p class="sub" style="text-align:center;margin-top:4px">Compass is illustrative in this prototype; the native app uses the device magnetometer.</p>'
+    +'<h4 style="font-size:15px;margin-top:6px">Nearest mosques</h4>'
+    +'<div class="feed-row"><div class="thumb"><span data-ic="pin" data-sz="16"></span></div><div><div class="t">Dhanmondi Shahi Jame Masjid</div><div class="s">550 m · Jumu\u2019ah 1:15 PM</div></div></div>'
+    +'<div class="feed-row"><div class="thumb"><span data-ic="pin" data-sz="16"></span></div><div><div class="t">Baitul Aman Jame Masjid</div><div class="s">900 m · Jumu\u2019ah 1:30 PM</div></div></div>',
+  giveCustom:()=>'<h4>Sadaqah, your amount</h4><p class="sub">100% of your sadaqah reaches vetted causes; allocation published monthly.</p>'
+    +'<div class="win"><span class="cur">'+TK+'</span><input class="amt" id="gvAmt" inputmode="numeric" value="100" data-live="commas"></div>'
+    +'<button class="btn pri" data-act="dogive"><span data-ic="heart" data-sz="16"></span>Give now</button>',
+  welfare:()=>'<h4>Ribh Welfare</h4><p class="sub">The non-profit arm of Ribh Capital Group. It researches and builds halal financial literacy across the Muslim population, so people can tell real halal finance from what only looks halal.</p>'
+    +'<ul class="slist">'
+    +'<li><span class="ic"><span data-ic="graduation" data-sz="12"></span></span><span><b>Literacy programs</b> · free lessons, khutbah resources, and workshops on riba-free finance.</span></li>'
+    +'<li><span class="ic"><span data-ic="file" data-sz="12"></span></span><span><b>Research</b> · plain-language explainers on contracts, Zakat, and inheritance.</span></li>'
+    +'<li><span class="ic"><span data-ic="users" data-sz="12"></span></span><span><b>Community</b> · Qard Hasan hardship support, with published accounts.</span></li>'
+    +'</ul>'
+    +'<div class="impact" style="margin-top:12px"><div class="box"><div class="l">People taught</div><div class="v">4,100</div></div><div class="box"><div class="l">Free lessons</div><div class="v">36</div></div></div>'
+    +'<div style="height:12px"></div>'
+    +'<button class="btn pri" data-act="goto" data-to="grow"><span data-ic="graduation" data-sz="16"></span>Start a free lesson</button>',
+  shariah:()=>'<h4>Shariah notes, per contract</h4><p class="sub">Reviewed by Abdullah Jubair. Plain-language pronouncements:</p>'
+    +'<ul class="slist">'
+    +'<li><span class="ic"><span data-ic="box" data-sz="12"></span></span><span><b>Murabaha (SS No. 8)</b> · Ribh buys and owns the goods before selling at a fixed, disclosed markup. The price never increases with time; late charges go to charity.</span></li>'
+    +'<li><span class="ic"><span data-ic="briefcase" data-sz="12"></span></span><span><b>Wakalah</b> · Ribh acts as your agent for a disclosed fee (ujrah). Returns are indicative; you remain the capital owner.</span></li>'
+    +'<li><span class="ic"><span data-ic="users" data-sz="12"></span></span><span><b>Musharakah and Mudarabah</b> · profit shared by agreed ratio; financial loss borne by capital providers, effort loss by the manager. Any capital guarantee would nullify the contract.</span></li>'
+    +'</ul>'
+    +'<p class="sub" style="margin-top:12px">"...Allah has permitted trade and forbidden riba." Al-Baqarah 2:275</p>',
+  goalsettings:()=>{
+    let rows='';
+    S.goals.forEach(g=>{
+      const pct=Math.min(100,Math.round(g.saved/g.target*100));
+      rows+='<div class="goal" style="cursor:default"><div class="gic">'+ic(g.ic,17)+'</div>'
+        +'<div class="gmid"><div class="gt">'+g.t+'</div><div class="gs">'+TK+fmt(g.saved)+' of '+TK+fmt(g.target)+' · '+pct+'%</div>'
+        +'<div class="gbar"><i style="width:'+pct+'%"></i></div></div>'
+        +'<button class="gdel" data-act="delgoal" data-g="'+g.id+'" aria-label="Delete goal">'+ic('trash',15)+'</button></div>';
+    });
+    return '<h4>Goal settings</h4><p class="sub">Manage your goal pots. Deleting a goal returns any saved amount to your available balance, on the ledger as always.</p>'
+    +(rows||'<div class="empty">No goals yet. Create your first below.</div>')
+    +'<div style="height:12px"></div>'
+    +'<button class="btn pri" data-act="sheet" data-sheet="newgoal"><span data-ic="target" data-sz="16"></span>New goal</button>';
+  },
+  about:()=>'<h4>About Ribh Investments</h4><p class="sub">Halal wealth, built on real trade.</p>'
+    +'<p style="font-size:12.5px;color:var(--ink-soft);line-height:1.65">Ribh Investments (ribhinvestments.com) is an AAOIFI-aligned Islamic investment platform from Dhaka, Bangladesh. We connect everyday investors with short-tenure, asset-backed trade financing for vetted businesses, structured as Murabaha (cost-plus sale) and Wakalah (agency).<br><br>Your money buys real goods, so returns come from genuine trade, never from lending. Every campaign is screened for riba, gharar and maysir and reviewed by our Shariah consultant, Abdullah Jubair, before listing. Client funds are held segregated as amanah, tracked on an append-only ledger and reconciled daily.<br><br>Ribh Investments is part of Ribh Capital Group, alongside Ribh Welfare, our non-profit arm for halal financial literacy. BSEC and Bangladesh Bank registration is under process.</p>'
+    +'<div class="impact"><div class="box"><div class="l">Based in</div><div class="v">Dhaka</div></div><div class="box"><div class="l">Model</div><div class="v">Trade-backed</div></div><div class="box"><div class="l">Standard</div><div class="v">AAOIFI-aligned</div></div></div>'
+    +'<p class="foot-dis" style="text-align:left;padding:10px 0 0">Capital at risk. Returns are projections, not guarantees. Nothing in this app is investment advice.</p>',
+  dbinfo:()=>{
+    const d=DB.tables();
+    return '<h4>Local database</h4><p class="sub">A seeded prototype database that mirrors the future Supabase schema. On supported devices it persists between sessions; otherwise it resets to seed on reload.</p>'
+    +'<ul class="slist">'
+    +'<li><span class="ic">'+ic('user',12)+'</span><span><b>profiles</b> · '+d.profiles.length+' row · KYC, language, theme, security</span></li>'
+    +'<li><span class="ic">'+ic('wallet',12)+'</span><span><b>wallets</b> · '+d.wallets.length+' row · available, deployed, pending payout</span></li>'
+    +'<li><span class="ic">'+ic('trend',12)+'</span><span><b>campaigns</b> · '+d.campaigns.length+' rows · pools, raised, status, risk</span></li>'
+    +'<li><span class="ic">'+ic('file',12)+'</span><span><b>wallet_transactions</b> · '+d.wallet_transactions.length+' rows · the append-only ledger</span></li>'
+    +'<li><span class="ic">'+ic('target',12)+'</span><span><b>goals</b> · '+d.goals.length+' rows · pots with saved and target</span></li>'
+    +'<li><span class="ic">'+ic('bookmark',12)+'</span><span><b>watchlist, habits, lessons</b> · engagement state</span></li>'
+    +'</ul><div style="height:12px"></div>'
+    +'<button class="btn ghost" data-act="dbreset"><span data-ic="refresh" data-sz="16"></span>Reset to seed data</button>';
+  },
+  filters:()=>{
+    const sectors=['any',...new Set(CAMPS.map(c=>c.sector))];
+    const conts=['any','Murabaha','Wakalah'];
+    return '<h4>Filter campaigns</h4><p class="sub">Narrow the marketplace. Filters stack with search.</p>'
+    +'<div class="filtsec"><span class="lab">Contract</span><div class="optrow">'
+    +conts.map(x=>'<button class="'+(S.filterContract===x?'on':'')+'" data-fc="'+x+'">'+(x==='any'?'Any':x)+'</button>').join('')+'</div></div>'
+    +'<div class="filtsec"><span class="lab">Sector</span><div class="optrow">'
+    +sectors.map(x=>'<button class="'+(S.filterSector===x?'on':'')+'" data-fs="'+x+'">'+(x==='any'?'Any':x)+'</button>').join('')+'</div></div>'
+    +'<button class="btn pri" data-act="applyfilters"><span data-ic="check" data-sz="16"></span>Show results</button>'
+    +'<div style="height:8px"></div><button class="btn ghost" data-act="clearfilters">Clear filters</button>';
+  },
+  compareCamps:()=>{
+    let picks='';
+    CAMPS.forEach(c=>{
+      const checked=(S.cmpPick||['zone','purchase']).includes(c.id)?'checked':'';
+      picks+='<label class="cmp-pick"><input type="checkbox" class="cmpChk" value="'+c.id+'" '+checked+'><span><div class="t">'+c.title.split('·')[0].trim()+'</div><div class="s">'+c.contract+' · '+c.tenure+'d</div></span></label>';
+    });
+    return '<h4>Compare campaigns</h4><p class="sub">Pick two or three. Comparison leads with contract and risk, not just headline return.</p>'
+    +picks+'<div style="height:12px"></div>'
+    +'<button class="btn pri" data-act="rendercompare"><span data-ic="columns" data-sz="16"></span>Compare selected</button>'
+    +'<div id="cmpResult" style="margin-top:14px"></div>';
+  },
+  autoinvest:()=>{
+    const tab=S.autoTab||'strategy';
+    const qn=S.autoQueue.filter(q=>q.status==='pending').length;
+    let s='<h4>Auto-invest</h4>'
+      +'<div class="autotabs">'
+      +'<button class="'+(tab==='strategy'?'on':'')+'" data-autotab="strategy">Strategy</button>'
+      +'<button class="'+(tab==='queue'?'on':'')+'" data-autotab="queue">Approval queue'+(qn?'<span class="cnt">'+qn+'</span>':'')+'</button>'
+      +'</div>';
+    if(tab==='strategy'){
+      s+='<p class="sub">Pick one strategy. Ribh will queue matching campaigns as they open; you approve or skip each, because every deployment needs its own consent to stay Shariah-clean.</p>';
+      STRATEGIES.forEach(st=>{
+        const on=(S.autoTmp||S.autoStrategy)===st.id;
+        let bar=''; st.mix.forEach(m=>bar+='<i style="width:'+m[1]+'%;background:'+m[2]+'"></i>');
+        s+='<div class="srow '+(on?'on':'')+'" data-strat="'+st.id+'"><span class="srad">'+ic('check',12)+'</span>'
+          +'<div class="smid"><div class="sname">'+st.name+'</div><div class="sallo">'+bar+'</div>'
+          +'<div class="sband">'+st.mix.map(m=>m[0]+' '+m[1]+'%').join(' · ')+' · '+st.band+'</div></div></div>';
+      });
+      s+='<div style="height:14px"></div>';
+      s+='<button class="btn pri" id="autoConfirm" data-act="setauto" '+((S.autoTmp||S.autoStrategy)?'':'disabled')+'><span data-ic="check" data-sz="16"></span>'+(S.autoStrategy?'Update strategy':'Turn on, with per-deal approval')+'</button>';
+      if(S.autoStrategy) s+='<div style="height:8px"></div><button class="btn ghost" data-act="autooff">Turn auto-invest off</button>';
+      s+='<p class="foot-dis" style="text-align:left">Indicative allocation only. Capital is at risk on every deployment.</p>';
+    } else {
+      if(!S.autoStrategy){
+        s+='<div class="qempty">Turn on a strategy first.<br>Matching campaigns will queue here for your approval.</div>';
+      } else {
+        const pend=S.autoQueue.filter(q=>q.status==='pending');
+        if(!pend.length){
+          s+='<div class="qempty">Nothing awaiting approval.<br>When a campaign matches your strategy, it appears here to confirm or skip.</div>';
+        } else {
+          s+='<p class="sub">Your strategy matched these. Nothing is invested until you approve. Each carries its own contract and risk.</p>';
+          pend.forEach(q=>{
+            const c=CAMPS.find(x=>x.id===q.camp);
+            s+='<div class="qcard"><span class="qtag">'+ic('clock',12)+'Awaiting approval</span>'
+              +'<div class="qt">'+c.title.split('·')[0].trim()+'</div>'
+              +'<div class="qm">'+c.contract+' · '+c.tenure+'d · risk '+c.risk+' · matched by '+STRATEGIES.find(x=>x.id===S.autoStrategy).name+'</div>'
+              +'<div class="qamt">Deploy '+TK+fmt(q.amount)+'</div>'
+              +'<div class="qacts"><button class="qskip" data-act="qskip" data-q="'+q.id+'">'+ic('skip',15)+'Skip</button>'
+              +'<button class="qapprove" data-act="qapprove" data-q="'+q.id+'">'+ic('check',15)+'Approve</button></div></div>';
+          });
+        }
+      }
+    }
+    return s;
+  },
+  risktier:()=>{
+    const q=S.riskStep||0;
+    const QS=[
+      {q:'When do you expect to need this money?',a:[['Within a year','short'],['One to three years','balanced'],['Three years or more','diversified']]},
+      {q:'If a campaign entered recovery, you would feel...',a:[['Very uneasy, I want the safest path','short'],['Concerned but patient','balanced'],['Calm, I understand trade risk','diversified']]},
+      {q:'What matters most to you?',a:[['Steadier, shorter cycles','short'],['A sensible middle','balanced'],['Widest spread of contracts','diversified']]},
+    ];
+    if(q>=QS.length){
+      const st=STRATEGIES.find(x=>x.id===(S.riskPick||'balanced'));
+      let bar=''; st.mix.forEach(m=>bar+='<i style="width:'+m[1]+'%;background:'+m[2]+'"></i>');
+      return '<h4>Your recommended tier</h4><p class="sub">Based on your answers. This is a recommendation, not advice, and you can change it anytime. Every deployment still needs your own approval.</p>'
+        +'<div class="srow on" style="cursor:default"><span class="srad">'+ic('check',12)+'</span><div class="smid"><div class="sname">'+st.name+'</div><div class="sallo">'+bar+'</div><div class="sband">'+st.mix.map(m=>m[0]+' '+m[1]+'%').join(' · ')+' · '+st.band+'</div></div></div>'
+        +'<button class="btn pri" data-act="settier" data-t2="'+st.id+'"><span data-ic="check" data-sz="16"></span>Set as my tier</button>'
+        +'<div style="height:8px"></div><button class="btn ghost" data-act="restarttier">Retake</button>';
+    }
+    const cur=QS[q];
+    let opts='';
+    cur.a.forEach(o=>{ opts+='<button class="btn ghost" style="justify-content:flex-start;text-align:left" data-act="answertier" data-pick="'+o[1]+'">'+o[0]+'</button><div style="height:8px"></div>'; });
+    return '<h4>Find your tier</h4><div class="kstep">'+QS.map((_,i)=>'<div class="s '+(i<=q?'on':'')+'"></div>').join('')+'</div>'
+      +'<p class="sub">Question '+(q+1)+' of '+QS.length+'. '+cur.q+'</p>'+opts;
+  },
+  autosave:()=>{
+    const a=S.autosave;
+    const amts=[250,500,1000,2000];
+    let chips=''; amts.forEach(v=>chips+='<button class="'+(a.amount===v?'on':'')+'" data-asamt="'+v+'">'+TK+fmt(v)+'</button>');
+    const perMonth=a.freq==='weekly'?a.amount*4:a.amount;
+    return '<h4>Weekly auto-save</h4><p class="sub">Set aside a small amount into the Ribh Fund on a schedule, the way a DPS works. Profit is projected, never guaranteed, and capital stays at risk.</p>'
+      +'<div class="setrow" style="border:none;padding:0 0 8px"><span>Auto-save<span class="s">'+(a.on?'On':'Off')+'</span></span><div class="sw2 '+(a.on?'on':'')+'" data-act="toggleautosave"></div></div>'
+      +'<span class="lab" style="font-size:11px;font-weight:600;color:var(--ink);display:block;margin:6px 0 7px">Amount</span>'
+      +'<div class="optrow" id="asAmtRow" style="margin-bottom:14px">'+chips+'</div>'
+      +'<span class="lab" style="font-size:11px;font-weight:600;color:var(--ink);display:block;margin:0 0 7px">Frequency</span>'
+      +'<div class="optrow" id="asFreqRow" style="margin-bottom:14px"><button class="'+(a.freq==='weekly'?'on':'')+'" data-asfreq="weekly">Weekly</button><button class="'+(a.freq==='monthly'?'on':'')+'" data-asfreq="monthly">Monthly</button></div>'
+      +'<div class="pva" style="border-top:1px dashed var(--line);padding-top:11px"><span>About '+TK+fmt(perMonth)+' per month<b>into the Ribh Fund</b></span></div>'
+      +'<div style="height:12px"></div><button class="btn pri" data-act="saveautosave"><span data-ic="repeat" data-sz="16"></span>'+(a.on?'Update auto-save':'Turn on auto-save')+'</button>'
+      +'<p class="foot-dis" style="text-align:left">Deducted from your verified '+ (S.depositProvider==='nagad'?'Nagad':'bKash') +' account. Pause or change anytime.</p>';
+  },
+  board:()=>'<h4>Shariah board</h4><p class="sub">Every contract Ribh lists is reviewed against AAOIFI standards by our Shariah board before it reaches you.</p>'
+    +'<div class="scholar" style="margin-bottom:14px"><div class="ph">AJ</div><div><div class="n">Abdullah Jubair</div><div class="r">Chair · M.A. Islamic Studies (gold medalist) and B.A., University of Dhaka · Editor-in-Chief, monthly Sawtul Madina</div></div></div>'
+    +'<div class="scholar" style="margin-bottom:14px"><div class="ph" style="background:linear-gradient(145deg,var(--green),var(--teal-deep))">MR</div><div><div class="n">Mufti Mahmudur Rahman</div><div class="r">Member · specialist in Islamic finance and Murabaha structuring · Dar al-Ifta background</div></div></div>'
+    +'<div class="scholar"><div class="ph" style="background:linear-gradient(145deg,var(--green),var(--teal-deep))">SH</div><div><div class="n">Dr. Sadia Haque</div><div class="r">Member · PhD Islamic economics · reviews Wakalah agency terms and fee disclosure</div></div></div>'
+    +'<p class="foot-dis" style="text-align:left;padding:12px 0 0">The board sets rulings, reviews each campaign structure, and signs off consumer copy. Published opinions are added here as they are issued.</p>',
+  nominee:()=>{
+    if(S.nominee) return '<h4>Nominee</h4><p class="sub">Your named beneficiary. This is a custodial nomination for the account; it does not replace Islamic inheritance (Faraid), which governs how the estate is ultimately divided.</p>'
+      +'<div class="card solid" style="margin-bottom:12px"><div class="me-row" style="border:none;padding:0"><div class="mic">'+ic('users',17)+'</div><div><div class="t">'+S.nominee.name+'</div><div class="s">'+S.nominee.rel+' · NID '+S.nominee.nid+' · '+S.nominee.share+'%</div></div></div></div>'
+      +'<button class="btn ghost" data-act="editnominee"><span data-ic="user" data-sz="16"></span>Change nominee</button>';
+    return '<h4>Add a nominee</h4><p class="sub">Name a beneficiary for your account. Expected of any Bangladeshi financial product. This is custodial and does not override Faraid inheritance rules.</p>'
+      +'<input class="plain" id="nomName" placeholder="Full name (as on NID)">'
+      +'<input class="plain" id="nomRel" placeholder="Relationship (e.g. spouse, parent)">'
+      +'<input class="plain" id="nomNid" inputmode="numeric" placeholder="Nominee NID number">'
+      +'<div class="win"><span class="cur">%</span><input class="amt" id="nomShare" inputmode="numeric" value="100"></div>'
+      +'<button class="btn pri" data-act="savenominee"><span data-ic="check" data-sz="16"></span>Save nominee</button>';
+  },
+  referral:()=>'<h4>Invite a friend</h4><p class="sub">Da\u2019wah of good finance. When someone joins with your code, completes KYC and first invests, <b>you both get a tree planted</b> in your forests. No cash reward, nothing resembling riba.</p>'
+    +'<div class="impact"><div class="box"><div class="l">Friends joined</div><div class="v" id="refCount">'+S.referrals.count+'</div></div><div class="box"><div class="l">Trees earned</div><div class="v" id="refTrees">'+S.referrals.trees+'</div></div></div>'
+    +'<div style="height:12px"></div><div class="win"><input class="amt" style="font-size:15px;padding:13px" value="ribh.app/i/'+S.referrals.code+'" readonly></div>'
+    +'<button class="btn pri" data-act="copyinvite"><span data-ic="copy" data-sz="16"></span>Copy invite link</button>'
+    +'<div style="height:8px"></div><button class="btn ghost" data-act="msg" data-m="Share sheet opened"><span data-ic="gift" data-sz="16"></span>Share</button>',
+  purify:()=>'<h4>Interest purification</h4><p class="sub">If any incidental interest reaches you (for example, unavoidable bank interest), it is not yours to keep. Calculate it and route it to charity to purify your wealth.</p>'
+    +'<div class="win"><span class="cur">'+TK+'</span><input class="amt" id="purAmt" inputmode="numeric" value="1,200" data-live="commas"></div>'
+    +'<p class="sub" style="margin:8px 0">This full amount should be given away, seeking no reward for it, as it was never lawfully yours.</p>'
+    +'<button class="btn pri" data-act="dopurify"><span data-ic="sparkles" data-sz="16"></span>Route to charity now</button>'
+    +'<div class="pva" style="border-top:1px dashed var(--line);padding-top:11px;margin-top:12px"><span>Purified this year<b id="purTotal">'+TK+fmt(S.purified)+'</b></span></div>',
+  whyhalal:()=>{
+    const c=currentCamp||CAMPS[0];
+    return '<span class="welfare-badge">Reviewed by the Shariah board</span><h4>Why this is halal</h4><p class="sub">'+c.title.split('·')[0].trim()+' · '+c.contract+'</p>'
+    +'<ul class="slist">'
+    +'<li><span class="ic">'+ic('box',12)+'</span><span><b>Real asset, real trade.</b> Your money buys actual goods; the return comes from selling them, not from lending money.</span></li>'
+    +'<li><span class="ic">'+ic('file',12)+'</span><span><b>Everything disclosed up front.</b> Cost, markup or agency fee, and terms are fixed and shown before you commit.</span></li>'
+    +'<li><span class="ic">'+ic('calendar',12)+'</span><span><b>Time never adds to the debt.</b> A late payment does not increase what is owed; any late charge goes to charity.</span></li>'
+    +'<li><span class="ic">'+ic('shield',12)+'</span><span><b>You share the risk.</b> If genuine loss occurs after recovery is exhausted, it is borne by capital, which is what makes the profit lawful.</span></li>'
+    +'<li><span class="ic">'+ic('scale',12)+'</span><span><b>Screened and signed off.</b> No riba, gharar or maysir; reviewed by the board before listing.</span></li>'
+    +'</ul>'
+    +'<p class="foot-dis" style="text-align:left;padding:12px 0 0">"...Allah has permitted trade and forbidden riba." Al-Baqarah 2:275</p>';
+  },
+  tour:()=>{
+    const q=S.tourStep||0;
+    const SL=[
+      ['route','Your money, always visible','Ribh finances real trade for vetted businesses. You will always see where your money is, from your wallet to the supplier to repayment, on the amanah tracker.'],
+      ['scale','Halal by structure, not by label','Returns come from real buying and selling under Murabaha and Wakalah, reviewed by our Shariah board. We say AAOIFI-aligned, never certified.'],
+      ['shield','Honest about risk','Capital is at risk and returns are projections, never guarantees. If a deal enters recovery, you see it openly, with the steps we are taking.'],
+      ['sprout','Grow steadily','Start small with auto-save from Tk250, set goals, and let the habit build. Small and consistent beats large and rare.'],
+    ];
+    const s=SL[q];
+    return '<div style="text-align:center;padding:6px 0 2px"><div style="width:64px;height:64px;border-radius:20px;background:var(--mint);color:var(--teal-deep);display:inline-grid;place-items:center;margin-bottom:6px">'+ic(s[0],28)+'</div></div>'
+      +'<div class="kstep" style="margin-bottom:14px">'+SL.map((_,i)=>'<div class="s '+(i<=q?'on':'')+'"></div>').join('')+'</div>'
+      +'<h4 style="text-align:center">'+s[1]+'</h4><p class="sub" style="text-align:center">'+s[2]+'</p>'
+      +'<div style="height:6px"></div>'
+      +'<button class="btn pri" data-act="tournext">'+(q<SL.length-1?'Next':'Start using Ribh')+'</button>'
+      +(q<SL.length-1?'<div style="height:8px"></div><button class="btn ghost" data-act="tourskip">Skip</button>':'');
+  },
+  newgoal:()=>'<h4>New goal pot</h4><p class="sub">Give your saving a niyyah. This sets a target to track; it does not move money yet.</p>'
+    +'<input class="plain" id="goalName" placeholder="Goal name (e.g. Umrah)">'
+    +'<div class="win"><span class="cur">'+TK+'</span><input class="amt" id="goalTarget" inputmode="numeric" value="1,00,000" data-live="commas"></div>'
+    +'<button class="btn pri" data-act="addgoal"><span data-ic="target" data-sz="16"></span>Create goal</button>',
+  addgoalmoney:()=>{
+    const g=S.goals.find(x=>x.id===S.curGoal)||S.goals[0];
+    return '<h4>Add to '+g.t+'</h4><p class="sub">Move funds from your available balance ('+TK+fmt(S.avail)+') toward this goal. Amounts placed in campaigns remain at risk.</p>'
+    +'<div class="win"><span class="cur">'+TK+'</span><input class="amt" id="goalAdd" inputmode="numeric" value="5,000" data-live="commas"></div>'
+    +'<button class="btn pri" data-act="dogoaladd"><span data-ic="target" data-sz="16"></span>Add to goal</button>';
+  },
+  lesson1:()=>'<span class="welfare-badge">By Ribh Welfare</span><h4>What makes a return halal</h4><p class="sub">Lesson 1 · 4 min</p>'
+    +'<p style="font-size:12.5px;color:var(--ink-soft);line-height:1.65">A return is halal when it comes from real economic activity: buying, owning, and selling actual goods, or sharing in a real enterprise. It is riba when it is a fixed, guaranteed increase on money lent, with no goods and no shared risk.<br><br><b style="color:var(--ink)">The test:</b> was there a real asset and real risk between your money and your profit? If yes, it can be halal. If your money simply grew because time passed, that is riba.</p>'
+    +'<div style="height:10px"></div><button class="btn pri" data-act="lessondone" data-l="l1"><span data-ic="check" data-sz="16"></span>Mark complete</button>',
+  lesson2:()=>'<span class="welfare-badge">By Ribh Welfare</span><h4>Reading a Murabaha contract</h4><p class="sub">Lesson 2 · 5 min</p>'
+    +'<p style="font-size:12.5px;color:var(--ink-soft);line-height:1.65">In Murabaha, the financier buys an asset, takes real ownership, then sells it to you at cost plus a disclosed markup. Three things must be true: the seller owned the goods first, the cost and markup are stated openly, and the price is fixed.<br><br><b style="color:var(--ink)">Key rule:</b> once agreed, the total never grows because payment is late. Any late charge goes to charity, not to the financier, so delay can never become interest.</p>'
+    +'<div style="height:10px"></div><button class="btn pri" data-act="lessondone" data-l="l2"><span data-ic="check" data-sz="16"></span>Mark complete</button>',
+  lesson3:()=>'<span class="welfare-badge">By Ribh Welfare</span><h4>Zakat on investments</h4><p class="sub">Lesson 3 · 4 min</p>'
+    +'<p style="font-size:12.5px;color:var(--ink-soft);line-height:1.65">Money invested for trade is generally zakatable at 2.5% on its value once a full lunar year (hawl) passes on your wealth, provided you are above nisab. Your capital in active campaigns and your available balance both count.<br><br><b style="color:var(--ink)">In practice:</b> the app totals your zakatable holdings and the Zakat calculator applies the rate. Confirm edge cases with a scholar; this is guidance, not a fatwa.</p>'
+    +'<div style="height:10px"></div><button class="btn pri" data-act="lessondone" data-l="l3"><span data-ic="check" data-sz="16"></span>Mark complete</button>',
+  compare:()=>'<h4>Halal comparison</h4><p class="sub">Judged on Shariah criteria first, not just headline return.</p>'
+    +'<ul class="slist">'
+    +'<li><span class="ic"><span data-ic="check" data-sz="12"></span></span><span><b>Printing Zone (Wakalah)</b> · 15d · asset-backed procurement · indicative '+TK+'3,500/lac · shortest exposure, agency risk.</span></li>'
+    +'<li><span class="ic"><span data-ic="check" data-sz="12"></span></span><span><b>Machinery Purchase (Murabaha)</b> · 30d · Ribh owns the asset · fixed markup basis '+TK+'3,500/lac · classic trade structure.</span></li>'
+    +'<li><span class="ic"><span data-ic="alert" data-sz="12"></span></span><span><b>Conventional FDR, about 8% p.a.</b> · a guaranteed return on money is riba. Not comparable, not permissible.</span></li>'
+    +'</ul>',
+  payout:()=>'<h4>Payout plan</h4><p class="sub">How your profits are disbursed. Current: <b>'+S.payout+'</b>, to bank ····4192.</p>'
+    +'<div class="give-row"><button data-act="setpayout" data-p="Per campaign">Per campaign</button><button data-act="setpayout" data-p="Every 3 months">3 mo</button><button data-act="setpayout" data-p="Every 6 months">6 mo</button><button data-act="setpayout" data-p="Every 12 months">12 mo</button></div>',
+  security:()=>'<h4>Security</h4><p class="sub">Controls protecting your account and funds.</p>'
+    +'<div class="setrow"><span>Biometric unlock<span class="s">Face or fingerprint on this device</span></span><div class="sw2 '+(S.bio?'on':'')+'" data-act="togglebio"></div></div>'
+    +'<div class="setrow"><span>Two-factor (SMS ····898)<span class="s">Required for withdrawals</span></span><div class="sw2 '+(S.tfa?'on':'')+'" data-act="toggletfa"></div></div>'
+    +'<ul class="slist" style="margin-top:12px">'
+    +'<li><span class="ic"><span data-ic="check" data-sz="12"></span></span><span><b>Dual control</b> · no single Ribh admin can move funds out alone.</span></li>'
+    +'<li><span class="ic"><span data-ic="check" data-sz="12"></span></span><span><b>Append-only ledger</b> · entries can never be edited or deleted.</span></li>'
+    +'</ul>',
+  statements:()=>'<h4>Statements and receipts</h4><p class="sub">Generated on demand as PDF. Your ledger, in a familiar exportable format.</p>'
+    +'<div class="pva" style="border-top:none;padding-top:0;margin-bottom:12px"><span>Deployed this year<b>'+TK+fmt(S.deployed)+'</b></span><span>Profit received<b>'+TK+'3,937</b></span></div>'
+    +'<button class="btn ghost" data-act="pdf" data-n="Annual statement 2025-26"><span data-ic="file" data-sz="16"></span>Annual statement 2025-26</button><div style="height:8px"></div>'
+    +'<button class="btn ghost" data-act="pdf" data-n="Zakat and purification report"><span data-ic="scale" data-sz="16"></span>Zakat and purification report</button><div style="height:8px"></div>'
+    +'<button class="btn ghost" data-act="pdf" data-n="Spending and deposits insight"><span data-ic="chartbar" data-sz="16"></span>Spending and deposits insight</button><div style="height:8px"></div>'
+    +'<button class="btn ghost" data-act="pdf" data-n="Money receipt, last deposit"><span data-ic="file" data-sz="16"></span>Money receipt, last deposit</button>'
+    +'<p class="foot-dis" style="text-align:left">The Zakat report summarizes zakatable holdings for the lunar year. Confirm edge cases with a scholar; it is guidance, not a fatwa.</p>',
+  support:()=>'<h4>Help and disputes</h4><p class="sub">A human replies within 24 hours. Dispute path: negotiation (30 days), then arbitration in Dhaka, then Shariah arbitration for compliance disputes.</p>'
+    +'<button class="btn pri" data-act="msg" data-m="Live chat opened, an agent will join shortly"><span data-ic="chat" data-sz="16"></span>Start live chat</button><div style="height:8px"></div>'
+    +'<button class="btn ghost" data-act="msg" data-m="Calling +880 170 859 1898"><span data-ic="phone" data-sz="16"></span>Call support</button><div style="height:8px"></div>'
+    +'<button class="btn ghost" data-act="msg" data-m="Dispute form opened. Step 1 of 3: describe the issue"><span data-ic="alert" data-sz="16"></span>Open a dispute</button>'
+    +'<p class="foot-dis" style="text-align:left">A dispute pauses nothing automatically; your capital stays where it is until the process concludes.</p>',
+  article:()=>'<h4>AAOIFI revises agency-based investment guidance</h4><p class="sub">News · 3 min · Knowledge Hub</p>'
+    +'<p style="font-size:12.5px;color:var(--ink-soft);line-height:1.65">The update clarifies how a Wakil\u2019s fee should be disclosed and how indicative returns must be communicated to capital providers. For Ribh investors this reinforces what you already see in-app: agency fees stated upfront, and Wakalah returns always labelled as projections.<br><br><b style="color:var(--ink)">Why it matters to you:</b> your Printing Zone campaign is Wakalah-based; its profit-per-lac figure is indicative, and this standard is why we present it that way.</p>',
+  news2:()=>'<h4>Bangladesh sukuk market grows 22% year on year</h4><p class="sub">News · 4 min · Knowledge Hub</p>'
+    +'<p style="font-size:12.5px;color:var(--ink-soft);line-height:1.65">Government and corporate sukuk issuance continues to expand, giving Bangladeshi savers more asset-backed alternatives to interest-bearing bonds.<br><br><b style="color:var(--ink)">Why it matters to you:</b> a deeper local sukuk market builds the halal-finance ecosystem Ribh operates in, and may open future diversification options for the Ribh Fund.</p>',
+  tip:()=>'<h4>Pay yourself first, the halal way</h4><p class="sub">Daily tip · 2 min</p>'
+    +'<p style="font-size:12.5px;color:var(--ink-soft);line-height:1.65"><b style="color:var(--ink)">Data:</b> savers who automate save about 3 times more than those who rely on willpower.<br><br><b style="color:var(--ink)">Grounding:</b> the Prophet, peace be upon him, said the best charity is that given out of surplus. Build your surplus deliberately.<br><br><b style="color:var(--ink)">Action:</b> turn on the '+TK+'10-a-day plan in Grow; it moves before you can spend it.</p>'
+    +'<div style="height:10px"></div><button class="btn pri" data-act="goto" data-to="grow"><span data-ic="sprout" data-sz="16"></span>Open Grow</button>',
+};
+
+/* ============ actions ============ */
+document.addEventListener('click',e=>{
+  const nb=e.target.closest('.nav button');
+  if(nb){go(nb.dataset.s);return;}
+  const sg=e.target.closest('#segBar button');
+  if(sg){document.querySelectorAll('#segBar button').forEach(b=>b.classList.remove('on'));sg.classList.add('on');renderList(sg.dataset.f);return;}
+  const hb=e.target.closest('.hab li');
+  if(hb){toggleHabit(hb.dataset.h);return;}
+  const srcBtn=e.target.closest('#srcChips button');
+  if(srcBtn){document.querySelectorAll('#srcChips button').forEach(b=>b.classList.remove('on'));srcBtn.classList.add('on');S.kycSrc=srcBtn.dataset.src;$('#kycFinish').disabled=false;return;}
+  const sb=e.target.closest('.starbtn');
+  if(sb){e.stopPropagation();toggleWatch(sb.dataset.w);return;}
+  const fc=e.target.closest('[data-fc]');
+  if(fc){S.filterContract=fc.dataset.fc;document.querySelectorAll('[data-fc]').forEach(b=>b.classList.toggle('on',b.dataset.fc===S.filterContract));return;}
+  const fs=e.target.closest('[data-fs]');
+  if(fs){S.filterSector=fs.dataset.fs;document.querySelectorAll('[data-fs]').forEach(b=>b.classList.toggle('on',b.dataset.fs===S.filterSector));return;}
+  const stc=e.target.closest('.srow');
+  if(stc){S.autoTmp=stc.dataset.strat;document.querySelectorAll('.srow').forEach(x=>x.classList.toggle('on',x.dataset.strat===S.autoTmp));const cb=$('#autoConfirm');if(cb)cb.disabled=false;return;}
+  const atb=e.target.closest('[data-autotab]');
+  if(atb){S.autoTab=atb.dataset.autotab;openSheet(SHEETS.autoinvest());return;}
+  const pv=e.target.closest('[data-prov]');
+  if(pv){S.depositProvider=pv.dataset.prov;openSheet(SHEETS.deposit());return;}
+  const asa=e.target.closest('[data-asamt]');
+  if(asa){S.autosave.amount=+asa.dataset.asamt;openSheet(SHEETS.autosave());return;}
+  const asf=e.target.closest('[data-asfreq]');
+  if(asf){S.autosave.freq=asf.dataset.asfreq;openSheet(SHEETS.autosave());return;}
+  const el=e.target.closest('[data-act]');
+  if(!el) return;
+  const a=el.dataset.act;
+  if(a==='goto') go(el.dataset.to);
+  if(a==='sheet') openSheet(SHEETS[el.dataset.sheet]());
+  if(a==='clearnotifs'){$('#notifDot').style.display='none';closeSheet();toast('Inbox cleared');}
+  if(a==='kycstart'){ if(S.kyc){toast('Already verified, Tier 2');} else openSheet(SHEETS.kyc1()); }
+  if(a==='kyc2') openSheet(SHEETS.kyc2());
+  if(a==='kyc3') openSheet(SHEETS.kyc3());
+  if(a==='kycdone') doKycDone();
+  if(a==='camp') openDetail(el.dataset.id);
+  if(a==='investflow'){openSheet(SHEETS.invest());invCalc();}
+  if(a==='doinvest') doInvest();
+  if(a==='dodeposit') doDeposit();
+  if(a==='dowithdraw') doWithdraw();
+  if(a==='give') doGive(+el.dataset.a);
+  if(a==='dogive'){doGive(num($('#gvAmt').value));closeSheet();}
+  if(a==='welfaregive'){toast(TK+el.dataset.a+' to Ribh Welfare, jazakAllahu khayran');closeSheet();}
+  if(a==='payzakat'){toast('Zakat of '+$('#zkOut').textContent+' routed to charity rail');}
+  if(a==='savetoday') saveToday();
+  if(a==='tasbih') tasbih();
+  if(a==='setpayout'){S.payout=el.dataset.p;$('#payoutLabel').textContent=S.payout+' · bank ····4192';$('#planInline').textContent=S.payout;closeSheet();toast('Payout plan: '+S.payout);}
+  if(a==='pdf'){toast(el.dataset.n+' generated as PDF');}
+  if(a==='copyinvite'){toast('Invite link copied');}
+  if(a==='msg'){toast(el.dataset.m);}
+  if(a==='recaccount'){toast('Written recovery account opened');}
+  if(a==='payoutbank') payoutBank();
+  if(a==='reinvest') reinvestPayout();
+  if(a==='togglelang'){S.lang=S.lang==='en'?'bn':'en';$('#langSw').classList.toggle('on',S.lang==='bn');applyLang();toast(S.lang==='bn'?'\u09ad\u09be\u09b7\u09be: \u09ac\u09be\u0982\u09b2\u09be':'Language: English');}
+  if(a==='toggletheme'){S.theme=S.theme==='light'?'dark':'light';$('#phone').dataset.theme=S.theme;$('#themeSw').classList.toggle('on',S.theme==='dark');toast(S.theme==='dark'?'Dark mode on':'Light mode on');}
+  if(a==='togglequiet'){S.quiet=!S.quiet;$('#quietSw').classList.toggle('on',S.quiet);toast(S.quiet?'Salah quiet hours on':'Salah quiet hours off');}
+  if(a==='togglebio'){S.bio=!S.bio;el.classList.toggle('on',S.bio);toast('Biometric '+(S.bio?'enabled':'disabled'));}
+  if(a==='toggletfa'){S.tfa=!S.tfa;el.classList.toggle('on',S.tfa);toast('Two-factor '+(S.tfa?'enabled':'disabled'));}
+  if(a==='applyfilters'){closeSheet();renderList(currentFilter);updateFbadge();toast('Filters applied');}
+  if(a==='clearfilters'){S.filterContract='any';S.filterSector='any';closeSheet();renderList(currentFilter);updateFbadge();toast('Filters cleared');}
+  if(a==='rendercompare') renderCompare();
+  if(a==='setauto') setAuto();
+  if(a==='autooff'){S.autoStrategy=null;S.autoTmp=null;S.autoQueue=[];S.autoTab='strategy';updateAutoEntry();closeSheet();toast('Auto-invest turned off');}
+  if(a==='qapprove') queueApprove(el.dataset.q);
+  if(a==='qskip') queueSkip(el.dataset.q);
+  if(a==='depquick'){const i=$('#depAmt'); if(i){i.value=(+el.dataset.a).toLocaleString('en-IN');}}
+  if(a==='togglerem'){S.reminders=!S.reminders;$('#remSw').classList.toggle('on',S.reminders);toast(S.reminders?'Payment reminders on':'Payment reminders off');}
+  if(a==='answertier'){S.riskPick=el.dataset.pick;S.riskStep=(S.riskStep||0)+1;openSheet(SHEETS.risktier());}
+  if(a==='restarttier'){S.riskStep=0;S.riskPick=null;openSheet(SHEETS.risktier());}
+  if(a==='settier') setTier(el.dataset.t2);
+  if(a==='toggleautosave'){S.autosave.on=!S.autosave.on;openSheet(SHEETS.autosave());}
+  if(a==='saveautosave') saveAutosave();
+  if(a==='savenominee') saveNominee();
+  if(a==='editnominee'){S.nominee=null;openSheet(SHEETS.nominee());}
+  if(a==='dopurify') doPurify();
+  if(a==='tournext'){S.tourStep=(S.tourStep||0)+1; if(S.tourStep>=4){S.tourDone=true;S.tourStep=0;closeSheet();toast('Welcome to Ribh');} else openSheet(SHEETS.tour());}
+  if(a==='tourskip'){S.tourDone=true;S.tourStep=0;closeSheet();}
+  if(a==='addgoal') addGoal();
+  if(a==='lessondone'){S.lessons[el.dataset.l]=true;$('#'+el.dataset.l+'done').style.display='block';closeSheet();toast('Lesson complete, may Allah increase you in knowledge');}
+  if(a==='toggleroundup'){S.roundup=!S.roundup;$('#roundupSw').classList.toggle('on',S.roundup);$('#sweepBtn').disabled=!S.roundup;toast(S.roundup?'Round-up saving on':'Round-up saving off');}
+  if(a==='sweep') sweepRoundup();
+  if(a==='joinchal') joinChallenge();
+  if(a==='addgoalmoney'){S.curGoal=el.dataset.g;openSheet(SHEETS.addgoalmoney());}
+  if(a==='dogoaladd') doGoalAdd();
+  if(a==='delgoal') delGoal(el.dataset.g);
+  if(a==='dbreset') DB.reset();
+  scheduleSave();
+});
+document.addEventListener('input',e=>{
+  const el=e.target;
+  if(el.dataset.live==='commas'){const v=num(el.value);el.value=v?v.toLocaleString('en-IN'):'';}
+  if(el.dataset.live==='invcalc'){const v=num(el.value);el.value=v?v.toLocaleString('en-IN'):'';invCalc();}
+  if(el.id==='dAmt') dCalc();
+  if(el.id==='searchInput'){S.search=el.value;renderList();}
+  if(['zkCash','zkInv','zkGold'].includes(el.id)) zakat();
+});
+document.addEventListener('change',e=>{
+  if(e.target.classList.contains('invAck')){
+    const all=[...document.querySelectorAll('.invAck')].every(c=>c.checked);
+    const b=$('#invGo'); if(b) b.disabled=!all;
+  }
+});
+
+/* ============ flows ============ */
+function doKycDone(){
+  S.kyc=true;
+  const b=$('#kycBanner');
+  b.classList.add('done');
+  b.innerHTML='<span data-ic="check" data-sz="20"></span><span><b>Verified, Tier 2</b><br>NID matched · liveness passed · source: '+(S.kycSrc||'declared')+' · deposits enabled</span>';
+  mountIcons(b);
+  $('#kycMe').textContent='Tier 2 · fully verified · source of funds on file';
+  closeSheet(); toast('KYC complete, barakAllahu feek');
+}
+function pushLedger(entry){S.ledger.unshift(entry);renderLedger(true);}
+function refreshAmanah(){
+  $('#availOut').textContent=fmt(S.avail);
+  $('#depOut').textContent=fmt(S.deployed);
+  $('#totalOut').textContent=fmt(S.avail+S.deployed);
+}
+function doDeposit(){
+  const v=num($('#depAmt').value);
+  if(!v){toast('Enter an amount');return;}
+  S.avail+=v; refreshAmanah();
+  pushLedger({sign:'+',t:'Deposit · bKash verified',s:'Today · name-matched source',amt:'+'+TK+fmt(v)});
+  closeSheet(); go('wallet'); toast(TK+fmt(v)+' deposited, books updated');
+}
+function doWithdraw(){
+  if(!$('#wdAck').checked){toast('Please confirm the acknowledgement');return;}
+  const v=num($('#wdAmt').value);
+  if(!v){toast('Enter an amount');return;}
+  if(v>S.avail){toast('Exceeds available '+TK+fmt(S.avail));return;}
+  if(!S.tfa){toast('Enable two-factor to withdraw');return;}
+  S.avail-=v; refreshAmanah();
+  pushLedger({sign:'-',t:'Withdrawal to bank ····4192',s:'Today · 1 business day',amt:'\u2212'+TK+fmt(v)});
+  closeSheet(); go('wallet'); toast('Withdrawal of '+TK+fmt(v)+' initiated');
+}
+function invCalc(){
+  const c=currentCamp, vEl=$('#invAmt'); if(!vEl||!c) return;
+  const v=num(vEl.value);
+  const p=$('#invProj'); if(p) p.textContent=TK+fmt((v/100000)*c.ppl*(c.share/100));
+}
+function doInvest(){
+  const c=currentCamp, v=num($('#invAmt').value);
+  if(!v){toast('Enter an amount');return;}
+  if(!S.kyc){toast('Complete KYC before investing');openSheet(SHEETS.kyc1());return;}
+  if(v>S.avail){toast('Exceeds available '+TK+fmt(S.avail)+', add funds first');return;}
+  S.avail-=v; S.deployed+=v; refreshAmanah();
+  c.raised=Math.min(c.pool,c.raised+v);
+  pushLedger({sign:'-',t:'Investment · '+c.title.split('·')[0].trim(),s:'Today · '+c.contract+' deployment',amt:'\u2212'+TK+fmt(v)});
+  closeSheet(); renderList('all'); renderHomeCamps(); renderInsights(); go('wallet');
+  toast('Invested '+TK+fmt(v)+', may Allah put barakah in it');
+}
+function payoutBank(){
+  if(!S.pendingPayout){toast('No pending payout');return;}
+  pushLedger({sign:'-',t:'Payout to bank ····4192',s:'Today · profit disbursed',amt:'\u2212'+TK+fmt(S.pendingPayout)});
+  toast('Payout of '+TK+fmt(S.pendingPayout)+' sent to bank');
+  S.pendingPayout=0; $('#payoutCard').style.display='none';
+}
+function reinvestPayout(){
+  if(!S.pendingPayout){toast('No pending payout');return;}
+  S.avail+=S.pendingPayout; refreshAmanah();
+  pushLedger({sign:'+',t:'Reinvestment · payout to wallet',s:'Today · new commitment, capital at risk',amt:'+'+TK+fmt(S.pendingPayout)});
+  toast(TK+fmt(S.pendingPayout)+' returned to wallet for reinvestment');
+  S.pendingPayout=0; $('#payoutCard').style.display='none';
+}
+function doGive(a){
+  if(!a){toast('Enter an amount');return;}
+  S.given+=a; S.meals=Math.floor(S.given/50);
+  $('#givenTotal').textContent=TK+fmt(S.given);
+  $('#mealsOut').textContent=S.meals;
+  setHabit('sadaqah',true);
+  toast(TK+a+' sadaqah recorded, may it be accepted');
+}
+function saveToday(){
+  if(S.savedToday){toast('Already saved today, see you tomorrow');return;}
+  S.savedToday=true; S.saved+=10; S.streak+=1;
+  $('#savedOut').textContent=TK+fmt(S.saved);
+  $('#streakOut').textContent=S.streak+' days';
+  $('#todayCell').classList.add('hit');
+  const b=$('#saveTodayBtn'); b.innerHTML=ic('check',16)+'Saved · streak '+S.streak+' days';
+  setHabit('save',true);
+  toast(TK+'10 saved into the Ribh Fund');
+}
+function tasbih(){
+  if(S.tas>=100){S.tas=0;}
+  S.tas++;
+  $('#tasCount').textContent=S.tas;
+  $('#ringFg').style.strokeDashoffset=270-(270*S.tas/100);
+  if(navigator.vibrate) navigator.vibrate(8);
+  if(S.tas===100){setHabit('azkar',true);toast('MashaAllah, 100 complete. Tap to restart');}
+}
+
+/* ============ habits + score ============ */
+function setHabit(id,val){
+  const h=S.habits.find(x=>x.id===id);
+  if(h&&h.done!==val){h.done=val;renderHabits();}
+}
+function toggleHabit(id){
+  const h=S.habits.find(x=>x.id===id);
+  h.done=!h.done; renderHabits(); scheduleSave();
+  if(h.done&&navigator.vibrate) navigator.vibrate(6);
+}
+function renderHabits(){
+  const done=S.habits.filter(h=>h.done).length;
+  $('#habList').innerHTML=S.habits.map(h=>
+    '<li class="'+(h.done?'done':'')+'" data-h="'+h.id+'">'
+    +'<div class="hic">'+ic(h.ic,15)+'</div>'
+    +'<div><div class="t">'+h.t+'</div><div class="s">'+h.s+'</div></div>'
+    +'<div class="ck">'+ic('check',13)+'</div></li>').join('');
+  $('#habCount').textContent=done+' of 5';
+  $('#habBar').style.width=(done/5*100)+'%';
+  renderMonthGrid(done===5);
+  renderScore();
+}
+function renderScore(){
+  const done=S.habits.filter(h=>h.done).length;
+  const score=Math.min(100,Math.round(30+done*8+Math.min(20,S.streak/4)+Math.min(10,S.given/300)));
+  $('#scoreOut').textContent=score;
+  $('#scoreFg').style.strokeDashoffset=327-(327*score/100);
+}
+function renderMonthGrid(todayFull){
+  const days=30, today=7;
+  let html='';
+  for(let d=1;d<=days;d++){
+    let cls='dg';
+    if(d<today){cls+= (d%4===0)?'':' f';}
+    if(d===today&&todayFull) cls+=' f';
+    html+='<div class="'+cls+'"></div>';
+  }
+  $('#monthGrid').innerHTML=html;
+}
+function renderForest(){
+  const months=14, trees=8;
+  let html='';
+  for(let m=1;m<=months;m++) html+='<div class="dg '+(m<=trees?'t':'')+'"></div>';
+  for(let m=months+1;m<=20;m++) html+='<div class="dg"></div>';
+  $('#forestGrid').innerHTML=html;
+}
+
+/* ============ prayer strip ============ */
+function renderPrayers(){
+  const now=new Date();
+  const mins=now.getHours()*60+now.getMinutes();
+  let active=PRAYERS.length-1;
+  for(let i=0;i<PRAYERS.length;i++){ if(mins>=PRAYERS[i].m) active=i; }
+  if(mins<PRAYERS[0].m) active=PRAYERS.length-1;
+  let next=PRAYERS.find(p=>p.m>mins)||PRAYERS[0];
+  let diff=next.m-mins; if(diff<0) diff+=1440;
+  $('#prayerRow').innerHTML=PRAYERS.map((p,i)=>
+    '<div class="p '+(i===active?'on':'')+'">'+ic(p.ic,16)+'<div class="pn">'+p.n+'</div><div class="pt">'+p.t+'</div></div>').join('');
+  $('#nextPrayer').textContent=next.n+' in '+Math.floor(diff/60)+'h '+(diff%60)+'m'+(S.quiet?' · notifications pause around each prayer':'');
+  $('#clockOut').textContent=(now.getHours()%12||12)+':'+String(now.getMinutes()).padStart(2,'0');
+}
+
+/* ============ renderers ============ */
+function renderLedger(flash){
+  $('#ledgerList').innerHTML=S.ledger.map((l,i)=>{
+    const icn=l.sign==='+'?'plus':(l.sign==='-'?'minus':'alert');
+    return '<li class="'+(l.sign!=='+'?'neg':'')+' '+(flash&&i===0?'new':'')+'">'
+    +'<div class="lic">'+ic(icn,14)+'</div>'
+    +'<div><div class="t">'+l.t+'</div><div class="s">'+l.s+'</div></div>'
+    +'<div class="amt">'+l.amt+'</div></li>';
+  }).join('');
+}
+function renderHomeCamps(){
+  const open=CAMPS.filter(c=>c.status==='open');
+  $('#homeCamps').innerHTML=open.map(c=>{
+    const pct=Math.min(100,Math.round(c.raised/c.pool*100));
+    return '<div class="ccard" data-act="camp" data-id="'+c.id+'">'
+      +'<div class="starbtn '+(S.watch.includes(c.id)?'on':'')+'" data-w="'+c.id+'">'+ic('bookmark',15)+'</div>'
+      +'<div class="top"><div class="title" style="max-width:78%">'+c.title+'</div></div>'
+      +'<div style="margin-top:7px"><span class="pill contract">'+c.contract+'</span></div>'
+      +'<div class="meta"><span>Profit/lac <b>'+TK+fmt(c.ppl)+'</b></span><span>Tenure <b>'+c.tenure+'d</b></span><span><b>'+pct+'%</b> funded</span></div>'
+      +'<div class="prog"><i style="width:'+pct+'%"></i></div>'
+      +'<div class="cta"><span>'+c.investors+' investors · '+c.daysLeft+'d left</span><span>'+ic('chev',14)+'</span></div>'
+      +'</div>';
+  }).join('');
+}
+let currentFilter='all';
+function updateFbadge(){
+  let n=0; if(S.filterContract!=='any')n++; if(S.filterSector!=='any')n++;
+  const b=$('#fbadge'); if(!b) return;
+  b.textContent=n; b.style.display=n?'inline-block':'none';
+}
+function renderList(filter){
+  currentFilter=filter||currentFilter||'all';
+  const wrap=$('#campList');
+  const q=(S.search||'').toLowerCase();
+  let rows=CAMPS.filter(c=>{
+    if(currentFilter==='saved') return S.watch.includes(c.id);
+    if(currentFilter!=='all' && c.status!==currentFilter) return false;
+    if(S.filterContract!=='any' && c.contract!==S.filterContract) return false;
+    if(S.filterSector!=='any' && c.sector!==S.filterSector) return false;
+    if(q && !(c.title+' '+c.sector+' '+c.contract).toLowerCase().includes(q)) return false;
+    return true;
+  });
+  if(!rows.length){wrap.innerHTML='<div class="empty">'+(currentFilter==='saved'?'No saved campaigns yet.<br>Tap the bookmark on any campaign to follow it.':'No campaigns match.<br>Try clearing filters or search.')+'</div>';return;}
+  wrap.innerHTML=rows.map(c=>{
+    const pct=Math.min(100,Math.round(c.raised/c.pool*100));
+    const pill=c.status==='open'?'<span class="pill open">Open</span>':c.status==='matured'?'<span class="pill matured">Matured</span>':'<span class="pill recovery">In recovery</span>';
+    const riskCls=c.risk==='Higher'?'recovery':'open';
+    const proof=c.status==='open'?'<div class="meta"><span>'+c.investors+' investors</span><span>'+c.daysLeft+'d left</span><span>Risk <b>'+c.risk+'</b></span></div>':'<div class="meta"><span>'+c.investors+' investors</span><span>Risk <b>'+c.risk+'</b></span></div>';
+    return '<div class="camp" data-act="camp" data-id="'+c.id+'">'
+      +'<div class="starbtn '+(S.watch.includes(c.id)?'on':'')+'" data-w="'+c.id+'">'+ic('bookmark',15)+'</div>'
+      +'<div class="top"><div style="max-width:74%"><div class="title">'+c.title+'</div><div class="sector">'+c.sector+'</div></div>'+pill+'</div>'
+      +'<div style="margin-top:8px"><span class="pill contract">'+c.contract+'</span></div>'
+      +'<div class="meta"><span>Profit/lac <b>'+TK+fmt(c.ppl)+'</b></span><span>Your share <b>'+c.share+'%</b></span><span>Tenure <b>'+c.tenure+'d</b></span></div>'
+      +'<div class="prog '+(c.status==='recovery'?'bad':'')+'"><i style="width:'+pct+'%"></i></div>'
+      +proof+'</div>';
+  }).join('');
+}
+function toggleWatch(id){
+  const i=S.watch.indexOf(id);
+  if(i<0){S.watch.push(id);toast('Saved, we will alert you before it closes');}
+  else{S.watch.splice(i,1);toast('Removed from watchlist');}
+  renderList(); renderHomeCamps(); scheduleSave();
+}
+function renderCompare(){
+  const picks=[...document.querySelectorAll('.cmpChk:checked')].map(c=>c.value);
+  if(picks.length<2){toast('Pick at least two campaigns');return;}
+  S.cmpPick=picks;
+  const cols=picks.slice(0,3).map(id=>{
+    const c=CAMPS.find(x=>x.id===id);
+    return '<div class="cmp-col"><div class="ct">'+c.title.split('·')[0].trim()+'</div>'
+      +'<div class="cr"><span>Contract</span><b>'+c.contract+'</b></div>'
+      +'<div class="cr"><span>Risk</span><b>'+c.risk+'</b></div>'
+      +'<div class="cr"><span>Tenure</span><b>'+c.tenure+'d</b></div>'
+      +'<div class="cr"><span>Profit/lac</span><b>'+TK+fmt(c.ppl)+'</b></div>'
+      +'<div class="cr"><span>Your share</span><b>'+c.share+'%</b></div>'
+      +'<div class="cr"><span>Status</span><b>'+c.status+'</b></div></div>';
+  }).join('');
+  $('#cmpResult').innerHTML='<div class="cmp-wrap">'+cols+'</div><p class="foot-dis" style="text-align:left">Contract and risk sit above return by design. A higher profit-per-lac on a higher-risk deal is not a better deal.</p>';
+}
+function renderInsights(){
+  const byContract={};
+  let total=0;
+  CAMPS.forEach(c=>{ if(c.status!=='matured'){ byContract[c.contract]=(byContract[c.contract]||0)+c.raised; total+=c.raised; }});
+  const colors={Murabaha:'#0FA67A',Wakalah:'#C99A2E',Musharakah:'#14C48A',Mudarabah:'#7BD6B4'};
+  let bar='',leg='';
+  Object.keys(byContract).forEach(k=>{
+    const pct=Math.round(byContract[k]/total*100);
+    bar+='<i style="width:'+pct+'%;background:'+(colors[k]||'#14C48A')+'"></i>';
+    leg+='<span><span class="sw" style="background:'+(colors[k]||'#14C48A')+'"></span>'+k+' '+pct+'%</span>';
+  });
+  $('#divBar').innerHTML=bar; $('#divLeg').innerHTML=leg;
+}
+function openDetail(id){
+  const c=CAMPS.find(x=>x.id===id); currentCamp=c;
+  const isRec=c.status==='recovery';
+  const projLabel=c.contract==='Murabaha'?'Projected profit (fixed markup basis)':'Indicative profit (projected)';
+  let recovery='';
+  if(isRec){
+    recovery='<div class="card"><span class="k">Live recovery tracker</span><h3 class="sec">What we\u2019re doing about it</h3>'
+      +'<ul class="rec-steps">'
+      +'<li class="done"><div class="n">'+ic('check',11)+'</div><div><div class="t">Contingency plan activated</div><div class="s">24 Jun · merchant and guarantors notified in writing</div></div></li>'
+      +'<li class="now"><div class="n">2</div><div><div class="t">Kafalah enforcement</div><div class="s">Now · security cheques presented; 2 of 4 Kafils responding</div></div></li>'
+      +'<li class="todo"><div class="n">3</div><div><div class="t">Legal proceedings</div><div class="s">If needed · against merchant and all Kafils</div></div></li>'
+      +'<li class="todo"><div class="n">4</div><div><div class="t">Final accounting</div><div class="s">Only after all steps: any shortfall borne proportionally (Rabb al-Mal)</div></div></li>'
+      +'</ul><div style="height:10px"></div>'
+      +'<button class="btn ghost" data-act="recaccount"><span data-ic="file" data-sz="16"></span>Read Ribh\u2019s written account</button></div>';
+  }
+  $('#detailBody').innerHTML=
+    '<div class="d-hero">'
+    +'<span class="pill contract" style="background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff">'+c.contract+'</span>'
+    +'<div class="title">'+c.title+'</div>'
+    +'<div class="sub">'+c.sector+' · '+c.tenure+'-day tenure</div></div>'
+    +(isRec?'<div class="riskbox"><b>Status: in recovery.</b> Repayment was not completed at maturity. Your capital is protected by the security stack below and the process is underway, but a proportional loss remains possible if recovery is exhausted.</div>':'')
+    +'<div class="d-grid">'
+    +'<div class="d-stat"><div class="l">Profit per lac</div><div class="v">'+TK+fmt(c.ppl)+'</div></div>'
+    +'<div class="d-stat"><div class="l">Your share</div><div class="v">'+c.share+'% · fee '+(100-c.share)+'%</div></div>'
+    +'<div class="d-stat"><div class="l">Pool</div><div class="v">'+TK+fmt(c.pool)+'</div></div>'
+    +'<div class="d-stat"><div class="l">Raised</div><div class="v">'+TK+fmt(c.raised)+'</div></div>'
+    +'</div>'
+    +'<div class="card calcbox"><span class="k">Try your numbers</span><h3 class="sec">Projection, not a promise</h3>'
+    +'<div class="wrapin"><span class="cur">'+TK+'</span><input id="dAmt" inputmode="numeric" value="1,00,000"></div>'
+    +'<div class="proj"><span class="l">'+projLabel+'</span><span class="v" id="dOut">'+TK+'0</span></div>'
+    +'<div class="formula-note">profit = (amount &divide; 1,00,000) &times; '+TK+fmt(c.ppl)+' &times; '+c.share+'%. Ribh\u2019s '+(100-c.share)+'% is a disclosed <b>Wakalah or success fee</b> from confirmed profit only, never from your capital.</div></div>'
+    +'<div class="card"><span class="k">Shariah basis</span><h3 class="sec">'+c.contract+' · how it stays halal</h3>'
+    +'<p style="font-size:11.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:10px">'+c.note+'</p>'
+    +'<ul class="slist">'
+    +'<li><span class="ic">'+ic('box',12)+'</span><span><b>Real asset, real activity</b> · funds buy actual goods; return comes from trade, not lending.</span></li>'
+    +'<li><span class="ic">'+ic('file',12)+'</span><span><b>Full disclosure (bayan)</b> · cost, markup or fee and terms fixed before execution.</span></li>'
+    +'<li><span class="ic">'+ic('calendar',12)+'</span><span><b>No time-based increase</b> · the amount owed never grows due to delay; late charges go to charity.</span></li>'
+    +'<li><span class="ic">'+ic('scale',12)+'</span><span><b>Reviewed</b> · screened for riba, gharar and maysir under our Shariah framework.</span></li>'
+    +'</ul><div style="height:11px"></div><button class="btn ghost" data-act="sheet" data-sheet="whyhalal"><span data-ic="sparkles" data-sz="16"></span>Why this is halal, in plain terms</button></div>'
+    +'<div class="card"><span class="k">Your protections</span><h3 class="sec">Security held for this campaign</h3>'
+    +'<ul class="slist">'
+    +'<li><span class="ic">'+ic('file',12)+'</span><span><b>Deed of Agreement</b> · stamp-paper contract (\u2018aqd).</span></li>'
+    +'<li><span class="ic">'+ic('users',12)+'</span><span><b>Kafalah</b> · verified guarantors, jointly and severally liable.</span></li>'
+    +'<li><span class="ic">'+ic('shield',12)+'</span><span><b>Security cheques</b> · full repayment value including markup.</span></li>'
+    +'<li><span class="ic">'+ic('alert',12)+'</span><span><b>Contingency plan</b> · signed, activates on material loss.</span></li>'
+    +'</ul></div>'
+    +recovery
+    +(c.status==='open'?'<button class="btn pri" data-act="investflow">'+ic('trend',16)+'Invest in this campaign</button>'
+    +'<p class="foot-dis">Two acknowledgements required. Capital at risk; invest only what you can afford to place at risk.</p>':'');
+  go('detail'); dCalc();
+}
+function dCalc(){
+  const c=currentCamp; const el=$('#dAmt'); if(!el||!c) return;
+  const v=num(el.value); el.value=v?v.toLocaleString('en-IN'):'';
+  $('#dOut').textContent=TK+fmt((v/100000)*c.ppl*(c.share/100));
+}
+function zakat(){
+  const g=id=>num($(id).value);
+  $('#zkOut').textContent=TK+fmt((g('#zkCash')+g('#zkInv')+g('#zkGold'))*0.025);
+}
+
+/* ============ v0.5 renderers ============ */
+function renderSpark(){
+  const svg=$('#sparkSvg'); if(!svg) return;
+  const data=[1650,2100,1980,2450,3937,3200];
+  const max=Math.max(...data), min=Math.min(...data), W=300, H=38, pad=3;
+  const pts=data.map((v,i)=>{
+    const x=pad+i*((W-2*pad)/(data.length-1));
+    const y=H-pad-((v-min)/(max-min||1))*(H-2*pad);
+    return x.toFixed(1)+','+y.toFixed(1);
+  });
+  const last=pts[pts.length-1].split(',');
+  svg.innerHTML='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#7BE6BE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+    +'<circle cx="'+last[0]+'" cy="'+last[1]+'" r="2.6" fill="#fff"/>';
+}
+function goalRow(g,compact){
+  const pct=Math.min(100,Math.round(g.saved/g.target*100));
+  return '<div class="goal" data-act="'+(compact?'goto':'addgoalmoney')+'" '+(compact?'data-to="grow"':'data-g="'+g.id+'"')+'>'
+    +'<div class="gic">'+ic(g.ic,17)+'</div>'
+    +'<div class="gmid"><div class="gt">'+g.t+'</div><div class="gs">'+TK+fmt(g.saved)+' of '+TK+fmt(g.target)+'</div>'
+    +'<div class="gbar"><i style="width:'+pct+'%"></i></div></div>'
+    +'<div class="gpct">'+pct+'%</div></div>';
+}
+function renderGoals(){
+  const hg=$('#homeGoals'); if(hg) hg.innerHTML=S.goals.slice(0,2).map(g=>goalRow(g,true)).join('');
+  const gg=$('#growGoals'); if(gg) gg.innerHTML=S.goals.map(g=>goalRow(g,false)).join('');
+  if(typeof updateGoalsMeSub==='function') updateGoalsMeSub();
+}
+function addGoal(){
+  const n=$('#goalName').value.trim()||'New goal';
+  const t=num($('#goalTarget').value)||100000;
+  S.goals.push({id:'g'+Date.now(),t:n,ic:'target',saved:0,target:t});
+  renderGoals(); closeSheet(); toast('Goal created: '+n);
+}
+function doGoalAdd(){
+  const g=S.goals.find(x=>x.id===S.curGoal); if(!g) return;
+  const v=num($('#goalAdd').value);
+  if(!v){toast('Enter an amount');return;}
+  if(v>S.avail){toast('Exceeds available '+TK+fmt(S.avail));return;}
+  S.avail-=v; g.saved+=v; refreshAmanah(); renderGoals();
+  pushLedger({sign:'-',t:'To goal · '+g.t,s:'Today · earmarked savings',amt:'\u2212'+TK+fmt(v)});
+  closeSheet(); toast(TK+fmt(v)+' added to '+g.t);
+}
+function delGoal(id){
+  const i=S.goals.findIndex(g=>g.id===id); if(i<0) return;
+  const g=S.goals[i];
+  if(g.saved>0){
+    S.avail+=g.saved; refreshAmanah();
+    pushLedger({sign:'+',t:'Goal closed · '+g.t,s:'Today · savings returned to wallet',amt:'+'+TK+fmt(g.saved)});
+  }
+  S.goals.splice(i,1);
+  renderGoals(); openSheet(SHEETS.goalsettings());
+  toast(g.saved>0?('Goal removed, '+TK+fmt(g.saved)+' returned'):'Goal removed');
+}
+function sweepRoundup(){
+  if(!S.roundup){toast('Turn on round-up first');return;}
+  if(S.roundupAccum<1){toast('Nothing to sweep yet');return;}
+  S.saved+=S.roundupAccum;
+  const so=$('#savedOut'); if(so) so.textContent=TK+fmt(S.saved);
+  toast(TK+fmt(S.roundupAccum)+' swept into the Ribh Fund');
+  S.roundupAccum=0; $('#roundupAccum').textContent=TK+'0';
+}
+function joinChallenge(){
+  S.challenge=!S.challenge;
+  const btn=$('#chalBtn');
+  if(S.challenge){
+    S.chalDay=7;
+    btn.innerHTML=ic('check',16)+'Joined · day '+S.chalDay+' of 30';
+    toast('Challenge joined, day '+S.chalDay+' of 30');
+  } else {
+    S.chalDay=0; btn.innerHTML=ic('check',16)+'Join the challenge'; toast('Left the challenge');
+  }
+  renderChallenge();
+}
+function renderChallenge(){
+  const r=$('#chalRing'); if(!r) return;
+  const C=170;
+  r.style.strokeDashoffset=C-(C*S.chalDay/30);
+  $('#chalDay').textContent=S.chalDay;
+}
+function updateAutoEntry(){
+  const st=STRATEGIES.find(x=>x.id===S.autoStrategy);
+  const status=$('#autoStatus'); const hint=$('#autoQueueHint'); const ht=$('#autoQueueText');
+  if(!status) return;
+  if(st){
+    status.textContent=st.name+' · you approve each deployment';
+    const qn=S.autoQueue.filter(q=>q.status==='pending').length;
+    if(qn){hint.style.display='flex';ht.textContent=qn+' campaign'+(qn>1?'s':'')+' awaiting your approval';}
+    else{hint.style.display='none';}
+  } else {
+    status.textContent='Off · pick a strategy, approve each deployment';
+    hint.style.display='none';
+  }
+}
+function setAuto(){
+  S.autoStrategy=S.autoTmp||S.autoStrategy;
+  const st=STRATEGIES.find(x=>x.id===S.autoStrategy);
+  const open=CAMPS.filter(c=>c.status==='open');
+  const existing=new Set(S.autoQueue.map(q=>q.camp));
+  open.forEach(c=>{ if(!existing.has(c.id)) S.autoQueue.push({id:'q'+c.id,camp:c.id,amount:25000,status:'pending'}); });
+  S.autoTab='queue';
+  updateAutoEntry();
+  openSheet(SHEETS.autoinvest());
+  toast('Auto-invest on: '+st.name+'. Review the queue');
+}
+function queueApprove(qid){
+  const q=S.autoQueue.find(x=>x.id===qid); if(!q||q.status!=='pending') return;
+  const c=CAMPS.find(x=>x.id===q.camp);
+  if(q.amount>S.avail){toast('Not enough available for '+TK+fmt(q.amount));return;}
+  S.avail-=q.amount; S.deployed+=q.amount; refreshAmanah();
+  c.raised=Math.min(c.pool,c.raised+q.amount);
+  q.status='approved';
+  pushLedger({sign:'-',t:'Auto-invest · '+c.title.split('·')[0].trim(),s:'Today · approved by you · '+c.contract,amt:'\u2212'+TK+fmt(q.amount)});
+  renderList(); renderHomeCamps(); renderInsights(); updateAutoEntry();
+  openSheet(SHEETS.autoinvest());
+  toast('Approved '+TK+fmt(q.amount)+', may Allah bless it'); scheduleSave();
+}
+function queueSkip(qid){
+  const q=S.autoQueue.find(x=>x.id===qid); if(!q) return;
+  q.status='skipped';
+  updateAutoEntry(); openSheet(SHEETS.autoinvest());
+  toast('Skipped, nothing deployed'); scheduleSave();
+}
+function setTier(id){
+  S.riskTier=id; S.autoTmp=id;
+  const st=STRATEGIES.find(x=>x.id===id);
+  updateV8Entries();
+  closeSheet(); toast('Risk tier set: '+st.name);
+  scheduleSave();
+}
+function saveAutosave(){
+  const st=STRATEGIES.find(x=>x.id===(S.riskTier||'balanced'));
+  updateV8Entries();
+  closeSheet();
+  toast(S.autosave.on?('Auto-save on: '+TK+fmt(S.autosave.amount)+' '+S.autosave.freq):'Auto-save off');
+  scheduleSave();
+}
+function saveNominee(){
+  const name=($('#nomName').value||'').trim();
+  const rel=($('#nomRel').value||'').trim()||'Beneficiary';
+  const nid=($('#nomNid').value||'').trim()||'not given';
+  const share=num($('#nomShare').value)||100;
+  if(!name){toast('Enter the nominee name');return;}
+  S.nominee={name,rel,nid,share};
+  updateV8Entries();
+  openSheet(SHEETS.nominee());
+  toast('Nominee saved'); scheduleSave();
+}
+function doPurify(){
+  const v=num($('#purAmt').value);
+  if(!v){toast('Enter an amount');return;}
+  S.purified+=v;
+  pushLedger({sign:'-',t:'Interest purified to charity',s:'Today · not counted as your wealth',amt:'\u2212'+TK+fmt(v)});
+  const e=$('#purTotal'); if(e) e.textContent=TK+fmt(S.purified);
+  toast(TK+fmt(v)+' routed to charity, purified'); scheduleSave();
+}
+function updateV8Entries(){
+  const tierEl=$('#tierMe');
+  if(tierEl){ const st=STRATEGIES.find(x=>x.id===S.riskTier); tierEl.textContent=st?(st.name+' · tap to change'):'Not set · take the 3-question quiz'; }
+  const asMe=$('#autosaveMe');
+  if(asMe) asMe.textContent=S.autosave.on?(TK+fmt(S.autosave.amount)+' '+S.autosave.freq+' into the fund'):'Off · build the habit from Tk250';
+  const asGrow=$('#autosaveGrow');
+  if(asGrow) asGrow.textContent=S.autosave.on?('Auto-save on · '+TK+fmt(S.autosave.amount)+' '+S.autosave.freq):'Set up weekly auto-save';
+  const nomMe=$('#nomineeMe');
+  if(nomMe) nomMe.textContent=S.nominee?(S.nominee.name+' · '+S.nominee.rel):'Not set · name a beneficiary';
+}
+
+
+/* ============ local database (mirrors future Supabase schema) ============ */
+const DB={
+  KEY:'ribh-db-v1',
+  tables(){
+    return {
+      profiles:[{id:'u1',name:'Muzahid Islam',kyc:S.kyc,kyc_source:S.kycSrc,lang:S.lang,theme:S.theme,quiet_hours:S.quiet,biometric:S.bio,two_factor:S.tfa,payout_plan:S.payout}],
+      wallets:[{profile_id:'u1',available:S.avail,deployed:S.deployed,pending_payout:S.pendingPayout}],
+      campaigns:CAMPS,
+      wallet_transactions:S.ledger,
+      goals:S.goals,
+      watchlist:S.watch,
+      habits:S.habits,
+      lessons:S.lessons,
+      fund:{saved:S.saved,streak:S.streak,saved_today:S.savedToday,roundup:S.roundup,roundup_accum:S.roundupAccum},
+      charity:{given:S.given,meals:S.meals},
+      auto_invest:{strategy:S.autoStrategy,queue:S.autoQueue},
+      preferences:{risk_tier:S.riskTier,autosave:S.autosave,nominee:S.nominee,referrals:S.referrals,purified:S.purified,reminders:S.reminders,tour_done:S.tourDone,deposit_provider:S.depositProvider},
+      challenge:{joined:S.challenge,day:S.chalDay}
+    };
+  },
+  async save(){
+    try{ if(window.storage) await window.storage.set(DB.KEY, JSON.stringify(DB.tables())); }
+    catch(e){ /* in-memory only on this device */ }
+  },
+  async load(){
+    try{
+      if(!window.storage) return null;
+      const r=await window.storage.get(DB.KEY);
+      return r&&r.value?JSON.parse(r.value):null;
+    }catch(e){ return null; }
+  },
+  hydrate(d){
+    if(!d) return false;
+    try{
+      const p=(d.profiles||[])[0]||{};
+      S.kyc=!!p.kyc; S.kycSrc=p.kyc_source||null;
+      S.lang=p.lang||'en'; S.theme=p.theme||'light';
+      S.quiet=p.quiet_hours!==false; S.bio=p.biometric!==false; S.tfa=p.two_factor!==false;
+      S.payout=p.payout_plan||S.payout;
+      const w=(d.wallets||[])[0];
+      if(w&&typeof w.available==='number'){S.avail=w.available;S.deployed=w.deployed;S.pendingPayout=w.pending_payout;}
+      if(Array.isArray(d.goals)) S.goals=d.goals;
+      if(Array.isArray(d.wallet_transactions)) S.ledger=d.wallet_transactions;
+      if(Array.isArray(d.watchlist)) S.watch=d.watchlist;
+      if(Array.isArray(d.habits)&&d.habits.length===S.habits.length) S.habits=d.habits;
+      if(d.lessons) S.lessons=d.lessons;
+      if(d.fund){S.saved=d.fund.saved;S.streak=d.fund.streak;S.savedToday=d.fund.saved_today;S.roundup=d.fund.roundup;S.roundupAccum=d.fund.roundup_accum;}
+      if(d.charity){S.given=d.charity.given;S.meals=d.charity.meals;}
+      if(d.auto_invest){S.autoStrategy=d.auto_invest.strategy; if(Array.isArray(d.auto_invest.queue)) S.autoQueue=d.auto_invest.queue;}
+      if(d.preferences){const p2=d.preferences; S.riskTier=p2.risk_tier??S.riskTier; if(p2.autosave)S.autosave=p2.autosave; S.nominee=p2.nominee??S.nominee; if(p2.referrals)S.referrals=p2.referrals; S.purified=p2.purified??S.purified; S.reminders=p2.reminders!==false; S.tourDone=!!p2.tour_done; S.depositProvider=p2.deposit_provider||S.depositProvider;}
+      if(d.challenge){S.challenge=d.challenge.joined;S.chalDay=d.challenge.day;}
+      if(Array.isArray(d.campaigns)) d.campaigns.forEach(c=>{const x=CAMPS.find(y=>y.id===c.id); if(x) Object.assign(x,c);});
+      return true;
+    }catch(e){ return false; }
+  },
+  async reset(){
+    try{ if(window.storage) await window.storage.delete(DB.KEY); }catch(e){}
+    toast('Seed data restored');
+    setTimeout(()=>location.reload(),650);
+  }
+};
+let saveT;
+function scheduleSave(){ clearTimeout(saveT); saveT=setTimeout(()=>DB.save(),400); }
+
+function updateGoalsMeSub(){
+  const e=$('#goalsMeSub'); if(e) e.textContent=S.goals.length+' active '+(S.goals.length===1?'goal':'goals');
+}
+function applyState(){
+  $('#phone').dataset.theme=S.theme;
+  $('#themeSw').classList.toggle('on',S.theme==='dark');
+  $('#langSw').classList.toggle('on',S.lang==='bn');
+  $('#quietSw').classList.toggle('on',S.quiet);
+  const rs=$('#roundupSw');
+  if(rs){rs.classList.toggle('on',S.roundup); $('#sweepBtn').disabled=!S.roundup;}
+  $('#roundupAccum').textContent=TK+fmt(S.roundupAccum);
+  $('#savedOut').textContent=TK+fmt(S.saved);
+  $('#streakOut').textContent=S.streak+' days';
+  $('#givenTotal').textContent=TK+fmt(S.given);
+  $('#mealsOut').textContent=S.meals;
+  if(S.savedToday){$('#todayCell').classList.add('hit');$('#saveTodayBtn').innerHTML=ic('check',16)+'Saved · streak '+S.streak+' days';}
+  $('#payoutLabel').textContent=S.payout+' · bank ····4192';
+  $('#planInline').textContent=S.payout;
+  if(!S.pendingPayout) $('#payoutCard').style.display='none';
+  if(S.autoStrategy){const st=STRATEGIES.find(x=>x.id===S.autoStrategy); if(st){updateAutoEntry();}}
+  const remSw=$('#remSw'); if(remSw) remSw.classList.toggle('on',S.reminders);
+  if(typeof updateV8Entries==='function') updateV8Entries();
+  if(S.challenge){$('#chalBtn').innerHTML=ic('check',16)+'Joined · day '+S.chalDay+' of 30';}
+  Object.keys(S.lessons).forEach(k=>{ if(S.lessons[k]){const e=$('#'+k+'done'); if(e) e.style.display='block';} });
+  if(S.kyc){
+    const b=$('#kycBanner');
+    b.classList.add('done');
+    b.innerHTML='<span data-ic="check" data-sz="20"></span><span><b>Verified, Tier 2</b><br>NID matched · liveness passed · source: '+(S.kycSrc||'declared')+' · deposits enabled</span>';
+    mountIcons(b);
+    $('#kycMe').textContent='Tier 2 · fully verified · source of funds on file';
+  }
+  updateGoalsMeSub();
+}
+function renderAll(){
+  renderList(); renderHomeCamps(); renderLedger(false); zakat(); refreshAmanah();
+  renderHabits(); renderForest(); renderInsights(); renderPrayers();
+  renderSpark(); renderGoals(); renderChallenge(); applyState(); applyLang();
+}
+
+/* ============ init ============ */
+mountIcons();
+renderAll();
+DB.load().then(d=>{ if(DB.hydrate(d)) renderAll(); DB.save(); if(!S.tourDone){ setTimeout(()=>{ S.tourStep=0; openSheet(SHEETS.tour()); }, 500); } });
+setInterval(renderPrayers, 30000);
+</script>
+</body>
+</html>

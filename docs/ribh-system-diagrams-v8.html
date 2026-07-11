@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RIBH · System Diagrams v8.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#0FA67A; --teal-deep:#06342A; --green:#14C48A; --mint:#C8F5E2; --mint-soft:#EAFBF3;
+  --gold:#C99A2E; --gold-soft:#F6EDD4; --ink:#0B1A15; --ink-soft:#4C6960; --line:#D6ECE2;
+  --paper:#F7FBF9; --card:#fff; --danger:#C2412E; --danger-soft:#FBEBE7; --new:#7A3FB0; --new-soft:#F1E9FA;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5;padding:40px 20px 80px}
+.wrap{max-width:1060px;margin:0 auto}
+h1{font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:30px;letter-spacing:-.02em}
+.sub{color:var(--ink-soft);font-size:14px;margin:6px 0 8px;max-width:680px}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);border:1px solid var(--line);background:var(--card);padding:4px 12px;border-radius:999px;margin-bottom:14px}
+.newkey{display:inline-flex;align-items:center;gap:7px;background:var(--new-soft);color:var(--new);border:1px solid #e0cef2;border-radius:10px;padding:8px 13px;font-size:12.5px;font-weight:600;margin:8px 0 0}
+.newkey .dot{width:10px;height:10px;border-radius:3px;background:var(--new)}
+section{margin-top:52px}
+h2{font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.01em;display:flex;align-items:baseline;gap:10px}
+h2 .n{font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.08em}
+.note{color:var(--ink-soft);font-size:13px;margin:6px 0 18px;max-width:780px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;overflow-x:auto}
+svg{display:block;min-width:760px;width:100%;height:auto}
+svg text{font-family:'Inter',sans-serif}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--ink-soft)}
+.legend span{display:flex;align-items:center;gap:6px}
+.sw{width:11px;height:11px;border-radius:4px;display:inline-block}
+table{border-collapse:collapse;width:100%;font-size:12.5px;min-width:760px}
+th{font-family:'Hanken Grotesk',sans-serif;text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);padding:10px 12px;border-bottom:1.5px solid var(--line)}
+td{padding:10px 12px;border-bottom:1px solid var(--mint-soft);vertical-align:top}
+td:first-child{font-weight:600;white-space:nowrap}
+tr.newrow td:first-child::after{content:"NEW";display:inline-block;font-size:8.5px;font-weight:700;color:var(--new);background:var(--new-soft);border-radius:99px;padding:1px 6px;margin-left:7px;vertical-align:middle}
+.rw{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;margin:1px 2px}
+.r{background:var(--mint-soft);color:var(--teal-deep)}
+.w{background:var(--gold-soft);color:#7a5a12}
+.foot{margin-top:44px;font-size:11.5px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:16px;max-width:780px}
+.delta{background:var(--new-soft);border:1px solid #e6d8f5;border-radius:16px;padding:18px 20px;margin-top:22px}
+.delta h3{font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:var(--new);margin-bottom:10px}
+.delta ul{list-style:none;font-size:13px;color:#4a3363;line-height:1.7}
+.delta li::before{content:"+ ";color:var(--new);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="tag">Ribh Investments · system diagrams · v8.0</span>
+  <h1>System diagrams, v8.0</h1>
+  <p class="sub">The same four views as the v0.7 set, updated for everything v8.0 added: the pre-launch feature layer. Anything drawn in purple is new since v0.7, so you can compare the two documents side by side.</p>
+  <div class="newkey"><span class="dot"></span>Purple = added in v8.0 (pre-launch feature layer)</div>
+
+  <!-- ============ 1. PROTOTYPE LOCAL DB ============ -->
+  <section>
+    <h2><span class="n">01</span>Prototype local database</h2>
+    <p class="note">v0.7 stored 12 tables. v8.0 adds one consolidated <b>preferences</b> store holding the pre-launch settings, and extends existing stores. Still one JSON snapshot under <b>ribh-db-v1</b>, still saved on a 400ms debounce.</p>
+    <div class="panel">
+    <svg viewBox="0 0 980 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Prototype local database v8">
+      <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#4C6960"/></marker></defs>
+      <rect x="380" y="16" width="220" height="58" rx="14" fill="#06342A"/>
+      <text x="490" y="41" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">window.storage</text>
+      <text x="490" y="59" text-anchor="middle" fill="#9fdcc4" font-size="11">key: ribh-db-v1 · JSON snapshot</text>
+      <line x1="490" y1="74" x2="490" y2="104" stroke="#4C6960" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="355" y="104" width="270" height="64" rx="14" fill="#0FA67A"/>
+      <text x="490" y="130" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">DB module</text>
+      <text x="490" y="148" text-anchor="middle" fill="#dff6ec" font-size="11">tables() · save() · load() · hydrate() · reset()</text>
+
+      <!-- identity and money -->
+      <rect x="20" y="212" width="300" height="150" rx="16" fill="#EAFBF3" stroke="#D6ECE2"/>
+      <text x="36" y="238" font-size="11" font-weight="700" fill="#4C6960" letter-spacing="2">IDENTITY AND MONEY</text>
+      <rect x="36" y="252" width="126" height="44" rx="10" fill="#fff" stroke="#0FA67A" stroke-width="1.5"/>
+      <text x="99" y="271" text-anchor="middle" font-size="12" font-weight="700">profiles</text>
+      <text x="99" y="287" text-anchor="middle" font-size="9" fill="#4C6960">kyc · nominee · 2fa</text>
+      <rect x="178" y="252" width="126" height="44" rx="10" fill="#fff" stroke="#0FA67A" stroke-width="1.5"/>
+      <text x="241" y="271" text-anchor="middle" font-size="12" font-weight="700">wallets</text>
+      <text x="241" y="287" text-anchor="middle" font-size="9" fill="#4C6960">available · deployed</text>
+      <rect x="36" y="306" width="268" height="44" rx="10" fill="#fff" stroke="#06342A" stroke-width="1.5"/>
+      <text x="170" y="325" text-anchor="middle" font-size="12" font-weight="700">wallet_transactions</text>
+      <text x="170" y="341" text-anchor="middle" font-size="9" fill="#4C6960">append-only ledger · now also purification entries</text>
+
+      <!-- marketplace -->
+      <rect x="340" y="212" width="300" height="150" rx="16" fill="#EAFBF3" stroke="#D6ECE2"/>
+      <text x="356" y="238" font-size="11" font-weight="700" fill="#4C6960" letter-spacing="2">MARKETPLACE</text>
+      <rect x="356" y="252" width="268" height="44" rx="10" fill="#fff" stroke="#0FA67A" stroke-width="1.5"/>
+      <text x="490" y="271" text-anchor="middle" font-size="12" font-weight="700">campaigns</text>
+      <text x="490" y="287" text-anchor="middle" font-size="9" fill="#4C6960">pool · raised · status · risk · investors</text>
+      <rect x="356" y="306" width="126" height="44" rx="10" fill="#fff" stroke="#C99A2E" stroke-width="1.5"/>
+      <text x="419" y="325" text-anchor="middle" font-size="12" font-weight="700">auto_invest</text>
+      <text x="419" y="341" text-anchor="middle" font-size="9" fill="#4C6960">strategy · queue[]</text>
+      <rect x="498" y="306" width="126" height="44" rx="10" fill="#fff" stroke="#D6ECE2" stroke-width="1.5"/>
+      <text x="561" y="325" text-anchor="middle" font-size="12" font-weight="700">watchlist</text>
+      <text x="561" y="341" text-anchor="middle" font-size="9" fill="#4C6960">saved ids</text>
+
+      <!-- growth and faith -->
+      <rect x="660" y="212" width="300" height="150" rx="16" fill="#EAFBF3" stroke="#D6ECE2"/>
+      <text x="676" y="238" font-size="11" font-weight="700" fill="#4C6960" letter-spacing="2">GROWTH AND FAITH</text>
+      <rect x="676" y="252" width="126" height="44" rx="10" fill="#fff" stroke="#D6ECE2" stroke-width="1.5"/>
+      <text x="739" y="271" text-anchor="middle" font-size="12" font-weight="700">goals</text>
+      <text x="739" y="287" text-anchor="middle" font-size="9" fill="#4C6960">saved · target</text>
+      <rect x="818" y="252" width="126" height="44" rx="10" fill="#fff" stroke="#D6ECE2" stroke-width="1.5"/>
+      <text x="881" y="271" text-anchor="middle" font-size="12" font-weight="700">fund</text>
+      <text x="881" y="287" text-anchor="middle" font-size="9" fill="#4C6960">10/day · roundup</text>
+      <rect x="676" y="306" width="268" height="44" rx="10" fill="#fff" stroke="#D6ECE2" stroke-width="1.5"/>
+      <text x="810" y="325" text-anchor="middle" font-size="12" font-weight="700">habits · lessons · charity · challenge</text>
+      <text x="810" y="341" text-anchor="middle" font-size="9" fill="#4C6960">engagement state</text>
+
+      <!-- NEW preferences store -->
+      <rect x="255" y="392" width="470" height="128" rx="16" fill="#F1E9FA" stroke="#d9c2ef" stroke-width="1.5"/>
+      <text x="271" y="416" font-size="11" font-weight="700" fill="#7A3FB0" letter-spacing="2">PREFERENCES  (NEW IN v8.0)</text>
+      <rect x="271" y="428" width="130" height="38" rx="9" fill="#fff" stroke="#7A3FB0" stroke-width="1.3"/>
+      <text x="336" y="452" text-anchor="middle" font-size="11" font-weight="700">risk_tier</text>
+      <rect x="409" y="428" width="130" height="38" rx="9" fill="#fff" stroke="#7A3FB0" stroke-width="1.3"/>
+      <text x="474" y="452" text-anchor="middle" font-size="11" font-weight="700">autosave</text>
+      <rect x="547" y="428" width="162" height="38" rx="9" fill="#fff" stroke="#7A3FB0" stroke-width="1.3"/>
+      <text x="628" y="452" text-anchor="middle" font-size="11" font-weight="700">nominee</text>
+      <rect x="271" y="472" width="130" height="38" rx="9" fill="#fff" stroke="#7A3FB0" stroke-width="1.3"/>
+      <text x="336" y="496" text-anchor="middle" font-size="11" font-weight="700">referrals</text>
+      <rect x="409" y="472" width="130" height="38" rx="9" fill="#fff" stroke="#7A3FB0" stroke-width="1.3"/>
+      <text x="474" y="496" text-anchor="middle" font-size="11" font-weight="700">reminders</text>
+      <rect x="547" y="472" width="162" height="38" rx="9" fill="#fff" stroke="#7A3FB0" stroke-width="1.3"/>
+      <text x="628" y="490" text-anchor="middle" font-size="10.5" font-weight="700">purified · tour_done</text>
+      <text x="628" y="503" text-anchor="middle" font-size="10.5" font-weight="700">deposit_provider</text>
+
+      <line x1="420" y1="168" x2="180" y2="208" stroke="#4C6960" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="490" y1="168" x2="490" y2="208" stroke="#4C6960" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="560" y1="168" x2="800" y2="208" stroke="#4C6960" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="490" y1="168" x2="490" y2="388" stroke="#7A3FB0" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+    </svg>
+    <div class="legend">
+      <span><span class="sw" style="background:#0FA67A"></span>money-critical</span>
+      <span><span class="sw" style="background:#06342A"></span>append-only ledger</span>
+      <span><span class="sw" style="background:#C99A2E"></span>consent-sensitive</span>
+      <span><span class="sw" style="background:#7A3FB0"></span>new in v8.0</span>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. PRODUCTION SCHEMA ============ -->
+  <section>
+    <h2><span class="n">02</span>Production schema · Supabase target</h2>
+    <p class="note">The core money spine is unchanged. v8.0 adds five satellite tables in purple: a Shariah board register, a deposit-rail transactions log, a recurring auto-save schedule, a nominee record, and a referrals ledger. Purification rides the existing wallet_transactions as a new kind.</p>
+    <div class="panel">
+    <svg viewBox="0 0 980 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Production schema v8">
+      <defs><marker id="one" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0FA67A"/></marker>
+      <marker id="onep" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7A3FB0"/></marker></defs>
+
+      <!-- core spine left -->
+      <g>
+        <rect x="30" y="30" width="196" height="118" rx="12" fill="#fff" stroke="#0FA67A" stroke-width="2"/>
+        <rect x="30" y="30" width="196" height="30" rx="12" fill="#0FA67A"/><rect x="30" y="48" width="196" height="12" fill="#0FA67A"/>
+        <text x="128" y="50" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">profiles</text>
+        <text x="44" y="80" font-size="10.5" font-weight="600">id PK · role · kyc_tier</text>
+        <text x="44" y="97" font-size="10.5" fill="#4C6960">kyc_source · lang · theme</text>
+        <text x="44" y="114" font-size="10.5" fill="#7A3FB0">risk_tier · reminders</text>
+        <text x="44" y="131" font-size="10.5" fill="#4C6960">2fa · biometric</text>
+      </g>
+      <g>
+        <rect x="30" y="196" width="196" height="86" rx="12" fill="#fff" stroke="#0FA67A" stroke-width="2"/>
+        <rect x="30" y="196" width="196" height="30" rx="12" fill="#0FA67A"/><rect x="30" y="214" width="196" height="12" fill="#0FA67A"/>
+        <text x="128" y="216" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">investor_wallets</text>
+        <text x="44" y="246" font-size="10.5" font-weight="600">profile_id FK</text>
+        <text x="44" y="263" font-size="10.5" fill="#4C6960">balance = SUM(ledger)</text>
+      </g>
+      <g>
+        <rect x="30" y="330" width="196" height="120" rx="12" fill="#fff" stroke="#06342A" stroke-width="2"/>
+        <rect x="30" y="330" width="196" height="30" rx="12" fill="#06342A"/><rect x="30" y="348" width="196" height="12" fill="#06342A"/>
+        <text x="128" y="350" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">wallet_transactions</text>
+        <text x="44" y="380" font-size="10.5" font-weight="600">append-only · kind:</text>
+        <text x="44" y="396" font-size="10.5" fill="#4C6960">deposit · invest · profit</text>
+        <text x="44" y="412" font-size="10.5" fill="#C2412E">write_down · recovery</text>
+        <text x="44" y="428" font-size="10.5" fill="#7A3FB0">purification · goal_earmark</text>
+      </g>
+
+      <!-- core spine middle -->
+      <g>
+        <rect x="392" y="30" width="200" height="118" rx="12" fill="#fff" stroke="#0FA67A" stroke-width="2"/>
+        <rect x="392" y="30" width="200" height="30" rx="12" fill="#0FA67A"/><rect x="392" y="48" width="200" height="12" fill="#0FA67A"/>
+        <text x="492" y="50" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">campaigns</text>
+        <text x="406" y="80" font-size="10.5" font-weight="600">id PK · business_id FK</text>
+        <text x="406" y="97" font-size="10.5" fill="#4C6960">contract · pool · raised</text>
+        <text x="406" y="114" font-size="10.5" fill="#4C6960">profit_per_lac · share · risk</text>
+        <text x="406" y="131" font-size="10.5" fill="#C2412E">status incl. in_recovery</text>
+      </g>
+      <g>
+        <rect x="392" y="196" width="200" height="86" rx="12" fill="#fff" stroke="#0FA67A" stroke-width="2"/>
+        <rect x="392" y="196" width="200" height="30" rx="12" fill="#0FA67A"/><rect x="392" y="214" width="200" height="12" fill="#0FA67A"/>
+        <text x="492" y="216" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">investments</text>
+        <text x="406" y="246" font-size="10.5" font-weight="600">profile_id · campaign_id</text>
+        <text x="406" y="263" font-size="10.5" fill="#4C6960">amount · risk_ack · source</text>
+      </g>
+      <g>
+        <rect x="392" y="330" width="200" height="76" rx="12" fill="#fff" stroke="#0FA67A" stroke-width="2"/>
+        <rect x="392" y="330" width="200" height="30" rx="12" fill="#0FA67A"/><rect x="392" y="348" width="200" height="12" fill="#0FA67A"/>
+        <text x="492" y="350" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">distributions</text>
+        <text x="406" y="380" font-size="10.5" fill="#4C6960">gross · ribh_fee · share</text>
+      </g>
+      <g>
+        <rect x="392" y="454" width="200" height="72" rx="12" fill="#fff" stroke="#0FA67A" stroke-width="2"/>
+        <rect x="392" y="454" width="200" height="30" rx="12" fill="#0FA67A"/><rect x="392" y="472" width="200" height="12" fill="#0FA67A"/>
+        <text x="492" y="474" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">payouts</text>
+        <text x="406" y="504" font-size="10.5" fill="#4C6960">route: bank · reinvest</text>
+      </g>
+
+      <!-- NEW satellites right -->
+      <g>
+        <rect x="754" y="30" width="200" height="76" rx="12" fill="#fff" stroke="#7A3FB0" stroke-width="2"/>
+        <rect x="754" y="30" width="200" height="30" rx="12" fill="#7A3FB0"/><rect x="754" y="48" width="200" height="12" fill="#7A3FB0"/>
+        <text x="854" y="50" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">shariah_board</text>
+        <text x="768" y="80" font-size="10.5" font-weight="600">scholar · role · bio</text>
+        <text x="768" y="96" font-size="10.5" fill="#4C6960">published_opinions</text>
+      </g>
+      <g>
+        <rect x="754" y="128" width="200" height="88" rx="12" fill="#fff" stroke="#7A3FB0" stroke-width="2"/>
+        <rect x="754" y="128" width="200" height="30" rx="12" fill="#7A3FB0"/><rect x="754" y="146" width="200" height="12" fill="#7A3FB0"/>
+        <text x="854" y="148" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">deposit_transactions</text>
+        <text x="768" y="178" font-size="10.5" font-weight="600">profile_id FK · provider</text>
+        <text x="768" y="194" font-size="10.5" fill="#4C6960">bkash / nagad / bank</text>
+        <text x="768" y="210" font-size="10.5" fill="#4C6960">name_match · amount · ref</text>
+      </g>
+      <g>
+        <rect x="754" y="238" width="200" height="88" rx="12" fill="#fff" stroke="#7A3FB0" stroke-width="2"/>
+        <rect x="754" y="238" width="200" height="30" rx="12" fill="#7A3FB0"/><rect x="754" y="256" width="200" height="12" fill="#7A3FB0"/>
+        <text x="854" y="258" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">autosave_schedule</text>
+        <text x="768" y="288" font-size="10.5" font-weight="600">profile_id FK · active</text>
+        <text x="768" y="304" font-size="10.5" fill="#4C6960">amount · frequency</text>
+        <text x="768" y="320" font-size="10.5" fill="#4C6960">next_run · target: fund</text>
+      </g>
+      <g>
+        <rect x="754" y="348" width="200" height="76" rx="12" fill="#fff" stroke="#7A3FB0" stroke-width="2"/>
+        <rect x="754" y="348" width="200" height="30" rx="12" fill="#7A3FB0"/><rect x="754" y="366" width="200" height="12" fill="#7A3FB0"/>
+        <text x="854" y="368" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">nominees</text>
+        <text x="768" y="398" font-size="10.5" font-weight="600">profile_id FK · name</text>
+        <text x="768" y="414" font-size="10.5" fill="#4C6960">relationship · nid · share</text>
+      </g>
+      <g>
+        <rect x="754" y="446" width="200" height="80" rx="12" fill="#fff" stroke="#7A3FB0" stroke-width="2"/>
+        <rect x="754" y="446" width="200" height="30" rx="12" fill="#7A3FB0"/><rect x="754" y="464" width="200" height="12" fill="#7A3FB0"/>
+        <text x="854" y="466" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">referrals</text>
+        <text x="768" y="496" font-size="10.5" font-weight="600">referrer_id · code · invitee</text>
+        <text x="768" y="512" font-size="10.5" fill="#4C6960">status · tree_reward</text>
+      </g>
+
+      <!-- relations core -->
+      <line x1="128" y1="148" x2="128" y2="194" stroke="#0FA67A" stroke-width="2" marker-end="url(#one)"/>
+      <line x1="128" y1="282" x2="128" y2="328" stroke="#0FA67A" stroke-width="2" marker-end="url(#one)"/>
+      <line x1="226" y1="90" x2="388" y2="230" stroke="#0FA67A" stroke-width="2" marker-end="url(#one)"/>
+      <line x1="492" y1="148" x2="492" y2="194" stroke="#0FA67A" stroke-width="2" marker-end="url(#one)"/>
+      <line x1="492" y1="282" x2="492" y2="328" stroke="#0FA67A" stroke-width="2" marker-end="url(#one)"/>
+      <line x1="492" y1="406" x2="492" y2="452" stroke="#0FA67A" stroke-width="2" marker-end="url(#one)"/>
+      <!-- relations new (dashed purple to profiles/campaigns) -->
+      <line x1="754" y1="68" x2="594" y2="80" stroke="#7A3FB0" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#onep)"/>
+      <text x="612" y="66" font-size="9.5" fill="#7A3FB0">reviews every campaign</text>
+      <line x1="754" y1="172" x2="228" y2="230" stroke="#7A3FB0" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#onep)"/>
+      <text x="300" y="200" font-size="9.5" fill="#7A3FB0">deposit credits wallet + writes ledger</text>
+      <line x1="754" y1="282" x2="228" y2="250" stroke="#7A3FB0" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#onep)"/>
+      <text x="300" y="268" font-size="9.5" fill="#7A3FB0">auto-save funds the wallet on schedule</text>
+      <line x1="754" y1="386" x2="228" y2="120" stroke="#7A3FB0" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#onep)"/>
+      <line x1="754" y1="486" x2="228" y2="130" stroke="#7A3FB0" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#onep)"/>
+    </svg>
+    <div class="legend">
+      <span><span class="sw" style="background:#0FA67A"></span>core money spine</span>
+      <span><span class="sw" style="background:#06342A"></span>append-only ledger</span>
+      <span><span class="sw" style="background:#7A3FB0"></span>new satellite (v8.0)</span>
+      <span style="color:#C2412E;font-weight:600">red = loss / recovery vocabulary</span>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. SCREEN MAP ============ -->
+  <section>
+    <h2><span class="n">03</span>App map · screens and sheets</h2>
+    <p class="note">Same five tabs and three pushed screens. The change in v8.0 is inside the sheet layer: the onboarding tour now greets first-time users, the Me tab gains a settings cluster (risk tier, auto-save, nominee) and the Shariah board, and the money and faith sheet groups each grow.</p>
+    <div class="panel">
+    <svg viewBox="0 0 980 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Screen map v8">
+      <defs><marker id="nav" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#4C6960"/></marker></defs>
+
+      <!-- NEW tour entry -->
+      <rect x="330" y="14" width="320" height="42" rx="12" fill="#F1E9FA" stroke="#7A3FB0" stroke-width="1.5"/>
+      <text x="490" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#7A3FB0">Onboarding tour · auto-opens for new users (NEW)</text>
+      <line x1="490" y1="56" x2="490" y2="72" stroke="#7A3FB0" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#nav)"/>
+
+      <rect x="20" y="72" width="940" height="48" rx="14" fill="#06342A"/>
+      <text x="114" y="101" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Home</text>
+      <text x="302" y="101" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Invest</text>
+      <text x="490" y="101" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Grow</text>
+      <text x="678" y="101" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Barakah</text>
+      <text x="866" y="101" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Me</text>
+
+      <rect x="34" y="140" width="160" height="150" rx="14" fill="#fff" stroke="#0FA67A" stroke-width="1.5"/>
+      <text x="114" y="163" text-anchor="middle" font-size="12" font-weight="700" fill="#06342A">HOME</text>
+      <text x="46" y="184" font-size="10" fill="#4C6960">amanah + sparkline</text>
+      <text x="46" y="201" font-size="10" fill="#4C6960">quick actions · goals</text>
+      <text x="46" y="218" font-size="10" fill="#4C6960">campaign carousel</text>
+      <text x="46" y="235" font-size="10" fill="#4C6960">where's my money</text>
+      <text x="46" y="252" font-size="10" fill="#4C6960">prayer · activity · hub</text>
+
+      <rect x="222" y="140" width="160" height="150" rx="14" fill="#fff" stroke="#0FA67A" stroke-width="1.5"/>
+      <text x="302" y="163" text-anchor="middle" font-size="12" font-weight="700" fill="#06342A">INVEST</text>
+      <text x="234" y="184" font-size="10" fill="#4C6960">search + filters</text>
+      <text x="234" y="201" font-size="10" fill="#4C6960">auto-invest + queue</text>
+      <text x="234" y="218" font-size="10" fill="#4C6960">campaign list + compare</text>
+      <text x="234" y="235" font-size="10" fill="#7A3FB0">why-this-is-halal sheet</text>
+      <text x="234" y="252" font-size="10" fill="#4C6960">portfolio insights</text>
+
+      <rect x="410" y="140" width="160" height="150" rx="14" fill="#fff" stroke="#0FA67A" stroke-width="1.5"/>
+      <text x="490" y="163" text-anchor="middle" font-size="12" font-weight="700" fill="#06342A">GROW</text>
+      <text x="422" y="184" font-size="10" fill="#4C6960">Zakat · Nisab</text>
+      <text x="422" y="201" font-size="10" fill="#4C6960">goal pots</text>
+      <text x="422" y="218" font-size="10" fill="#4C6960">Ribh Fund 10/day</text>
+      <text x="422" y="235" font-size="10" fill="#7A3FB0">weekly auto-save</text>
+      <text x="422" y="252" font-size="10" fill="#4C6960">round-up · lessons</text>
+
+      <rect x="598" y="140" width="160" height="150" rx="14" fill="#fff" stroke="#0FA67A" stroke-width="1.5"/>
+      <text x="678" y="163" text-anchor="middle" font-size="12" font-weight="700" fill="#06342A">BARAKAH</text>
+      <text x="610" y="184" font-size="10" fill="#4C6960">barakah score</text>
+      <text x="610" y="201" font-size="10" fill="#4C6960">adhkar · tasbih</text>
+      <text x="610" y="218" font-size="10" fill="#4C6960">daily sadaqah</text>
+      <text x="610" y="235" font-size="10" fill="#4C6960">Knowledge Hub</text>
+      <text x="610" y="252" font-size="10" fill="#4C6960">habit grid · Welfare</text>
+
+      <rect x="786" y="140" width="160" height="150" rx="14" fill="#fff" stroke="#7A3FB0" stroke-width="1.5"/>
+      <text x="866" y="163" text-anchor="middle" font-size="12" font-weight="700" fill="#7A3FB0">ME (expanded)</text>
+      <text x="798" y="184" font-size="10" fill="#7A3FB0">Shariah board (3)</text>
+      <text x="798" y="201" font-size="10" fill="#7A3FB0">risk tier · auto-save</text>
+      <text x="798" y="218" font-size="10" fill="#7A3FB0">nominee · purification</text>
+      <text x="798" y="235" font-size="10" fill="#4C6960">KYC · payout · security</text>
+      <text x="798" y="252" font-size="10" fill="#4C6960">statements · referral · tour</text>
+
+      <!-- pushed -->
+      <line x1="114" y1="290" x2="114" y2="320" stroke="#4C6960" stroke-width="1.5" marker-end="url(#nav)"/>
+      <rect x="34" y="320" width="160" height="60" rx="14" fill="#EAFBF3" stroke="#0FA67A" stroke-width="1.5"/>
+      <text x="114" y="345" text-anchor="middle" font-size="11.5" font-weight="700" fill="#06342A">Wallet</text>
+      <text x="114" y="363" text-anchor="middle" font-size="9.5" fill="#4C6960">payout · ledger · dep/withdraw</text>
+
+      <line x1="302" y1="290" x2="302" y2="320" stroke="#4C6960" stroke-width="1.5" marker-end="url(#nav)"/>
+      <rect x="222" y="320" width="160" height="60" rx="14" fill="#EAFBF3" stroke="#0FA67A" stroke-width="1.5"/>
+      <text x="302" y="345" text-anchor="middle" font-size="11.5" font-weight="700" fill="#06342A">Campaign detail</text>
+      <text x="302" y="363" text-anchor="middle" font-size="9.5" fill="#4C6960">calc · basis · why-halal</text>
+
+      <line x1="866" y1="290" x2="866" y2="320" stroke="#4C6960" stroke-width="1.5" marker-end="url(#nav)"/>
+      <rect x="786" y="320" width="160" height="60" rx="14" fill="#EAFBF3" stroke="#0FA67A" stroke-width="1.5"/>
+      <text x="866" y="345" text-anchor="middle" font-size="11.5" font-weight="700" fill="#06342A">Business dashboard</text>
+      <text x="866" y="363" text-anchor="middle" font-size="9.5" fill="#4C6960">repay · vault · recovery</text>
+
+      <!-- sheet layer -->
+      <rect x="34" y="410" width="912" height="120" rx="14" fill="#06342A"/>
+      <text x="52" y="436" font-size="12" font-weight="700" fill="#fff">BOTTOM-SHEET LAYER · 40+ sheets</text>
+      <text x="52" y="459" font-size="10.5" fill="#9fdcc4">money: deposit (bKash/Nagad/bank rail) · withdraw · invest · payout · goal ..... auto-invest: strategy + approval queue</text>
+      <text x="52" y="478" font-size="10.5" fill="#c9a9ec">NEW money/faith: weekly auto-save · interest purification · why-this-is-halal · Zakat and purification report</text>
+      <text x="52" y="497" font-size="10.5" fill="#c9a9ec">NEW onboarding/trust: risk quiz · risk-tier switch · Shariah board · nominee · referral tracker · onboarding tour · dispute</text>
+      <text x="52" y="516" font-size="10.5" fill="#9fdcc4">identity: KYC 1-3 · security ..... faith: Qibla · Shariah notes ..... content: articles · lessons · about · filters · compare · database</text>
+      <line x1="490" y1="380" x2="490" y2="406" stroke="#4C6960" stroke-width="1.5" marker-end="url(#nav)"/>
+    </svg>
+    </div>
+  </section>
+
+  <!-- ============ 4. SCREEN TO DATA MAPPING ============ -->
+  <section>
+    <h2><span class="n">04</span>Screen-to-data mapping</h2>
+    <p class="note">Reads in green, writes in gold. New v8.0 flows are marked. The invariant holds: every money-moving row still writes wallet_transactions, including deposits via the rail, scheduled auto-save, and purification.</p>
+    <div class="panel">
+      <table>
+        <tr><th>Screen / flow</th><th>Reads</th><th>Writes</th><th>Rule enforced here</th></tr>
+        <tr class="newrow"><td>Onboarding tour</td><td><span class="rw r">preferences</span></td><td><span class="rw w">preferences</span></td><td>Shows capital-at-risk and AAOIFI-aligned framing before first use.</td></tr>
+        <tr class="newrow"><td>Deposit rail</td><td><span class="rw r">profiles</span><span class="rw r">preferences</span></td><td><span class="rw w">wallets</span><span class="rw w">wallet_transactions</span><span class="rw w">deposit_transactions</span></td><td>Funds must come from the user's own verified, name-matched provider account (AML).</td></tr>
+        <tr class="newrow"><td>Weekly auto-save</td><td><span class="rw r">autosave</span><span class="rw r">wallets</span></td><td><span class="rw w">autosave</span><span class="rw w">fund</span><span class="rw w">wallet_transactions</span></td><td>Recurring deposit allowed; recurring deployment still needs per-deal approval.</td></tr>
+        <tr class="newrow"><td>Risk quiz + tier switch</td><td><span class="rw r">profiles</span></td><td><span class="rw w">preferences</span><span class="rw w">auto_invest</span></td><td>Recommendation only, never advice; retake anytime; applies forward only.</td></tr>
+        <tr class="newrow"><td>Shariah board</td><td><span class="rw r">shariah_board</span></td><td></td><td>Named, consenting scholars only; opinions published as issued.</td></tr>
+        <tr class="newrow"><td>Nominee</td><td><span class="rw r">nominee</span></td><td><span class="rw w">nominee</span></td><td>Custodial only; does not override Faraid inheritance.</td></tr>
+        <tr class="newrow"><td>Interest purification</td><td><span class="rw r">preferences</span></td><td><span class="rw w">preferences</span><span class="rw w">wallet_transactions</span></td><td>Full amount routed to charity, sought without reward.</td></tr>
+        <tr class="newrow"><td>Referral</td><td><span class="rw r">referrals</span></td><td><span class="rw w">referrals</span></td><td>Reward is a planted tree, never cash or anything resembling riba.</td></tr>
+        <tr class="newrow"><td>Why-this-is-halal</td><td><span class="rw r">campaigns</span><span class="rw r">shariah_board</span></td><td></td><td>Must reflect the actual contract, board-reviewed, not marketing.</td></tr>
+        <tr><td>Invest · commit</td><td><span class="rw r">profiles</span><span class="rw r">wallets</span></td><td><span class="rw w">wallets</span><span class="rw w">campaigns</span><span class="rw w">wallet_transactions</span></td><td>KYC gate plus two risk acknowledgements before enabling.</td></tr>
+        <tr><td>Auto-invest queue</td><td><span class="rw r">auto_invest</span><span class="rw r">campaigns</span></td><td><span class="rw w">auto_invest</span><span class="rw w">wallets</span><span class="rw w">wallet_transactions</span></td><td>Each deployment approved individually (consent per contract).</td></tr>
+        <tr><td>Wallet · withdraw</td><td><span class="rw r">wallets</span></td><td><span class="rw w">wallets</span><span class="rw w">wallet_transactions</span></td><td>Ledger append-only; 2FA required to withdraw.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <div class="delta">
+    <h3>What changed from v0.7 to v8.0</h3>
+    <ul>
+      <li>One new local store (preferences) and five new production tables (shariah_board, deposit_transactions, autosave_schedule, nominees, referrals).</li>
+      <li>One new ledger kind (purification) on the existing append-only wallet_transactions.</li>
+      <li>Deposits moved from a single simulated flow to a three-provider rail (bKash, Nagad, bank) with name-match.</li>
+      <li>Me tab restructured into a settings cluster plus the Shariah board; sheet layer grew from ~30 to 40+.</li>
+      <li>A first-run onboarding tour now sits above the tab bar for new users.</li>
+    </ul>
+  </div>
+
+  <p class="foot">Ribh Investments · v8.0 prototype documentation · New satellite tables and the deposit rail are modelled in the prototype and become real integrations plus row-level-security policies in the Supabase build. The three-scholar board and all new Shariah-facing and worship-adjacent copy remain pending sign-off by Abdullah Jubair, per the pre-launch verification checklist.</p>
+</div>
+</body>
+</html>

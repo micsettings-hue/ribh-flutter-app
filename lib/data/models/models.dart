@@ -7,6 +7,7 @@ export 'enums.dart';
 export 'goal.dart';
 export 'investment.dart';
 export 'investor_wallet.dart';
+export 'kyc_submission.dart';
 export 'lesson.dart';
 export 'lesson_progress.dart';
 export 'nominee.dart';

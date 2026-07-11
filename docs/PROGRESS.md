@@ -2,6 +2,21 @@
 
 ## Done
 
+### M2 Auth and KYC (2026-07-11)
+- Supabase Auth: passwordless email OTP. `AuthRepository` gained `sendEmailOtp`, `verifyEmailOtp`, `signOut`, `isSignedIn`, `currentEmail`; a new auth user gets profile, wallet, and engagement rows via the existing database triggers.
+- Onboarding/sign-in: `/auth` route with the two-stage flow (email, then code), inline validation, real failure states from typed failures. Router redirects: signed out -> `/auth`, signed in -> tabs, driven by `onAuthStateChange` via a refresh listenable. With no backend configured the shell still opens and every surface shows its real "not configured" state.
+- KYC (from prototype v9.2, 3 steps): NID entry (10/13/17 digits, sha-256 hashed on device; the raw NID never leaves the phone), the liveness step honestly labelled as requiring a not-yet-connected verification provider (recorded incomplete, nothing faked), and source of funds (AML). Submission goes through a new `submit_kyc` RPC into `kyc_submissions` (migration `20260711000400_kyc.sql`) with status `pending`; the tier moves only via the service_role-only `decide_kyc`. A new `protect_profile_columns` trigger stops clients changing `kyc_tier`, `role`, or `nid_hash` through the profiles UPDATE policy.
+- Risk profiling: the 3-question quiz (short / balanced / diversified), majority-wins recommendation as a pure unit-tested function, result copy states it is a recommendation, not advice, with the risk disclosure. Saved to `profiles.risk_tier`.
+- Me tab now real (partial, M2 scope): account row with email and sign out, Identity and KYC row with live status (not started / pending / tier verified / rejected), risk tier row opening the quiz. Skeleton loading, real error + retry state. Remaining Me sections stay honestly labelled as upcoming.
+- Shared: `RibhSheetScaffold` + `showRibhSheet` (the sheet layer foundation), `failureText` mapping typed failures to localized copy. All new strings in both ARB files.
+- Riverpod codegen controllers (`AuthController`, `MeController`) per the architecture; provider auto-retry disabled at the root so error states are real and retry is explicit.
+- Tests: 47 passing (18 new): risk quiz math, NID validation and hashing (known sha-256 vector, proof the raw NID is never in the request body), submit_kyc RPC params, auth screen happy/invalid/failure paths, Me screen happy/failure+retry, full KYC sheet flow happy/failure, full quiz flow with save.
+
+### M2 notes
+- KYC tier is deliberately not client-upgradable. Dev flow: run `decide_kyc` with the service key (or set `kyc_tier` in Studio) to unlock invest in dev.
+- 2FA, nominee, statements, language/theme persistence belong to the Me milestone (M5+), not M2.
+- New migration not yet executed locally (same Supabase CLI/Docker gap as M1).
+
 ### M1 Data spine (2026-07-11)
 - Supabase schema in `supabase/migrations/20260711000100_schema.sql`: all tables from the ER diagram (`profiles`, `investor_wallets` with no balance column, `wallet_transactions`, `campaigns`, `investments`, `distributions`, `payouts`, `auto_invest_rules`, `auto_invest_queue`, `goals`, `nominees`, `welfare_projects`, `welfare_contributions`, `engagement`, `lessons` + `lessons_progress`, `referrals`, `trees`), money in integer poisha, enums for kinds and statuses (`campaign_status` also includes `running` for deployed campaigns), bootstrap triggers (auth user -> profile -> wallet + engagement). `investments` carries a CHECK that both risk acknowledgements are true.
 - Ledger invariant in `...000200_ledger.sql`, enforced in the database: a trigger raises on any UPDATE or DELETE of `wallet_transactions` (plus revoked grants); `ledger_signed_amount` defines the sign convention; `wallet_balances` view and `my_wallet_balance()` derive balance as SUM over the ledger. Money moves only through transactional RPCs that write the domain row and ledger row in one transaction: `invest_in_campaign` and `give_welfare` for clients (KYC, campaign status, pool headroom, both acks, and derived-balance checks inside), `record_deposit` / `record_distribution` / `record_payout` for service_role only. `give_welfare` sends the full amount to the project: no fee out of Zakat, structurally.
@@ -33,5 +48,6 @@
 - `CLAUDE.md` still says the stack is React Native + Expo; the actual build is Flutter per `flutterv9.2.md`. Worth correcting in `CLAUDE.md`.
 
 ## Next
-- Close M1: install Supabase CLI + Docker, run the migrations and `supabase/tests/ledger_invariant_test.sql`, fix anything it surfaces.
-- M2 Auth and KYC: Supabase Auth, onboarding, the real KYC flow, risk profiling.
+- Close M1/M2 database side: install Supabase CLI + Docker, run all four migrations and `supabase/tests/ledger_invariant_test.sql`, fix anything surfaced.
+- Push CI workflow once the GitHub token has `workflow` scope.
+- M3 Wallet and money rail: wallet, ledger view, deposit and withdraw sheets, PaymentGateway interface with the honest pending state.

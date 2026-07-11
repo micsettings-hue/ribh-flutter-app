@@ -27,5 +27,94 @@
   "milestonePlaceholderBody": "This area is not live yet. It arrives in an upcoming milestone with real data, not demo content.",
   "@milestonePlaceholderBody": {
     "description": "Honest empty-shell message shown on tabs before their milestone is built. Never implies working features."
-  }
+  },
+  "retry": "Retry",
+  "cancel": "Cancel",
+  "errorNotConfigured": "This build has no backend credentials configured, so nothing can load. Provide SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY at build time.",
+  "errorNetwork": "Network unavailable. Check your connection and try again.",
+  "errorAuth": "You are signed out or the code was not accepted. Try again.",
+  "errorNotVerified": "Identity verification is required first.",
+  "errorInsufficientFunds": "Your available balance is not enough for this amount.",
+  "errorUnknown": "Something went wrong: {detail}",
+  "@errorUnknown": {
+    "placeholders": {
+      "detail": {
+        "type": "String"
+      }
+    }
+  },
+  "authTitle": "Sign in",
+  "authIntro": "Passwordless sign-in. We email you a one-time code; no password to remember or leak.",
+  "authEmailLabel": "Email",
+  "authInvalidEmail": "Enter a valid email address.",
+  "authSendCode": "Send code",
+  "authCodeSentTo": "Enter the code we sent to {email}.",
+  "@authCodeSentTo": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "authCodeLabel": "One-time code",
+  "authVerify": "Verify and continue",
+  "authChangeEmail": "Use a different email",
+  "meAccount": "Account",
+  "meSignOut": "Sign out",
+  "meKycRow": "Identity and KYC",
+  "meRiskRow": "Risk tier",
+  "meMoreComing": "Security and 2FA, nominee, statements, language and theme, Shariah board, and help arrive with the Me milestone.",
+  "kycStatusNone": "Not started. Required before your first deposit.",
+  "kycStatusPending": "Submitted. Pending verification review.",
+  "kycStatusApproved": "Tier {tier}. Verified, source of funds on file.",
+  "@kycStatusApproved": {
+    "placeholders": {
+      "tier": {
+        "type": "int"
+      }
+    }
+  },
+  "kycStatusRejected": "Rejected. Please submit again.",
+  "riskTierUnset": "Not set. Take the 3-question quiz.",
+  "riskTierShort": "Short: steadier, shorter cycles",
+  "riskTierBalanced": "Balanced: a sensible middle",
+  "riskTierDiversified": "Diversified: widest spread of contracts",
+  "kycTitle": "Verify identity",
+  "kycStepLabel": "Step {step} of 3",
+  "@kycStepLabel": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      }
+    }
+  },
+  "kycStep1Body": "Enter your National ID number exactly as printed. Only a one-way fingerprint of the number leaves this device.",
+  "kycNidLabel": "NID number",
+  "kycNidInvalid": "NID numbers are 10, 13, or 17 digits.",
+  "kycContinue": "Continue",
+  "kycStep2Body": "Liveness check: a selfie matched to your NID photo. Our verification provider is not connected yet, so this step is recorded as incomplete and your submission stays in review until it is verified. Nothing is faked.",
+  "kycStep2Continue": "Continue without liveness",
+  "kycStep3Body": "Source of funds, an AML requirement. Pick the main origin of the money you will invest.",
+  "kycSourceSalary": "Salary",
+  "kycSourceBusiness": "Business income",
+  "kycSourceSavings": "Savings",
+  "kycSourceRemittance": "Remittance",
+  "kycSubmit": "Submit for verification",
+  "kycSubmitted": "Submitted. Your tier upgrades only after real verification, and deposits stay locked until then.",
+  "riskQuizTitle": "Risk tier quiz",
+  "riskQ1": "When do you expect to need this money?",
+  "riskQ1A1": "Within a year",
+  "riskQ1A2": "One to three years",
+  "riskQ1A3": "Three years or more",
+  "riskQ2": "If a campaign entered recovery, you would feel...",
+  "riskQ2A1": "Very uneasy, I want the safest path",
+  "riskQ2A2": "Concerned but patient",
+  "riskQ2A3": "Calm, I understand trade risk",
+  "riskQ3": "What matters most to you?",
+  "riskQ3A1": "Steadier, shorter cycles",
+  "riskQ3A2": "A sensible middle",
+  "riskQ3A3": "Widest spread of contracts",
+  "riskResultTitle": "Your recommended tier",
+  "riskResultBody": "Based on your answers. This is a recommendation, not advice, and you can change it anytime. Every deployment still needs your explicit approval. Returns are never guaranteed and capital is at risk.",
+  "riskSave": "Save tier"
 }

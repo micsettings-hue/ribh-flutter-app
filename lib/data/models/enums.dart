@@ -42,6 +42,23 @@ extension CampaignStatusDb on CampaignStatus {
 
 enum PayoutRoute { bank, reinvest }
 
+enum KycStatus { pending, approved, rejected }
+
+/// AML requirement: the main origin of the money the user will invest.
+enum KycSource {
+  salary,
+  @JsonValue('business_income')
+  businessIncome,
+  savings,
+  remittance,
+}
+
+/// The exact string stored in Postgres.
+extension KycSourceDb on KycSource {
+  String get dbValue =>
+      this == KycSource.businessIncome ? 'business_income' : name;
+}
+
 enum QueueStatus { pending, approved, declined }
 
 enum WelfareKind { zakat, sadaqah }

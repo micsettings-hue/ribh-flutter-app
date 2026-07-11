@@ -6,6 +6,7 @@ import 'campaign_repository.dart';
 import 'engagement_repository.dart';
 import 'goal_repository.dart';
 import 'investment_repository.dart';
+import 'kyc_repository.dart';
 import 'referral_repository.dart';
 import 'wallet_repository.dart';
 import 'welfare_repository.dart';
@@ -14,6 +15,10 @@ import 'welfare_repository.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>(
   (ref) => AuthRepository(ref.watch(supabaseClientOrNullProvider)),
+);
+
+final kycRepositoryProvider = Provider<KycRepository>(
+  (ref) => KycRepository(ref.watch(supabaseClientOrNullProvider)),
 );
 
 final walletRepositoryProvider = Provider<WalletRepository>(

@@ -160,9 +160,13 @@ Learn, Zakat, Sadaqah, wallet performance, Qard, and Invite are real. Prayer (de
 - `CLAUDE.md` still says the stack is React Native + Expo; the actual build is Flutter per `flutterv9.2.md`. Worth correcting in `CLAUDE.md`.
 
 ## Next
-- M8 Barakah enrichment: the six blocks (score from engagement with the never-measures-worship line, adhkar and tasbih with persisted counter, daily ayah or hadith (board), prayer streak self-check, Learn shortcut, Sadaqah nudge).
-- M9 Polish: motion, skeletons, empty states, haptics, accessibility audit, localization completeness, store prep.
-- Close the database side for M1-M7: install Supabase CLI + Docker, run all eight migrations plus the four proof tests in `supabase/tests/` (ledger invariant, money requests, auto-invest, services), fix anything surfaced.
-- Commit and push the CI workflow in `.github/` once the GitHub token has `workflow` scope (committing it earlier would block every push).
-- Decide the News and Insight content source (needs a table not in the data model) to finish the Home screen against screens.md.
-- Machine note (2026-07-12): the disk hit 181MB free and crashed builds; ~4.5GB of caches were cleared (project build/, Runner DerivedData, Homebrew cache). Free real space before large builds.
+The build order M0-M9 plus the M10 database side is complete in code. What remains:
+- Database execution (the critical path): install Supabase CLI + Docker, provision a project, run all nine migrations plus the five proof tests in `supabase/tests/` (ledger invariant, money requests, auto-invest, services, admin content), fix anything surfaced. Nothing database-side has ever run against a real Postgres.
+- M10 tool side: connect Retool/Appsmith, create a test campaign end to end, Storage bucket for thumbnails, grant the first admin role via service_role.
+- Wire Home's News and Insight section to the new `news_items` table (closes the last M5 block).
+- Me tab completion (never scheduled in M0-M9): 2FA, nominee, statements, persisted language/theme toggles, Shariah board page, help and disputes per screens.md.
+- Golden tests per shared component (design-system.md asks for them; none exist).
+- Set up a git remote (this machine is the only copy) and push the CI workflow once the GitHub token has `workflow` scope (committing it earlier would block every push).
+- Store assets: app icon, screenshots, privacy policy URL, Android signing, Apple/Play accounts.
+- Launch gates outside code: Shariah board sign-off on everything TODO(board) plus real board members; BSEC/Bangladesh Bank registration before real funds; payment gateway and metals-price credentials.
+- Machine note (2026-07-12): the disk hit 181MB free and crashed builds; caches were cleared twice (~3GB free). Free real space before large builds.

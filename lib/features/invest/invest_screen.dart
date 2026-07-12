@@ -5,10 +5,12 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../app/l10n/app_localizations.dart';
 import '../../app/router/routes.dart';
-import '../../app/theme/ribh_tokens.dart';
 import '../../core/failures/failure.dart';
 import '../../shared/campaign_list_row.dart';
 import '../../shared/failure_l10n.dart';
+import '../../shared/empty_state.dart';
+import '../../shared/haptics.dart';
+import '../../shared/skeleton_box.dart';
 import 'marketplace_controller.dart';
 
 /// The marketplace: every campaign with live funding, filters, search, and
@@ -35,7 +37,6 @@ class _InvestScreenState extends ConsumerState<InvestScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final tokens = context.tokens;
     final market = ref.watch(marketplaceControllerProvider);
 
     return Scaffold(
@@ -101,21 +102,19 @@ class _InvestScreenState extends ConsumerState<InvestScreen> {
                       ChoiceChip(
                         label: Text(_filterLabel(l10n, filter)),
                         selected: _filter == filter,
-                        onSelected: (_) => setState(() => _filter = filter),
+                        onSelected: (_) {
+                          RibhHaptics.select();
+                          setState(() => _filter = filter);
+                        },
                       ),
                   ],
                 ),
                 const SizedBox(height: 16),
                 if (visible.isEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 32),
-                    child: Text(
-                      l10n.marketEmpty,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium?.copyWith(color: tokens.inkSoft),
-                    ),
+                  EmptyState(
+                    icon: LucideIcons.search,
+                    title: l10n.emptyTitle,
+                    body: l10n.marketEmpty,
                   )
                 else
                   for (final campaign in visible) ...[
@@ -144,18 +143,11 @@ class _MarketSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = context.tokens;
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
         for (var i = 0; i < 4; i++) ...[
-          Container(
-            height: 140,
-            decoration: BoxDecoration(
-              color: tokens.mintSoft,
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
+          const SkeletonBox(height: 140),
           const SizedBox(height: 12),
         ],
       ],

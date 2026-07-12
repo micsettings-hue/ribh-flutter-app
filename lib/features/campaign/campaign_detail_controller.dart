@@ -1,11 +1,11 @@
+import 'dart:async';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/result/result.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/providers.dart';
-import '../home/portfolio_controller.dart';
-import '../invest/marketplace_controller.dart';
-import '../wallet/wallet_controller.dart';
+import '../home/home_controllers.dart';
 
 part 'campaign_detail_controller.g.dart';
 
@@ -38,9 +38,7 @@ class CampaignDetailController extends _$CampaignDetailController {
         );
     if (result.isOk) {
       ref.invalidateSelf();
-      ref.invalidate(portfolioControllerProvider);
-      ref.invalidate(marketplaceControllerProvider);
-      ref.invalidate(walletControllerProvider);
+      refreshMoneySurfaces(ref);
     }
     return result;
   }

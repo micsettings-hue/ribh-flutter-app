@@ -6,6 +6,8 @@ import '../../app/l10n/app_localizations.dart';
 import '../../app/theme/ribh_tokens.dart';
 import '../../core/formatters/taka.dart';
 import '../../shared/failure_l10n.dart';
+import '../../shared/haptics.dart';
+import '../../shared/motion.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import 'grow_controller.dart';
 
@@ -52,10 +54,10 @@ class _ApproveQueueSheetState extends ConsumerState<ApproveQueueSheet> {
     if (!mounted) return;
     setState(() {
       _submitting = false;
-      result.fold(
-        (_) => _done = true,
-        (failure) => _error = failureText(l10n, failure),
-      );
+      result.fold((_) {
+        RibhHaptics.commit();
+        _done = true;
+      }, (failure) => _error = failureText(l10n, failure));
     });
   }
 
@@ -69,91 +71,97 @@ class _ApproveQueueSheetState extends ConsumerState<ApproveQueueSheet> {
 
     return RibhSheetScaffold(
       title: l10n.approveSheetTitle,
-      child: _done
-          ? Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Icon(LucideIcons.circleCheck, size: 40, color: tokens.teal),
-                const SizedBox(height: 12),
-                Text(
-                  l10n.investCommittedTitle,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  l10n.investCommittedBody,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 16),
-                FilledButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(l10n.done),
-                ),
-              ],
-            )
-          : Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  l10n.approveSheetBody(
-                    formatTaka(widget.budget, localeCode: locale),
-                    campaign.title.isEmpty ? campaign.sector : campaign.title,
-                  ),
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 8),
-                CheckboxListTile(
-                  value: _ack1,
-                  onChanged: (value) => setState(() => _ack1 = value ?? false),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    l10n.investAck1,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ),
-                CheckboxListTile(
-                  value: _ack2,
-                  onChanged: (value) => setState(() => _ack2 = value ?? false),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    l10n.investAck2,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ),
-                if (_error != null) ...[
-                  const SizedBox(height: 8),
+      child: RibhSwap(
+        child: _done
+            ? Column(
+                key: const ValueKey('done'),
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Icon(LucideIcons.circleCheck, size: 40, color: tokens.teal),
+                  const SizedBox(height: 12),
                   Text(
-                    _error!,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodySmall?.copyWith(color: tokens.danger),
-                  ),
-                ],
-                const SizedBox(height: 12),
-                FilledButton(
-                  onPressed: bothAcked && !_submitting ? _approve : null,
-                  child: Text(
-                    _submitting ? l10n.submitting : l10n.growQueueApprove,
-                  ),
-                ),
-                if (!bothAcked) ...[
-                  const SizedBox(height: 8),
-                  Text(
-                    l10n.investAcksRequired,
+                    l10n.investCommittedTitle,
                     textAlign: TextAlign.center,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.investCommittedBody,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 16),
+                  FilledButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(l10n.done),
                   ),
                 ],
-              ],
-            ),
+              )
+            : Column(
+                key: const ValueKey('form'),
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    l10n.approveSheetBody(
+                      formatTaka(widget.budget, localeCode: locale),
+                      campaign.title.isEmpty ? campaign.sector : campaign.title,
+                    ),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  CheckboxListTile(
+                    value: _ack1,
+                    onChanged: (value) =>
+                        setState(() => _ack1 = value ?? false),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(
+                      l10n.investAck1,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                  CheckboxListTile(
+                    value: _ack2,
+                    onChanged: (value) =>
+                        setState(() => _ack2 = value ?? false),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(
+                      l10n.investAck2,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                  if (_error != null) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      _error!,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: tokens.danger),
+                    ),
+                  ],
+                  const SizedBox(height: 12),
+                  FilledButton(
+                    onPressed: bothAcked && !_submitting ? _approve : null,
+                    child: Text(
+                      _submitting ? l10n.submitting : l10n.growQueueApprove,
+                    ),
+                  ),
+                  if (!bothAcked) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      l10n.investAcksRequired,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
+                    ),
+                  ],
+                ],
+              ),
+      ),
     );
   }
 }

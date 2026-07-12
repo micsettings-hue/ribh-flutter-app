@@ -21,6 +21,7 @@ import '../../features/services/sadaqah_screen.dart';
 import '../../features/services/service_coming_soon_screen.dart';
 import '../../features/services/zakat_screen.dart';
 import '../../features/wallet/wallet_screen.dart';
+import '../../shared/motion.dart';
 import '../../shared/ribh_shell.dart';
 import 'routes.dart';
 
@@ -66,24 +67,33 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RibhRoutes.wallet,
-        builder: (context, state) => const WalletScreen(),
+        pageBuilder: (context, state) =>
+            ribhPage(key: state.pageKey, child: const WalletScreen()),
       ),
       GoRoute(
         path: RibhRoutes.campaignPattern,
-        builder: (context, state) =>
-            CampaignDetailScreen(campaignId: state.pathParameters['id']!),
+        pageBuilder: (context, state) => ribhPage(
+          key: state.pageKey,
+          child: CampaignDetailScreen(
+            campaignId: state.pathParameters['id']!,
+            heroTag: state.extra as String?,
+          ),
+        ),
       ),
       GoRoute(
         path: RibhRoutes.servicePattern,
-        builder: (context, state) => switch (state.pathParameters['id']!) {
-          'learn' => const LearnScreen(),
-          'zakat' => const ZakatScreen(),
-          'sadaqah' => const SadaqahScreen(),
-          'qard' => const QardScreen(),
-          'invite' => const InviteScreen(),
-          'prayer' => const PrayerScreen(),
-          final id => ServiceComingSoonScreen(serviceId: id),
-        },
+        pageBuilder: (context, state) => ribhPage(
+          key: state.pageKey,
+          child: switch (state.pathParameters['id']!) {
+            'learn' => const LearnScreen(),
+            'zakat' => const ZakatScreen(),
+            'sadaqah' => const SadaqahScreen(),
+            'qard' => const QardScreen(),
+            'invite' => const InviteScreen(),
+            'prayer' => const PrayerScreen(),
+            final id => ServiceComingSoonScreen(serviceId: id),
+          },
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => RibhShell(shell: shell),

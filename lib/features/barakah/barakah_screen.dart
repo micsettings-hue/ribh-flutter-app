@@ -9,6 +9,8 @@ import '../../app/theme/ribh_tokens.dart';
 import '../../core/constants/barakah_score.dart';
 import '../../core/failures/failure.dart';
 import '../../shared/failure_l10n.dart';
+import '../../shared/haptics.dart';
+import '../../shared/motion.dart';
 import 'barakah_controller.dart';
 
 /// Barakah (M8): the six blocks. The score reflects app habits only and the
@@ -123,20 +125,33 @@ class _BarakahBody extends ConsumerWidget {
                 ),
                 const SizedBox(height: 12),
                 Center(
-                  child: SizedBox(
-                    width: 120,
-                    height: 120,
-                    child: FilledButton(
-                      style: FilledButton.styleFrom(
-                        shape: const CircleBorder(),
-                        backgroundColor: tokens.teal,
-                      ),
-                      onPressed: () => notifier.tapTasbih(),
-                      child: Text(
-                        '${data.tasbihToday}',
-                        style: theme.textTheme.headlineMedium?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
+                  child: Semantics(
+                    button: true,
+                    label: l10n.tasbihProgress(
+                      data.tasbihToday,
+                      tasbihDailyTarget,
+                    ),
+                    child: SizedBox(
+                      width: 120,
+                      height: 120,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          shape: const CircleBorder(),
+                          backgroundColor: tokens.teal,
+                        ),
+                        onPressed: () {
+                          RibhHaptics.tap();
+                          notifier.tapTasbih();
+                        },
+                        child: RibhSwap(
+                          child: Text(
+                            '${data.tasbihToday}',
+                            key: ValueKey(data.tasbihToday),
+                            style: theme.textTheme.headlineMedium?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ),
                       ),
                     ),

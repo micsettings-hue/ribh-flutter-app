@@ -7,6 +7,8 @@ import '../../app/theme/ribh_tokens.dart';
 import '../../core/formatters/taka.dart';
 import '../../data/models/models.dart';
 import '../../shared/failure_l10n.dart';
+import '../../shared/haptics.dart';
+import '../../shared/motion.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import 'labels.dart';
 import 'wallet_controller.dart';
@@ -61,10 +63,10 @@ class _WithdrawSheetState extends ConsumerState<WithdrawSheet> {
     if (!mounted) return;
     setState(() {
       _submitting = false;
-      result.fold(
-        (_) => _recorded = true,
-        (failure) => _error = failureText(l10n, failure),
-      );
+      result.fold((_) {
+        RibhHaptics.commit();
+        _recorded = true;
+      }, (failure) => _error = failureText(l10n, failure));
     });
   }
 
@@ -73,7 +75,14 @@ class _WithdrawSheetState extends ConsumerState<WithdrawSheet> {
     final l10n = AppLocalizations.of(context)!;
     return RibhSheetScaffold(
       title: l10n.withdrawTitle,
-      child: _recorded ? _recordedView(l10n) : _formView(l10n),
+      child: RibhSwap(
+        child: _recorded
+            ? KeyedSubtree(
+                key: const ValueKey('done'),
+                child: _recordedView(l10n),
+              )
+            : KeyedSubtree(key: const ValueKey('form'), child: _formView(l10n)),
+      ),
     );
   }
 

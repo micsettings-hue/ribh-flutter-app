@@ -17,6 +17,7 @@ import '../../shared/money_flow.dart';
 import '../../shared/portfolio_card.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import '../../shared/service_tile.dart';
+import '../../shared/skeleton_box.dart';
 import '../invest/marketplace_controller.dart';
 import '../wallet/deposit_sheet.dart';
 import '../wallet/wallet_controller.dart';
@@ -141,15 +142,7 @@ class _SkeletonBox extends StatelessWidget {
   final double height;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      decoration: BoxDecoration(
-        color: context.tokens.mintSoft,
-        borderRadius: BorderRadius.circular(16),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => SkeletonBox(height: height);
 }
 
 class _AmanahSection extends ConsumerWidget {
@@ -225,11 +218,14 @@ class _PortfolioSection extends ConsumerWidget {
                     separatorBuilder: (_, _) => const SizedBox(width: 10),
                     itemBuilder: (context, index) {
                       final holding = holdings[index];
+                      final tag = 'portfolio-${holding.campaign.id}';
                       return PortfolioCard(
                         investment: holding.investment,
                         campaign: holding.campaign,
+                        heroTag: tag,
                         onTap: () => context.push(
                           RibhRoutes.campaign(holding.campaign.id),
+                          extra: tag,
                         ),
                       );
                     },
@@ -291,7 +287,11 @@ class _OpenCampaignsSection extends ConsumerWidget {
                   CampaignListRow(
                     campaign: campaign,
                     saved: data.savedIds.contains(campaign.id),
-                    onTap: () => context.push(RibhRoutes.campaign(campaign.id)),
+                    heroTag: 'home-open-${campaign.id}',
+                    onTap: () => context.push(
+                      RibhRoutes.campaign(campaign.id),
+                      extra: 'home-open-${campaign.id}',
+                    ),
                     onToggleSaved: () => ref
                         .read(marketplaceControllerProvider.notifier)
                         .toggleSaved(campaign.id),

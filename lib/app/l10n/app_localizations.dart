@@ -146,6 +146,12 @@ abstract class AppLocalizations {
   /// **'Retry'**
   String get retry;
 
+  /// No description provided for @emptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet'**
+  String get emptyTitle;
+
   /// No description provided for @cancel.
   ///
   /// In en, this message translates to:

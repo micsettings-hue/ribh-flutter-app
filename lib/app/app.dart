@@ -43,6 +43,13 @@ class RibhApp extends ConsumerWidget {
       locale: effectiveLocale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      // Accessibility: honor large text up to 1.5x; beyond that, money
+      // figures and pill rows clip instead of helping anyone.
+      builder: (context, child) => MediaQuery.withClampedTextScaling(
+        minScaleFactor: 1.0,
+        maxScaleFactor: 1.5,
+        child: child ?? const SizedBox.shrink(),
+      ),
       routerConfig: router,
     );
   }

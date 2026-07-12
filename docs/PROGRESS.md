@@ -2,6 +2,21 @@
 
 ## Done
 
+### M9 Polish (2026-07-12)
+The final milestone: motion, skeletons, empty states, haptics, accessibility, localization completeness, the end-to-end journey test, and store prep.
+- Motion (`shared/motion.dart`): pushed routes (wallet, campaign, services) get the design-system 380ms fade-and-rise under the Hero flight via `ribhPage`; all five sheets swap form-to-success through `RibhSwap` (250ms fade with a whisper of scale); the tasbih count ticks through the same swap. Every piece renders statically under `MediaQuery.disableAnimations`.
+- Haptics (`shared/haptics.dart`): medium impact when money commits (invest, approve, give, deposit and withdrawal recorded), selection clicks on filters, bookmarks, strategy picks and alarm toggles, light impact on tasbih taps. Haptics are not motion and are not gated on reduce-motion.
+- `SkeletonBox` (breathing pulse, static under reduce-motion, semantics-excluded) replaced every ad-hoc placeholder on Home, Wallet, Invest, Grow, Me. `EmptyState` (stroke icon in a mint circle, title, honest body) adopted for the ledger, the marketplace, and the approval queue; new `emptyTitle` key in both ARBs.
+- Accessibility: app-wide text scaling honored up to 1.5x (`MediaQuery.withClampedTextScaling`), Semantics on the tasbih counter (progress announced) and the qibla dial (bearing announced), tooltips already covering icon-only buttons.
+- Localization completeness as a test (`test/app/l10n_parity_test.dart`): en and bn key sets must match, placeholder sets must match, no empty values. The launch parity gate now fails CI on drift.
+- First-investment journey (`test/integration/first_investment_test.dart`) over the REAL router with an in-memory rail: Home shows the derived balance, marketplace to campaign detail (calculator asserting the canonical 8,700 projection), both acknowledgements, commit, exactly one investment and one ledger row, Home portfolio and the wallet ledger reflect the movement with the balance down by exactly the invested amount.
+- Real defects the journey test surfaced and fixed: (1) duplicate Hero tags crashed navigation the moment a held campaign also appeared in Home's open-campaigns list; each surface now has its own tag namespace and the detail screen takes the pushing card's tag via router extra. (2) riverpod 3.3.2 pauses subscriptions for offstage tabs (TickerMode) and resuming them with dirty providers asserts mid-build; all money movers now call `refreshMoneySurfaces` (invalidate + eager refetch), which also means no surface ever shows stale figures after money moves. (3) Hero flights let cards be laid out at interpolated sizes; both campaign cards now clip gracefully during flight instead of overflowing.
+- Store prep: display name RIBH on both platforms, version 1.0.0+1. Remaining store items are human tasks: app icon and brand assets, store screenshots and copy, privacy policy URL, Android signing config, Apple/Play accounts.
+- Tests: 131 passing (4 new: 3 parity + the journey). `flutter analyze` clean.
+
+### M9 notes
+- The build order is complete: M0 through M9 are all done in code. Launch remains gated by the items in "Next" (database execution, board sign-offs, registration, store assets).
+
 ### M8 Barakah enrichment (2026-07-12)
 All six blocks, on the M1 `engagement` row. Documented jsonb layout inside `adhkar_counts`: `{"tasbih": {day: count}, "prayer_check": {day: true}}`; `habit_days` stays Sadaqah's giving record.
 - Score (`core/constants/barakah_score.dart`, pure and unit-tested): giving days in the last 30 (4 pts each, cap 40) + prayer self-check streak (3 pts each, cap 30) + adhkar days in the last 7 (6 pts each, cap 30). The card states it reflects app habits only, never measures worship itself, and is never shown to anyone. Recomputed and persisted on every mutation.

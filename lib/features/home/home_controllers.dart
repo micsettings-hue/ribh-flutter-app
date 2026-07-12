@@ -1,10 +1,33 @@
+import 'dart:async';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/models/models.dart';
 import '../../data/repositories/providers.dart';
+import '../invest/marketplace_controller.dart';
+import '../wallet/wallet_controller.dart';
 import 'portfolio_controller.dart';
 
 part 'home_controllers.g.dart';
+
+/// After a money movement commits, every derived money surface reloads NOW.
+/// Invalidate-only would leave consumers on other tabs paused-and-dirty
+/// (riverpod pauses subscriptions under a disabled TickerMode and resuming
+/// them mid-build asserts); eager refetch also means no surface ever shows
+/// stale figures after money moved.
+void refreshMoneySurfaces(Ref ref) {
+  ref
+    ..invalidate(portfolioControllerProvider)
+    ..invalidate(marketplaceControllerProvider)
+    ..invalidate(walletControllerProvider)
+    ..invalidate(amanahSummaryProvider)
+    ..invalidate(largestLiveDeploymentProvider);
+  unawaited(ref.read(portfolioControllerProvider.future));
+  unawaited(ref.read(marketplaceControllerProvider.future));
+  unawaited(ref.read(walletControllerProvider.future));
+  unawaited(ref.read(amanahSummaryProvider.future));
+  unawaited(ref.read(largestLiveDeploymentProvider.future));
+}
 
 /// The Amanah summary. Every figure is derived, never stored:
 /// - [available] is the server-derived ledger balance;

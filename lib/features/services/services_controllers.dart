@@ -5,7 +5,6 @@ import '../../data/metals/metals_price_source.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/providers.dart';
 import '../home/home_controllers.dart';
-import '../wallet/wallet_controller.dart';
 
 part 'services_controllers.g.dart';
 
@@ -74,10 +73,8 @@ class ZakatController extends _$ZakatController {
         .read(zakatRepositoryProvider)
         .give(projectId: projectId, amount: amount);
     if (result.isOk) {
-      ref
-        ..invalidateSelf()
-        ..invalidate(walletControllerProvider)
-        ..invalidate(amanahSummaryProvider);
+      ref.invalidateSelf();
+      refreshMoneySurfaces(ref);
     }
     return result;
   }
@@ -161,10 +158,8 @@ class SadaqahController extends _$SadaqahController {
               },
             );
       }
-      ref
-        ..invalidateSelf()
-        ..invalidate(walletControllerProvider)
-        ..invalidate(amanahSummaryProvider);
+      ref.invalidateSelf();
+      refreshMoneySurfaces(ref);
     }
     return result;
   }

@@ -19,9 +19,17 @@ import 'invest_sheet.dart';
 /// (always labelled projected, always with the risk disclosure), contract
 /// basis explainer, recovery tracker when in recovery, and the invest flow.
 class CampaignDetailScreen extends ConsumerWidget {
-  const CampaignDetailScreen({super.key, required this.campaignId});
+  const CampaignDetailScreen({
+    super.key,
+    required this.campaignId,
+    this.heroTag,
+  });
 
   final String campaignId;
+
+  /// The tag of the card that pushed this route, so the Hero flies from
+  /// whichever surface the user actually tapped.
+  final String? heroTag;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,16 +65,17 @@ class CampaignDetailScreen extends ConsumerWidget {
             ),
           ),
         ),
-        data: (campaign) => _DetailBody(campaign: campaign),
+        data: (campaign) => _DetailBody(campaign: campaign, heroTag: heroTag),
       ),
     );
   }
 }
 
 class _DetailBody extends ConsumerWidget {
-  const _DetailBody({required this.campaign});
+  const _DetailBody({required this.campaign, this.heroTag});
 
   final Campaign campaign;
+  final String? heroTag;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -79,49 +88,57 @@ class _DetailBody extends ConsumerWidget {
       padding: const EdgeInsets.all(20),
       children: [
         Hero(
-          tag: campaignHeroTag(campaign.id),
+          tag: heroTag ?? campaignHeroTag(campaign.id),
+          // During the flight this card is laid out at interpolated sizes
+          // between the source card and its own; the non-scrolling scroll
+          // view lets the content clip for those frames instead of
+          // overflowing the flex.
           child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    campaign.title.isEmpty ? campaign.sector : campaign.title,
-                    style: theme.textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      StatusPill(status: campaign.status),
-                      const SizedBox(width: 8),
-                      ContractPill(contract: campaign.contract),
-                      const SizedBox(width: 8),
-                      RiskDot(risk: campaign.risk),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(999),
-                    child: LinearProgressIndicator(
-                      value: campaign.fundingPercent / 100,
-                      minHeight: 8,
-                      backgroundColor: tokens.mintSoft,
-                      color: tokens.teal,
+            clipBehavior: Clip.hardEdge,
+            child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      campaign.title.isEmpty ? campaign.sector : campaign.title,
+                      style: theme.textTheme.headlineSmall,
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    l10n.campaignRaisedOfPool(
-                      formatTaka(campaign.raised, localeCode: locale),
-                      formatTaka(campaign.pool, localeCode: locale),
-                      campaign.fundingPercent.toStringAsFixed(0),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        StatusPill(status: campaign.status),
+                        const SizedBox(width: 8),
+                        ContractPill(contract: campaign.contract),
+                        const SizedBox(width: 8),
+                        RiskDot(risk: campaign.risk),
+                      ],
                     ),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: tokens.inkSoft,
+                    const SizedBox(height: 14),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(999),
+                      child: LinearProgressIndicator(
+                        value: campaign.fundingPercent / 100,
+                        minHeight: 8,
+                        backgroundColor: tokens.mintSoft,
+                        color: tokens.teal,
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    Text(
+                      l10n.campaignRaisedOfPool(
+                        formatTaka(campaign.raised, localeCode: locale),
+                        formatTaka(campaign.pool, localeCode: locale),
+                        campaign.fundingPercent.toStringAsFixed(0),
+                      ),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: tokens.inkSoft,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -4,8 +4,6 @@ import '../../core/result/result.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/providers.dart';
 import '../home/home_controllers.dart';
-import '../home/portfolio_controller.dart';
-import '../wallet/wallet_controller.dart';
 
 part 'grow_controller.g.dart';
 
@@ -99,11 +97,8 @@ class GrowController extends _$GrowController {
           riskAck2: riskAck2,
         );
     if (result.isOk) {
-      ref
-        ..invalidateSelf()
-        ..invalidate(portfolioControllerProvider)
-        ..invalidate(amanahSummaryProvider)
-        ..invalidate(walletControllerProvider);
+      ref.invalidateSelf();
+      refreshMoneySurfaces(ref);
     }
     return result;
   }

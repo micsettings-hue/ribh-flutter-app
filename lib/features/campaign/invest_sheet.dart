@@ -7,6 +7,8 @@ import '../../app/theme/ribh_tokens.dart';
 import '../../core/formatters/taka.dart';
 import '../../data/models/models.dart';
 import '../../shared/failure_l10n.dart';
+import '../../shared/haptics.dart';
+import '../../shared/motion.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import 'campaign_detail_controller.dart';
 
@@ -55,10 +57,10 @@ class _InvestSheetState extends ConsumerState<InvestSheet> {
     if (!mounted) return;
     setState(() {
       _submitting = false;
-      result.fold(
-        (_) => _committed = true,
-        (failure) => _error = failureText(l10n, failure),
-      );
+      result.fold((_) {
+        RibhHaptics.commit();
+        _committed = true;
+      }, (failure) => _error = failureText(l10n, failure));
     });
   }
 
@@ -67,7 +69,14 @@ class _InvestSheetState extends ConsumerState<InvestSheet> {
     final l10n = AppLocalizations.of(context)!;
     return RibhSheetScaffold(
       title: l10n.investSheetTitle,
-      child: _committed ? _committedView(l10n) : _formView(l10n),
+      child: RibhSwap(
+        child: _committed
+            ? KeyedSubtree(
+                key: const ValueKey('done'),
+                child: _committedView(l10n),
+              )
+            : KeyedSubtree(key: const ValueKey('form'), child: _formView(l10n)),
+      ),
     );
   }
 

@@ -9,6 +9,8 @@ import '../../core/failures/failure.dart';
 import '../../core/formatters/taka.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/goal_row.dart';
+import '../../shared/empty_state.dart';
+import '../../shared/skeleton_box.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import '../home/home_controllers.dart';
 import 'approve_queue_sheet.dart';
@@ -72,18 +74,11 @@ class _GrowSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = context.tokens;
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
         for (final height in [120.0, 84.0, 84.0]) ...[
-          Container(
-            height: height,
-            decoration: BoxDecoration(
-              color: tokens.mintSoft,
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
+          SkeletonBox(height: height),
           const SizedBox(height: 12),
         ],
       ],
@@ -163,12 +158,10 @@ class _GrowBody extends ConsumerWidget {
         Text(l10n.growQueueTitle, style: theme.textTheme.titleMedium),
         const SizedBox(height: 4),
         if (data.pendingQueue.isEmpty)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              l10n.growQueueEmpty,
-              style: theme.textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
-            ),
+          EmptyState(
+            icon: LucideIcons.inbox,
+            title: l10n.emptyTitle,
+            body: l10n.growQueueEmpty,
           )
         else
           for (final entry in data.pendingQueue)

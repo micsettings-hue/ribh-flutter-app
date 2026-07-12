@@ -29,6 +29,7 @@
     "description": "Honest empty-shell message shown on tabs before their milestone is built. Never implies working features."
   },
   "retry": "Retry",
+  "emptyTitle": "Nothing here yet",
   "cancel": "Cancel",
   "errorNotConfigured": "This build has no backend credentials configured, so nothing can load. Provide SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY at build time.",
   "errorNetwork": "Network unavailable. Check your connection and try again.",

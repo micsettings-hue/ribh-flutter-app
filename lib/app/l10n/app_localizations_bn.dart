@@ -34,6 +34,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get retry => 'আবার চেষ্টা করুন';
 
   @override
+  String get emptyTitle => 'এখানে এখনও কিছু নেই';
+
+  @override
   String get cancel => 'বাতিল';
 
   @override

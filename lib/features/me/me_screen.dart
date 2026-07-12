@@ -9,6 +9,7 @@ import '../../core/failures/failure.dart';
 import '../../data/models/models.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
+import '../../shared/skeleton_box.dart';
 import 'kyc_flow_sheet.dart';
 import 'me_controller.dart';
 import 'risk_quiz_sheet.dart';
@@ -42,18 +43,11 @@ class _MeSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = context.tokens;
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
         for (var i = 0; i < 3; i++) ...[
-          Container(
-            height: 72,
-            decoration: BoxDecoration(
-              color: tokens.mintSoft,
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
+          const SkeletonBox(height: 72),
           const SizedBox(height: 12),
         ],
       ],

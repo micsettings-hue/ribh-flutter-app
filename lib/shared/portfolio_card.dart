@@ -15,7 +15,11 @@ class PortfolioCard extends StatelessWidget {
     required this.investment,
     required this.campaign,
     required this.onTap,
+    this.heroTag,
   });
+
+  /// See CampaignListRow.heroTag: unique per subtree.
+  final String? heroTag;
 
   final Investment investment;
   final Campaign campaign;
@@ -29,7 +33,7 @@ class PortfolioCard extends StatelessWidget {
     final locale = Localizations.localeOf(context).languageCode;
 
     return Hero(
-      tag: campaignHeroTag(campaign.id),
+      tag: heroTag ?? campaignHeroTag(campaign.id),
       child: SizedBox(
         width: 220,
         child: Card(

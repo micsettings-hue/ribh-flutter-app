@@ -8,6 +8,7 @@ import '../../core/constants/risk_tiers.dart';
 import '../../core/formatters/taka.dart';
 import '../../data/models/models.dart';
 import '../../shared/failure_l10n.dart';
+import '../../shared/haptics.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import 'grow_controller.dart';
 
@@ -94,7 +95,10 @@ class _AutoInvestSheetState extends ConsumerState<AutoInvestSheet> {
               padding: const EdgeInsets.only(bottom: 8),
               child: InkWell(
                 borderRadius: BorderRadius.circular(14),
-                onTap: () => setState(() => _strategy = tier),
+                onTap: () {
+                  RibhHaptics.select();
+                  setState(() => _strategy = tier);
+                },
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
@@ -150,7 +154,10 @@ class _AutoInvestSheetState extends ConsumerState<AutoInvestSheet> {
           ),
           SwitchListTile(
             value: _active,
-            onChanged: (value) => setState(() => _active = value),
+            onChanged: (value) {
+              RibhHaptics.select();
+              setState(() => _active = value);
+            },
             contentPadding: EdgeInsets.zero,
             title: Text(
               l10n.autoInvestActiveLabel,

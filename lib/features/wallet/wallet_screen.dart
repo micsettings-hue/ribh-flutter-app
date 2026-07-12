@@ -11,6 +11,8 @@ import '../../core/formatters/taka.dart';
 import '../../data/models/models.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/ledger_row.dart';
+import '../../shared/empty_state.dart';
+import '../../shared/skeleton_box.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import 'deposit_sheet.dart';
 import 'labels.dart';
@@ -52,26 +54,13 @@ class _WalletSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = context.tokens;
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
-        Container(
-          height: 148,
-          decoration: BoxDecoration(
-            color: tokens.mintSoft,
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
+        const SkeletonBox(height: 148),
         const SizedBox(height: 12),
         for (var i = 0; i < 4; i++) ...[
-          Container(
-            height: 56,
-            decoration: BoxDecoration(
-              color: tokens.mintSoft,
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
+          const SkeletonBox(),
           const SizedBox(height: 12),
         ],
       ],
@@ -116,7 +105,6 @@ class _WalletBody extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final tokens = context.tokens;
     final theme = Theme.of(context);
     final pending = data.pendingRequests;
 
@@ -166,15 +154,10 @@ class _WalletBody extends ConsumerWidget {
         Text(l10n.walletLedger, style: theme.textTheme.titleMedium),
         const SizedBox(height: 4),
         if (data.transactions.isEmpty)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24),
-            child: Text(
-              l10n.walletLedgerEmpty,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: tokens.inkSoft,
-              ),
-            ),
+          EmptyState(
+            icon: LucideIcons.scrollText,
+            title: l10n.emptyTitle,
+            body: l10n.walletLedgerEmpty,
           )
         else
           for (final tx in data.transactions) LedgerRow(transaction: tx),

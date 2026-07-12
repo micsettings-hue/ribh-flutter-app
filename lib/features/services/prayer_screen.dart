@@ -12,6 +12,7 @@ import '../../app/theme/ribh_tokens.dart';
 import '../../core/failures/failure.dart';
 import '../../data/prayer/prayer_service.dart';
 import '../../shared/failure_l10n.dart';
+import '../../shared/haptics.dart';
 import 'prayer_controller.dart';
 
 /// Prayer: real times for the device location (Karachi method, board-gated),
@@ -165,31 +166,36 @@ class _PrayerBodyState extends ConsumerState<_PrayerBody> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                SizedBox(
-                  width: 140,
-                  height: 140,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: tokens.line, width: 1.5),
-                          color: tokens.mintSoft,
+                Semantics(
+                  label: l10n.qiblaBearingLine(
+                    snapshot.qiblaBearing.toStringAsFixed(0),
+                  ),
+                  child: SizedBox(
+                    width: 140,
+                    height: 140,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: tokens.line, width: 1.5),
+                            color: tokens.mintSoft,
+                          ),
                         ),
-                      ),
-                      Transform.rotate(
-                        angle:
-                            (snapshot.qiblaBearing - (_heading ?? 0)) *
-                            math.pi /
-                            180,
-                        child: Icon(
-                          LucideIcons.navigation,
-                          size: 44,
-                          color: tokens.teal,
+                        Transform.rotate(
+                          angle:
+                              (snapshot.qiblaBearing - (_heading ?? 0)) *
+                              math.pi /
+                              180,
+                          child: Icon(
+                            LucideIcons.navigation,
+                            size: 44,
+                            color: tokens.teal,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -228,6 +234,7 @@ class _PrayerBodyState extends ConsumerState<_PrayerBody> {
             title: Text(salahLabel(l10n, salah)),
             subtitle: Text(timeFormat.format(snapshot.times[salah]!)),
             onChanged: (on) async {
+              RibhHaptics.select();
               setState(() => _alarmError = null);
               final result = await ref
                   .read(prayerControllerProvider.notifier)

@@ -656,6 +656,131 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get growFundTitle => 'Ribh Fund';
+
+  @override
+  String get growFundBody =>
+      'Set aside funds to deploy through your chosen strategy. Every deployment still comes to your approval queue first; nothing moves silently, and nothing deploys while pending.';
+
+  @override
+  String get growAutoInvestTitle => 'Auto-invest strategy';
+
+  @override
+  String get growAutoInvestOff =>
+      'Off. Pick a strategy; you approve every deployment.';
+
+  @override
+  String get growAutoInvestPaused =>
+      'Paused. Proposals stop until you switch it back on.';
+
+  @override
+  String growAutoInvestOn(String strategy, String budget) {
+    return '$strategy · $budget per deployment, each one needs your approval';
+  }
+
+  @override
+  String get strategyShortDesc =>
+      'Shorter trade cycles, tenure up to six months.';
+
+  @override
+  String get strategyBalancedDesc => 'Low and moderate risk campaigns only.';
+
+  @override
+  String get strategyDiversifiedDesc =>
+      'The widest spread of contracts, including elevated risk.';
+
+  @override
+  String get autoInvestBudgetLabel => 'Amount per deployment in taka';
+
+  @override
+  String get autoInvestActiveLabel => 'Strategy active';
+
+  @override
+  String get autoInvestConsentNote =>
+      'Activating deploys nothing. Matching campaigns appear in your approval queue and each needs your explicit approval.';
+
+  @override
+  String get autoInvestSave => 'Save strategy';
+
+  @override
+  String get growQueueTitle => 'Approval queue';
+
+  @override
+  String get growQueueEmpty =>
+      'No proposals waiting. When open campaigns match your strategy they appear here, and nothing deploys without your approval.';
+
+  @override
+  String growQueueProposal(String amount) {
+    return 'Proposes deploying $amount';
+  }
+
+  @override
+  String get growQueueApprove => 'Approve and deploy';
+
+  @override
+  String get growQueueDecline => 'Decline';
+
+  @override
+  String get approveSheetTitle => 'Approve deployment';
+
+  @override
+  String approveSheetBody(String amount, String campaign) {
+    return 'Approving deploys $amount into $campaign. The investment and its ledger entry are written together in one transaction.';
+  }
+
+  @override
+  String get growGoalsAdd => 'Add goal';
+
+  @override
+  String get growGoalsEmpty =>
+      'No goals yet. Add one to start tracking a target.';
+
+  @override
+  String get goalSheetTitleNew => 'New goal';
+
+  @override
+  String get goalSheetTitleEdit => 'Edit goal';
+
+  @override
+  String get goalTitleLabel => 'Goal name';
+
+  @override
+  String get goalTitleMissing => 'Give the goal a name.';
+
+  @override
+  String get goalTargetLabel => 'Target amount in taka';
+
+  @override
+  String get goalSave => 'Save goal';
+
+  @override
+  String get goalDelete => 'Delete goal';
+
+  @override
+  String get goalIconGeneral => 'General';
+
+  @override
+  String get goalIconHome => 'Home';
+
+  @override
+  String get goalIconHajj => 'Hajj';
+
+  @override
+  String get goalIconEducation => 'Education';
+
+  @override
+  String get goalIconBusiness => 'Business';
+
+  @override
+  String get goalIconFamily => 'Family';
+
+  @override
+  String get investAutoInvestEntry => 'Auto-invest';
+
+  @override
+  String get investAutoInvestEntrySub => 'Strategy and approval queue';
+
+  @override
   String get homeNewsComing =>
       'News and Insight arrives with a real content source in a later milestone.';
 

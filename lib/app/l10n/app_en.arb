@@ -349,6 +349,70 @@
       }
     }
   },
+  "growFundTitle": "Ribh Fund",
+  "growFundBody": "Set aside funds to deploy through your chosen strategy. Every deployment still comes to your approval queue first; nothing moves silently, and nothing deploys while pending.",
+  "growAutoInvestTitle": "Auto-invest strategy",
+  "growAutoInvestOff": "Off. Pick a strategy; you approve every deployment.",
+  "growAutoInvestPaused": "Paused. Proposals stop until you switch it back on.",
+  "growAutoInvestOn": "{strategy} · {budget} per deployment, each one needs your approval",
+  "@growAutoInvestOn": {
+    "placeholders": {
+      "strategy": {
+        "type": "String"
+      },
+      "budget": {
+        "type": "String"
+      }
+    }
+  },
+  "strategyShortDesc": "Shorter trade cycles, tenure up to six months.",
+  "strategyBalancedDesc": "Low and moderate risk campaigns only.",
+  "strategyDiversifiedDesc": "The widest spread of contracts, including elevated risk.",
+  "autoInvestBudgetLabel": "Amount per deployment in taka",
+  "autoInvestActiveLabel": "Strategy active",
+  "autoInvestConsentNote": "Activating deploys nothing. Matching campaigns appear in your approval queue and each needs your explicit approval.",
+  "autoInvestSave": "Save strategy",
+  "growQueueTitle": "Approval queue",
+  "growQueueEmpty": "No proposals waiting. When open campaigns match your strategy they appear here, and nothing deploys without your approval.",
+  "growQueueProposal": "Proposes deploying {amount}",
+  "@growQueueProposal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "growQueueApprove": "Approve and deploy",
+  "growQueueDecline": "Decline",
+  "approveSheetTitle": "Approve deployment",
+  "approveSheetBody": "Approving deploys {amount} into {campaign}. The investment and its ledger entry are written together in one transaction.",
+  "@approveSheetBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "campaign": {
+        "type": "String"
+      }
+    }
+  },
+  "growGoalsAdd": "Add goal",
+  "growGoalsEmpty": "No goals yet. Add one to start tracking a target.",
+  "goalSheetTitleNew": "New goal",
+  "goalSheetTitleEdit": "Edit goal",
+  "goalTitleLabel": "Goal name",
+  "goalTitleMissing": "Give the goal a name.",
+  "goalTargetLabel": "Target amount in taka",
+  "goalSave": "Save goal",
+  "goalDelete": "Delete goal",
+  "goalIconGeneral": "General",
+  "goalIconHome": "Home",
+  "goalIconHajj": "Hajj",
+  "goalIconEducation": "Education",
+  "goalIconBusiness": "Business",
+  "goalIconFamily": "Family",
+  "investAutoInvestEntry": "Auto-invest",
+  "investAutoInvestEntrySub": "Strategy and approval queue",
   "homeNewsComing": "News and Insight arrives with a real content source in a later milestone.",
   "homeFooterDisclaimer": "Capital at risk. Returns are projections, not guarantees. Ribh Investments is AAOIFI-aligned. Regulatory registration under process."
 }

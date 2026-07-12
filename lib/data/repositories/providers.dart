@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../supabase/supabase_client.dart';
 import 'auth_repository.dart';
+import 'auto_invest_repository.dart';
 import 'campaign_repository.dart';
 import 'engagement_repository.dart';
 import 'goal_repository.dart';
@@ -23,6 +24,10 @@ final kycRepositoryProvider = Provider<KycRepository>(
 
 final walletRepositoryProvider = Provider<WalletRepository>(
   (ref) => WalletRepository(ref.watch(supabaseClientOrNullProvider)),
+);
+
+final autoInvestRepositoryProvider = Provider<AutoInvestRepository>(
+  (ref) => AutoInvestRepository(ref.watch(supabaseClientOrNullProvider)),
 );
 
 final campaignRepositoryProvider = Provider<CampaignRepository>(

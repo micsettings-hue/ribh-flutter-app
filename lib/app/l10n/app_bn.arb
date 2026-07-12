@@ -331,6 +331,70 @@
       }
     }
   },
+  "growFundTitle": "রিবহ ফান্ড",
+  "growFundBody": "আপনার বাছাই করা রণনীতিতে বিনিয়োগের জন্য অর্থ আলাদা করুন। প্রতিটি বিনিয়োগ আগে আপনার অনুমোদন সারিতে আসে; কিছুই নীরবে যায় না, এবং অপেক্ষমাণ অবস্থায় কিছুই বিনিয়োজিত হয় না।",
+  "growAutoInvestTitle": "অটো-ইনভেস্ট রণনীতি",
+  "growAutoInvestOff": "বন্ধ। রণনীতি বাছুন; প্রতিটি বিনিয়োগ আপনি অনুমোদন করবেন।",
+  "growAutoInvestPaused": "বিরতিতে। আবার চালু না করা পর্যন্ত প্রস্তাব আসবে না।",
+  "growAutoInvestOn": "{strategy} · প্রতি বিনিয়োগে {budget}, প্রতিটিতে আপনার অনুমোদন লাগবে",
+  "@growAutoInvestOn": {
+    "placeholders": {
+      "strategy": {
+        "type": "String"
+      },
+      "budget": {
+        "type": "String"
+      }
+    }
+  },
+  "strategyShortDesc": "ছোট বাণিজ্য চক্র, মেয়াদ সর্বোচ্চ ছয় মাস।",
+  "strategyBalancedDesc": "শুধু কম ও মাঝারি ঝুঁকির ক্যাম্পেইন।",
+  "strategyDiversifiedDesc": "চুক্তির বিস্তৃততম পরিসর, উচ্চ ঝুঁকিসহ।",
+  "autoInvestBudgetLabel": "প্রতি বিনিয়োগের পরিমাণ, টাকায়",
+  "autoInvestActiveLabel": "রণনীতি সক্রিয়",
+  "autoInvestConsentNote": "সক্রিয় করলেই কিছু বিনিয়োজিত হয় না। মিলে যাওয়া ক্যাম্পেইন আপনার অনুমোদন সারিতে আসে এবং প্রতিটিতে আপনার সুস্পষ্ট অনুমোদন লাগে।",
+  "autoInvestSave": "রণনীতি সংরক্ষণ করুন",
+  "growQueueTitle": "অনুমোদন সারি",
+  "growQueueEmpty": "কোনো প্রস্তাব অপেক্ষায় নেই। খোলা ক্যাম্পেইন আপনার রণনীতির সাথে মিললে এখানে আসবে, এবং আপনার অনুমোদন ছাড়া কিছুই বিনিয়োজিত হয় না।",
+  "growQueueProposal": "{amount} বিনিয়োগের প্রস্তাব",
+  "@growQueueProposal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "growQueueApprove": "অনুমোদন ও বিনিয়োগ",
+  "growQueueDecline": "প্রত্যাখ্যান",
+  "approveSheetTitle": "বিনিয়োগ অনুমোদন করুন",
+  "approveSheetBody": "অনুমোদন করলে {campaign}-এ {amount} বিনিয়োজিত হবে। বিনিয়োগ ও তার লেজার এন্ট্রি এক লেনদেনে একসাথে লেখা হয়।",
+  "@approveSheetBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "campaign": {
+        "type": "String"
+      }
+    }
+  },
+  "growGoalsAdd": "লক্ষ্য যোগ করুন",
+  "growGoalsEmpty": "এখনও কোনো লক্ষ্য নেই। একটি লক্ষ্য যোগ করে শুরু করুন।",
+  "goalSheetTitleNew": "নতুন লক্ষ্য",
+  "goalSheetTitleEdit": "লক্ষ্য সম্পাদনা",
+  "goalTitleLabel": "লক্ষ্যের নাম",
+  "goalTitleMissing": "লক্ষ্যের একটি নাম দিন।",
+  "goalTargetLabel": "লক্ষ্যমাত্রা, টাকায়",
+  "goalSave": "লক্ষ্য সংরক্ষণ করুন",
+  "goalDelete": "লক্ষ্য মুছুন",
+  "goalIconGeneral": "সাধারণ",
+  "goalIconHome": "বাড়ি",
+  "goalIconHajj": "হজ",
+  "goalIconEducation": "শিক্ষা",
+  "goalIconBusiness": "ব্যবসা",
+  "goalIconFamily": "পরিবার",
+  "investAutoInvestEntry": "অটো-ইনভেস্ট",
+  "investAutoInvestEntrySub": "রণনীতি ও অনুমোদন সারি",
   "homeNewsComing": "নিউজ ও ইনসাইট পরের কোনো মাইলফলকে প্রকৃত কনটেন্ট উৎসসহ আসবে।",
   "homeFooterDisclaimer": "মূলধন ঝুঁকির মধ্যে। মুনাফা প্রক্ষেপণ, নিশ্চয়তা নয়। রিবহ ইনভেস্টমেন্টস AAOIFI-সামঞ্জস্যপূর্ণ। নিয়ন্ত্রক নিবন্ধন প্রক্রিয়াধীন।"
 }

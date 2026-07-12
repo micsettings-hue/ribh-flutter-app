@@ -75,6 +75,16 @@ class _InvestScreenState extends ConsumerState<InvestScreen> {
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.all(20),
               children: [
+                Card(
+                  child: ListTile(
+                    leading: const Icon(LucideIcons.refreshCw),
+                    title: Text(l10n.investAutoInvestEntry),
+                    subtitle: Text(l10n.investAutoInvestEntrySub),
+                    trailing: const Icon(LucideIcons.chevronRight),
+                    onTap: () => context.go(RibhRoutes.grow),
+                  ),
+                ),
+                const SizedBox(height: 12),
                 TextField(
                   onChanged: (value) => setState(() => _query = value),
                   decoration: InputDecoration(

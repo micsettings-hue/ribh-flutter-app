@@ -1262,6 +1262,228 @@ abstract class AppLocalizations {
   /// **'{service} is not live yet. It arrives in a later milestone with real features, not demo content.'**
   String serviceComingSoonBody(String service);
 
+  /// No description provided for @growFundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ribh Fund'**
+  String get growFundTitle;
+
+  /// No description provided for @growFundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Set aside funds to deploy through your chosen strategy. Every deployment still comes to your approval queue first; nothing moves silently, and nothing deploys while pending.'**
+  String get growFundBody;
+
+  /// No description provided for @growAutoInvestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-invest strategy'**
+  String get growAutoInvestTitle;
+
+  /// No description provided for @growAutoInvestOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off. Pick a strategy; you approve every deployment.'**
+  String get growAutoInvestOff;
+
+  /// No description provided for @growAutoInvestPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused. Proposals stop until you switch it back on.'**
+  String get growAutoInvestPaused;
+
+  /// No description provided for @growAutoInvestOn.
+  ///
+  /// In en, this message translates to:
+  /// **'{strategy} · {budget} per deployment, each one needs your approval'**
+  String growAutoInvestOn(String strategy, String budget);
+
+  /// No description provided for @strategyShortDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Shorter trade cycles, tenure up to six months.'**
+  String get strategyShortDesc;
+
+  /// No description provided for @strategyBalancedDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Low and moderate risk campaigns only.'**
+  String get strategyBalancedDesc;
+
+  /// No description provided for @strategyDiversifiedDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The widest spread of contracts, including elevated risk.'**
+  String get strategyDiversifiedDesc;
+
+  /// No description provided for @autoInvestBudgetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount per deployment in taka'**
+  String get autoInvestBudgetLabel;
+
+  /// No description provided for @autoInvestActiveLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Strategy active'**
+  String get autoInvestActiveLabel;
+
+  /// No description provided for @autoInvestConsentNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Activating deploys nothing. Matching campaigns appear in your approval queue and each needs your explicit approval.'**
+  String get autoInvestConsentNote;
+
+  /// No description provided for @autoInvestSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save strategy'**
+  String get autoInvestSave;
+
+  /// No description provided for @growQueueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval queue'**
+  String get growQueueTitle;
+
+  /// No description provided for @growQueueEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No proposals waiting. When open campaigns match your strategy they appear here, and nothing deploys without your approval.'**
+  String get growQueueEmpty;
+
+  /// No description provided for @growQueueProposal.
+  ///
+  /// In en, this message translates to:
+  /// **'Proposes deploying {amount}'**
+  String growQueueProposal(String amount);
+
+  /// No description provided for @growQueueApprove.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve and deploy'**
+  String get growQueueApprove;
+
+  /// No description provided for @growQueueDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get growQueueDecline;
+
+  /// No description provided for @approveSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve deployment'**
+  String get approveSheetTitle;
+
+  /// No description provided for @approveSheetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Approving deploys {amount} into {campaign}. The investment and its ledger entry are written together in one transaction.'**
+  String approveSheetBody(String amount, String campaign);
+
+  /// No description provided for @growGoalsAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add goal'**
+  String get growGoalsAdd;
+
+  /// No description provided for @growGoalsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No goals yet. Add one to start tracking a target.'**
+  String get growGoalsEmpty;
+
+  /// No description provided for @goalSheetTitleNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New goal'**
+  String get goalSheetTitleNew;
+
+  /// No description provided for @goalSheetTitleEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit goal'**
+  String get goalSheetTitleEdit;
+
+  /// No description provided for @goalTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal name'**
+  String get goalTitleLabel;
+
+  /// No description provided for @goalTitleMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Give the goal a name.'**
+  String get goalTitleMissing;
+
+  /// No description provided for @goalTargetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Target amount in taka'**
+  String get goalTargetLabel;
+
+  /// No description provided for @goalSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save goal'**
+  String get goalSave;
+
+  /// No description provided for @goalDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete goal'**
+  String get goalDelete;
+
+  /// No description provided for @goalIconGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get goalIconGeneral;
+
+  /// No description provided for @goalIconHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get goalIconHome;
+
+  /// No description provided for @goalIconHajj.
+  ///
+  /// In en, this message translates to:
+  /// **'Hajj'**
+  String get goalIconHajj;
+
+  /// No description provided for @goalIconEducation.
+  ///
+  /// In en, this message translates to:
+  /// **'Education'**
+  String get goalIconEducation;
+
+  /// No description provided for @goalIconBusiness.
+  ///
+  /// In en, this message translates to:
+  /// **'Business'**
+  String get goalIconBusiness;
+
+  /// No description provided for @goalIconFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Family'**
+  String get goalIconFamily;
+
+  /// No description provided for @investAutoInvestEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-invest'**
+  String get investAutoInvestEntry;
+
+  /// No description provided for @investAutoInvestEntrySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Strategy and approval queue'**
+  String get investAutoInvestEntrySub;
+
   /// No description provided for @homeNewsComing.
   ///
   /// In en, this message translates to:

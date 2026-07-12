@@ -654,6 +654,130 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
+  String get growFundTitle => 'রিবহ ফান্ড';
+
+  @override
+  String get growFundBody =>
+      'আপনার বাছাই করা রণনীতিতে বিনিয়োগের জন্য অর্থ আলাদা করুন। প্রতিটি বিনিয়োগ আগে আপনার অনুমোদন সারিতে আসে; কিছুই নীরবে যায় না, এবং অপেক্ষমাণ অবস্থায় কিছুই বিনিয়োজিত হয় না।';
+
+  @override
+  String get growAutoInvestTitle => 'অটো-ইনভেস্ট রণনীতি';
+
+  @override
+  String get growAutoInvestOff =>
+      'বন্ধ। রণনীতি বাছুন; প্রতিটি বিনিয়োগ আপনি অনুমোদন করবেন।';
+
+  @override
+  String get growAutoInvestPaused =>
+      'বিরতিতে। আবার চালু না করা পর্যন্ত প্রস্তাব আসবে না।';
+
+  @override
+  String growAutoInvestOn(String strategy, String budget) {
+    return '$strategy · প্রতি বিনিয়োগে $budget, প্রতিটিতে আপনার অনুমোদন লাগবে';
+  }
+
+  @override
+  String get strategyShortDesc => 'ছোট বাণিজ্য চক্র, মেয়াদ সর্বোচ্চ ছয় মাস।';
+
+  @override
+  String get strategyBalancedDesc => 'শুধু কম ও মাঝারি ঝুঁকির ক্যাম্পেইন।';
+
+  @override
+  String get strategyDiversifiedDesc =>
+      'চুক্তির বিস্তৃততম পরিসর, উচ্চ ঝুঁকিসহ।';
+
+  @override
+  String get autoInvestBudgetLabel => 'প্রতি বিনিয়োগের পরিমাণ, টাকায়';
+
+  @override
+  String get autoInvestActiveLabel => 'রণনীতি সক্রিয়';
+
+  @override
+  String get autoInvestConsentNote =>
+      'সক্রিয় করলেই কিছু বিনিয়োজিত হয় না। মিলে যাওয়া ক্যাম্পেইন আপনার অনুমোদন সারিতে আসে এবং প্রতিটিতে আপনার সুস্পষ্ট অনুমোদন লাগে।';
+
+  @override
+  String get autoInvestSave => 'রণনীতি সংরক্ষণ করুন';
+
+  @override
+  String get growQueueTitle => 'অনুমোদন সারি';
+
+  @override
+  String get growQueueEmpty =>
+      'কোনো প্রস্তাব অপেক্ষায় নেই। খোলা ক্যাম্পেইন আপনার রণনীতির সাথে মিললে এখানে আসবে, এবং আপনার অনুমোদন ছাড়া কিছুই বিনিয়োজিত হয় না।';
+
+  @override
+  String growQueueProposal(String amount) {
+    return '$amount বিনিয়োগের প্রস্তাব';
+  }
+
+  @override
+  String get growQueueApprove => 'অনুমোদন ও বিনিয়োগ';
+
+  @override
+  String get growQueueDecline => 'প্রত্যাখ্যান';
+
+  @override
+  String get approveSheetTitle => 'বিনিয়োগ অনুমোদন করুন';
+
+  @override
+  String approveSheetBody(String amount, String campaign) {
+    return 'অনুমোদন করলে $campaign-এ $amount বিনিয়োজিত হবে। বিনিয়োগ ও তার লেজার এন্ট্রি এক লেনদেনে একসাথে লেখা হয়।';
+  }
+
+  @override
+  String get growGoalsAdd => 'লক্ষ্য যোগ করুন';
+
+  @override
+  String get growGoalsEmpty =>
+      'এখনও কোনো লক্ষ্য নেই। একটি লক্ষ্য যোগ করে শুরু করুন।';
+
+  @override
+  String get goalSheetTitleNew => 'নতুন লক্ষ্য';
+
+  @override
+  String get goalSheetTitleEdit => 'লক্ষ্য সম্পাদনা';
+
+  @override
+  String get goalTitleLabel => 'লক্ষ্যের নাম';
+
+  @override
+  String get goalTitleMissing => 'লক্ষ্যের একটি নাম দিন।';
+
+  @override
+  String get goalTargetLabel => 'লক্ষ্যমাত্রা, টাকায়';
+
+  @override
+  String get goalSave => 'লক্ষ্য সংরক্ষণ করুন';
+
+  @override
+  String get goalDelete => 'লক্ষ্য মুছুন';
+
+  @override
+  String get goalIconGeneral => 'সাধারণ';
+
+  @override
+  String get goalIconHome => 'বাড়ি';
+
+  @override
+  String get goalIconHajj => 'হজ';
+
+  @override
+  String get goalIconEducation => 'শিক্ষা';
+
+  @override
+  String get goalIconBusiness => 'ব্যবসা';
+
+  @override
+  String get goalIconFamily => 'পরিবার';
+
+  @override
+  String get investAutoInvestEntry => 'অটো-ইনভেস্ট';
+
+  @override
+  String get investAutoInvestEntrySub => 'রণনীতি ও অনুমোদন সারি';
+
+  @override
   String get homeNewsComing =>
       'নিউজ ও ইনসাইট পরের কোনো মাইলফলকে প্রকৃত কনটেন্ট উৎসসহ আসবে।';
 

@@ -128,6 +128,9 @@ Learn, Zakat, Sadaqah, wallet performance, Qard, and Invite are real. Prayer (de
 - `CLAUDE.md` still says the stack is React Native + Expo; the actual build is Flutter per `flutterv9.2.md`. Worth correcting in `CLAUDE.md`.
 
 ## Next
-- Close M1/M2/M3 database side: install Supabase CLI + Docker, run all five migrations plus `supabase/tests/ledger_invariant_test.sql` and `supabase/tests/money_requests_test.sql`, fix anything surfaced.
-- Push CI workflow once the GitHub token has `workflow` scope.
-- M4 Invest core: marketplace, campaign detail, calculator, the two-acknowledgement invest flow writing investment plus ledger atomically, portfolio on Home.
+- M8 Barakah enrichment: the six blocks (score from engagement with the never-measures-worship line, adhkar and tasbih with persisted counter, daily ayah or hadith (board), prayer streak self-check, Learn shortcut, Sadaqah nudge).
+- M9 Polish: motion, skeletons, empty states, haptics, accessibility audit, localization completeness, store prep.
+- Close the database side for M1-M7: install Supabase CLI + Docker, run all eight migrations plus the four proof tests in `supabase/tests/` (ledger invariant, money requests, auto-invest, services), fix anything surfaced.
+- Commit and push the CI workflow in `.github/` once the GitHub token has `workflow` scope (committing it earlier would block every push).
+- Decide the News and Insight content source (needs a table not in the data model) to finish the Home screen against screens.md.
+- Machine note (2026-07-12): the disk hit 181MB free and crashed builds; ~4.5GB of caches were cleared (project build/, Runner DerivedData, Homebrew cache). Free real space before large builds.

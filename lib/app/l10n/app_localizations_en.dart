@@ -553,4 +553,113 @@ class AppLocalizationsEn extends AppLocalizations {
   String portfolioInvested(String amount) {
     return '$amount invested';
   }
+
+  @override
+  String get amanahTitle => 'Amanah summary';
+
+  @override
+  String get amanahLedgerLink => 'Ledger';
+
+  @override
+  String get amanahAvailableLabel => 'Available';
+
+  @override
+  String get amanahDeployedLabel => 'Deployed';
+
+  @override
+  String get amanahInRecoveryLabel => 'In recovery';
+
+  @override
+  String get bannerSlide1Title => 'Barakah, built daily';
+
+  @override
+  String get bannerSlide1Sub =>
+      'Consistency in giving and saving counts more than size.';
+
+  @override
+  String get bannerSlide2Title => 'Evening adhkar';
+
+  @override
+  String get bannerSlide2Sub => 'Two minutes of remembrance before Maghrib.';
+
+  @override
+  String get bannerSlide3Title => 'Today\'s sadaqah';
+
+  @override
+  String get bannerSlide3Sub =>
+      'Even a small amount given consistently outweighs much.';
+
+  @override
+  String get homeOpenCampaigns => 'Open campaigns';
+
+  @override
+  String get homeOpenCampaignsEmpty => 'No campaigns are open right now.';
+
+  @override
+  String get homeSeeAll => 'See all';
+
+  @override
+  String get homeWheresMyMoney => 'Where\'s my money?';
+
+  @override
+  String get flowWallet => 'Wallet';
+
+  @override
+  String get flowSupplierPaid => 'Supplier paid';
+
+  @override
+  String get flowGoodsWithMerchant => 'Goods with merchant';
+
+  @override
+  String get flowRepayment => 'Repayment';
+
+  @override
+  String get flowProfit => 'Profit';
+
+  @override
+  String get homeGoalsTitle => 'Your goals';
+
+  @override
+  String get homeGoalsEmpty =>
+      'No goals yet. Create one in Grow when it opens.';
+
+  @override
+  String get homeServicesTitle => 'Other services';
+
+  @override
+  String get serviceLearn => 'Learn';
+
+  @override
+  String get serviceZakat => 'Zakat';
+
+  @override
+  String get serviceSadaqah => 'Sadaqah';
+
+  @override
+  String get serviceWallet => 'Wallet';
+
+  @override
+  String get servicePrayer => 'Prayer';
+
+  @override
+  String get serviceQard => 'Qard e Hasanah';
+
+  @override
+  String get serviceInvite => 'Invite';
+
+  @override
+  String get serviceSoon => 'SOON';
+
+  @override
+  String serviceComingSoonBody(String service) {
+    return '$service is not live yet. It arrives in a later milestone with real features, not demo content.';
+  }
+
+  @override
+  String get homeNewsComing =>
+      'News and Insight arrives with a real content source in a later milestone.';
+
+  @override
+  String get homeFooterDisclaimer =>
+      'Capital at risk. Returns are projections, not guarantees. Ribh Investments is AAOIFI-aligned. Regulatory registration under process.';
 }

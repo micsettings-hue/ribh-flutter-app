@@ -273,5 +273,64 @@
         "type": "String"
       }
     }
-  }
+  },
+  "amanahTitle": "আমানাহ সারসংক্ষেপ",
+  "amanahLedgerLink": "লেজার",
+  "amanahAvailableLabel": "উপলব্ধ",
+  "amanahDeployedLabel": "বিনিয়োজিত",
+  "amanahInRecoveryLabel": "রিকভারিতে",
+  "bannerSlide1Title": "বারাকাহ, প্রতিদিন গড়ে ওঠে",
+  "@bannerSlide1Title": {
+    "description": "Faith-adjacent copy. TODO(board): board sign-off required before launch."
+  },
+  "bannerSlide1Sub": "দেওয়া ও সঞ্চয়ে ধারাবাহিকতা পরিমাণের চেয়ে বেশি গুরুত্বপূর্ণ।",
+  "@bannerSlide1Sub": {
+    "description": "Faith-adjacent copy. TODO(board): board sign-off required before launch."
+  },
+  "bannerSlide2Title": "সন্ধ্যার আযকার",
+  "@bannerSlide2Title": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "bannerSlide2Sub": "মাগরিবের আগে দুই মিনিটের যিকর।",
+  "@bannerSlide2Sub": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "bannerSlide3Title": "আজকের সাদাকাহ",
+  "@bannerSlide3Title": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "bannerSlide3Sub": "নিয়মিত দেওয়া অল্পও অনেক কিছুর চেয়ে ভারী।",
+  "@bannerSlide3Sub": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "homeOpenCampaigns": "খোলা ক্যাম্পেইন",
+  "homeOpenCampaignsEmpty": "এই মুহূর্তে কোনো ক্যাম্পেইন খোলা নেই।",
+  "homeSeeAll": "সব দেখুন",
+  "homeWheresMyMoney": "আমার টাকা কোথায়?",
+  "flowWallet": "ওয়ালেট",
+  "flowSupplierPaid": "সরবরাহকারীকে পরিশোধ",
+  "flowGoodsWithMerchant": "পণ্য ব্যবসায়ীর কাছে",
+  "flowRepayment": "পরিশোধ",
+  "flowProfit": "মুনাফা",
+  "homeGoalsTitle": "আপনার লক্ষ্য",
+  "homeGoalsEmpty": "এখনও কোনো লক্ষ্য নেই। Grow খুললে একটি তৈরি করুন।",
+  "homeServicesTitle": "অন্যান্য সেবা",
+  "serviceLearn": "শিখুন",
+  "serviceZakat": "যাকাত",
+  "serviceSadaqah": "সাদাকাহ",
+  "serviceWallet": "ওয়ালেট",
+  "servicePrayer": "নামায",
+  "serviceQard": "কর্জে হাসানাহ",
+  "serviceInvite": "আমন্ত্রণ",
+  "serviceSoon": "শীঘ্রই",
+  "serviceComingSoonBody": "{service} এখনও চালু হয়নি। এটি পরের কোনো মাইলফলকে প্রকৃত ফিচারসহ আসবে, ডেমো কনটেন্ট নয়।",
+  "@serviceComingSoonBody": {
+    "placeholders": {
+      "service": {
+        "type": "String"
+      }
+    }
+  },
+  "homeNewsComing": "নিউজ ও ইনসাইট পরের কোনো মাইলফলকে প্রকৃত কনটেন্ট উৎসসহ আসবে।",
+  "homeFooterDisclaimer": "মূলধন ঝুঁকির মধ্যে। মুনাফা প্রক্ষেপণ, নিশ্চয়তা নয়। রিবহ ইনভেস্টমেন্টস AAOIFI-সামঞ্জস্যপূর্ণ। নিয়ন্ত্রক নিবন্ধন প্রক্রিয়াধীন।"
 }

@@ -2,6 +2,20 @@
 
 ## Done
 
+### M5 Home hub (2026-07-12)
+- Amanah summary card (`shared/amanah_card.dart`, dumb, gradient tokens): available from `my_wallet_balance()`, deployed and in-recovery summed from real holdings by campaign status (matured stays deployed until a settlement ledger row returns capital; documented in `home_controllers.dart`). Add funds opens the real M3 deposit sheet; Withdraw reads the wallet controller first so the sheet gets available-minus-pending; Ledger opens `/wallet`.
+- Barakah banner (`shared/barakah_banner.dart`): real `PageView`, auto-advance every 4.2s, pauses while touched, and no timer at all under `MediaQuery.disableAnimations`. Three slides from the ARB layer, all marked TODO(board) (faith-facing). Tap goes to the Barakah tab. No fake score shown anywhere.
+- Open campaigns list: reuses the marketplace controller (same watchlist state as the Invest tab), live funding percent, projected annualised rate labelled projected, working bookmark, See all switches to Invest.
+- Where's my money: the largest deployment in a running campaign, with `MoneyFlow` stages derived from campaign status ONLY (`moneyFlowStageFor`: open=1, running=3, in_recovery=3, matured=5; nothing invented beyond the data). Card opens the campaign detail. Hidden when nothing is running.
+- Goals summary: real `goals` rows via `GoalRow`, read-only on Home (create and edit are M6), honest empty state.
+- Services grid: six `ServiceTile`s. Wallet routes to the real M3 page; Zakat, Sadaqah, Prayer, Qard (SOON badge), Invite route to `/services/:id` which renders an honest coming-soon page, so M7 replaces bodies, not navigation.
+- Pull-to-refresh invalidates every Home provider. Footer carries the capital-at-risk disclaimer (projected rates appear on this screen) and an honest line that News and Insight needs a real content source and comes later.
+- Tests: 85 passing (5 new): stage mapping unit test, full Home render asserting derived amanah figures (available 128,400; deployed 50,000; in-recovery 30,000), open campaign row, where's-my-money strip, goal row math, all six tiles with SOON on Qard, disclaimer; amanah failure + retry; banner advances at 4.2s and stays put under reduce-motion; service tile navigation through the real router to the coming-soon page. `flutter analyze` clean.
+
+### M5 notes
+- News and Insight is the one Home block not built: it needs a content table that is not in the data model. Decide its source before calling the Home screen fully done against screens.md.
+- Auto-invest, goal editing: M6. Real service page bodies: M7.
+
 ### M4 Invest core (2026-07-12)
 - Migration `20260712000600_invest_market.sql`: `campaigns.title` (display names were only a comment in the ER diagram; the marketplace needs them as data, seed updated with the prototype names) and `campaign_watchlist` (unique profile+campaign, own-rows RLS CRUD; it moves no money so no RPC needed).
 - Profit formula corrected: `investorProfit`'s doc claimed poisha/taka unit-consistency but a lac is 100,000 TAKA, so raw poisha overstated 100x (the old test even asserted the wrong semantics). Now: `investorProfit` (taka), `investorProfitPoisha` (database units, divides by 10^7), and `projectedAnnualisedRatePercent` from real terms; all pure and unit-tested against the seed campaign numbers (1 lac into Printing Zone terms = 8,700 taka projected, 17.4% annualised).

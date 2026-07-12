@@ -34,7 +34,7 @@ final class MarketplaceControllerProvider
 }
 
 String _$marketplaceControllerHash() =>
-    r'820a6178182d0314777c4d25469bfd83f99449d9';
+    r'f9568f9d07763b14bad5bdc4b17e440cebed734c';
 
 abstract class _$MarketplaceController extends $AsyncNotifier<MarketplaceData> {
   FutureOr<MarketplaceData> build();

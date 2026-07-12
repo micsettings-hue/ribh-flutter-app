@@ -13,6 +13,7 @@ import '../../features/grow/grow_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/invest/invest_screen.dart';
 import '../../features/me/me_screen.dart';
+import '../../features/services/service_coming_soon_screen.dart';
 import '../../features/wallet/wallet_screen.dart';
 import '../../shared/ribh_shell.dart';
 import 'routes.dart';
@@ -65,6 +66,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: RibhRoutes.campaignPattern,
         builder: (context, state) =>
             CampaignDetailScreen(campaignId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: RibhRoutes.servicePattern,
+        builder: (context, state) =>
+            ServiceComingSoonScreen(serviceId: state.pathParameters['id']!),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => RibhShell(shell: shell),

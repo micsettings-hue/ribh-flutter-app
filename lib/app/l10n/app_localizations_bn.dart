@@ -552,4 +552,112 @@ class AppLocalizationsBn extends AppLocalizations {
   String portfolioInvested(String amount) {
     return '$amount বিনিয়োজিত';
   }
+
+  @override
+  String get amanahTitle => 'আমানাহ সারসংক্ষেপ';
+
+  @override
+  String get amanahLedgerLink => 'লেজার';
+
+  @override
+  String get amanahAvailableLabel => 'উপলব্ধ';
+
+  @override
+  String get amanahDeployedLabel => 'বিনিয়োজিত';
+
+  @override
+  String get amanahInRecoveryLabel => 'রিকভারিতে';
+
+  @override
+  String get bannerSlide1Title => 'বারাকাহ, প্রতিদিন গড়ে ওঠে';
+
+  @override
+  String get bannerSlide1Sub =>
+      'দেওয়া ও সঞ্চয়ে ধারাবাহিকতা পরিমাণের চেয়ে বেশি গুরুত্বপূর্ণ।';
+
+  @override
+  String get bannerSlide2Title => 'সন্ধ্যার আযকার';
+
+  @override
+  String get bannerSlide2Sub => 'মাগরিবের আগে দুই মিনিটের যিকর।';
+
+  @override
+  String get bannerSlide3Title => 'আজকের সাদাকাহ';
+
+  @override
+  String get bannerSlide3Sub => 'নিয়মিত দেওয়া অল্পও অনেক কিছুর চেয়ে ভারী।';
+
+  @override
+  String get homeOpenCampaigns => 'খোলা ক্যাম্পেইন';
+
+  @override
+  String get homeOpenCampaignsEmpty => 'এই মুহূর্তে কোনো ক্যাম্পেইন খোলা নেই।';
+
+  @override
+  String get homeSeeAll => 'সব দেখুন';
+
+  @override
+  String get homeWheresMyMoney => 'আমার টাকা কোথায়?';
+
+  @override
+  String get flowWallet => 'ওয়ালেট';
+
+  @override
+  String get flowSupplierPaid => 'সরবরাহকারীকে পরিশোধ';
+
+  @override
+  String get flowGoodsWithMerchant => 'পণ্য ব্যবসায়ীর কাছে';
+
+  @override
+  String get flowRepayment => 'পরিশোধ';
+
+  @override
+  String get flowProfit => 'মুনাফা';
+
+  @override
+  String get homeGoalsTitle => 'আপনার লক্ষ্য';
+
+  @override
+  String get homeGoalsEmpty =>
+      'এখনও কোনো লক্ষ্য নেই। Grow খুললে একটি তৈরি করুন।';
+
+  @override
+  String get homeServicesTitle => 'অন্যান্য সেবা';
+
+  @override
+  String get serviceLearn => 'শিখুন';
+
+  @override
+  String get serviceZakat => 'যাকাত';
+
+  @override
+  String get serviceSadaqah => 'সাদাকাহ';
+
+  @override
+  String get serviceWallet => 'ওয়ালেট';
+
+  @override
+  String get servicePrayer => 'নামায';
+
+  @override
+  String get serviceQard => 'কর্জে হাসানাহ';
+
+  @override
+  String get serviceInvite => 'আমন্ত্রণ';
+
+  @override
+  String get serviceSoon => 'শীঘ্রই';
+
+  @override
+  String serviceComingSoonBody(String service) {
+    return '$service এখনও চালু হয়নি। এটি পরের কোনো মাইলফলকে প্রকৃত ফিচারসহ আসবে, ডেমো কনটেন্ট নয়।';
+  }
+
+  @override
+  String get homeNewsComing =>
+      'নিউজ ও ইনসাইট পরের কোনো মাইলফলকে প্রকৃত কনটেন্ট উৎসসহ আসবে।';
+
+  @override
+  String get homeFooterDisclaimer =>
+      'মূলধন ঝুঁকির মধ্যে। মুনাফা প্রক্ষেপণ, নিশ্চয়তা নয়। রিবহ ইনভেস্টমেন্টস AAOIFI-সামঞ্জস্যপূর্ণ। নিয়ন্ত্রক নিবন্ধন প্রক্রিয়াধীন।';
 }

@@ -291,5 +291,64 @@
         "type": "String"
       }
     }
-  }
+  },
+  "amanahTitle": "Amanah summary",
+  "amanahLedgerLink": "Ledger",
+  "amanahAvailableLabel": "Available",
+  "amanahDeployedLabel": "Deployed",
+  "amanahInRecoveryLabel": "In recovery",
+  "bannerSlide1Title": "Barakah, built daily",
+  "@bannerSlide1Title": {
+    "description": "Faith-adjacent copy. TODO(board): board sign-off required before launch."
+  },
+  "bannerSlide1Sub": "Consistency in giving and saving counts more than size.",
+  "@bannerSlide1Sub": {
+    "description": "Faith-adjacent copy. TODO(board): board sign-off required before launch."
+  },
+  "bannerSlide2Title": "Evening adhkar",
+  "@bannerSlide2Title": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "bannerSlide2Sub": "Two minutes of remembrance before Maghrib.",
+  "@bannerSlide2Sub": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "bannerSlide3Title": "Today's sadaqah",
+  "@bannerSlide3Title": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "bannerSlide3Sub": "Even a small amount given consistently outweighs much.",
+  "@bannerSlide3Sub": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "homeOpenCampaigns": "Open campaigns",
+  "homeOpenCampaignsEmpty": "No campaigns are open right now.",
+  "homeSeeAll": "See all",
+  "homeWheresMyMoney": "Where's my money?",
+  "flowWallet": "Wallet",
+  "flowSupplierPaid": "Supplier paid",
+  "flowGoodsWithMerchant": "Goods with merchant",
+  "flowRepayment": "Repayment",
+  "flowProfit": "Profit",
+  "homeGoalsTitle": "Your goals",
+  "homeGoalsEmpty": "No goals yet. Create one in Grow when it opens.",
+  "homeServicesTitle": "Other services",
+  "serviceLearn": "Learn",
+  "serviceZakat": "Zakat",
+  "serviceSadaqah": "Sadaqah",
+  "serviceWallet": "Wallet",
+  "servicePrayer": "Prayer",
+  "serviceQard": "Qard e Hasanah",
+  "serviceInvite": "Invite",
+  "serviceSoon": "SOON",
+  "serviceComingSoonBody": "{service} is not live yet. It arrives in a later milestone with real features, not demo content.",
+  "@serviceComingSoonBody": {
+    "placeholders": {
+      "service": {
+        "type": "String"
+      }
+    }
+  },
+  "homeNewsComing": "News and Insight arrives with a real content source in a later milestone.",
+  "homeFooterDisclaimer": "Capital at risk. Returns are projections, not guarantees. Ribh Investments is AAOIFI-aligned. Regulatory registration under process."
 }

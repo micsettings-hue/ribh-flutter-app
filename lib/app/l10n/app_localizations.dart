@@ -1069,6 +1069,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{amount} invested'**
   String portfolioInvested(String amount);
+
+  /// No description provided for @amanahTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Amanah summary'**
+  String get amanahTitle;
+
+  /// No description provided for @amanahLedgerLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Ledger'**
+  String get amanahLedgerLink;
+
+  /// No description provided for @amanahAvailableLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get amanahAvailableLabel;
+
+  /// No description provided for @amanahDeployedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Deployed'**
+  String get amanahDeployedLabel;
+
+  /// No description provided for @amanahInRecoveryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'In recovery'**
+  String get amanahInRecoveryLabel;
+
+  /// Faith-adjacent copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Barakah, built daily'**
+  String get bannerSlide1Title;
+
+  /// Faith-adjacent copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency in giving and saving counts more than size.'**
+  String get bannerSlide1Sub;
+
+  /// Faith-facing copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening adhkar'**
+  String get bannerSlide2Title;
+
+  /// Faith-facing copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Two minutes of remembrance before Maghrib.'**
+  String get bannerSlide2Sub;
+
+  /// Faith-facing copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s sadaqah'**
+  String get bannerSlide3Title;
+
+  /// Faith-facing copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Even a small amount given consistently outweighs much.'**
+  String get bannerSlide3Sub;
+
+  /// No description provided for @homeOpenCampaigns.
+  ///
+  /// In en, this message translates to:
+  /// **'Open campaigns'**
+  String get homeOpenCampaigns;
+
+  /// No description provided for @homeOpenCampaignsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No campaigns are open right now.'**
+  String get homeOpenCampaignsEmpty;
+
+  /// No description provided for @homeSeeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get homeSeeAll;
+
+  /// No description provided for @homeWheresMyMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Where\'s my money?'**
+  String get homeWheresMyMoney;
+
+  /// No description provided for @flowWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get flowWallet;
+
+  /// No description provided for @flowSupplierPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier paid'**
+  String get flowSupplierPaid;
+
+  /// No description provided for @flowGoodsWithMerchant.
+  ///
+  /// In en, this message translates to:
+  /// **'Goods with merchant'**
+  String get flowGoodsWithMerchant;
+
+  /// No description provided for @flowRepayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Repayment'**
+  String get flowRepayment;
+
+  /// No description provided for @flowProfit.
+  ///
+  /// In en, this message translates to:
+  /// **'Profit'**
+  String get flowProfit;
+
+  /// No description provided for @homeGoalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your goals'**
+  String get homeGoalsTitle;
+
+  /// No description provided for @homeGoalsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No goals yet. Create one in Grow when it opens.'**
+  String get homeGoalsEmpty;
+
+  /// No description provided for @homeServicesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Other services'**
+  String get homeServicesTitle;
+
+  /// No description provided for @serviceLearn.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn'**
+  String get serviceLearn;
+
+  /// No description provided for @serviceZakat.
+  ///
+  /// In en, this message translates to:
+  /// **'Zakat'**
+  String get serviceZakat;
+
+  /// No description provided for @serviceSadaqah.
+  ///
+  /// In en, this message translates to:
+  /// **'Sadaqah'**
+  String get serviceSadaqah;
+
+  /// No description provided for @serviceWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get serviceWallet;
+
+  /// No description provided for @servicePrayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer'**
+  String get servicePrayer;
+
+  /// No description provided for @serviceQard.
+  ///
+  /// In en, this message translates to:
+  /// **'Qard e Hasanah'**
+  String get serviceQard;
+
+  /// No description provided for @serviceInvite.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite'**
+  String get serviceInvite;
+
+  /// No description provided for @serviceSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'SOON'**
+  String get serviceSoon;
+
+  /// No description provided for @serviceComingSoonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{service} is not live yet. It arrives in a later milestone with real features, not demo content.'**
+  String serviceComingSoonBody(String service);
+
+  /// No description provided for @homeNewsComing.
+  ///
+  /// In en, this message translates to:
+  /// **'News and Insight arrives with a real content source in a later milestone.'**
+  String get homeNewsComing;
+
+  /// No description provided for @homeFooterDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Capital at risk. Returns are projections, not guarantees. Ribh Investments is AAOIFI-aligned. Regulatory registration under process.'**
+  String get homeFooterDisclaimer;
 }
 
 class _AppLocalizationsDelegate

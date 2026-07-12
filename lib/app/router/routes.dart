@@ -14,4 +14,8 @@ abstract final class RibhRoutes {
   /// Campaign detail, pushed with a Hero from marketplace and portfolio.
   static const campaignPattern = '/campaign/:id';
   static String campaign(String id) => '/campaign/$id';
+
+  /// Service pages (real bodies arrive in M7; the routes are real now).
+  static const servicePattern = '/services/:id';
+  static String service(String id) => '/services/$id';
 }

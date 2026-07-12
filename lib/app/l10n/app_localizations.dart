@@ -793,6 +793,282 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your withdrawal request is recorded and pending review. The money leaves your balance only when the transfer is actually sent, and the ledger row appears then.'**
   String get withdrawPendingBody;
+
+  /// No description provided for @statusOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get statusOpen;
+
+  /// No description provided for @statusRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get statusRunning;
+
+  /// No description provided for @statusMatured.
+  ///
+  /// In en, this message translates to:
+  /// **'Matured'**
+  String get statusMatured;
+
+  /// No description provided for @statusRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'In recovery'**
+  String get statusRecovery;
+
+  /// No description provided for @riskLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Low risk'**
+  String get riskLow;
+
+  /// No description provided for @riskModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate risk'**
+  String get riskModerate;
+
+  /// No description provided for @riskElevated.
+  ///
+  /// In en, this message translates to:
+  /// **'Elevated risk'**
+  String get riskElevated;
+
+  /// No description provided for @riskDisclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'Projected, not guaranteed. Capital is at risk and returns depend on real trade outcomes.'**
+  String get riskDisclosure;
+
+  /// No description provided for @marketSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search campaigns'**
+  String get marketSearchHint;
+
+  /// No description provided for @marketFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get marketFilterAll;
+
+  /// No description provided for @marketFilterOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get marketFilterOpen;
+
+  /// No description provided for @marketFilterMatured.
+  ///
+  /// In en, this message translates to:
+  /// **'Matured'**
+  String get marketFilterMatured;
+
+  /// No description provided for @marketFilterSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get marketFilterSaved;
+
+  /// No description provided for @marketEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No campaigns match. Adjust the filter or search.'**
+  String get marketEmpty;
+
+  /// No description provided for @marketSaveTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to watchlist'**
+  String get marketSaveTooltip;
+
+  /// No description provided for @marketUnsaveTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from watchlist'**
+  String get marketUnsaveTooltip;
+
+  /// No description provided for @marketFundedPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% funded'**
+  String marketFundedPercent(String percent);
+
+  /// No description provided for @marketProjectedRate.
+  ///
+  /// In en, this message translates to:
+  /// **'~{rate}% p.a. projected'**
+  String marketProjectedRate(String rate);
+
+  /// No description provided for @campaignDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Campaign'**
+  String get campaignDetailTitle;
+
+  /// No description provided for @campaignRaisedOfPool.
+  ///
+  /// In en, this message translates to:
+  /// **'{raised} raised of {pool} ({percent}%)'**
+  String campaignRaisedOfPool(String raised, String pool, String percent);
+
+  /// No description provided for @campaignTermsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms'**
+  String get campaignTermsTitle;
+
+  /// No description provided for @campaignProfitPerLac.
+  ///
+  /// In en, this message translates to:
+  /// **'Projected profit per lac'**
+  String get campaignProfitPerLac;
+
+  /// No description provided for @campaignInvestorShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Investor share'**
+  String get campaignInvestorShare;
+
+  /// No description provided for @campaignTenureLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Tenure'**
+  String get campaignTenureLabel;
+
+  /// No description provided for @campaignTenureMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{months} months'**
+  String campaignTenureMonths(int months);
+
+  /// No description provided for @campaignProjectedAnnualised.
+  ///
+  /// In en, this message translates to:
+  /// **'Projected annualised rate'**
+  String get campaignProjectedAnnualised;
+
+  /// No description provided for @campaignCalculatorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profit calculator'**
+  String get campaignCalculatorTitle;
+
+  /// No description provided for @campaignCalculatorResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Projected profit: {profit} over {months} months'**
+  String campaignCalculatorResult(String profit, int months);
+
+  /// No description provided for @campaignContractBasis.
+  ///
+  /// In en, this message translates to:
+  /// **'Contract basis'**
+  String get campaignContractBasis;
+
+  /// Shariah-facing explainer. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Murabaha: Ribh purchases the goods the business needs and sells them on at a disclosed markup, paid over the tenure. Profit comes from the trade, not from lending money.'**
+  String get contractExplainerMurabaha;
+
+  /// Shariah-facing explainer. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Musharakah: investors and the business contribute capital to a venture and share the actual profit or loss by agreed ratios. Loss is borne in proportion to capital.'**
+  String get contractExplainerMusharakah;
+
+  /// Shariah-facing explainer. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'This campaign uses a trade-based contract reviewed for AAOIFI alignment. Details appear in the campaign documents.'**
+  String get contractExplainerGeneric;
+
+  /// No description provided for @campaignRecoveryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery in progress'**
+  String get campaignRecoveryTitle;
+
+  /// No description provided for @campaignRecoveryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This campaign is in recovery: repayment is behind plan and Ribh is pursuing the outstanding amount with the business. Recoveries are credited to investors\' ledgers as they are collected. Outcomes are not guaranteed.'**
+  String get campaignRecoveryBody;
+
+  /// No description provided for @campaignInvestCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Invest in this campaign'**
+  String get campaignInvestCta;
+
+  /// No description provided for @campaignNotOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'This campaign is not open for new investment.'**
+  String get campaignNotOpen;
+
+  /// No description provided for @investSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm investment'**
+  String get investSheetTitle;
+
+  /// No description provided for @investAck1.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand my capital is at risk and returns are projected, never guaranteed.'**
+  String get investAck1;
+
+  /// No description provided for @investAck2.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand my money is deployed for the full tenure and cannot be withdrawn early.'**
+  String get investAck2;
+
+  /// No description provided for @investAcksRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Both acknowledgements are required before you can invest.'**
+  String get investAcksRequired;
+
+  /// No description provided for @investCommit.
+  ///
+  /// In en, this message translates to:
+  /// **'Commit investment'**
+  String get investCommit;
+
+  /// No description provided for @investCommittedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Investment committed'**
+  String get investCommittedTitle;
+
+  /// No description provided for @investCommittedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your investment and its ledger entry were written together in one transaction. You can see it in your portfolio and wallet ledger now.'**
+  String get investCommittedBody;
+
+  /// No description provided for @homePortfolioTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Portfolio'**
+  String get homePortfolioTitle;
+
+  /// No description provided for @homePortfolioEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No investments yet. Open campaigns are on the Invest tab.'**
+  String get homePortfolioEmpty;
+
+  /// No description provided for @portfolioInvested.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} invested'**
+  String portfolioInvested(String amount);
 }
 
 class _AppLocalizationsDelegate

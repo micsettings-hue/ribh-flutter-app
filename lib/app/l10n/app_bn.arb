@@ -167,5 +167,111 @@
   },
   "withdrawTwoFaNote": "2FA চালু হলে উত্তোলনে অতিরিক্ত দ্বি-স্তর নিশ্চিতকরণ লাগবে। পেমেন্ট রেল চালু না হওয়া পর্যন্ত পর্যালোচনার পর ট্রান্সফার ম্যানুয়ালি পাঠানো হয়।",
   "withdrawSubmit": "উত্তোলনের অনুরোধ লিপিবদ্ধ করুন",
-  "withdrawPendingBody": "আপনার উত্তোলনের অনুরোধ লিপিবদ্ধ হয়েছে এবং পর্যালোচনায় আছে। ট্রান্সফার প্রকৃতপক্ষে পাঠানো হলেই ব্যালেন্স থেকে টাকা যাবে এবং তখনই লেজারে সারি দেখা যাবে।"
+  "withdrawPendingBody": "আপনার উত্তোলনের অনুরোধ লিপিবদ্ধ হয়েছে এবং পর্যালোচনায় আছে। ট্রান্সফার প্রকৃতপক্ষে পাঠানো হলেই ব্যালেন্স থেকে টাকা যাবে এবং তখনই লেজারে সারি দেখা যাবে।",
+  "statusOpen": "খোলা",
+  "statusRunning": "চলমান",
+  "statusMatured": "মেয়াদপূর্ণ",
+  "statusRecovery": "রিকভারিতে",
+  "riskLow": "কম ঝুঁকি",
+  "riskModerate": "মাঝারি ঝুঁকি",
+  "riskElevated": "উচ্চ ঝুঁকি",
+  "riskDisclosure": "প্রক্ষেপিত, নিশ্চিত নয়। মূলধন ঝুঁকির মধ্যে থাকে এবং মুনাফা প্রকৃত বাণিজ্যের ফলাফলের ওপর নির্ভর করে।",
+  "marketSearchHint": "ক্যাম্পেইন খুঁজুন",
+  "marketFilterAll": "সব",
+  "marketFilterOpen": "খোলা",
+  "marketFilterMatured": "মেয়াদপূর্ণ",
+  "marketFilterSaved": "সংরক্ষিত",
+  "marketEmpty": "কোনো ক্যাম্পেইন মেলেনি। ফিল্টার বা অনুসন্ধান বদলে দেখুন।",
+  "marketSaveTooltip": "ওয়াচলিস্টে রাখুন",
+  "marketUnsaveTooltip": "ওয়াচলিস্ট থেকে সরান",
+  "marketFundedPercent": "{percent}% সংগৃহীত",
+  "@marketFundedPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "marketProjectedRate": "~{rate}% বার্ষিক, প্রক্ষেপিত",
+  "@marketProjectedRate": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "campaignDetailTitle": "ক্যাম্পেইন",
+  "campaignRaisedOfPool": "{pool}-এর মধ্যে {raised} সংগৃহীত ({percent}%)",
+  "@campaignRaisedOfPool": {
+    "placeholders": {
+      "raised": {
+        "type": "String"
+      },
+      "pool": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "campaignTermsTitle": "শর্তাবলি",
+  "campaignProfitPerLac": "প্রতি লাখে প্রক্ষেপিত মুনাফা",
+  "campaignInvestorShare": "বিনিয়োগকারীর অংশ",
+  "campaignTenureLabel": "মেয়াদ",
+  "campaignTenureMonths": "{months} মাস",
+  "@campaignTenureMonths": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "campaignProjectedAnnualised": "প্রক্ষেপিত বার্ষিক হার",
+  "campaignCalculatorTitle": "মুনাফা ক্যালকুলেটর",
+  "campaignCalculatorResult": "প্রক্ষেপিত মুনাফা: {months} মাসে {profit}",
+  "@campaignCalculatorResult": {
+    "placeholders": {
+      "profit": {
+        "type": "String"
+      },
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "campaignContractBasis": "চুক্তির ভিত্তি",
+  "contractExplainerMurabaha": "মুরাবাহা: ব্যবসার প্রয়োজনীয় পণ্য রিবহ কিনে ঘোষিত মুনাফাসহ বিক্রি করে, যা মেয়াদজুড়ে পরিশোধ হয়। মুনাফা আসে বাণিজ্য থেকে, অর্থ ধার দেওয়া থেকে নয়।",
+  "@contractExplainerMurabaha": {
+    "description": "Shariah-facing explainer. TODO(board): board sign-off required before launch."
+  },
+  "contractExplainerMusharakah": "মুশারাকাহ: বিনিয়োগকারী ও ব্যবসা একটি উদ্যোগে মূলধন দেয় এবং সম্মত অনুপাতে প্রকৃত লাভ-ক্ষতি ভাগ করে। ক্ষতি মূলধনের অনুপাতে বহন করা হয়।",
+  "@contractExplainerMusharakah": {
+    "description": "Shariah-facing explainer. TODO(board): board sign-off required before launch."
+  },
+  "contractExplainerGeneric": "এই ক্যাম্পেইন AAOIFI-সামঞ্জস্যের জন্য পর্যালোচিত একটি বাণিজ্যভিত্তিক চুক্তি ব্যবহার করে। বিস্তারিত ক্যাম্পেইনের নথিতে আছে।",
+  "@contractExplainerGeneric": {
+    "description": "Shariah-facing explainer. TODO(board): board sign-off required before launch."
+  },
+  "campaignRecoveryTitle": "রিকভারি চলছে",
+  "campaignRecoveryBody": "এই ক্যাম্পেইন রিকভারিতে আছে: পরিশোধ পরিকল্পনার চেয়ে পিছিয়ে এবং রিবহ ব্যবসার কাছ থেকে বকেয়া আদায়ে কাজ করছে। আদায় হওয়া অর্থ বিনিয়োগকারীদের লেজারে জমা হয়। ফলাফলের কোনো নিশ্চয়তা নেই।",
+  "campaignInvestCta": "এই ক্যাম্পেইনে বিনিয়োগ করুন",
+  "campaignNotOpen": "এই ক্যাম্পেইন নতুন বিনিয়োগের জন্য খোলা নেই।",
+  "investSheetTitle": "বিনিয়োগ নিশ্চিত করুন",
+  "investAck1": "আমি বুঝি আমার মূলধন ঝুঁকির মধ্যে এবং মুনাফা প্রক্ষেপিত, কখনও নিশ্চিত নয়।",
+  "investAck2": "আমি বুঝি আমার অর্থ পুরো মেয়াদের জন্য বিনিয়োজিত থাকবে এবং আগে তোলা যাবে না।",
+  "investAcksRequired": "বিনিয়োগের আগে দুটি স্বীকৃতিই আবশ্যক।",
+  "investCommit": "বিনিয়োগ সম্পন্ন করুন",
+  "investCommittedTitle": "বিনিয়োগ সম্পন্ন",
+  "investCommittedBody": "আপনার বিনিয়োগ ও তার লেজার এন্ট্রি এক লেনদেনে একসাথে লেখা হয়েছে। এখনই পোর্টফোলিও ও ওয়ালেট লেজারে দেখতে পাবেন।",
+  "homePortfolioTitle": "পোর্টফোলিও",
+  "homePortfolioEmpty": "এখনও কোনো বিনিয়োগ নেই। খোলা ক্যাম্পেইন Invest ট্যাবে আছে।",
+  "portfolioInvested": "{amount} বিনিয়োজিত",
+  "@portfolioInvested": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  }
 }

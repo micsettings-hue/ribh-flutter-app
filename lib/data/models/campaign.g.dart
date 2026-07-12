@@ -9,6 +9,7 @@ part of 'campaign.dart';
 _Campaign _$CampaignFromJson(Map<String, dynamic> json) => _Campaign(
   id: json['id'] as String,
   businessId: json['business_id'] as String?,
+  title: json['title'] as String? ?? '',
   contract: json['contract'] as String,
   sector: json['sector'] as String,
   pool: (json['pool'] as num).toInt(),
@@ -24,6 +25,7 @@ _Campaign _$CampaignFromJson(Map<String, dynamic> json) => _Campaign(
 Map<String, dynamic> _$CampaignToJson(_Campaign instance) => <String, dynamic>{
   'id': instance.id,
   'business_id': instance.businessId,
+  'title': instance.title,
   'contract': instance.contract,
   'sector': instance.sector,
   'pool': instance.pool,

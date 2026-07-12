@@ -10,4 +10,8 @@ abstract final class RibhRoutes {
 
   /// Pushed route over the shell; opened from Home's wallet entry.
   static const wallet = '/wallet';
+
+  /// Campaign detail, pushed with a Hero from marketplace and portfolio.
+  static const campaignPattern = '/campaign/:id';
+  static String campaign(String id) => '/campaign/$id';
 }

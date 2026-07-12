@@ -185,5 +185,111 @@
   },
   "withdrawTwoFaNote": "Withdrawals will additionally require two-factor confirmation once 2FA ships. Until the payment rail is live, transfers are sent manually after review.",
   "withdrawSubmit": "Record withdrawal request",
-  "withdrawPendingBody": "Your withdrawal request is recorded and pending review. The money leaves your balance only when the transfer is actually sent, and the ledger row appears then."
+  "withdrawPendingBody": "Your withdrawal request is recorded and pending review. The money leaves your balance only when the transfer is actually sent, and the ledger row appears then.",
+  "statusOpen": "Open",
+  "statusRunning": "Running",
+  "statusMatured": "Matured",
+  "statusRecovery": "In recovery",
+  "riskLow": "Low risk",
+  "riskModerate": "Moderate risk",
+  "riskElevated": "Elevated risk",
+  "riskDisclosure": "Projected, not guaranteed. Capital is at risk and returns depend on real trade outcomes.",
+  "marketSearchHint": "Search campaigns",
+  "marketFilterAll": "All",
+  "marketFilterOpen": "Open",
+  "marketFilterMatured": "Matured",
+  "marketFilterSaved": "Saved",
+  "marketEmpty": "No campaigns match. Adjust the filter or search.",
+  "marketSaveTooltip": "Save to watchlist",
+  "marketUnsaveTooltip": "Remove from watchlist",
+  "marketFundedPercent": "{percent}% funded",
+  "@marketFundedPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "marketProjectedRate": "~{rate}% p.a. projected",
+  "@marketProjectedRate": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "campaignDetailTitle": "Campaign",
+  "campaignRaisedOfPool": "{raised} raised of {pool} ({percent}%)",
+  "@campaignRaisedOfPool": {
+    "placeholders": {
+      "raised": {
+        "type": "String"
+      },
+      "pool": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "campaignTermsTitle": "Terms",
+  "campaignProfitPerLac": "Projected profit per lac",
+  "campaignInvestorShare": "Investor share",
+  "campaignTenureLabel": "Tenure",
+  "campaignTenureMonths": "{months} months",
+  "@campaignTenureMonths": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "campaignProjectedAnnualised": "Projected annualised rate",
+  "campaignCalculatorTitle": "Profit calculator",
+  "campaignCalculatorResult": "Projected profit: {profit} over {months} months",
+  "@campaignCalculatorResult": {
+    "placeholders": {
+      "profit": {
+        "type": "String"
+      },
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "campaignContractBasis": "Contract basis",
+  "contractExplainerMurabaha": "Murabaha: Ribh purchases the goods the business needs and sells them on at a disclosed markup, paid over the tenure. Profit comes from the trade, not from lending money.",
+  "@contractExplainerMurabaha": {
+    "description": "Shariah-facing explainer. TODO(board): board sign-off required before launch."
+  },
+  "contractExplainerMusharakah": "Musharakah: investors and the business contribute capital to a venture and share the actual profit or loss by agreed ratios. Loss is borne in proportion to capital.",
+  "@contractExplainerMusharakah": {
+    "description": "Shariah-facing explainer. TODO(board): board sign-off required before launch."
+  },
+  "contractExplainerGeneric": "This campaign uses a trade-based contract reviewed for AAOIFI alignment. Details appear in the campaign documents.",
+  "@contractExplainerGeneric": {
+    "description": "Shariah-facing explainer. TODO(board): board sign-off required before launch."
+  },
+  "campaignRecoveryTitle": "Recovery in progress",
+  "campaignRecoveryBody": "This campaign is in recovery: repayment is behind plan and Ribh is pursuing the outstanding amount with the business. Recoveries are credited to investors' ledgers as they are collected. Outcomes are not guaranteed.",
+  "campaignInvestCta": "Invest in this campaign",
+  "campaignNotOpen": "This campaign is not open for new investment.",
+  "investSheetTitle": "Confirm investment",
+  "investAck1": "I understand my capital is at risk and returns are projected, never guaranteed.",
+  "investAck2": "I understand my money is deployed for the full tenure and cannot be withdrawn early.",
+  "investAcksRequired": "Both acknowledgements are required before you can invest.",
+  "investCommit": "Commit investment",
+  "investCommittedTitle": "Investment committed",
+  "investCommittedBody": "Your investment and its ledger entry were written together in one transaction. You can see it in your portfolio and wallet ledger now.",
+  "homePortfolioTitle": "Portfolio",
+  "homePortfolioEmpty": "No investments yet. Open campaigns are on the Invest tab.",
+  "portfolioInvested": "{amount} invested",
+  "@portfolioInvested": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  }
 }

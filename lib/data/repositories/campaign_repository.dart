@@ -19,4 +19,31 @@ class CampaignRepository extends SupabaseRepository {
     final json = await db.from('campaigns').select().eq('id', id).single();
     return Campaign.fromJson(json);
   });
+
+  /// Campaign ids on the user's watchlist (the Saved set).
+  Future<Result<Set<String>>> myWatchlist() => guard((db) async {
+    final rows = await db.from('campaign_watchlist').select('campaign_id');
+    return rows.map((row) => row['campaign_id'] as String).toSet();
+  });
+
+  Future<Result<void>> saveToWatchlist(String campaignId) => guard((db) async {
+    final uid = requireUid(db);
+    await db
+        .from('campaign_watchlist')
+        .upsert(
+          {'profile_id': uid, 'campaign_id': campaignId},
+          onConflict: 'profile_id,campaign_id',
+          ignoreDuplicates: true,
+        );
+  });
+
+  Future<Result<void>> removeFromWatchlist(String campaignId) =>
+      guard((db) async {
+        final uid = requireUid(db);
+        await db
+            .from('campaign_watchlist')
+            .delete()
+            .eq('profile_id', uid)
+            .eq('campaign_id', campaignId);
+      });
 }

@@ -392,4 +392,164 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get withdrawPendingBody =>
       'আপনার উত্তোলনের অনুরোধ লিপিবদ্ধ হয়েছে এবং পর্যালোচনায় আছে। ট্রান্সফার প্রকৃতপক্ষে পাঠানো হলেই ব্যালেন্স থেকে টাকা যাবে এবং তখনই লেজারে সারি দেখা যাবে।';
+
+  @override
+  String get statusOpen => 'খোলা';
+
+  @override
+  String get statusRunning => 'চলমান';
+
+  @override
+  String get statusMatured => 'মেয়াদপূর্ণ';
+
+  @override
+  String get statusRecovery => 'রিকভারিতে';
+
+  @override
+  String get riskLow => 'কম ঝুঁকি';
+
+  @override
+  String get riskModerate => 'মাঝারি ঝুঁকি';
+
+  @override
+  String get riskElevated => 'উচ্চ ঝুঁকি';
+
+  @override
+  String get riskDisclosure =>
+      'প্রক্ষেপিত, নিশ্চিত নয়। মূলধন ঝুঁকির মধ্যে থাকে এবং মুনাফা প্রকৃত বাণিজ্যের ফলাফলের ওপর নির্ভর করে।';
+
+  @override
+  String get marketSearchHint => 'ক্যাম্পেইন খুঁজুন';
+
+  @override
+  String get marketFilterAll => 'সব';
+
+  @override
+  String get marketFilterOpen => 'খোলা';
+
+  @override
+  String get marketFilterMatured => 'মেয়াদপূর্ণ';
+
+  @override
+  String get marketFilterSaved => 'সংরক্ষিত';
+
+  @override
+  String get marketEmpty =>
+      'কোনো ক্যাম্পেইন মেলেনি। ফিল্টার বা অনুসন্ধান বদলে দেখুন।';
+
+  @override
+  String get marketSaveTooltip => 'ওয়াচলিস্টে রাখুন';
+
+  @override
+  String get marketUnsaveTooltip => 'ওয়াচলিস্ট থেকে সরান';
+
+  @override
+  String marketFundedPercent(String percent) {
+    return '$percent% সংগৃহীত';
+  }
+
+  @override
+  String marketProjectedRate(String rate) {
+    return '~$rate% বার্ষিক, প্রক্ষেপিত';
+  }
+
+  @override
+  String get campaignDetailTitle => 'ক্যাম্পেইন';
+
+  @override
+  String campaignRaisedOfPool(String raised, String pool, String percent) {
+    return '$pool-এর মধ্যে $raised সংগৃহীত ($percent%)';
+  }
+
+  @override
+  String get campaignTermsTitle => 'শর্তাবলি';
+
+  @override
+  String get campaignProfitPerLac => 'প্রতি লাখে প্রক্ষেপিত মুনাফা';
+
+  @override
+  String get campaignInvestorShare => 'বিনিয়োগকারীর অংশ';
+
+  @override
+  String get campaignTenureLabel => 'মেয়াদ';
+
+  @override
+  String campaignTenureMonths(int months) {
+    return '$months মাস';
+  }
+
+  @override
+  String get campaignProjectedAnnualised => 'প্রক্ষেপিত বার্ষিক হার';
+
+  @override
+  String get campaignCalculatorTitle => 'মুনাফা ক্যালকুলেটর';
+
+  @override
+  String campaignCalculatorResult(String profit, int months) {
+    return 'প্রক্ষেপিত মুনাফা: $months মাসে $profit';
+  }
+
+  @override
+  String get campaignContractBasis => 'চুক্তির ভিত্তি';
+
+  @override
+  String get contractExplainerMurabaha =>
+      'মুরাবাহা: ব্যবসার প্রয়োজনীয় পণ্য রিবহ কিনে ঘোষিত মুনাফাসহ বিক্রি করে, যা মেয়াদজুড়ে পরিশোধ হয়। মুনাফা আসে বাণিজ্য থেকে, অর্থ ধার দেওয়া থেকে নয়।';
+
+  @override
+  String get contractExplainerMusharakah =>
+      'মুশারাকাহ: বিনিয়োগকারী ও ব্যবসা একটি উদ্যোগে মূলধন দেয় এবং সম্মত অনুপাতে প্রকৃত লাভ-ক্ষতি ভাগ করে। ক্ষতি মূলধনের অনুপাতে বহন করা হয়।';
+
+  @override
+  String get contractExplainerGeneric =>
+      'এই ক্যাম্পেইন AAOIFI-সামঞ্জস্যের জন্য পর্যালোচিত একটি বাণিজ্যভিত্তিক চুক্তি ব্যবহার করে। বিস্তারিত ক্যাম্পেইনের নথিতে আছে।';
+
+  @override
+  String get campaignRecoveryTitle => 'রিকভারি চলছে';
+
+  @override
+  String get campaignRecoveryBody =>
+      'এই ক্যাম্পেইন রিকভারিতে আছে: পরিশোধ পরিকল্পনার চেয়ে পিছিয়ে এবং রিবহ ব্যবসার কাছ থেকে বকেয়া আদায়ে কাজ করছে। আদায় হওয়া অর্থ বিনিয়োগকারীদের লেজারে জমা হয়। ফলাফলের কোনো নিশ্চয়তা নেই।';
+
+  @override
+  String get campaignInvestCta => 'এই ক্যাম্পেইনে বিনিয়োগ করুন';
+
+  @override
+  String get campaignNotOpen => 'এই ক্যাম্পেইন নতুন বিনিয়োগের জন্য খোলা নেই।';
+
+  @override
+  String get investSheetTitle => 'বিনিয়োগ নিশ্চিত করুন';
+
+  @override
+  String get investAck1 =>
+      'আমি বুঝি আমার মূলধন ঝুঁকির মধ্যে এবং মুনাফা প্রক্ষেপিত, কখনও নিশ্চিত নয়।';
+
+  @override
+  String get investAck2 =>
+      'আমি বুঝি আমার অর্থ পুরো মেয়াদের জন্য বিনিয়োজিত থাকবে এবং আগে তোলা যাবে না।';
+
+  @override
+  String get investAcksRequired => 'বিনিয়োগের আগে দুটি স্বীকৃতিই আবশ্যক।';
+
+  @override
+  String get investCommit => 'বিনিয়োগ সম্পন্ন করুন';
+
+  @override
+  String get investCommittedTitle => 'বিনিয়োগ সম্পন্ন';
+
+  @override
+  String get investCommittedBody =>
+      'আপনার বিনিয়োগ ও তার লেজার এন্ট্রি এক লেনদেনে একসাথে লেখা হয়েছে। এখনই পোর্টফোলিও ও ওয়ালেট লেজারে দেখতে পাবেন।';
+
+  @override
+  String get homePortfolioTitle => 'পোর্টফোলিও';
+
+  @override
+  String get homePortfolioEmpty =>
+      'এখনও কোনো বিনিয়োগ নেই। খোলা ক্যাম্পেইন Invest ট্যাবে আছে।';
+
+  @override
+  String portfolioInvested(String amount) {
+    return '$amount বিনিয়োজিত';
+  }
 }

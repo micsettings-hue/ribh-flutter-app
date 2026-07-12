@@ -5,15 +5,15 @@
 -- Sample campaigns (prototype set). business_id is null in seed; real
 -- campaigns require a real business profile.
 insert into public.campaigns
-  (id, business_id, contract, sector, pool, raised, profit_per_lac, share, tenure, risk, status)
+  (id, business_id, title, contract, sector, pool, raised, profit_per_lac, share, tenure, risk, status)
 values
-  ('11111111-1111-4111-8111-111111111101', null, 'murabaha', 'printing',
+  ('11111111-1111-4111-8111-111111111101', null, 'Printing Zone', 'murabaha', 'printing',
    500000000, 210000000, 1450000, 60.00, 6, 'moderate', 'open'),
-  ('11111111-1111-4111-8111-111111111102', null, 'murabaha', 'machinery',
+  ('11111111-1111-4111-8111-111111111102', null, 'Machinery Purchase', 'murabaha', 'machinery',
    800000000, 800000000, 1600000, 60.00, 9, 'moderate', 'running'),
-  ('11111111-1111-4111-8111-111111111103', null, 'musharakah', 'machinery',
+  ('11111111-1111-4111-8111-111111111103', null, 'Machinery Trading', 'musharakah', 'machinery',
    600000000, 600000000, 1750000, 55.00, 12, 'elevated', 'matured'),
-  ('11111111-1111-4111-8111-111111111104', null, 'murabaha', 'construction',
+  ('11111111-1111-4111-8111-111111111104', null, 'Musannif Cement', 'murabaha', 'construction',
    1000000000, 1000000000, 1500000, 60.00, 12, 'elevated', 'in_recovery')
 on conflict (id) do nothing;
 

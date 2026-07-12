@@ -393,4 +393,164 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get withdrawPendingBody =>
       'Your withdrawal request is recorded and pending review. The money leaves your balance only when the transfer is actually sent, and the ledger row appears then.';
+
+  @override
+  String get statusOpen => 'Open';
+
+  @override
+  String get statusRunning => 'Running';
+
+  @override
+  String get statusMatured => 'Matured';
+
+  @override
+  String get statusRecovery => 'In recovery';
+
+  @override
+  String get riskLow => 'Low risk';
+
+  @override
+  String get riskModerate => 'Moderate risk';
+
+  @override
+  String get riskElevated => 'Elevated risk';
+
+  @override
+  String get riskDisclosure =>
+      'Projected, not guaranteed. Capital is at risk and returns depend on real trade outcomes.';
+
+  @override
+  String get marketSearchHint => 'Search campaigns';
+
+  @override
+  String get marketFilterAll => 'All';
+
+  @override
+  String get marketFilterOpen => 'Open';
+
+  @override
+  String get marketFilterMatured => 'Matured';
+
+  @override
+  String get marketFilterSaved => 'Saved';
+
+  @override
+  String get marketEmpty => 'No campaigns match. Adjust the filter or search.';
+
+  @override
+  String get marketSaveTooltip => 'Save to watchlist';
+
+  @override
+  String get marketUnsaveTooltip => 'Remove from watchlist';
+
+  @override
+  String marketFundedPercent(String percent) {
+    return '$percent% funded';
+  }
+
+  @override
+  String marketProjectedRate(String rate) {
+    return '~$rate% p.a. projected';
+  }
+
+  @override
+  String get campaignDetailTitle => 'Campaign';
+
+  @override
+  String campaignRaisedOfPool(String raised, String pool, String percent) {
+    return '$raised raised of $pool ($percent%)';
+  }
+
+  @override
+  String get campaignTermsTitle => 'Terms';
+
+  @override
+  String get campaignProfitPerLac => 'Projected profit per lac';
+
+  @override
+  String get campaignInvestorShare => 'Investor share';
+
+  @override
+  String get campaignTenureLabel => 'Tenure';
+
+  @override
+  String campaignTenureMonths(int months) {
+    return '$months months';
+  }
+
+  @override
+  String get campaignProjectedAnnualised => 'Projected annualised rate';
+
+  @override
+  String get campaignCalculatorTitle => 'Profit calculator';
+
+  @override
+  String campaignCalculatorResult(String profit, int months) {
+    return 'Projected profit: $profit over $months months';
+  }
+
+  @override
+  String get campaignContractBasis => 'Contract basis';
+
+  @override
+  String get contractExplainerMurabaha =>
+      'Murabaha: Ribh purchases the goods the business needs and sells them on at a disclosed markup, paid over the tenure. Profit comes from the trade, not from lending money.';
+
+  @override
+  String get contractExplainerMusharakah =>
+      'Musharakah: investors and the business contribute capital to a venture and share the actual profit or loss by agreed ratios. Loss is borne in proportion to capital.';
+
+  @override
+  String get contractExplainerGeneric =>
+      'This campaign uses a trade-based contract reviewed for AAOIFI alignment. Details appear in the campaign documents.';
+
+  @override
+  String get campaignRecoveryTitle => 'Recovery in progress';
+
+  @override
+  String get campaignRecoveryBody =>
+      'This campaign is in recovery: repayment is behind plan and Ribh is pursuing the outstanding amount with the business. Recoveries are credited to investors\' ledgers as they are collected. Outcomes are not guaranteed.';
+
+  @override
+  String get campaignInvestCta => 'Invest in this campaign';
+
+  @override
+  String get campaignNotOpen => 'This campaign is not open for new investment.';
+
+  @override
+  String get investSheetTitle => 'Confirm investment';
+
+  @override
+  String get investAck1 =>
+      'I understand my capital is at risk and returns are projected, never guaranteed.';
+
+  @override
+  String get investAck2 =>
+      'I understand my money is deployed for the full tenure and cannot be withdrawn early.';
+
+  @override
+  String get investAcksRequired =>
+      'Both acknowledgements are required before you can invest.';
+
+  @override
+  String get investCommit => 'Commit investment';
+
+  @override
+  String get investCommittedTitle => 'Investment committed';
+
+  @override
+  String get investCommittedBody =>
+      'Your investment and its ledger entry were written together in one transaction. You can see it in your portfolio and wallet ledger now.';
+
+  @override
+  String get homePortfolioTitle => 'Portfolio';
+
+  @override
+  String get homePortfolioEmpty =>
+      'No investments yet. Open campaigns are on the Invest tab.';
+
+  @override
+  String portfolioInvested(String amount) {
+    return '$amount invested';
+  }
 }

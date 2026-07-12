@@ -12,6 +12,7 @@ abstract class Campaign with _$Campaign {
   const factory Campaign({
     required String id,
     String? businessId,
+    @Default('') String title,
     required String contract,
     required String sector,
     required int pool,

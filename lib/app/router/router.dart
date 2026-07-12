@@ -8,6 +8,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../data/supabase/supabase_client.dart';
 import '../../features/auth/auth_screen.dart';
 import '../../features/barakah/barakah_screen.dart';
+import '../../features/campaign/campaign_detail_screen.dart';
 import '../../features/grow/grow_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/invest/invest_screen.dart';
@@ -59,6 +60,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RibhRoutes.wallet,
         builder: (context, state) => const WalletScreen(),
+      ),
+      GoRoute(
+        path: RibhRoutes.campaignPattern,
+        builder: (context, state) =>
+            CampaignDetailScreen(campaignId: state.pathParameters['id']!),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => RibhShell(shell: shell),

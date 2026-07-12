@@ -32,18 +32,55 @@ void main() {
       );
     });
 
-    test('works identically in poisha (unit-consistent)', () {
+    test('poisha variant agrees with the taka formula', () {
+      // A lac is 100,000 TAKA; the poisha variant divides by 10^7, so the
+      // two agree exactly (poisha result = taka result * 100). Feeding raw
+      // poisha into investorProfit would overstate 100x; the seed campaign
+      // terms here prove the poisha path yields the right order of magnitude.
       final taka = investorProfit(
         invested: 128400,
         profitPerLac: 14500,
         sharePercent: 60,
       );
-      final poisha = investorProfit(
-        invested: 12840000,
-        profitPerLac: 1450000,
+      final poisha = investorProfitPoisha(
+        investedPoisha: 12840000,
+        profitPerLacPoisha: 1450000,
         sharePercent: 60,
       );
-      expect(poisha, closeTo(taka * 100 * 100, 0.01));
+      expect(poisha, (taka * 100).round());
+      // One lac taka into the open seed campaign: 14,500 * 60% = 8,700 taka.
+      expect(
+        investorProfitPoisha(
+          investedPoisha: 10000000,
+          profitPerLacPoisha: 1450000,
+          sharePercent: 60,
+        ),
+        870000,
+      );
+    });
+  });
+
+  group('projectedAnnualisedRatePercent', () {
+    test('seed campaign terms: 14.5k per lac, 60% share, 6 months = 17.4%', () {
+      expect(
+        projectedAnnualisedRatePercent(
+          profitPerLacPoisha: 1450000,
+          sharePercent: 60,
+          tenureMonths: 6,
+        ),
+        closeTo(17.4, 0.0001),
+      );
+    });
+
+    test('twelve-month tenure needs no scaling', () {
+      expect(
+        projectedAnnualisedRatePercent(
+          profitPerLacPoisha: 1750000,
+          sharePercent: 55,
+          tenureMonths: 12,
+        ),
+        closeTo(9.625, 0.0001),
+      );
     });
   });
 }

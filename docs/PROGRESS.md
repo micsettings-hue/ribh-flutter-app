@@ -2,6 +2,13 @@
 
 ## Done
 
+### M10 Admin and content management, database side (Option A) (2026-07-12)
+Per docs/M10-admin-content-management.md, Option A: the database rail is ready for an external form tool (Retool/Appsmith) to connect to. No payment surface touched; no Flutter admin app built (explicitly deferred).
+- Migration `20260712000900_admin_content.sql`: `is_admin()` (security definer role check; roles still move only via service_role thanks to M2's protect_profile_columns, so nobody self-promotes); new `news_items` and `banner_slides` tables (News and Insight finally has its real content source; banner slides carry a `board_approved` flag so faith-facing copy stays board-gated even in the CMS) with published-or-admin read policies; admin INSERT/UPDATE policies on `campaigns` and `welfare_projects` (no DELETE: investments and contributions reference them, retirement is a status change) and full admin CRUD on the two new tables; `admin_audit_log` written by AFTER triggers on all four tables (who, what table, which row, action, old and new jsonb), admin-read-only, append-only with its own raising trigger and revoked grants.
+- Note by design: the audit triggers fire on every write to those tables, so `raised` updates made inside the money RPCs (invest, give) also land in the audit trail with the acting user as actor. Full provenance, satisfies the definition of done literally.
+- SQL proof `supabase/tests/admin_content_test.sql`, using SET LOCAL ROLE authenticated so RLS genuinely applies: admin creates and updates across all four tables (7 audit rows, actor named); non-admin refused on every write path (the explicit test the DoD demands, not assumed); non-admin sees only published news; audit log invisible to non-admins and append-only. Written, not executed locally (same CLI/Docker gap as all migrations).
+- Remaining for M10 sign-off (user actions): connect Retool/Appsmith to the Supabase Postgres, create a test campaign end to end through the tool, set up the Supabase Storage bucket for thumbnails, and grant the first admin role via service_role. The Flutter app's Home news section can now be wired to `news_items` as a follow-up.
+
 ### M9 Polish (2026-07-12)
 The final milestone: motion, skeletons, empty states, haptics, accessibility, localization completeness, the end-to-end journey test, and store prep.
 - Motion (`shared/motion.dart`): pushed routes (wallet, campaign, services) get the design-system 380ms fade-and-rise under the Hero flight via `ribhPage`; all five sheets swap form-to-success through `RibhSwap` (250ms fade with a whisper of scale); the tasbih count ticks through the same swap. Every piece renders statically under `MediaQuery.disableAnimations`.

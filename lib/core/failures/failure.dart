@@ -41,6 +41,15 @@ class GatewayNotConnectedFailure extends Failure {
   const GatewayNotConnectedFailure([super.message = 'gateway_not_connected']);
 }
 
+/// A live external data source (for example the metals price feed behind
+/// the Nisab threshold) is not connected in this build. The dependent figure
+/// is shown as unavailable, never invented.
+class DataSourceUnavailableFailure extends Failure {
+  const DataSourceUnavailableFailure([
+    super.message = 'data_source_unavailable',
+  ]);
+}
+
 class UnknownFailure extends Failure {
   const UnknownFailure(super.message);
 }

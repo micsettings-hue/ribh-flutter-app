@@ -1,5 +1,7 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../app/l10n/app_localizations.dart';
@@ -12,6 +14,7 @@ import '../../shared/ledger_row.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import 'deposit_sheet.dart';
 import 'labels.dart';
+import 'performance.dart';
 import 'wallet_controller.dart';
 import 'withdraw_sheet.dart';
 
@@ -156,6 +159,10 @@ class _WalletBody extends ConsumerWidget {
           for (final request in pending) _PendingRequestCard(request: request),
         ],
         const SizedBox(height: 24),
+        Text(l10n.walletPerformanceTitle, style: theme.textTheme.titleMedium),
+        const SizedBox(height: 8),
+        _PerformanceChart(transactions: data.transactions),
+        const SizedBox(height: 24),
         Text(l10n.walletLedger, style: theme.textTheme.titleMedium),
         const SizedBox(height: 4),
         if (data.transactions.isEmpty)
@@ -174,6 +181,120 @@ class _WalletBody extends ConsumerWidget {
       ],
     );
   }
+}
+
+class _PerformanceChart extends StatelessWidget {
+  const _PerformanceChart({required this.transactions});
+
+  final List<WalletTransaction> transactions;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final tokens = context.tokens;
+    final theme = Theme.of(context);
+    final locale = Localizations.localeOf(context).languageCode;
+    final points = monthlyPerformance(transactions, now: DateTime.now());
+
+    if (points.length < 2) {
+      return Text(
+        l10n.walletPerformanceEmpty,
+        style: theme.textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
+      );
+    }
+
+    List<FlSpot> spots(int Function(MonthPoint) pick) => [
+      for (var i = 0; i < points.length; i++)
+        FlSpot(i.toDouble(), pick(points[i]) / 100),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 160,
+          child: LineChart(
+            LineChartData(
+              gridData: const FlGridData(show: false),
+              borderData: FlBorderData(show: false),
+              titlesData: FlTitlesData(
+                topTitles: const AxisTitles(),
+                rightTitles: const AxisTitles(),
+                leftTitles: const AxisTitles(),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    interval: (points.length / 4).ceilToDouble(),
+                    getTitlesWidget: (value, meta) {
+                      final index = value.toInt();
+                      if (index < 0 || index >= points.length) {
+                        return const SizedBox.shrink();
+                      }
+                      final point = points[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          DateFormat.MMM(
+                            locale,
+                          ).format(DateTime(point.year, point.month)),
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: tokens.inkSoft,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              lineTouchData: const LineTouchData(enabled: false),
+              lineBarsData: [
+                LineChartBarData(
+                  spots: spots((p) => p.cumulativeInvested),
+                  color: tokens.teal,
+                  barWidth: 2.5,
+                  dotData: const FlDotData(show: false),
+                  isCurved: false,
+                ),
+                LineChartBarData(
+                  spots: spots((p) => p.cumulativeProfit),
+                  color: tokens.goldText,
+                  barWidth: 2.5,
+                  dotData: const FlDotData(show: false),
+                  isCurved: false,
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            _legendDot(tokens.teal, l10n.walletChartInvested, theme),
+            const SizedBox(width: 16),
+            _legendDot(tokens.goldText, l10n.walletChartProfit, theme),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          l10n.walletPerformanceNote,
+          style: theme.textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
+        ),
+      ],
+    );
+  }
+
+  Widget _legendDot(Color color, String label, ThemeData theme) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(
+        width: 10,
+        height: 10,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
+      const SizedBox(width: 6),
+      Text(label, style: theme.textTheme.labelSmall),
+    ],
+  );
 }
 
 class _BalanceCard extends StatelessWidget {

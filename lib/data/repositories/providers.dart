@@ -8,6 +8,8 @@ import 'engagement_repository.dart';
 import 'goal_repository.dart';
 import 'investment_repository.dart';
 import 'kyc_repository.dart';
+import 'learn_repository.dart';
+import 'qard_repository.dart';
 import 'referral_repository.dart';
 import 'wallet_repository.dart';
 import 'welfare_repository.dart';
@@ -56,4 +58,12 @@ final sadaqahRepositoryProvider = Provider<SadaqahRepository>(
 
 final referralRepositoryProvider = Provider<ReferralRepository>(
   (ref) => ReferralRepository(ref.watch(supabaseClientOrNullProvider)),
+);
+
+final learnRepositoryProvider = Provider<LearnRepository>(
+  (ref) => LearnRepository(ref.watch(supabaseClientOrNullProvider)),
+);
+
+final qardRepositoryProvider = Provider<QardRepository>(
+  (ref) => QardRepository(ref.watch(supabaseClientOrNullProvider)),
 );

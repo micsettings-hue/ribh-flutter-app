@@ -13,7 +13,12 @@ import '../../features/grow/grow_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/invest/invest_screen.dart';
 import '../../features/me/me_screen.dart';
+import '../../features/services/invite_screen.dart';
+import '../../features/services/learn_screen.dart';
+import '../../features/services/qard_screen.dart';
+import '../../features/services/sadaqah_screen.dart';
 import '../../features/services/service_coming_soon_screen.dart';
+import '../../features/services/zakat_screen.dart';
 import '../../features/wallet/wallet_screen.dart';
 import '../../shared/ribh_shell.dart';
 import 'routes.dart';
@@ -69,8 +74,15 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RibhRoutes.servicePattern,
-        builder: (context, state) =>
-            ServiceComingSoonScreen(serviceId: state.pathParameters['id']!),
+        builder: (context, state) => switch (state.pathParameters['id']!) {
+          'learn' => const LearnScreen(),
+          'zakat' => const ZakatScreen(),
+          'sadaqah' => const SadaqahScreen(),
+          'qard' => const QardScreen(),
+          'invite' => const InviteScreen(),
+          // Prayer arrives with the device-API wave of M7.
+          final id => ServiceComingSoonScreen(serviceId: id),
+        },
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => RibhShell(shell: shell),

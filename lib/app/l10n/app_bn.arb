@@ -396,5 +396,181 @@
   "investAutoInvestEntry": "অটো-ইনভেস্ট",
   "investAutoInvestEntrySub": "রণনীতি ও অনুমোদন সারি",
   "homeNewsComing": "নিউজ ও ইনসাইট পরের কোনো মাইলফলকে প্রকৃত কনটেন্ট উৎসসহ আসবে।",
-  "homeFooterDisclaimer": "মূলধন ঝুঁকির মধ্যে। মুনাফা প্রক্ষেপণ, নিশ্চয়তা নয়। রিবহ ইনভেস্টমেন্টস AAOIFI-সামঞ্জস্যপূর্ণ। নিয়ন্ত্রক নিবন্ধন প্রক্রিয়াধীন।"
+  "homeFooterDisclaimer": "মূলধন ঝুঁকির মধ্যে। মুনাফা প্রক্ষেপণ, নিশ্চয়তা নয়। রিবহ ইনভেস্টমেন্টস AAOIFI-সামঞ্জস্যপূর্ণ। নিয়ন্ত্রক নিবন্ধন প্রক্রিয়াধীন।",
+  "errorDataSourceUnavailable": "এই সংখ্যার পেছনের লাইভ ডেটা উৎস এই বিল্ডে সংযুক্ত নেই, তাই এটি হিসাব করা যাচ্ছে না।",
+  "learnProgressLine": "{total}টির মধ্যে {done}টি মডিউল সম্পন্ন",
+  "@learnProgressLine": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "learnModuleBody": "এই মডিউলের বিষয়বস্তু শরিয়াহ বোর্ডের পর্যালোচনায় আছে এবং লঞ্চের আগে আসবে। পড়া হিসেবে চিহ্নিত করলে আপনার প্রকৃত অগ্রগতি লিপিবদ্ধ হয়; লেখাটি নিজে একটি প্লেসহোল্ডার।",
+  "@learnModuleBody": {
+    "description": "TODO(board): all lesson content requires board sign-off before launch."
+  },
+  "learnMarkRead": "পড়া হয়েছে চিহ্নিত করুন",
+  "learnReadCount": "{count} বার পড়া হয়েছে",
+  "@learnReadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "learnCompleted": "সম্পন্ন",
+  "zakatBanner1Title": "যাকাত সম্পদ পরিশুদ্ধ করে",
+  "@zakatBanner1Title": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "zakatBanner1Sub": "চান্দ্র বছর ধরে নিসাবের ওপরে থাকা সম্পদের ওপর ফরজ।",
+  "@zakatBanner1Sub": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "zakatBanner2Title": "রুপার মানদণ্ড",
+  "@zakatBanner2Title": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "zakatBanner2Sub": "রিবহ রুপার নিসাব ব্যবহার করে, যাতে যাকাত বেশি মানুষের কাছে পৌঁছায়।",
+  "@zakatBanner2Sub": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "zakatBanner3Title": "কোনো ফি নেই, কখনও না",
+  "zakatBanner3Sub": "যাকাতের প্রতিটি টাকা প্রকল্পে যায়। রিবহ এর থেকে কিছুই নেয় না।",
+  "zakatCalcTitle": "যাকাত ক্যালকুলেটর",
+  "zakatCashLabel": "নগদ ও ব্যাংক ব্যালেন্স",
+  "zakatGoldLabel": "সোনার মূল্য",
+  "zakatSilverLabel": "রুপার মূল্য",
+  "zakatBusinessLabel": "ব্যবসায়িক সম্পদ",
+  "zakatDebtsLabel": "বাদ দেওয়ার ঋণ",
+  "zakatTotalLine": "যাকাতযোগ্য সম্পদ: {amount}",
+  "@zakatTotalLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "zakatDueLine": "২.৫% হারে প্রদেয় যাকাত: {amount}",
+  "@zakatDueLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "zakatGuidanceNote": "হিসাবের ভিত্তি শরিয়াহ বোর্ডের অনুমোদনের অপেক্ষায়। এটি গণনা, কোনো ফতোয়া নয়।",
+  "@zakatGuidanceNote": {
+    "description": "TODO(board): the calculation basis, silver standard, and rate need board sign-off."
+  },
+  "zakatNisabTitle": "নিসাবের অবস্থা",
+  "zakatNisabUnavailable": "লাইভ রুপার দামের উৎস এই বিল্ডে সংযুক্ত নেই, তাই নিসাব সীমা হিসাব করা যাচ্ছে না। এর জায়গায় কোনো অনুমান দেখানো হয় না।",
+  "zakatNisabAbove": "আপনার যাকাতযোগ্য সম্পদ রুপার নিসাবের ({threshold}) ওপরে। যাকাত প্রযোজ্য।",
+  "@zakatNisabAbove": {
+    "placeholders": {
+      "threshold": {
+        "type": "String"
+      }
+    }
+  },
+  "zakatNisabBelow": "আপনার যাকাতযোগ্য সম্পদ রুপার নিসাবের ({threshold}) নিচে। যাকাত প্রদেয় নয়।",
+  "@zakatNisabBelow": {
+    "placeholders": {
+      "threshold": {
+        "type": "String"
+      }
+    }
+  },
+  "welfareProjectsTitle": "রিবহ ওয়েলফেয়ার প্রকল্প",
+  "projectProgress": "{target}-এর মধ্যে {raised} সংগৃহীত",
+  "@projectProgress": {
+    "placeholders": {
+      "raised": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "giveZakatCta": "যাকাত দিন",
+  "giveSadaqahCta": "সাদাকাহ দিন",
+  "giveSheetProject": "প্রকল্প",
+  "giveNoFeeNote": "আপনার ওয়ালেট ব্যালেন্স থেকে পুরো অর্থ প্রকল্পে পৌঁছায়। রিবহ যাকাত থেকে কোনো ফি নেয় না।",
+  "giveRecordedTitle": "দেওয়া হয়েছে",
+  "giveRecordedBody": "আপনার দান ও তার লেজার এন্ট্রি একসাথে লেখা হয়েছে। প্রকল্পের মোট অঙ্কে পুরো অর্থ যোগ হয়েছে।",
+  "sadaqahMonthLine": "এই মাসে: {amount}",
+  "@sadaqahMonthLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "sadaqahLifetimeLine": "সর্বমোট: {amount}",
+  "@sadaqahLifetimeLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "sadaqahHabitTitle": "দানের অভ্যাস",
+  "sadaqahHabitCount": "৩০ দিনের মধ্যে {days} দিন",
+  "@sadaqahHabitCount": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "forestTitle": "আপনার বন",
+  "forestCount": "{count}টি গাছ",
+  "@forestCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "treePledged": "প্রতিশ্রুত",
+  "treePlanted": "রোপিত",
+  "qardBody": "কর্জে হাসানাহ হলো প্রয়োজনে থাকা মানুষের জন্য সুদমুক্ত ঋণ। রিবহ এটি এমনভাবে গড়ছে যাতে পরিশোধ সবসময় সমান অঙ্কে হয়: যা ধার নিয়েছেন ঠিক তা-ই ফেরত দেবেন, এর বেশি কখনও নয়।",
+  "@qardBody": {
+    "description": "Faith-facing education copy. TODO(board): board sign-off required before launch."
+  },
+  "qardComingSoon": "সততার সাথে বলছি: এখনও খোলেনি। এই সংস্করণে কোনো ঋণ নেই।",
+  "qardNotify": "খুললে আমাকে জানান",
+  "qardRegistered": "আপনি তালিকায় আছেন। কর্জ খুললে আমরা জানাব।",
+  "inviteYourLink": "আপনার আমন্ত্রণ লিংক",
+  "inviteCopy": "লিংক কপি করুন",
+  "inviteCopied": "লিংক কপি হয়েছে।",
+  "inviteShare": "শেয়ার",
+  "invitePointsTitle": "পয়েন্ট",
+  "invitePointsLine": "{points} পয়েন্ট · {joined} জন যুক্ত, {verified} জন যাচাইকৃত",
+  "@invitePointsLine": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      },
+      "joined": {
+        "type": "int"
+      },
+      "verified": {
+        "type": "int"
+      }
+    }
+  },
+  "invitePointsRule": "পয়েন্ট আসে শুধু সাইন-আপ ও যাচাই থেকে, বিনিয়োগ থেকে কখনও নয়। পুরস্কার গাছ, কখনও নগদ বা ফি ছাড় নয়।",
+  "inviteRedeem": "একটি গাছ লাগান (৫০ পয়েন্ট)",
+  "inviteRedeemedBody": "গাছ প্রতিশ্রুত হয়েছে। পরের ড্রাইভে এটি রোপণ হবে, এবং তখন তার ড্রাইভ ও জেলা লিপিবদ্ধ হবে।",
+  "walletPerformanceTitle": "পারফরম্যান্স",
+  "walletPerformanceNote": "মাসভিত্তিক ক্রমযোজিত বিনিয়োগ ও মুনাফা, আপনার লেজার থেকে হিসাব করা। দেখানোর মতো কোনো দৈনিক ওঠানামা নেই।",
+  "walletPerformanceEmpty": "লেজারে মাসভিত্তিক ইতিহাস জমলে চার্টটি দেখা যাবে।",
+  "walletChartInvested": "বিনিয়োজিত",
+  "walletChartProfit": "মুনাফা"
 }

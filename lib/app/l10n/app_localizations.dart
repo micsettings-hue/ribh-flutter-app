@@ -1495,6 +1495,360 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Capital at risk. Returns are projections, not guarantees. Ribh Investments is AAOIFI-aligned. Regulatory registration under process.'**
   String get homeFooterDisclaimer;
+
+  /// No description provided for @errorDataSourceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The live data source behind this figure is not connected in this build, so it cannot be computed.'**
+  String get errorDataSourceUnavailable;
+
+  /// No description provided for @learnProgressLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} modules completed'**
+  String learnProgressLine(int done, int total);
+
+  /// TODO(board): all lesson content requires board sign-off before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'The content of this module is with the Shariah board for review and arrives before launch. Marking it read records your real progress; the text itself is a placeholder.'**
+  String get learnModuleBody;
+
+  /// No description provided for @learnMarkRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as read'**
+  String get learnMarkRead;
+
+  /// No description provided for @learnReadCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Read {count} times'**
+  String learnReadCount(int count);
+
+  /// No description provided for @learnCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get learnCompleted;
+
+  /// Faith-facing copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Zakat cleanses wealth'**
+  String get zakatBanner1Title;
+
+  /// Faith-facing copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'An obligation on wealth above the Nisab for a lunar year.'**
+  String get zakatBanner1Sub;
+
+  /// Faith-facing copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'The silver standard'**
+  String get zakatBanner2Title;
+
+  /// Faith-facing copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Ribh uses the silver Nisab so Zakat reaches more people.'**
+  String get zakatBanner2Sub;
+
+  /// No description provided for @zakatBanner3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'No fee, ever'**
+  String get zakatBanner3Title;
+
+  /// No description provided for @zakatBanner3Sub.
+  ///
+  /// In en, this message translates to:
+  /// **'Every taka of Zakat goes to the project. Ribh takes nothing out of it.'**
+  String get zakatBanner3Sub;
+
+  /// No description provided for @zakatCalcTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Zakat calculator'**
+  String get zakatCalcTitle;
+
+  /// No description provided for @zakatCashLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash and bank balances'**
+  String get zakatCashLabel;
+
+  /// No description provided for @zakatGoldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold value'**
+  String get zakatGoldLabel;
+
+  /// No description provided for @zakatSilverLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Silver value'**
+  String get zakatSilverLabel;
+
+  /// No description provided for @zakatBusinessLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Business assets'**
+  String get zakatBusinessLabel;
+
+  /// No description provided for @zakatDebtsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts to deduct'**
+  String get zakatDebtsLabel;
+
+  /// No description provided for @zakatTotalLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Zakatable wealth: {amount}'**
+  String zakatTotalLine(String amount);
+
+  /// No description provided for @zakatDueLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Zakat due at 2.5%: {amount}'**
+  String zakatDueLine(String amount);
+
+  /// TODO(board): the calculation basis, silver standard, and rate need board sign-off.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculation basis pending Shariah board sign-off. This is arithmetic, not a ruling.'**
+  String get zakatGuidanceNote;
+
+  /// No description provided for @zakatNisabTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nisab status'**
+  String get zakatNisabTitle;
+
+  /// No description provided for @zakatNisabUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The live silver price source is not connected in this build, so the Nisab threshold cannot be computed. Nothing is estimated in its place.'**
+  String get zakatNisabUnavailable;
+
+  /// No description provided for @zakatNisabAbove.
+  ///
+  /// In en, this message translates to:
+  /// **'Your zakatable wealth is above the silver Nisab ({threshold}). Zakat applies.'**
+  String zakatNisabAbove(String threshold);
+
+  /// No description provided for @zakatNisabBelow.
+  ///
+  /// In en, this message translates to:
+  /// **'Your zakatable wealth is below the silver Nisab ({threshold}). Zakat is not due.'**
+  String zakatNisabBelow(String threshold);
+
+  /// No description provided for @welfareProjectsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ribh Welfare projects'**
+  String get welfareProjectsTitle;
+
+  /// No description provided for @projectProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{raised} raised of {target}'**
+  String projectProgress(String raised, String target);
+
+  /// No description provided for @giveZakatCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Give Zakat'**
+  String get giveZakatCta;
+
+  /// No description provided for @giveSadaqahCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Give Sadaqah'**
+  String get giveSadaqahCta;
+
+  /// No description provided for @giveSheetProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Project'**
+  String get giveSheetProject;
+
+  /// No description provided for @giveNoFeeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The full amount reaches the project from your wallet balance. Ribh takes no fee out of Zakat.'**
+  String get giveNoFeeNote;
+
+  /// No description provided for @giveRecordedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Given'**
+  String get giveRecordedTitle;
+
+  /// No description provided for @giveRecordedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your contribution and its ledger entry were written together. The project total updated with the full amount.'**
+  String get giveRecordedBody;
+
+  /// No description provided for @sadaqahMonthLine.
+  ///
+  /// In en, this message translates to:
+  /// **'This month: {amount}'**
+  String sadaqahMonthLine(String amount);
+
+  /// No description provided for @sadaqahLifetimeLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime: {amount}'**
+  String sadaqahLifetimeLine(String amount);
+
+  /// No description provided for @sadaqahHabitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Giving habit'**
+  String get sadaqahHabitTitle;
+
+  /// No description provided for @sadaqahHabitCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} of 30 days'**
+  String sadaqahHabitCount(int days);
+
+  /// No description provided for @forestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Forest'**
+  String get forestTitle;
+
+  /// No description provided for @forestCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} trees'**
+  String forestCount(int count);
+
+  /// No description provided for @treePledged.
+  ///
+  /// In en, this message translates to:
+  /// **'Pledged'**
+  String get treePledged;
+
+  /// No description provided for @treePlanted.
+  ///
+  /// In en, this message translates to:
+  /// **'Planted'**
+  String get treePlanted;
+
+  /// Faith-facing education copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Qard e Hasanah is an interest-free loan for those in need. Ribh is building it so repayment is always at par: you repay exactly what you borrowed, nothing more, ever.'**
+  String get qardBody;
+
+  /// No description provided for @qardComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Honestly not open yet. No lending exists in this version.'**
+  String get qardComingSoon;
+
+  /// No description provided for @qardNotify.
+  ///
+  /// In en, this message translates to:
+  /// **'Notify me when it opens'**
+  String get qardNotify;
+
+  /// No description provided for @qardRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'You are on the list. We will tell you when Qard opens.'**
+  String get qardRegistered;
+
+  /// No description provided for @inviteYourLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Your invite link'**
+  String get inviteYourLink;
+
+  /// No description provided for @inviteCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy link'**
+  String get inviteCopy;
+
+  /// No description provided for @inviteCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Link copied.'**
+  String get inviteCopied;
+
+  /// No description provided for @inviteShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get inviteShare;
+
+  /// No description provided for @invitePointsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Points'**
+  String get invitePointsTitle;
+
+  /// No description provided for @invitePointsLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{points} points · {joined} joined, {verified} verified'**
+  String invitePointsLine(int points, int joined, int verified);
+
+  /// No description provided for @invitePointsRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Points come from sign-up and verification only, never from investing. Rewards are trees, never cash or fee credit.'**
+  String get invitePointsRule;
+
+  /// No description provided for @inviteRedeem.
+  ///
+  /// In en, this message translates to:
+  /// **'Plant a tree (50 points)'**
+  String get inviteRedeem;
+
+  /// No description provided for @inviteRedeemedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tree pledged. It is planted at the next drive, and its drive and district are recorded when that happens.'**
+  String get inviteRedeemedBody;
+
+  /// No description provided for @walletPerformanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Performance'**
+  String get walletPerformanceTitle;
+
+  /// No description provided for @walletPerformanceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Cumulative invested and profit by month, derived from your ledger. There is no daily volatility to show.'**
+  String get walletPerformanceNote;
+
+  /// No description provided for @walletPerformanceEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'The chart appears once your ledger has monthly history.'**
+  String get walletPerformanceEmpty;
+
+  /// No description provided for @walletChartInvested.
+  ///
+  /// In en, this message translates to:
+  /// **'Invested'**
+  String get walletChartInvested;
+
+  /// No description provided for @walletChartProfit.
+  ///
+  /// In en, this message translates to:
+  /// **'Profit'**
+  String get walletChartProfit;
 }
 
 class _AppLocalizationsDelegate

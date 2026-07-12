@@ -787,4 +787,221 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get homeFooterDisclaimer =>
       'Capital at risk. Returns are projections, not guarantees. Ribh Investments is AAOIFI-aligned. Regulatory registration under process.';
+
+  @override
+  String get errorDataSourceUnavailable =>
+      'The live data source behind this figure is not connected in this build, so it cannot be computed.';
+
+  @override
+  String learnProgressLine(int done, int total) {
+    return '$done of $total modules completed';
+  }
+
+  @override
+  String get learnModuleBody =>
+      'The content of this module is with the Shariah board for review and arrives before launch. Marking it read records your real progress; the text itself is a placeholder.';
+
+  @override
+  String get learnMarkRead => 'Mark as read';
+
+  @override
+  String learnReadCount(int count) {
+    return 'Read $count times';
+  }
+
+  @override
+  String get learnCompleted => 'Completed';
+
+  @override
+  String get zakatBanner1Title => 'Zakat cleanses wealth';
+
+  @override
+  String get zakatBanner1Sub =>
+      'An obligation on wealth above the Nisab for a lunar year.';
+
+  @override
+  String get zakatBanner2Title => 'The silver standard';
+
+  @override
+  String get zakatBanner2Sub =>
+      'Ribh uses the silver Nisab so Zakat reaches more people.';
+
+  @override
+  String get zakatBanner3Title => 'No fee, ever';
+
+  @override
+  String get zakatBanner3Sub =>
+      'Every taka of Zakat goes to the project. Ribh takes nothing out of it.';
+
+  @override
+  String get zakatCalcTitle => 'Zakat calculator';
+
+  @override
+  String get zakatCashLabel => 'Cash and bank balances';
+
+  @override
+  String get zakatGoldLabel => 'Gold value';
+
+  @override
+  String get zakatSilverLabel => 'Silver value';
+
+  @override
+  String get zakatBusinessLabel => 'Business assets';
+
+  @override
+  String get zakatDebtsLabel => 'Debts to deduct';
+
+  @override
+  String zakatTotalLine(String amount) {
+    return 'Zakatable wealth: $amount';
+  }
+
+  @override
+  String zakatDueLine(String amount) {
+    return 'Zakat due at 2.5%: $amount';
+  }
+
+  @override
+  String get zakatGuidanceNote =>
+      'Calculation basis pending Shariah board sign-off. This is arithmetic, not a ruling.';
+
+  @override
+  String get zakatNisabTitle => 'Nisab status';
+
+  @override
+  String get zakatNisabUnavailable =>
+      'The live silver price source is not connected in this build, so the Nisab threshold cannot be computed. Nothing is estimated in its place.';
+
+  @override
+  String zakatNisabAbove(String threshold) {
+    return 'Your zakatable wealth is above the silver Nisab ($threshold). Zakat applies.';
+  }
+
+  @override
+  String zakatNisabBelow(String threshold) {
+    return 'Your zakatable wealth is below the silver Nisab ($threshold). Zakat is not due.';
+  }
+
+  @override
+  String get welfareProjectsTitle => 'Ribh Welfare projects';
+
+  @override
+  String projectProgress(String raised, String target) {
+    return '$raised raised of $target';
+  }
+
+  @override
+  String get giveZakatCta => 'Give Zakat';
+
+  @override
+  String get giveSadaqahCta => 'Give Sadaqah';
+
+  @override
+  String get giveSheetProject => 'Project';
+
+  @override
+  String get giveNoFeeNote =>
+      'The full amount reaches the project from your wallet balance. Ribh takes no fee out of Zakat.';
+
+  @override
+  String get giveRecordedTitle => 'Given';
+
+  @override
+  String get giveRecordedBody =>
+      'Your contribution and its ledger entry were written together. The project total updated with the full amount.';
+
+  @override
+  String sadaqahMonthLine(String amount) {
+    return 'This month: $amount';
+  }
+
+  @override
+  String sadaqahLifetimeLine(String amount) {
+    return 'Lifetime: $amount';
+  }
+
+  @override
+  String get sadaqahHabitTitle => 'Giving habit';
+
+  @override
+  String sadaqahHabitCount(int days) {
+    return '$days of 30 days';
+  }
+
+  @override
+  String get forestTitle => 'Your Forest';
+
+  @override
+  String forestCount(int count) {
+    return '$count trees';
+  }
+
+  @override
+  String get treePledged => 'Pledged';
+
+  @override
+  String get treePlanted => 'Planted';
+
+  @override
+  String get qardBody =>
+      'Qard e Hasanah is an interest-free loan for those in need. Ribh is building it so repayment is always at par: you repay exactly what you borrowed, nothing more, ever.';
+
+  @override
+  String get qardComingSoon =>
+      'Honestly not open yet. No lending exists in this version.';
+
+  @override
+  String get qardNotify => 'Notify me when it opens';
+
+  @override
+  String get qardRegistered =>
+      'You are on the list. We will tell you when Qard opens.';
+
+  @override
+  String get inviteYourLink => 'Your invite link';
+
+  @override
+  String get inviteCopy => 'Copy link';
+
+  @override
+  String get inviteCopied => 'Link copied.';
+
+  @override
+  String get inviteShare => 'Share';
+
+  @override
+  String get invitePointsTitle => 'Points';
+
+  @override
+  String invitePointsLine(int points, int joined, int verified) {
+    return '$points points · $joined joined, $verified verified';
+  }
+
+  @override
+  String get invitePointsRule =>
+      'Points come from sign-up and verification only, never from investing. Rewards are trees, never cash or fee credit.';
+
+  @override
+  String get inviteRedeem => 'Plant a tree (50 points)';
+
+  @override
+  String get inviteRedeemedBody =>
+      'Tree pledged. It is planted at the next drive, and its drive and district are recorded when that happens.';
+
+  @override
+  String get walletPerformanceTitle => 'Performance';
+
+  @override
+  String get walletPerformanceNote =>
+      'Cumulative invested and profit by month, derived from your ledger. There is no daily volatility to show.';
+
+  @override
+  String get walletPerformanceEmpty =>
+      'The chart appears once your ledger has monthly history.';
+
+  @override
+  String get walletChartInvested => 'Invested';
+
+  @override
+  String get walletChartProfit => 'Profit';
 }

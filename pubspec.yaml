@@ -51,6 +51,7 @@ dependencies:
   lucide_icons_flutter: ^3.1.15
   http: ^1.6.0
   crypto: ^3.0.7
+  share_plus: ^13.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -414,5 +414,181 @@
   "investAutoInvestEntry": "Auto-invest",
   "investAutoInvestEntrySub": "Strategy and approval queue",
   "homeNewsComing": "News and Insight arrives with a real content source in a later milestone.",
-  "homeFooterDisclaimer": "Capital at risk. Returns are projections, not guarantees. Ribh Investments is AAOIFI-aligned. Regulatory registration under process."
+  "homeFooterDisclaimer": "Capital at risk. Returns are projections, not guarantees. Ribh Investments is AAOIFI-aligned. Regulatory registration under process.",
+  "errorDataSourceUnavailable": "The live data source behind this figure is not connected in this build, so it cannot be computed.",
+  "learnProgressLine": "{done} of {total} modules completed",
+  "@learnProgressLine": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "learnModuleBody": "The content of this module is with the Shariah board for review and arrives before launch. Marking it read records your real progress; the text itself is a placeholder.",
+  "@learnModuleBody": {
+    "description": "TODO(board): all lesson content requires board sign-off before launch."
+  },
+  "learnMarkRead": "Mark as read",
+  "learnReadCount": "Read {count} times",
+  "@learnReadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "learnCompleted": "Completed",
+  "zakatBanner1Title": "Zakat cleanses wealth",
+  "@zakatBanner1Title": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "zakatBanner1Sub": "An obligation on wealth above the Nisab for a lunar year.",
+  "@zakatBanner1Sub": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "zakatBanner2Title": "The silver standard",
+  "@zakatBanner2Title": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "zakatBanner2Sub": "Ribh uses the silver Nisab so Zakat reaches more people.",
+  "@zakatBanner2Sub": {
+    "description": "Faith-facing copy. TODO(board): board sign-off required before launch."
+  },
+  "zakatBanner3Title": "No fee, ever",
+  "zakatBanner3Sub": "Every taka of Zakat goes to the project. Ribh takes nothing out of it.",
+  "zakatCalcTitle": "Zakat calculator",
+  "zakatCashLabel": "Cash and bank balances",
+  "zakatGoldLabel": "Gold value",
+  "zakatSilverLabel": "Silver value",
+  "zakatBusinessLabel": "Business assets",
+  "zakatDebtsLabel": "Debts to deduct",
+  "zakatTotalLine": "Zakatable wealth: {amount}",
+  "@zakatTotalLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "zakatDueLine": "Zakat due at 2.5%: {amount}",
+  "@zakatDueLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "zakatGuidanceNote": "Calculation basis pending Shariah board sign-off. This is arithmetic, not a ruling.",
+  "@zakatGuidanceNote": {
+    "description": "TODO(board): the calculation basis, silver standard, and rate need board sign-off."
+  },
+  "zakatNisabTitle": "Nisab status",
+  "zakatNisabUnavailable": "The live silver price source is not connected in this build, so the Nisab threshold cannot be computed. Nothing is estimated in its place.",
+  "zakatNisabAbove": "Your zakatable wealth is above the silver Nisab ({threshold}). Zakat applies.",
+  "@zakatNisabAbove": {
+    "placeholders": {
+      "threshold": {
+        "type": "String"
+      }
+    }
+  },
+  "zakatNisabBelow": "Your zakatable wealth is below the silver Nisab ({threshold}). Zakat is not due.",
+  "@zakatNisabBelow": {
+    "placeholders": {
+      "threshold": {
+        "type": "String"
+      }
+    }
+  },
+  "welfareProjectsTitle": "Ribh Welfare projects",
+  "projectProgress": "{raised} raised of {target}",
+  "@projectProgress": {
+    "placeholders": {
+      "raised": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "giveZakatCta": "Give Zakat",
+  "giveSadaqahCta": "Give Sadaqah",
+  "giveSheetProject": "Project",
+  "giveNoFeeNote": "The full amount reaches the project from your wallet balance. Ribh takes no fee out of Zakat.",
+  "giveRecordedTitle": "Given",
+  "giveRecordedBody": "Your contribution and its ledger entry were written together. The project total updated with the full amount.",
+  "sadaqahMonthLine": "This month: {amount}",
+  "@sadaqahMonthLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "sadaqahLifetimeLine": "Lifetime: {amount}",
+  "@sadaqahLifetimeLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "sadaqahHabitTitle": "Giving habit",
+  "sadaqahHabitCount": "{days} of 30 days",
+  "@sadaqahHabitCount": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "forestTitle": "Your Forest",
+  "forestCount": "{count} trees",
+  "@forestCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "treePledged": "Pledged",
+  "treePlanted": "Planted",
+  "qardBody": "Qard e Hasanah is an interest-free loan for those in need. Ribh is building it so repayment is always at par: you repay exactly what you borrowed, nothing more, ever.",
+  "@qardBody": {
+    "description": "Faith-facing education copy. TODO(board): board sign-off required before launch."
+  },
+  "qardComingSoon": "Honestly not open yet. No lending exists in this version.",
+  "qardNotify": "Notify me when it opens",
+  "qardRegistered": "You are on the list. We will tell you when Qard opens.",
+  "inviteYourLink": "Your invite link",
+  "inviteCopy": "Copy link",
+  "inviteCopied": "Link copied.",
+  "inviteShare": "Share",
+  "invitePointsTitle": "Points",
+  "invitePointsLine": "{points} points · {joined} joined, {verified} verified",
+  "@invitePointsLine": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      },
+      "joined": {
+        "type": "int"
+      },
+      "verified": {
+        "type": "int"
+      }
+    }
+  },
+  "invitePointsRule": "Points come from sign-up and verification only, never from investing. Rewards are trees, never cash or fee credit.",
+  "inviteRedeem": "Plant a tree (50 points)",
+  "inviteRedeemedBody": "Tree pledged. It is planted at the next drive, and its drive and district are recorded when that happens.",
+  "walletPerformanceTitle": "Performance",
+  "walletPerformanceNote": "Cumulative invested and profit by month, derived from your ledger. There is no daily volatility to show.",
+  "walletPerformanceEmpty": "The chart appears once your ledger has monthly history.",
+  "walletChartInvested": "Invested",
+  "walletChartProfit": "Profit"
 }

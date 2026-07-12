@@ -784,4 +784,220 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get homeFooterDisclaimer =>
       'মূলধন ঝুঁকির মধ্যে। মুনাফা প্রক্ষেপণ, নিশ্চয়তা নয়। রিবহ ইনভেস্টমেন্টস AAOIFI-সামঞ্জস্যপূর্ণ। নিয়ন্ত্রক নিবন্ধন প্রক্রিয়াধীন।';
+
+  @override
+  String get errorDataSourceUnavailable =>
+      'এই সংখ্যার পেছনের লাইভ ডেটা উৎস এই বিল্ডে সংযুক্ত নেই, তাই এটি হিসাব করা যাচ্ছে না।';
+
+  @override
+  String learnProgressLine(int done, int total) {
+    return '$totalটির মধ্যে $doneটি মডিউল সম্পন্ন';
+  }
+
+  @override
+  String get learnModuleBody =>
+      'এই মডিউলের বিষয়বস্তু শরিয়াহ বোর্ডের পর্যালোচনায় আছে এবং লঞ্চের আগে আসবে। পড়া হিসেবে চিহ্নিত করলে আপনার প্রকৃত অগ্রগতি লিপিবদ্ধ হয়; লেখাটি নিজে একটি প্লেসহোল্ডার।';
+
+  @override
+  String get learnMarkRead => 'পড়া হয়েছে চিহ্নিত করুন';
+
+  @override
+  String learnReadCount(int count) {
+    return '$count বার পড়া হয়েছে';
+  }
+
+  @override
+  String get learnCompleted => 'সম্পন্ন';
+
+  @override
+  String get zakatBanner1Title => 'যাকাত সম্পদ পরিশুদ্ধ করে';
+
+  @override
+  String get zakatBanner1Sub =>
+      'চান্দ্র বছর ধরে নিসাবের ওপরে থাকা সম্পদের ওপর ফরজ।';
+
+  @override
+  String get zakatBanner2Title => 'রুপার মানদণ্ড';
+
+  @override
+  String get zakatBanner2Sub =>
+      'রিবহ রুপার নিসাব ব্যবহার করে, যাতে যাকাত বেশি মানুষের কাছে পৌঁছায়।';
+
+  @override
+  String get zakatBanner3Title => 'কোনো ফি নেই, কখনও না';
+
+  @override
+  String get zakatBanner3Sub =>
+      'যাকাতের প্রতিটি টাকা প্রকল্পে যায়। রিবহ এর থেকে কিছুই নেয় না।';
+
+  @override
+  String get zakatCalcTitle => 'যাকাত ক্যালকুলেটর';
+
+  @override
+  String get zakatCashLabel => 'নগদ ও ব্যাংক ব্যালেন্স';
+
+  @override
+  String get zakatGoldLabel => 'সোনার মূল্য';
+
+  @override
+  String get zakatSilverLabel => 'রুপার মূল্য';
+
+  @override
+  String get zakatBusinessLabel => 'ব্যবসায়িক সম্পদ';
+
+  @override
+  String get zakatDebtsLabel => 'বাদ দেওয়ার ঋণ';
+
+  @override
+  String zakatTotalLine(String amount) {
+    return 'যাকাতযোগ্য সম্পদ: $amount';
+  }
+
+  @override
+  String zakatDueLine(String amount) {
+    return '২.৫% হারে প্রদেয় যাকাত: $amount';
+  }
+
+  @override
+  String get zakatGuidanceNote =>
+      'হিসাবের ভিত্তি শরিয়াহ বোর্ডের অনুমোদনের অপেক্ষায়। এটি গণনা, কোনো ফতোয়া নয়।';
+
+  @override
+  String get zakatNisabTitle => 'নিসাবের অবস্থা';
+
+  @override
+  String get zakatNisabUnavailable =>
+      'লাইভ রুপার দামের উৎস এই বিল্ডে সংযুক্ত নেই, তাই নিসাব সীমা হিসাব করা যাচ্ছে না। এর জায়গায় কোনো অনুমান দেখানো হয় না।';
+
+  @override
+  String zakatNisabAbove(String threshold) {
+    return 'আপনার যাকাতযোগ্য সম্পদ রুপার নিসাবের ($threshold) ওপরে। যাকাত প্রযোজ্য।';
+  }
+
+  @override
+  String zakatNisabBelow(String threshold) {
+    return 'আপনার যাকাতযোগ্য সম্পদ রুপার নিসাবের ($threshold) নিচে। যাকাত প্রদেয় নয়।';
+  }
+
+  @override
+  String get welfareProjectsTitle => 'রিবহ ওয়েলফেয়ার প্রকল্প';
+
+  @override
+  String projectProgress(String raised, String target) {
+    return '$target-এর মধ্যে $raised সংগৃহীত';
+  }
+
+  @override
+  String get giveZakatCta => 'যাকাত দিন';
+
+  @override
+  String get giveSadaqahCta => 'সাদাকাহ দিন';
+
+  @override
+  String get giveSheetProject => 'প্রকল্প';
+
+  @override
+  String get giveNoFeeNote =>
+      'আপনার ওয়ালেট ব্যালেন্স থেকে পুরো অর্থ প্রকল্পে পৌঁছায়। রিবহ যাকাত থেকে কোনো ফি নেয় না।';
+
+  @override
+  String get giveRecordedTitle => 'দেওয়া হয়েছে';
+
+  @override
+  String get giveRecordedBody =>
+      'আপনার দান ও তার লেজার এন্ট্রি একসাথে লেখা হয়েছে। প্রকল্পের মোট অঙ্কে পুরো অর্থ যোগ হয়েছে।';
+
+  @override
+  String sadaqahMonthLine(String amount) {
+    return 'এই মাসে: $amount';
+  }
+
+  @override
+  String sadaqahLifetimeLine(String amount) {
+    return 'সর্বমোট: $amount';
+  }
+
+  @override
+  String get sadaqahHabitTitle => 'দানের অভ্যাস';
+
+  @override
+  String sadaqahHabitCount(int days) {
+    return '৩০ দিনের মধ্যে $days দিন';
+  }
+
+  @override
+  String get forestTitle => 'আপনার বন';
+
+  @override
+  String forestCount(int count) {
+    return '$countটি গাছ';
+  }
+
+  @override
+  String get treePledged => 'প্রতিশ্রুত';
+
+  @override
+  String get treePlanted => 'রোপিত';
+
+  @override
+  String get qardBody =>
+      'কর্জে হাসানাহ হলো প্রয়োজনে থাকা মানুষের জন্য সুদমুক্ত ঋণ। রিবহ এটি এমনভাবে গড়ছে যাতে পরিশোধ সবসময় সমান অঙ্কে হয়: যা ধার নিয়েছেন ঠিক তা-ই ফেরত দেবেন, এর বেশি কখনও নয়।';
+
+  @override
+  String get qardComingSoon =>
+      'সততার সাথে বলছি: এখনও খোলেনি। এই সংস্করণে কোনো ঋণ নেই।';
+
+  @override
+  String get qardNotify => 'খুললে আমাকে জানান';
+
+  @override
+  String get qardRegistered => 'আপনি তালিকায় আছেন। কর্জ খুললে আমরা জানাব।';
+
+  @override
+  String get inviteYourLink => 'আপনার আমন্ত্রণ লিংক';
+
+  @override
+  String get inviteCopy => 'লিংক কপি করুন';
+
+  @override
+  String get inviteCopied => 'লিংক কপি হয়েছে।';
+
+  @override
+  String get inviteShare => 'শেয়ার';
+
+  @override
+  String get invitePointsTitle => 'পয়েন্ট';
+
+  @override
+  String invitePointsLine(int points, int joined, int verified) {
+    return '$points পয়েন্ট · $joined জন যুক্ত, $verified জন যাচাইকৃত';
+  }
+
+  @override
+  String get invitePointsRule =>
+      'পয়েন্ট আসে শুধু সাইন-আপ ও যাচাই থেকে, বিনিয়োগ থেকে কখনও নয়। পুরস্কার গাছ, কখনও নগদ বা ফি ছাড় নয়।';
+
+  @override
+  String get inviteRedeem => 'একটি গাছ লাগান (৫০ পয়েন্ট)';
+
+  @override
+  String get inviteRedeemedBody =>
+      'গাছ প্রতিশ্রুত হয়েছে। পরের ড্রাইভে এটি রোপণ হবে, এবং তখন তার ড্রাইভ ও জেলা লিপিবদ্ধ হবে।';
+
+  @override
+  String get walletPerformanceTitle => 'পারফরম্যান্স';
+
+  @override
+  String get walletPerformanceNote =>
+      'মাসভিত্তিক ক্রমযোজিত বিনিয়োগ ও মুনাফা, আপনার লেজার থেকে হিসাব করা। দেখানোর মতো কোনো দৈনিক ওঠানামা নেই।';
+
+  @override
+  String get walletPerformanceEmpty =>
+      'লেজারে মাসভিত্তিক ইতিহাস জমলে চার্টটি দেখা যাবে।';
+
+  @override
+  String get walletChartInvested => 'বিনিয়োজিত';
+
+  @override
+  String get walletChartProfit => 'মুনাফা';
 }

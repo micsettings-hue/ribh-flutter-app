@@ -13,6 +13,7 @@ import 'package:ribh/data/repositories/goal_repository.dart';
 import 'package:ribh/data/repositories/investment_repository.dart';
 import 'package:ribh/data/repositories/providers.dart';
 import 'package:ribh/data/repositories/wallet_repository.dart';
+import 'package:ribh/data/repositories/welfare_repository.dart';
 import 'package:ribh/features/home/home_screen.dart';
 import 'package:ribh/shared/barakah_banner.dart';
 import 'package:ribh/shared/money_flow.dart';
@@ -143,6 +144,13 @@ class FakeGoalRepository extends GoalRepository {
   Future<Result<List<Goal>>> myGoals() async => Ok(goals);
 }
 
+class FakeZakatRepository extends ZakatRepository {
+  FakeZakatRepository() : super(null);
+
+  @override
+  Future<Result<List<WelfareProject>>> projects() async => const Ok([]);
+}
+
 ProviderScope scoped(
   Widget child, {
   FakeWalletRepository? wallet,
@@ -164,6 +172,7 @@ ProviderScope scoped(
     walletRepositoryProvider.overrideWithValue(
       wallet ?? FakeWalletRepository(),
     ),
+    zakatRepositoryProvider.overrideWithValue(FakeZakatRepository()),
     goalRepositoryProvider.overrideWithValue(
       goals ??
           FakeGoalRepository(
@@ -349,11 +358,19 @@ void main() {
     await tester.pumpAndSettle();
     expect(container, isNotNull);
 
+    // Zakat is a real page since M7.
     await tester.tap(find.text('Zakat'));
+    await tester.pumpAndSettle();
+    expect(find.text('Zakat calculator'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
+    // Prayer stays honestly coming soon until the device-API wave of M7.
+    await tester.tap(find.text('Prayer'));
     await tester.pumpAndSettle();
     expect(
       find.text(
-        'Zakat is not live yet. It arrives in a later milestone with real '
+        'Prayer is not live yet. It arrives in a later milestone with real '
         'features, not demo content.',
       ),
       findsOneWidget,

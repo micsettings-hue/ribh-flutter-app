@@ -590,5 +590,52 @@
   "walletPerformanceNote": "Cumulative invested and profit by month, derived from your ledger. There is no daily volatility to show.",
   "walletPerformanceEmpty": "The chart appears once your ledger has monthly history.",
   "walletChartInvested": "Invested",
-  "walletChartProfit": "Profit"
+  "walletChartProfit": "Profit",
+  "errorLocationUnavailable": "Location is off or permission was refused, so prayer times and qibla cannot be computed for where you are. Nothing is estimated in their place.",
+  "prayerLocationLine": "For your location ({lat}, {lng})",
+  "@prayerLocationLine": {
+    "placeholders": {
+      "lat": {
+        "type": "String"
+      },
+      "lng": {
+        "type": "String"
+      }
+    }
+  },
+  "salahFajr": "Fajr",
+  "salahDhuhr": "Dhuhr",
+  "salahAsr": "Asr",
+  "salahMaghrib": "Maghrib",
+  "salahIsha": "Isha",
+  "prayerNext": "Next",
+  "prayerMethodNote": "Karachi calculation method. Method choice pending Shariah board sign-off.",
+  "@prayerMethodNote": {
+    "description": "TODO(board): the calculation method needs board sign-off before launch."
+  },
+  "qiblaTitle": "Qibla",
+  "qiblaBearingLine": "{degrees}° from north",
+  "@qiblaBearingLine": {
+    "placeholders": {
+      "degrees": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaFallbackNote": "No compass reading is available on this device, so the dial is not rotating. Use the bearing above with a physical compass.",
+  "prayerAlarmsTitle": "Salah alarms",
+  "prayerAlarmPermissionDenied": "Notification permission was refused, so the alarm stays off.",
+  "salahAlarmTitle": "Time for {salah}",
+  "@salahAlarmTitle": {
+    "description": "Worship-adjacent notification copy. TODO(board): board sign-off required before launch.",
+    "placeholders": {
+      "salah": {
+        "type": "String"
+      }
+    }
+  },
+  "salahAlarmBody": "The prayer time you asked to be reminded of has arrived.",
+  "@salahAlarmBody": {
+    "description": "Worship-adjacent notification copy. TODO(board): board sign-off required before launch."
+  }
 }

@@ -1004,4 +1004,63 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get walletChartProfit => 'Profit';
+
+  @override
+  String get errorLocationUnavailable =>
+      'Location is off or permission was refused, so prayer times and qibla cannot be computed for where you are. Nothing is estimated in their place.';
+
+  @override
+  String prayerLocationLine(String lat, String lng) {
+    return 'For your location ($lat, $lng)';
+  }
+
+  @override
+  String get salahFajr => 'Fajr';
+
+  @override
+  String get salahDhuhr => 'Dhuhr';
+
+  @override
+  String get salahAsr => 'Asr';
+
+  @override
+  String get salahMaghrib => 'Maghrib';
+
+  @override
+  String get salahIsha => 'Isha';
+
+  @override
+  String get prayerNext => 'Next';
+
+  @override
+  String get prayerMethodNote =>
+      'Karachi calculation method. Method choice pending Shariah board sign-off.';
+
+  @override
+  String get qiblaTitle => 'Qibla';
+
+  @override
+  String qiblaBearingLine(String degrees) {
+    return '$degrees° from north';
+  }
+
+  @override
+  String get qiblaFallbackNote =>
+      'No compass reading is available on this device, so the dial is not rotating. Use the bearing above with a physical compass.';
+
+  @override
+  String get prayerAlarmsTitle => 'Salah alarms';
+
+  @override
+  String get prayerAlarmPermissionDenied =>
+      'Notification permission was refused, so the alarm stays off.';
+
+  @override
+  String salahAlarmTitle(String salah) {
+    return 'Time for $salah';
+  }
+
+  @override
+  String get salahAlarmBody =>
+      'The prayer time you asked to be reminded of has arrived.';
 }

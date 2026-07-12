@@ -2,6 +2,17 @@
 
 ## Done
 
+### M7 Service pages, wave 2 of 2: Prayer (2026-07-12)
+- Device layer (`lib/data/prayer/`): `computePrayerSnapshot` is a pure function over coordinates (adhan package, Karachi method, marked TODO(board)) returning the five times, sunrise, and the qibla bearing; `DevicePrayerService` wraps geolocator (service check, permission request, low-accuracy position) and fails typed (`LocationUnavailableFailure`) when location is off or refused: times and qibla are never estimated. `PrefsSalahAlarmStore` persists alarm toggles locally; `LocalNotificationsSalahScheduler` schedules real daily local notifications (flutter_local_notifications v22 named-parameter API, timezone-aware via flutter_timezone) and requests permission explicitly; refusing keeps the alarm off, stated plainly.
+- Prayer screen at `/services/prayer`: location line, five times with next-salah highlight, qibla dial rotating with the magnetometer (sensors_plus) with an honest numeric-bearing fallback when no compass reading arrives, salah alarm toggles per prayer, and the Karachi-method note. Notification copy is worship-adjacent and marked TODO(board).
+- Platform config: iOS `NSLocationWhenInUseUsageDescription` (explicitly states location never leaves the device), Android location + POST_NOTIFICATIONS permissions.
+- New packages: adhan, sensors_plus, shared_preferences, timezone, flutter_timezone (plus share_plus from wave 1); all resolve and the iOS build passes.
+- Tests: 118 passing (7 new): Karachi times strictly ordered through the day for Dhaka, qibla bearing from Dhaka within 1.5 degrees of 278.5, nextSalah walk, screen render with the compass fallback note, alarm toggle scheduling and persisting then cancelling, refused permission keeping the alarm off with the honest line, location-unavailable error with retry. Home navigation test updated: Prayer now lands on the real page's honest unavailable state.
+
+### M7 notes (both waves)
+- M7 is complete: all seven service pages are real. The remaining coming-soon body renders only for unknown service ids.
+- Salah alarm scheduling uses inexact Android scheduling; exact-alarm permission is a launch decision, not a v1 requirement.
+
 ### M7 Service pages, wave 1 of 2 (2026-07-12)
 Learn, Zakat, Sadaqah, wallet performance, Qard, and Invite are real. Prayer (device APIs) is wave 2 and stays honestly coming-soon.
 - Migration `20260712000800_services.sql`: `profiles.referral_code` (unique, backfilled, default-generated); signup trigger records a `referrals` row when auth metadata carries `referred_by` (system insert; self and unknown codes silently ignored); `decide_kyc` replaced to also flip the invitee's referral to verified (points move on sign-up and verification only); `qard_interest` (one row per user, own-rows RLS); `redeem_referral_tree()` RPC as the only client-reachable tree write, conversion enforced server-side (joined 10, verified 50, tree costs 50; mirrored and unit-tested in `core/constants/referral_points.dart`), tree created with `planted_at` null as a pledge until a real drive plants it. SQL proof `supabase/tests/services_test.sql` covers all five behaviours including double-redemption blocking. Written, not executed locally (same CLI/Docker gap).

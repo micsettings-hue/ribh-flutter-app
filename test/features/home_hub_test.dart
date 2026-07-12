@@ -13,6 +13,7 @@ import 'package:ribh/data/repositories/goal_repository.dart';
 import 'package:ribh/data/repositories/investment_repository.dart';
 import 'package:ribh/data/repositories/providers.dart';
 import 'package:ribh/data/repositories/wallet_repository.dart';
+import 'package:ribh/data/prayer/prayer_service.dart';
 import 'package:ribh/data/repositories/welfare_repository.dart';
 import 'package:ribh/features/home/home_screen.dart';
 import 'package:ribh/shared/barakah_banner.dart';
@@ -151,6 +152,16 @@ class FakeZakatRepository extends ZakatRepository {
   Future<Result<List<WelfareProject>>> projects() async => const Ok([]);
 }
 
+/// No device location in widget tests: resolve instantly to the honest
+/// unavailable state instead of touching platform channels.
+class UnavailablePrayerService implements PrayerService {
+  const UnavailablePrayerService();
+
+  @override
+  Future<Result<PrayerSnapshot>> today() async =>
+      const Err(LocationUnavailableFailure());
+}
+
 ProviderScope scoped(
   Widget child, {
   FakeWalletRepository? wallet,
@@ -173,6 +184,7 @@ ProviderScope scoped(
       wallet ?? FakeWalletRepository(),
     ),
     zakatRepositoryProvider.overrideWithValue(FakeZakatRepository()),
+    prayerServiceProvider.overrideWithValue(const UnavailablePrayerService()),
     goalRepositoryProvider.overrideWithValue(
       goals ??
           FakeGoalRepository(
@@ -365,14 +377,12 @@ void main() {
     await tester.pageBack();
     await tester.pumpAndSettle();
 
-    // Prayer stays honestly coming soon until the device-API wave of M7.
+    // Prayer is real since M7 wave 2; without device location in tests it
+    // shows its honest unavailable state rather than estimated times.
     await tester.tap(find.text('Prayer'));
     await tester.pumpAndSettle();
     expect(
-      find.text(
-        'Prayer is not live yet. It arrives in a later milestone with real '
-        'features, not demo content.',
-      ),
+      find.textContaining('Location is off or permission was refused'),
       findsOneWidget,
     );
 

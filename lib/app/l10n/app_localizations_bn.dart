@@ -1000,4 +1000,63 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get walletChartProfit => 'মুনাফা';
+
+  @override
+  String get errorLocationUnavailable =>
+      'লোকেশন বন্ধ বা অনুমতি প্রত্যাখ্যাত, তাই আপনার অবস্থানের জন্য নামাযের সময় ও কিবলা হিসাব করা যাচ্ছে না। এর জায়গায় কোনো অনুমান দেখানো হয় না।';
+
+  @override
+  String prayerLocationLine(String lat, String lng) {
+    return 'আপনার অবস্থানের জন্য ($lat, $lng)';
+  }
+
+  @override
+  String get salahFajr => 'ফজর';
+
+  @override
+  String get salahDhuhr => 'যোহর';
+
+  @override
+  String get salahAsr => 'আসর';
+
+  @override
+  String get salahMaghrib => 'মাগরিব';
+
+  @override
+  String get salahIsha => 'এশা';
+
+  @override
+  String get prayerNext => 'পরবর্তী';
+
+  @override
+  String get prayerMethodNote =>
+      'করাচি গণনা পদ্ধতি। পদ্ধতির চূড়ান্ত অনুমোদন শরিয়াহ বোর্ডের কাছে অপেক্ষমাণ।';
+
+  @override
+  String get qiblaTitle => 'কিবলা';
+
+  @override
+  String qiblaBearingLine(String degrees) {
+    return 'উত্তর থেকে $degrees°';
+  }
+
+  @override
+  String get qiblaFallbackNote =>
+      'এই ডিভাইসে কম্পাস রিডিং পাওয়া যাচ্ছে না, তাই ডায়ালটি ঘুরছে না। ওপরের কোণটি একটি বাস্তব কম্পাসের সাথে ব্যবহার করুন।';
+
+  @override
+  String get prayerAlarmsTitle => 'নামাযের অ্যালার্ম';
+
+  @override
+  String get prayerAlarmPermissionDenied =>
+      'নোটিফিকেশনের অনুমতি প্রত্যাখ্যাত হয়েছে, তাই অ্যালার্ম বন্ধ থাকছে।';
+
+  @override
+  String salahAlarmTitle(String salah) {
+    return '$salah-এর সময় হয়েছে';
+  }
+
+  @override
+  String get salahAlarmBody =>
+      'আপনি যে নামাযের কথা মনে করিয়ে দিতে বলেছিলেন তার সময় হয়েছে।';
 }

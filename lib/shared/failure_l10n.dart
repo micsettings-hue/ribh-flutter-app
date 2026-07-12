@@ -9,6 +9,7 @@ String failureText(AppLocalizations l10n, Failure failure) => switch (failure) {
   NotVerifiedFailure() => l10n.errorNotVerified,
   GatewayNotConnectedFailure() => l10n.errorGatewayNotConnected,
   DataSourceUnavailableFailure() => l10n.errorDataSourceUnavailable,
+  LocationUnavailableFailure() => l10n.errorLocationUnavailable,
   InsufficientFundsFailure() => l10n.errorInsufficientFunds,
   ValidationFailure(:final message) => l10n.errorUnknown(message),
   UnknownFailure(:final message) => l10n.errorUnknown(message),

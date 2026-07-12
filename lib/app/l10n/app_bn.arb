@@ -572,5 +572,52 @@
   "walletPerformanceNote": "মাসভিত্তিক ক্রমযোজিত বিনিয়োগ ও মুনাফা, আপনার লেজার থেকে হিসাব করা। দেখানোর মতো কোনো দৈনিক ওঠানামা নেই।",
   "walletPerformanceEmpty": "লেজারে মাসভিত্তিক ইতিহাস জমলে চার্টটি দেখা যাবে।",
   "walletChartInvested": "বিনিয়োজিত",
-  "walletChartProfit": "মুনাফা"
+  "walletChartProfit": "মুনাফা",
+  "errorLocationUnavailable": "লোকেশন বন্ধ বা অনুমতি প্রত্যাখ্যাত, তাই আপনার অবস্থানের জন্য নামাযের সময় ও কিবলা হিসাব করা যাচ্ছে না। এর জায়গায় কোনো অনুমান দেখানো হয় না।",
+  "prayerLocationLine": "আপনার অবস্থানের জন্য ({lat}, {lng})",
+  "@prayerLocationLine": {
+    "placeholders": {
+      "lat": {
+        "type": "String"
+      },
+      "lng": {
+        "type": "String"
+      }
+    }
+  },
+  "salahFajr": "ফজর",
+  "salahDhuhr": "যোহর",
+  "salahAsr": "আসর",
+  "salahMaghrib": "মাগরিব",
+  "salahIsha": "এশা",
+  "prayerNext": "পরবর্তী",
+  "prayerMethodNote": "করাচি গণনা পদ্ধতি। পদ্ধতির চূড়ান্ত অনুমোদন শরিয়াহ বোর্ডের কাছে অপেক্ষমাণ।",
+  "@prayerMethodNote": {
+    "description": "TODO(board): the calculation method needs board sign-off before launch."
+  },
+  "qiblaTitle": "কিবলা",
+  "qiblaBearingLine": "উত্তর থেকে {degrees}°",
+  "@qiblaBearingLine": {
+    "placeholders": {
+      "degrees": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaFallbackNote": "এই ডিভাইসে কম্পাস রিডিং পাওয়া যাচ্ছে না, তাই ডায়ালটি ঘুরছে না। ওপরের কোণটি একটি বাস্তব কম্পাসের সাথে ব্যবহার করুন।",
+  "prayerAlarmsTitle": "নামাযের অ্যালার্ম",
+  "prayerAlarmPermissionDenied": "নোটিফিকেশনের অনুমতি প্রত্যাখ্যাত হয়েছে, তাই অ্যালার্ম বন্ধ থাকছে।",
+  "salahAlarmTitle": "{salah}-এর সময় হয়েছে",
+  "@salahAlarmTitle": {
+    "description": "Worship-adjacent notification copy. TODO(board): board sign-off required before launch.",
+    "placeholders": {
+      "salah": {
+        "type": "String"
+      }
+    }
+  },
+  "salahAlarmBody": "আপনি যে নামাযের কথা মনে করিয়ে দিতে বলেছিলেন তার সময় হয়েছে।",
+  "@salahAlarmBody": {
+    "description": "Worship-adjacent notification copy. TODO(board): board sign-off required before launch."
+  }
 }

@@ -15,6 +15,7 @@ import '../../features/invest/invest_screen.dart';
 import '../../features/me/me_screen.dart';
 import '../../features/services/invite_screen.dart';
 import '../../features/services/learn_screen.dart';
+import '../../features/services/prayer_screen.dart';
 import '../../features/services/qard_screen.dart';
 import '../../features/services/sadaqah_screen.dart';
 import '../../features/services/service_coming_soon_screen.dart';
@@ -80,7 +81,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           'sadaqah' => const SadaqahScreen(),
           'qard' => const QardScreen(),
           'invite' => const InviteScreen(),
-          // Prayer arrives with the device-API wave of M7.
+          'prayer' => const PrayerScreen(),
           final id => ServiceComingSoonScreen(serviceId: id),
         },
       ),

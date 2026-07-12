@@ -1849,6 +1849,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profit'**
   String get walletChartProfit;
+
+  /// No description provided for @errorLocationUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Location is off or permission was refused, so prayer times and qibla cannot be computed for where you are. Nothing is estimated in their place.'**
+  String get errorLocationUnavailable;
+
+  /// No description provided for @prayerLocationLine.
+  ///
+  /// In en, this message translates to:
+  /// **'For your location ({lat}, {lng})'**
+  String prayerLocationLine(String lat, String lng);
+
+  /// No description provided for @salahFajr.
+  ///
+  /// In en, this message translates to:
+  /// **'Fajr'**
+  String get salahFajr;
+
+  /// No description provided for @salahDhuhr.
+  ///
+  /// In en, this message translates to:
+  /// **'Dhuhr'**
+  String get salahDhuhr;
+
+  /// No description provided for @salahAsr.
+  ///
+  /// In en, this message translates to:
+  /// **'Asr'**
+  String get salahAsr;
+
+  /// No description provided for @salahMaghrib.
+  ///
+  /// In en, this message translates to:
+  /// **'Maghrib'**
+  String get salahMaghrib;
+
+  /// No description provided for @salahIsha.
+  ///
+  /// In en, this message translates to:
+  /// **'Isha'**
+  String get salahIsha;
+
+  /// No description provided for @prayerNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get prayerNext;
+
+  /// TODO(board): the calculation method needs board sign-off before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Karachi calculation method. Method choice pending Shariah board sign-off.'**
+  String get prayerMethodNote;
+
+  /// No description provided for @qiblaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Qibla'**
+  String get qiblaTitle;
+
+  /// No description provided for @qiblaBearingLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{degrees}° from north'**
+  String qiblaBearingLine(String degrees);
+
+  /// No description provided for @qiblaFallbackNote.
+  ///
+  /// In en, this message translates to:
+  /// **'No compass reading is available on this device, so the dial is not rotating. Use the bearing above with a physical compass.'**
+  String get qiblaFallbackNote;
+
+  /// No description provided for @prayerAlarmsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Salah alarms'**
+  String get prayerAlarmsTitle;
+
+  /// No description provided for @prayerAlarmPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission was refused, so the alarm stays off.'**
+  String get prayerAlarmPermissionDenied;
+
+  /// Worship-adjacent notification copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Time for {salah}'**
+  String salahAlarmTitle(String salah);
+
+  /// Worship-adjacent notification copy. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'The prayer time you asked to be reminded of has arrived.'**
+  String get salahAlarmBody;
 }
 
 class _AppLocalizationsDelegate

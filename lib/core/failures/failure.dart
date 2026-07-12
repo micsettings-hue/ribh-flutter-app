@@ -50,6 +50,12 @@ class DataSourceUnavailableFailure extends Failure {
   ]);
 }
 
+/// Device location is off or permission was refused. Location-derived
+/// figures (prayer times, qibla) are shown as unavailable, never estimated.
+class LocationUnavailableFailure extends Failure {
+  const LocationUnavailableFailure([super.message = 'location_unavailable']);
+}
+
 class UnknownFailure extends Failure {
   const UnknownFailure(super.message);
 }

@@ -2,6 +2,16 @@
 
 ## Done
 
+### M8 Barakah enrichment (2026-07-12)
+All six blocks, on the M1 `engagement` row. Documented jsonb layout inside `adhkar_counts`: `{"tasbih": {day: count}, "prayer_check": {day: true}}`; `habit_days` stays Sadaqah's giving record.
+- Score (`core/constants/barakah_score.dart`, pure and unit-tested): giving days in the last 30 (4 pts each, cap 40) + prayer self-check streak (3 pts each, cap 30) + adhkar days in the last 7 (6 pts each, cap 30). The card states it reflects app habits only, never measures worship itself, and is never shown to anyone. Recomputed and persisted on every mutation.
+- Adhkar and tasbih: circular tap counter persisted per day with the 33 target (TODO(board) for target and adhkar set), optimistic updates so taps feel immediate with reload-on-failed-save.
+- Daily ayah/hadith: three rotating citation ids (day-of-year rotation, ids stable so favourites survive review); the card shows the citation and states plainly that the text appears after board review; save-to-favourites is real and device-local (`PrefsFavouritesStore`). No scriptural text or translation is generated.
+- Prayer streak self-check: once per day, self-reported, feeds the score only; `nextPrayerStreak` is pure and unit-tested; a gap restarts at one with no penalty state and the copy says so. Never public.
+- Learn shortcut: the next unread module from real progress, into `/services/learn`.
+- Sadaqah nudge into `/services/sadaqah`.
+- Tests: 127 passing (9 new): score weights and caps, streak transitions (first/consecutive/same-day/gap), full six-block render with the honesty line, tasbih taps persisting per-day counts and saving score 6, prayer check-in once-per-day with the never-punitive copy, favourite toggle persisting. `flutter analyze` clean.
+
 ### M7 Service pages, wave 2 of 2: Prayer (2026-07-12)
 - Device layer (`lib/data/prayer/`): `computePrayerSnapshot` is a pure function over coordinates (adhan package, Karachi method, marked TODO(board)) returning the five times, sunrise, and the qibla bearing; `DevicePrayerService` wraps geolocator (service check, permission request, low-accuracy position) and fails typed (`LocationUnavailableFailure`) when location is off or refused: times and qibla are never estimated. `PrefsSalahAlarmStore` persists alarm toggles locally; `LocalNotificationsSalahScheduler` schedules real daily local notifications (flutter_local_notifications v22 named-parameter API, timezone-aware via flutter_timezone) and requests permission explicitly; refusing keeps the alarm off, stated plainly.
 - Prayer screen at `/services/prayer`: location line, five times with next-salah highlight, qibla dial rotating with the magnetometer (sensors_plus) with an honest numeric-bearing fallback when no compass reading arrives, salah alarm toggles per prayer, and the Karachi-method note. Notification copy is worship-adjacent and marked TODO(board).

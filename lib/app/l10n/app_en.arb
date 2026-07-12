@@ -638,4 +638,61 @@
   "@salahAlarmBody": {
     "description": "Worship-adjacent notification copy. TODO(board): board sign-off required before launch."
   }
+,
+  "barakahScoreTitle": "Barakah score · {score}",
+  "@barakahScoreTitle": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "barakahScoreHonesty": "This reflects your app habits only: giving, your own check-ins, and counter use. It never measures worship itself, and it is never shown to anyone else.",
+  "tasbihTitle": "Adhkar and tasbih",
+  "@tasbihTitle": {
+    "description": "Faith-facing. TODO(board): the adhkar set and target need board sign-off."
+  },
+  "tasbihProgress": "{count} of {target} today",
+  "@tasbihProgress": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "dailyItemTitle": "Daily reflection",
+  "@dailyItemTitle": {
+    "description": "Faith-facing. TODO(board): board sign-off required before launch."
+  },
+  "dailyItemFavourite": "Save to favourites",
+  "dailyItemBoardGated": "The text appears here after Shariah board review. Saving to favourites already works and survives the review.",
+  "dailyItemQuran2261": "Qur'an 2:261, on charity multiplied",
+  "@dailyItemQuran2261": {
+    "description": "Citation only, no translation. TODO(board): text and selection need board sign-off."
+  },
+  "dailyItemHadithConsistency": "Hadith: the most beloved deeds are the most consistent",
+  "@dailyItemHadithConsistency": {
+    "description": "Citation only, no translation. TODO(board): text, attribution, and selection need board sign-off."
+  },
+  "dailyItemQuran1328": "Qur'an 13:28, on hearts finding rest",
+  "@dailyItemQuran1328": {
+    "description": "Citation only, no translation. TODO(board): text and selection need board sign-off."
+  },
+  "prayerCheckTitle": "Prayer check-in",
+  "prayerCheckStreak": "Current streak: {days} days",
+  "@prayerCheckStreak": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "prayerCheckHonesty": "Self-reported, only for your own consistency. A missed day simply starts again; nothing is lost and nobody sees this.",
+  "prayerCheckCta": "I prayed today",
+  "prayerCheckDone": "Checked in for today.",
+  "barakahLearnNext": "Continue learning",
+  "barakahSadaqahNudge": "Today's sadaqah"
 }

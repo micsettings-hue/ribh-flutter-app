@@ -1059,4 +1059,65 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get salahAlarmBody =>
       'আপনি যে নামাযের কথা মনে করিয়ে দিতে বলেছিলেন তার সময় হয়েছে।';
+
+  @override
+  String barakahScoreTitle(int score) {
+    return 'বারাকাহ স্কোর · $score';
+  }
+
+  @override
+  String get barakahScoreHonesty =>
+      'এটি শুধু আপনার অ্যাপ-অভ্যাস প্রতিফলিত করে: দান, আপনার নিজের চেক-ইন ও কাউন্টার ব্যবহার। এটি কখনও ইবাদত নিজে মাপে না, এবং অন্য কাউকে কখনও দেখানো হয় না।';
+
+  @override
+  String get tasbihTitle => 'আযকার ও তাসবিহ';
+
+  @override
+  String tasbihProgress(int count, int target) {
+    return 'আজ $target-এর মধ্যে $count';
+  }
+
+  @override
+  String get dailyItemTitle => 'দৈনিক ভাবনা';
+
+  @override
+  String get dailyItemFavourite => 'পছন্দে রাখুন';
+
+  @override
+  String get dailyItemBoardGated =>
+      'শরিয়াহ বোর্ডের পর্যালোচনার পর লেখাটি এখানে আসবে। পছন্দে রাখা এখনই কাজ করে এবং পর্যালোচনার পরেও থাকবে।';
+
+  @override
+  String get dailyItemQuran2261 => 'কুরআন ২:২৬১, বহুগুণ দানের বিষয়ে';
+
+  @override
+  String get dailyItemHadithConsistency =>
+      'হাদিস: সবচেয়ে প্রিয় আমল হলো নিয়মিত আমল';
+
+  @override
+  String get dailyItemQuran1328 => 'কুরআন ১৩:২৮, অন্তরের প্রশান্তির বিষয়ে';
+
+  @override
+  String get prayerCheckTitle => 'নামাযের চেক-ইন';
+
+  @override
+  String prayerCheckStreak(int days) {
+    return 'চলমান ধারা: $days দিন';
+  }
+
+  @override
+  String get prayerCheckHonesty =>
+      'নিজের জানানো, শুধু আপনার নিজের ধারাবাহিকতার জন্য। একদিন বাদ গেলে আবার শুরু হয়; কিছুই হারায় না এবং কেউ এটি দেখে না।';
+
+  @override
+  String get prayerCheckCta => 'আজ নামায পড়েছি';
+
+  @override
+  String get prayerCheckDone => 'আজকের চেক-ইন হয়েছে।';
+
+  @override
+  String get barakahLearnNext => 'শেখা চালিয়ে যান';
+
+  @override
+  String get barakahSadaqahNudge => 'আজকের সাদাকাহ';
 }

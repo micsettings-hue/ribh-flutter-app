@@ -1945,6 +1945,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The prayer time you asked to be reminded of has arrived.'**
   String get salahAlarmBody;
+
+  /// No description provided for @barakahScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Barakah score · {score}'**
+  String barakahScoreTitle(int score);
+
+  /// No description provided for @barakahScoreHonesty.
+  ///
+  /// In en, this message translates to:
+  /// **'This reflects your app habits only: giving, your own check-ins, and counter use. It never measures worship itself, and it is never shown to anyone else.'**
+  String get barakahScoreHonesty;
+
+  /// Faith-facing. TODO(board): the adhkar set and target need board sign-off.
+  ///
+  /// In en, this message translates to:
+  /// **'Adhkar and tasbih'**
+  String get tasbihTitle;
+
+  /// No description provided for @tasbihProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of {target} today'**
+  String tasbihProgress(int count, int target);
+
+  /// Faith-facing. TODO(board): board sign-off required before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reflection'**
+  String get dailyItemTitle;
+
+  /// No description provided for @dailyItemFavourite.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to favourites'**
+  String get dailyItemFavourite;
+
+  /// No description provided for @dailyItemBoardGated.
+  ///
+  /// In en, this message translates to:
+  /// **'The text appears here after Shariah board review. Saving to favourites already works and survives the review.'**
+  String get dailyItemBoardGated;
+
+  /// Citation only, no translation. TODO(board): text and selection need board sign-off.
+  ///
+  /// In en, this message translates to:
+  /// **'Qur\'an 2:261, on charity multiplied'**
+  String get dailyItemQuran2261;
+
+  /// Citation only, no translation. TODO(board): text, attribution, and selection need board sign-off.
+  ///
+  /// In en, this message translates to:
+  /// **'Hadith: the most beloved deeds are the most consistent'**
+  String get dailyItemHadithConsistency;
+
+  /// Citation only, no translation. TODO(board): text and selection need board sign-off.
+  ///
+  /// In en, this message translates to:
+  /// **'Qur\'an 13:28, on hearts finding rest'**
+  String get dailyItemQuran1328;
+
+  /// No description provided for @prayerCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer check-in'**
+  String get prayerCheckTitle;
+
+  /// No description provided for @prayerCheckStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Current streak: {days} days'**
+  String prayerCheckStreak(int days);
+
+  /// No description provided for @prayerCheckHonesty.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-reported, only for your own consistency. A missed day simply starts again; nothing is lost and nobody sees this.'**
+  String get prayerCheckHonesty;
+
+  /// No description provided for @prayerCheckCta.
+  ///
+  /// In en, this message translates to:
+  /// **'I prayed today'**
+  String get prayerCheckCta;
+
+  /// No description provided for @prayerCheckDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked in for today.'**
+  String get prayerCheckDone;
+
+  /// No description provided for @barakahLearnNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue learning'**
+  String get barakahLearnNext;
+
+  /// No description provided for @barakahSadaqahNudge.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s sadaqah'**
+  String get barakahSadaqahNudge;
 }
 
 class _AppLocalizationsDelegate

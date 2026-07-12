@@ -1063,4 +1063,65 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get salahAlarmBody =>
       'The prayer time you asked to be reminded of has arrived.';
+
+  @override
+  String barakahScoreTitle(int score) {
+    return 'Barakah score · $score';
+  }
+
+  @override
+  String get barakahScoreHonesty =>
+      'This reflects your app habits only: giving, your own check-ins, and counter use. It never measures worship itself, and it is never shown to anyone else.';
+
+  @override
+  String get tasbihTitle => 'Adhkar and tasbih';
+
+  @override
+  String tasbihProgress(int count, int target) {
+    return '$count of $target today';
+  }
+
+  @override
+  String get dailyItemTitle => 'Daily reflection';
+
+  @override
+  String get dailyItemFavourite => 'Save to favourites';
+
+  @override
+  String get dailyItemBoardGated =>
+      'The text appears here after Shariah board review. Saving to favourites already works and survives the review.';
+
+  @override
+  String get dailyItemQuran2261 => 'Qur\'an 2:261, on charity multiplied';
+
+  @override
+  String get dailyItemHadithConsistency =>
+      'Hadith: the most beloved deeds are the most consistent';
+
+  @override
+  String get dailyItemQuran1328 => 'Qur\'an 13:28, on hearts finding rest';
+
+  @override
+  String get prayerCheckTitle => 'Prayer check-in';
+
+  @override
+  String prayerCheckStreak(int days) {
+    return 'Current streak: $days days';
+  }
+
+  @override
+  String get prayerCheckHonesty =>
+      'Self-reported, only for your own consistency. A missed day simply starts again; nothing is lost and nobody sees this.';
+
+  @override
+  String get prayerCheckCta => 'I prayed today';
+
+  @override
+  String get prayerCheckDone => 'Checked in for today.';
+
+  @override
+  String get barakahLearnNext => 'Continue learning';
+
+  @override
+  String get barakahSadaqahNudge => 'Today\'s sadaqah';
 }

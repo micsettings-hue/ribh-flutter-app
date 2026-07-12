@@ -620,4 +620,61 @@
   "@salahAlarmBody": {
     "description": "Worship-adjacent notification copy. TODO(board): board sign-off required before launch."
   }
+,
+  "barakahScoreTitle": "বারাকাহ স্কোর · {score}",
+  "@barakahScoreTitle": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "barakahScoreHonesty": "এটি শুধু আপনার অ্যাপ-অভ্যাস প্রতিফলিত করে: দান, আপনার নিজের চেক-ইন ও কাউন্টার ব্যবহার। এটি কখনও ইবাদত নিজে মাপে না, এবং অন্য কাউকে কখনও দেখানো হয় না।",
+  "tasbihTitle": "আযকার ও তাসবিহ",
+  "@tasbihTitle": {
+    "description": "Faith-facing. TODO(board): the adhkar set and target need board sign-off."
+  },
+  "tasbihProgress": "আজ {target}-এর মধ্যে {count}",
+  "@tasbihProgress": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "dailyItemTitle": "দৈনিক ভাবনা",
+  "@dailyItemTitle": {
+    "description": "Faith-facing. TODO(board): board sign-off required before launch."
+  },
+  "dailyItemFavourite": "পছন্দে রাখুন",
+  "dailyItemBoardGated": "শরিয়াহ বোর্ডের পর্যালোচনার পর লেখাটি এখানে আসবে। পছন্দে রাখা এখনই কাজ করে এবং পর্যালোচনার পরেও থাকবে।",
+  "dailyItemQuran2261": "কুরআন ২:২৬১, বহুগুণ দানের বিষয়ে",
+  "@dailyItemQuran2261": {
+    "description": "Citation only, no translation. TODO(board): text and selection need board sign-off."
+  },
+  "dailyItemHadithConsistency": "হাদিস: সবচেয়ে প্রিয় আমল হলো নিয়মিত আমল",
+  "@dailyItemHadithConsistency": {
+    "description": "Citation only, no translation. TODO(board): text, attribution, and selection need board sign-off."
+  },
+  "dailyItemQuran1328": "কুরআন ১৩:২৮, অন্তরের প্রশান্তির বিষয়ে",
+  "@dailyItemQuran1328": {
+    "description": "Citation only, no translation. TODO(board): text and selection need board sign-off."
+  },
+  "prayerCheckTitle": "নামাযের চেক-ইন",
+  "prayerCheckStreak": "চলমান ধারা: {days} দিন",
+  "@prayerCheckStreak": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "prayerCheckHonesty": "নিজের জানানো, শুধু আপনার নিজের ধারাবাহিকতার জন্য। একদিন বাদ গেলে আবার শুরু হয়; কিছুই হারায় না এবং কেউ এটি দেখে না।",
+  "prayerCheckCta": "আজ নামায পড়েছি",
+  "prayerCheckDone": "আজকের চেক-ইন হয়েছে।",
+  "barakahLearnNext": "শেখা চালিয়ে যান",
+  "barakahSadaqahNudge": "আজকের সাদাকাহ"
 }

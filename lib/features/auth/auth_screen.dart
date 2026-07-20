@@ -83,6 +83,32 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     )
                   : Text(l10n.authSendCode),
             ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(child: Divider(color: tokens.line)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Text(
+                    l10n.authOr,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
+                  ),
+                ),
+                Expanded(child: Divider(color: tokens.line)),
+              ],
+            ),
+            const SizedBox(height: 16),
+            OutlinedButton.icon(
+              onPressed: busy
+                  ? null
+                  : () => ref
+                        .read(authControllerProvider.notifier)
+                        .signInWithGoogle(),
+              icon: const Icon(Icons.g_mobiledata, size: 24),
+              label: Text(l10n.authGoogle),
+            ),
           ],
           if (flow is AuthCodeSent) ...[
             Text(

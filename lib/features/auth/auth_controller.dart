@@ -50,6 +50,18 @@ class AuthController extends _$AuthController {
     });
   }
 
+  /// Launches Google sign-in. On success the browser opens and the session
+  /// arrives via the deep-link redirect, handled by the router's auth
+  /// listener; only a launch failure surfaces here.
+  Future<void> signInWithGoogle() async {
+    state = const AsyncLoading();
+    final result = await ref.read(authRepositoryProvider).signInWithGoogle();
+    state = AsyncData(switch (result) {
+      Ok() => const AuthEnterEmail(),
+      Err(:final failure) => AuthEnterEmail(failure: failure),
+    });
+  }
+
   void changeEmail() {
     state = const AsyncData(AuthEnterEmail());
   }

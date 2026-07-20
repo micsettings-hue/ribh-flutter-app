@@ -14,9 +14,26 @@ class AuthRepository extends SupabaseRepository {
 
   String? get currentEmail => client?.auth.currentUser?.email;
 
+  /// Deep link Supabase redirects back to after the Google consent screen.
+  /// Registered as a URL scheme in iOS Info.plist and allow-listed in the
+  /// Supabase dashboard (Authentication -> URL Configuration).
+  static const oauthRedirect = 'com.ribhinvestments.ribh://login-callback';
+
   /// Sends a one-time code to [email]. Creates the account on first use.
   Future<Result<void>> sendEmailOtp(String email) => guard((db) async {
     await db.auth.signInWithOtp(email: email);
+  });
+
+  /// Launches the Google sign-in flow in an external browser. The result is
+  /// not the session: sign-in completes when Supabase redirects back to
+  /// [oauthRedirect], which `onAuthStateChange` (watched by the router)
+  /// picks up. Returns whether the browser was launched.
+  Future<Result<bool>> signInWithGoogle() => guard((db) async {
+    return db.auth.signInWithOAuth(
+      OAuthProvider.google,
+      redirectTo: oauthRedirect,
+      authScreenLaunchMode: LaunchMode.externalApplication,
+    );
   });
 
   /// Exchanges the emailed code for a session.

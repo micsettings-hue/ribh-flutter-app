@@ -248,6 +248,210 @@ abstract class AppLocalizations {
   /// **'Use a different email'**
   String get authChangeEmail;
 
+  /// No description provided for @authOr.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get authOr;
+
+  /// No description provided for @authGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get authGoogle;
+
+  /// No description provided for @mePrefTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get mePrefTitle;
+
+  /// No description provided for @mePrefLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get mePrefLanguage;
+
+  /// No description provided for @mePrefTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get mePrefTheme;
+
+  /// No description provided for @langSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System default'**
+  String get langSystem;
+
+  /// No description provided for @langEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get langEnglish;
+
+  /// No description provided for @langBengali.
+  ///
+  /// In en, this message translates to:
+  /// **'বাংলা (Bengali)'**
+  String get langBengali;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get themeSystem;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeDark;
+
+  /// No description provided for @meAboutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'About and support'**
+  String get meAboutTitle;
+
+  /// No description provided for @meShariahBoard.
+  ///
+  /// In en, this message translates to:
+  /// **'Shariah board'**
+  String get meShariahBoard;
+
+  /// No description provided for @meHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Help and disputes'**
+  String get meHelp;
+
+  /// No description provided for @meComingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get meComingTitle;
+
+  /// No description provided for @meSecurity2fa.
+  ///
+  /// In en, this message translates to:
+  /// **'Security and 2FA'**
+  String get meSecurity2fa;
+
+  /// No description provided for @meNominee.
+  ///
+  /// In en, this message translates to:
+  /// **'Nominee'**
+  String get meNominee;
+
+  /// No description provided for @meStatements.
+  ///
+  /// In en, this message translates to:
+  /// **'Statements'**
+  String get meStatements;
+
+  /// No description provided for @meComingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'These sections need real backend integration and are honestly marked as not yet available, never faked.'**
+  String get meComingNote;
+
+  /// No description provided for @boardIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Ribh\'s Shariah board reviews and approves the faith-facing structure of the product. Approval by the board chair is required before any Shariah-facing feature launches.'**
+  String get boardIntro;
+
+  /// No description provided for @boardChairName.
+  ///
+  /// In en, this message translates to:
+  /// **'Abdullah Jubair'**
+  String get boardChairName;
+
+  /// No description provided for @boardChairRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Board chair'**
+  String get boardChairRole;
+
+  /// No description provided for @boardMemberPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Placeholder seat'**
+  String get boardMemberPlaceholder;
+
+  /// No description provided for @boardMemberRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Board member'**
+  String get boardMemberRole;
+
+  /// No description provided for @boardPlaceholderBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'PLACEHOLDER'**
+  String get boardPlaceholderBadge;
+
+  /// No description provided for @boardComplianceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Two board seats are placeholders. Real, consenting scholars must be appointed before launch; they are shown here as placeholders and are not real appointments.'**
+  String get boardComplianceNote;
+
+  /// No description provided for @helpIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Need help or want to raise a dispute? Here is how to reach us and what to expect.'**
+  String get helpIntro;
+
+  /// No description provided for @helpContactTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact'**
+  String get helpContactTitle;
+
+  /// No description provided for @helpContactBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Email our support team; we aim to reply within two business days.'**
+  String get helpContactBody;
+
+  /// No description provided for @helpCopyEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy email'**
+  String get helpCopyEmail;
+
+  /// No description provided for @helpEmailCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Support email copied.'**
+  String get helpEmailCopied;
+
+  /// No description provided for @helpDisputeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Disputes'**
+  String get helpDisputeTitle;
+
+  /// No description provided for @helpDisputeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If you believe a transaction or campaign outcome is wrong, contact support with the details and any reference numbers. Every money movement is recorded in your append-only ledger, so it can always be traced.'**
+  String get helpDisputeBody;
+
+  /// No description provided for @helpDisputeSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Email support with the ledger reference. 2. We investigate against the ledger. 3. You receive a written outcome. Regulatory escalation paths apply once registration is complete.'**
+  String get helpDisputeSteps;
+
   /// No description provided for @meAccount.
   ///
   /// In en, this message translates to:

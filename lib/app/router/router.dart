@@ -12,7 +12,9 @@ import '../../features/campaign/campaign_detail_screen.dart';
 import '../../features/grow/grow_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/invest/invest_screen.dart';
+import '../../features/me/help_screen.dart';
 import '../../features/me/me_screen.dart';
+import '../../features/me/shariah_board_screen.dart';
 import '../../features/services/invite_screen.dart';
 import '../../features/services/learn_screen.dart';
 import '../../features/services/prayer_screen.dart';
@@ -79,6 +81,16 @@ final routerProvider = Provider<GoRouter>((ref) {
             heroTag: state.extra as String?,
           ),
         ),
+      ),
+      GoRoute(
+        path: RibhRoutes.shariahBoard,
+        pageBuilder: (context, state) =>
+            ribhPage(key: state.pageKey, child: const ShariahBoardScreen()),
+      ),
+      GoRoute(
+        path: RibhRoutes.help,
+        pageBuilder: (context, state) =>
+            ribhPage(key: state.pageKey, child: const HelpScreen()),
       ),
       GoRoute(
         path: RibhRoutes.servicePattern,

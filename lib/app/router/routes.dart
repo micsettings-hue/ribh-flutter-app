@@ -18,4 +18,8 @@ abstract final class RibhRoutes {
   /// Service pages (real bodies arrive in M7; the routes are real now).
   static const servicePattern = '/services/:id';
   static String service(String id) => '/services/$id';
+
+  /// Me sub-pages (pushed).
+  static const shariahBoard = '/me/shariah-board';
+  static const help = '/me/help';
 }

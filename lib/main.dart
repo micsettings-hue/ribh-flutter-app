@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app/app.dart';
+import 'data/local/settings_store.dart';
 import 'data/supabase/dev_auth.dart';
 import 'data/supabase/supabase_client.dart';
 
@@ -11,6 +12,8 @@ Duration? ribhRetry(int retryCount, Object error) => null;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Load persisted language/theme so the first frame uses them.
+  await SettingsStore.instance.load();
   await RibhSupabase.init();
   // Debug-only: auto sign-in with a dev user so development skips the login
   // flow. Fire-and-forget so it never blocks first paint; the router

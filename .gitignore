@@ -43,3 +43,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Supabase credentials (dart-define-from-file). Never committed.
+env/
+supabase/all_migrations_paste.sql
+supabase/reset_preamble.sql
+supabase/reset_and_migrate_paste.sql
+
+supabase/dev_user.sql
+supabase/provision_dev.sql

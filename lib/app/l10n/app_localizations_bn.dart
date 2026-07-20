@@ -94,6 +94,115 @@ class AppLocalizationsBn extends AppLocalizations {
   String get authChangeEmail => 'অন্য ইমেইল ব্যবহার করুন';
 
   @override
+  String get authOr => 'অথবা';
+
+  @override
+  String get authGoogle => 'Google দিয়ে চালিয়ে যান';
+
+  @override
+  String get mePrefTitle => 'পছন্দসমূহ';
+
+  @override
+  String get mePrefLanguage => 'ভাষা';
+
+  @override
+  String get mePrefTheme => 'থিম';
+
+  @override
+  String get langSystem => 'সিস্টেম ডিফল্ট';
+
+  @override
+  String get langEnglish => 'English';
+
+  @override
+  String get langBengali => 'বাংলা';
+
+  @override
+  String get themeSystem => 'সিস্টেম';
+
+  @override
+  String get themeLight => 'লাইট';
+
+  @override
+  String get themeDark => 'ডার্ক';
+
+  @override
+  String get meAboutTitle => 'সম্পর্কে ও সহায়তা';
+
+  @override
+  String get meShariahBoard => 'শরিয়াহ বোর্ড';
+
+  @override
+  String get meHelp => 'সহায়তা ও বিরোধ';
+
+  @override
+  String get meComingTitle => 'শীঘ্রই আসছে';
+
+  @override
+  String get meSecurity2fa => 'নিরাপত্তা ও 2FA';
+
+  @override
+  String get meNominee => 'নমিনি';
+
+  @override
+  String get meStatements => 'স্টেটমেন্ট';
+
+  @override
+  String get meComingNote =>
+      'এই অংশগুলোর জন্য প্রকৃত ব্যাকএন্ড সংযোগ প্রয়োজন এবং সততার সাথে \'এখনও নেই\' হিসেবে চিহ্নিত, কখনও বানোয়াট নয়।';
+
+  @override
+  String get boardIntro =>
+      'রিবহের শরিয়াহ বোর্ড পণ্যের ধর্মসংশ্লিষ্ট কাঠামো পর্যালোচনা ও অনুমোদন করে। যেকোনো শরিয়াহ-সংশ্লিষ্ট ফিচার চালুর আগে বোর্ড চেয়ারের অনুমোদন আবশ্যক।';
+
+  @override
+  String get boardChairName => 'আবদুল্লাহ জুবায়ের';
+
+  @override
+  String get boardChairRole => 'বোর্ড চেয়ার';
+
+  @override
+  String get boardMemberPlaceholder => 'প্লেসহোল্ডার আসন';
+
+  @override
+  String get boardMemberRole => 'বোর্ড সদস্য';
+
+  @override
+  String get boardPlaceholderBadge => 'প্লেসহোল্ডার';
+
+  @override
+  String get boardComplianceNote =>
+      'দুটি বোর্ড আসন প্লেসহোল্ডার। লঞ্চের আগে প্রকৃত সম্মত আলেমদের নিয়োগ দিতে হবে; এখানে এগুলো প্লেসহোল্ডার হিসেবে দেখানো হয়েছে, প্রকৃত নিয়োগ নয়।';
+
+  @override
+  String get helpIntro =>
+      'সহায়তা প্রয়োজন বা বিরোধ জানাতে চান? কীভাবে আমাদের কাছে পৌঁছাবেন ও কী আশা করবেন তা এখানে।';
+
+  @override
+  String get helpContactTitle => 'যোগাযোগ';
+
+  @override
+  String get helpContactBody =>
+      'আমাদের সহায়তা দলকে ইমেইল করুন; আমরা দুই কর্মদিবসের মধ্যে উত্তর দেওয়ার চেষ্টা করি।';
+
+  @override
+  String get helpCopyEmail => 'ইমেইল কপি করুন';
+
+  @override
+  String get helpEmailCopied => 'সহায়তা ইমেইল কপি হয়েছে।';
+
+  @override
+  String get helpDisputeTitle => 'বিরোধ';
+
+  @override
+  String get helpDisputeBody =>
+      'কোনো লেনদেন বা ক্যাম্পেইনের ফলাফল ভুল মনে হলে বিস্তারিত ও রেফারেন্স নম্বরসহ সহায়তায় যোগাযোগ করুন। প্রতিটি অর্থ চলাচল আপনার কেবল-সংযোজন লেজারে লিপিবদ্ধ, তাই সবসময় তা যাচাই করা যায়।';
+
+  @override
+  String get helpDisputeSteps =>
+      '১. লেজার রেফারেন্সসহ সহায়তায় ইমেইল করুন। ২. আমরা লেজারের সাথে মিলিয়ে তদন্ত করি। ৩. আপনি লিখিত ফলাফল পাবেন। নিবন্ধন সম্পন্ন হলে নিয়ন্ত্রক এস্কেলেশন পথ প্রযোজ্য হবে।';
+
+  @override
   String get meAccount => 'অ্যাকাউন্ট';
 
   @override

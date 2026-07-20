@@ -94,6 +94,115 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authChangeEmail => 'Use a different email';
 
   @override
+  String get authOr => 'or';
+
+  @override
+  String get authGoogle => 'Continue with Google';
+
+  @override
+  String get mePrefTitle => 'Preferences';
+
+  @override
+  String get mePrefLanguage => 'Language';
+
+  @override
+  String get mePrefTheme => 'Theme';
+
+  @override
+  String get langSystem => 'System default';
+
+  @override
+  String get langEnglish => 'English';
+
+  @override
+  String get langBengali => 'বাংলা (Bengali)';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get meAboutTitle => 'About and support';
+
+  @override
+  String get meShariahBoard => 'Shariah board';
+
+  @override
+  String get meHelp => 'Help and disputes';
+
+  @override
+  String get meComingTitle => 'Coming soon';
+
+  @override
+  String get meSecurity2fa => 'Security and 2FA';
+
+  @override
+  String get meNominee => 'Nominee';
+
+  @override
+  String get meStatements => 'Statements';
+
+  @override
+  String get meComingNote =>
+      'These sections need real backend integration and are honestly marked as not yet available, never faked.';
+
+  @override
+  String get boardIntro =>
+      'Ribh\'s Shariah board reviews and approves the faith-facing structure of the product. Approval by the board chair is required before any Shariah-facing feature launches.';
+
+  @override
+  String get boardChairName => 'Abdullah Jubair';
+
+  @override
+  String get boardChairRole => 'Board chair';
+
+  @override
+  String get boardMemberPlaceholder => 'Placeholder seat';
+
+  @override
+  String get boardMemberRole => 'Board member';
+
+  @override
+  String get boardPlaceholderBadge => 'PLACEHOLDER';
+
+  @override
+  String get boardComplianceNote =>
+      'Two board seats are placeholders. Real, consenting scholars must be appointed before launch; they are shown here as placeholders and are not real appointments.';
+
+  @override
+  String get helpIntro =>
+      'Need help or want to raise a dispute? Here is how to reach us and what to expect.';
+
+  @override
+  String get helpContactTitle => 'Contact';
+
+  @override
+  String get helpContactBody =>
+      'Email our support team; we aim to reply within two business days.';
+
+  @override
+  String get helpCopyEmail => 'Copy email';
+
+  @override
+  String get helpEmailCopied => 'Support email copied.';
+
+  @override
+  String get helpDisputeTitle => 'Disputes';
+
+  @override
+  String get helpDisputeBody =>
+      'If you believe a transaction or campaign outcome is wrong, contact support with the details and any reference numbers. Every money movement is recorded in your append-only ledger, so it can always be traced.';
+
+  @override
+  String get helpDisputeSteps =>
+      '1. Email support with the ledger reference. 2. We investigate against the ledger. 3. You receive a written outcome. Regulatory escalation paths apply once registration is complete.';
+
+  @override
   String get meAccount => 'Account';
 
   @override

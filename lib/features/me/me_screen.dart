@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../../app/app.dart';
 import '../../app/l10n/app_localizations.dart';
+import '../../app/router/routes.dart';
 import '../../app/theme/ribh_tokens.dart';
 import '../../core/constants/risk_tiers.dart';
 import '../../core/failures/failure.dart';
@@ -12,6 +15,7 @@ import '../../shared/ribh_sheet_scaffold.dart';
 import '../../shared/skeleton_box.dart';
 import 'kyc_flow_sheet.dart';
 import 'me_controller.dart';
+import 'preferences_sheet.dart';
 import 'risk_quiz_sheet.dart';
 
 /// The only tab with profile and account access.
@@ -111,6 +115,9 @@ class _MeBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final tokens = context.tokens;
+    final theme = Theme.of(context);
+    final locale = ref.watch(localeProvider);
+    final themeMode = ref.watch(themeModeProvider);
     final kycDecided = data.kyc?.status == KycStatus.approved;
 
     return ListView(
@@ -157,13 +164,117 @@ class _MeBody extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 20),
+        Text(l10n.mePrefTitle, style: theme.textTheme.titleMedium),
+        const SizedBox(height: 8),
+        Card(
+          child: Column(
+            children: [
+              ListTile(
+                leading: const Icon(LucideIcons.languages),
+                title: Text(l10n.mePrefLanguage),
+                subtitle: Text(currentLanguageLabel(l10n, locale)),
+                trailing: const Icon(LucideIcons.chevronRight),
+                onTap: () => showRibhSheet<void>(
+                  context: context,
+                  builder: (_) => const LanguageSheet(),
+                ),
+              ),
+              const Divider(height: 1),
+              ListTile(
+                leading: const Icon(LucideIcons.palette),
+                title: Text(l10n.mePrefTheme),
+                subtitle: Text(currentThemeLabel(l10n, themeMode)),
+                trailing: const Icon(LucideIcons.chevronRight),
+                onTap: () => showRibhSheet<void>(
+                  context: context,
+                  builder: (_) => const ThemeSheet(),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text(l10n.meAboutTitle, style: theme.textTheme.titleMedium),
+        const SizedBox(height: 8),
+        Card(
+          child: Column(
+            children: [
+              ListTile(
+                leading: const Icon(LucideIcons.scale),
+                title: Text(l10n.meShariahBoard),
+                trailing: const Icon(LucideIcons.chevronRight),
+                onTap: () => context.push(RibhRoutes.shariahBoard),
+              ),
+              const Divider(height: 1),
+              ListTile(
+                leading: const Icon(LucideIcons.circleHelp),
+                title: Text(l10n.meHelp),
+                trailing: const Icon(LucideIcons.chevronRight),
+                onTap: () => context.push(RibhRoutes.help),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text(l10n.meComingTitle, style: theme.textTheme.titleMedium),
+        const SizedBox(height: 8),
+        Card(
+          child: Column(
+            children: [
+              _ComingSoonRow(
+                icon: LucideIcons.shieldCheck,
+                label: l10n.meSecurity2fa,
+              ),
+              const Divider(height: 1),
+              _ComingSoonRow(icon: LucideIcons.userPlus, label: l10n.meNominee),
+              const Divider(height: 1),
+              _ComingSoonRow(
+                icon: LucideIcons.fileText,
+                label: l10n.meStatements,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
         Text(
-          l10n.meMoreComing,
-          style: Theme.of(
-            context,
-          ).textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
+          l10n.meComingNote,
+          style: theme.textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
         ),
       ],
+    );
+  }
+}
+
+/// An honestly-labelled not-yet-built row: visible, disabled, marked SOON.
+/// Never implies the feature works.
+class _ComingSoonRow extends StatelessWidget {
+  const _ComingSoonRow({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final tokens = context.tokens;
+    return ListTile(
+      enabled: false,
+      leading: Icon(icon, color: tokens.inkSoft),
+      title: Text(label),
+      trailing: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: tokens.amberSoft,
+          borderRadius: BorderRadius.circular(999),
+        ),
+        child: Text(
+          l10n.serviceSoon,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            color: tokens.amber,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
     );
   }
 }

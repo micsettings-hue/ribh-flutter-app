@@ -1694,6 +1694,18 @@ abstract class AppLocalizations {
   /// **'Strategy and approval queue'**
   String get investAutoInvestEntrySub;
 
+  /// No description provided for @homeNewsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'News and Insight'**
+  String get homeNewsTitle;
+
+  /// No description provided for @homeNewsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No news yet. Updates and insights appear here as they are published.'**
+  String get homeNewsEmpty;
+
   /// No description provided for @homeNewsComing.
   ///
   /// In en, this message translates to:

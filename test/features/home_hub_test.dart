@@ -11,6 +11,7 @@ import 'package:ribh/data/models/models.dart';
 import 'package:ribh/data/repositories/campaign_repository.dart';
 import 'package:ribh/data/repositories/goal_repository.dart';
 import 'package:ribh/data/repositories/investment_repository.dart';
+import 'package:ribh/data/repositories/news_repository.dart';
 import 'package:ribh/data/repositories/providers.dart';
 import 'package:ribh/data/repositories/wallet_repository.dart';
 import 'package:ribh/data/prayer/prayer_service.dart';
@@ -145,6 +146,16 @@ class FakeGoalRepository extends GoalRepository {
   Future<Result<List<Goal>>> myGoals() async => Ok(goals);
 }
 
+class FakeNewsRepository extends NewsRepository {
+  FakeNewsRepository({this.items = const []}) : super(null);
+
+  final List<NewsItem> items;
+
+  @override
+  Future<Result<List<NewsItem>>> publishedNews({int limit = 10}) async =>
+      Ok(items);
+}
+
 class FakeZakatRepository extends ZakatRepository {
   FakeZakatRepository() : super(null);
 
@@ -167,6 +178,7 @@ ProviderScope scoped(
   FakeWalletRepository? wallet,
   FakeInvestmentRepository? investments,
   FakeGoalRepository? goals,
+  FakeNewsRepository? news,
 }) => ProviderScope(
   retry: (retryCount, error) => null,
   overrides: [
@@ -184,6 +196,7 @@ ProviderScope scoped(
       wallet ?? FakeWalletRepository(),
     ),
     zakatRepositoryProvider.overrideWithValue(FakeZakatRepository()),
+    newsRepositoryProvider.overrideWithValue(news ?? FakeNewsRepository()),
     prayerServiceProvider.overrideWithValue(const UnavailablePrayerService()),
     goalRepositoryProvider.overrideWithValue(
       goals ??
@@ -208,6 +221,7 @@ ProviderScope scoped(
 Future<void> pumpHome(
   WidgetTester tester, {
   FakeWalletRepository? wallet,
+  FakeNewsRepository? news,
 }) async {
   tester.view.physicalSize = const Size(800, 3200);
   tester.view.devicePixelRatio = 1.0;
@@ -221,10 +235,19 @@ Future<void> pumpHome(
         home: const HomeScreen(),
       ),
       wallet: wallet,
+      news: news,
     ),
   );
   await tester.pumpAndSettle();
 }
+
+NewsItem _news(String id, String category, String title) => NewsItem(
+  id: id,
+  category: category,
+  title: title,
+  published: true,
+  createdAt: DateTime.utc(2026, 7, 20),
+);
 
 /// Disposes the tree so the banner's periodic timer is cancelled before the
 /// test ends.
@@ -294,6 +317,30 @@ void main() {
       findsOneWidget,
     );
 
+    await teardownTree(tester);
+  });
+
+  testWidgets('news and insight: published items render, empty shows honest '
+      'message not a stub', (tester) async {
+    // Happy path: published items appear under the section header.
+    await pumpHome(
+      tester,
+      news: FakeNewsRepository(
+        items: [
+          _news('n1', 'New campaign', 'Printing Zone is open'),
+          _news('n2', 'Insight', 'Why we show you everything'),
+        ],
+      ),
+    );
+    expect(find.text('News and Insight'), findsOneWidget);
+    expect(find.text('Printing Zone is open'), findsOneWidget);
+    expect(find.text('Why we show you everything'), findsOneWidget);
+    await teardownTree(tester);
+
+    // Empty: the honest empty line, never a fabricated card.
+    await pumpHome(tester, news: FakeNewsRepository());
+    expect(find.text('News and Insight'), findsOneWidget);
+    expect(find.textContaining('No news yet'), findsOneWidget);
     await teardownTree(tester);
   });
 

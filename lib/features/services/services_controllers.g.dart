@@ -77,7 +77,7 @@ final class ZakatControllerProvider
   ZakatController create() => ZakatController();
 }
 
-String _$zakatControllerHash() => r'220527b62eec138641eefe70cac36310d957d086';
+String _$zakatControllerHash() => r'b0d8f1e1eddef08ac07383b7c28384bae94532c5';
 
 abstract class _$ZakatController extends $AsyncNotifier<ZakatData> {
   FutureOr<ZakatData> build();
@@ -121,7 +121,7 @@ final class SadaqahControllerProvider
   SadaqahController create() => SadaqahController();
 }
 
-String _$sadaqahControllerHash() => r'14e2259a4b4b217c1044e8bf65e74c446e878ca6';
+String _$sadaqahControllerHash() => r'f015d766184298b50c00ba50fc65d3f8cd2e645b';
 
 abstract class _$SadaqahController extends $AsyncNotifier<SadaqahData> {
   FutureOr<SadaqahData> build();

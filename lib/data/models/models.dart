@@ -11,6 +11,7 @@ export 'kyc_submission.dart';
 export 'lesson.dart';
 export 'lesson_progress.dart';
 export 'money_request.dart';
+export 'news_item.dart';
 export 'nominee.dart';
 export 'payout.dart';
 export 'profile.dart';

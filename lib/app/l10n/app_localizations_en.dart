@@ -893,6 +893,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get investAutoInvestEntrySub => 'Strategy and approval queue';
 
   @override
+  String get homeNewsTitle => 'News and Insight';
+
+  @override
+  String get homeNewsEmpty =>
+      'No news yet. Updates and insights appear here as they are published.';
+
+  @override
   String get homeNewsComing =>
       'News and Insight arrives with a real content source in a later milestone.';
 

@@ -890,6 +890,13 @@ class AppLocalizationsBn extends AppLocalizations {
   String get investAutoInvestEntrySub => 'রণনীতি ও অনুমোদন সারি';
 
   @override
+  String get homeNewsTitle => 'নিউজ ও ইনসাইট';
+
+  @override
+  String get homeNewsEmpty =>
+      'এখনও কোনো খবর নেই। প্রকাশিত হলে আপডেট ও ইনসাইট এখানে দেখা যাবে।';
+
+  @override
   String get homeNewsComing =>
       'নিউজ ও ইনসাইট পরের কোনো মাইলফলকে প্রকৃত কনটেন্ট উৎসসহ আসবে।';
 

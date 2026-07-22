@@ -86,6 +86,45 @@ final class HomeGoalsProvider
 
 String _$homeGoalsHash() => r'1aaaf9720df19c3e94dde1635ba9a4b42cbc1b1f';
 
+@ProviderFor(homeNews)
+final homeNewsProvider = HomeNewsProvider._();
+
+final class HomeNewsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<NewsItem>>,
+          List<NewsItem>,
+          FutureOr<List<NewsItem>>
+        >
+    with $FutureModifier<List<NewsItem>>, $FutureProvider<List<NewsItem>> {
+  HomeNewsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'homeNewsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$homeNewsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<NewsItem>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<NewsItem>> create(Ref ref) {
+    return homeNews(ref);
+  }
+}
+
+String _$homeNewsHash() => r'ab1d03a3c725950c45357a773764fd47c155d7ff';
+
 /// The user's largest deployment in a running campaign, for the
 /// where's-my-money card. Null when nothing is running.
 

@@ -33,7 +33,7 @@ final class GrowControllerProvider
   GrowController create() => GrowController();
 }
 
-String _$growControllerHash() => r'a031b0f4a7e6950727ae38cd4545ad2a6472034f';
+String _$growControllerHash() => r'67cb5c41cc02be711dd12e6dce752a4ac6823e1e';
 
 abstract class _$GrowController extends $AsyncNotifier<GrowData> {
   FutureOr<GrowData> build();

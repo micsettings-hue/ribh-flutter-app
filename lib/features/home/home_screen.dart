@@ -14,6 +14,7 @@ import '../../shared/campaign_list_row.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/goal_row.dart';
 import '../../shared/money_flow.dart';
+import '../../shared/news_card.dart';
 import '../../shared/portfolio_card.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import '../../shared/service_tile.dart';
@@ -46,6 +47,7 @@ class HomeScreen extends ConsumerWidget {
             ..invalidate(portfolioControllerProvider)
             ..invalidate(marketplaceControllerProvider)
             ..invalidate(homeGoalsProvider)
+            ..invalidate(homeNewsProvider)
             ..invalidate(walletControllerProvider);
           await ref.read(amanahSummaryProvider.future);
         },
@@ -86,12 +88,8 @@ class HomeScreen extends ConsumerWidget {
             Text(l10n.homeServicesTitle, style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             const _ServicesGrid(),
-            const SizedBox(height: 16),
-            Text(
-              l10n.homeNewsComing,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
-            ),
+            const SizedBox(height: 20),
+            const _NewsSection(),
             const SizedBox(height: 12),
             Text(
               l10n.homeFooterDisclaimer,
@@ -352,6 +350,51 @@ class _WheresMyMoneySection extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 20),
+      ],
+    );
+  }
+}
+
+class _NewsSection extends ConsumerWidget {
+  const _NewsSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final tokens = context.tokens;
+    final theme = Theme.of(context);
+    final news = ref.watch(homeNewsProvider);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(l10n.homeNewsTitle, style: theme.textTheme.titleMedium),
+        const SizedBox(height: 8),
+        news.when(
+          skipLoadingOnRefresh: false,
+          loading: () => const SkeletonBox(height: 190),
+          error: (error, _) => _SectionError(
+            error: error,
+            onRetry: () => ref.invalidate(homeNewsProvider),
+          ),
+          data: (items) => items.isEmpty
+              ? Text(
+                  l10n.homeNewsEmpty,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: tokens.inkSoft,
+                  ),
+                )
+              : SizedBox(
+                  height: 190,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: items.length,
+                    separatorBuilder: (_, _) => const SizedBox(width: 12),
+                    itemBuilder: (context, index) =>
+                        NewsCard(item: items[index]),
+                  ),
+                ),
+        ),
       ],
     );
   }

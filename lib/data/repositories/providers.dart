@@ -9,6 +9,7 @@ import 'goal_repository.dart';
 import 'investment_repository.dart';
 import 'kyc_repository.dart';
 import 'learn_repository.dart';
+import 'news_repository.dart';
 import 'qard_repository.dart';
 import 'referral_repository.dart';
 import 'wallet_repository.dart';
@@ -66,4 +67,8 @@ final learnRepositoryProvider = Provider<LearnRepository>(
 
 final qardRepositoryProvider = Provider<QardRepository>(
   (ref) => QardRepository(ref.watch(supabaseClientOrNullProvider)),
+);
+
+final newsRepositoryProvider = Provider<NewsRepository>(
+  (ref) => NewsRepository(ref.watch(supabaseClientOrNullProvider)),
 );

@@ -52,7 +52,7 @@ final class CampaignDetailControllerProvider
 }
 
 String _$campaignDetailControllerHash() =>
-    r'1d09bec00ae46455f98861a873742286958f1585';
+    r'8b08fb724c3646fdaf7dbb741e43d33b876f309c';
 
 final class CampaignDetailControllerFamily extends $Family
     with

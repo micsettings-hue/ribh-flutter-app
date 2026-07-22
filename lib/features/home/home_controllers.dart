@@ -79,6 +79,14 @@ Future<List<Goal>> homeGoals(Ref ref) async {
   );
 }
 
+@riverpod
+Future<List<NewsItem>> homeNews(Ref ref) async {
+  return (await ref.watch(newsRepositoryProvider).publishedNews()).fold(
+    (value) => value,
+    (failure) => throw failure,
+  );
+}
+
 /// The user's largest deployment in a running campaign, for the
 /// where's-my-money card. Null when nothing is running.
 @riverpod

@@ -448,6 +448,8 @@
   "goalIconFamily": "Family",
   "investAutoInvestEntry": "Auto-invest",
   "investAutoInvestEntrySub": "Strategy and approval queue",
+  "homeNewsTitle": "News and Insight",
+  "homeNewsEmpty": "No news yet. Updates and insights appear here as they are published.",
   "homeNewsComing": "News and Insight arrives with a real content source in a later milestone.",
   "homeFooterDisclaimer": "Capital at risk. Returns are projections, not guarantees. Ribh Investments is AAOIFI-aligned. Regulatory registration under process.",
   "errorDataSourceUnavailable": "The live data source behind this figure is not connected in this build, so it cannot be computed.",

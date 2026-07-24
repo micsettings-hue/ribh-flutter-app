@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ribh/app/l10n/app_localizations.dart';
 import 'package:ribh/app/theme/ribh_theme.dart';
+import 'package:ribh/shared/animated_progress.dart';
 import 'package:ribh/core/constants/barakah_score.dart';
 import 'package:ribh/core/result/result.dart';
 import 'package:ribh/data/local/favourites_store.dart';
@@ -62,7 +63,7 @@ class FakeLearnRepository extends LearnRepository {
     Lesson(
       id: 'l1',
       slug: 'halal-investing-basics',
-      title: 'TODO(board): Halal investing basics',
+      title: 'Halal investing basics (pending Shariah review)',
       sort: 1,
       createdAt: DateTime.utc(2026, 6, 1),
     ),
@@ -169,7 +170,8 @@ void main() {
       'six blocks are present', (tester) async {
     await pumpBarakah(tester);
 
-    expect(find.text('Barakah score · 0'), findsOneWidget);
+    expect(find.byType(RibhScoreRing), findsOneWidget);
+    expect(tester.widget<RibhScoreRing>(find.byType(RibhScoreRing)).score, 0);
     expect(
       find.textContaining('It never measures worship itself'),
       findsOneWidget,
@@ -185,9 +187,11 @@ void main() {
     final engagement = FakeEngagementRepository();
     await pumpBarakah(tester, engagement: engagement);
 
-    await tester.tap(find.text('0'));
+    // Target the tasbih button specifically; the score ring also shows a
+    // number now, so a bare find.text('0') would be ambiguous.
+    await tester.tap(find.widgetWithText(FilledButton, '0'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('1'));
+    await tester.tap(find.widgetWithText(FilledButton, '1'));
     await tester.pumpAndSettle();
 
     expect(find.text('2 of 33 today'), findsOneWidget);
@@ -196,7 +200,7 @@ void main() {
     expect(tasbih[isoDay(DateTime.now())], 2);
     // One adhkar day = 6 points.
     expect(engagement.savedScore, 6);
-    expect(find.text('Barakah score · 6'), findsOneWidget);
+    expect(tester.widget<RibhScoreRing>(find.byType(RibhScoreRing)).score, 6);
   });
 
   testWidgets('prayer check-in works once per day and never punishes', (
@@ -230,5 +234,13 @@ void main() {
     expect(await store.favourites(), {dailyItemIdFor(DateTime.now())});
     // The board-gated line stays: mechanics work, text awaits review.
     expect(find.textContaining('after Shariah board review'), findsOneWidget);
+  });
+
+  testWidgets('capture: barakah', (tester) async {
+    await pumpBarakah(tester);
+    await expectLater(
+      find.byType(BarakahScreen),
+      matchesGoldenFile('captures/barakah.png'),
+    );
   });
 }

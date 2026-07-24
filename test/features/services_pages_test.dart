@@ -43,7 +43,7 @@ class FakeLearnRepository extends LearnRepository {
     Lesson(
       id: 'l1',
       slug: 'halal-investing-basics',
-      title: 'TODO(board): Halal investing basics',
+      title: 'Halal investing basics (pending Shariah review)',
       sort: 1,
       createdAt: DateTime.utc(2026, 6, 1),
     ),
@@ -504,5 +504,45 @@ void main() {
       'Plant a tree (50 points)',
     );
     expect(tester.widget<FilledButton>(button).onPressed, isNull);
+  });
+
+  testWidgets('capture: learn', (tester) async {
+    await pumpService(tester, const LearnScreen());
+    await expectLater(
+      find.byType(LearnScreen),
+      matchesGoldenFile('captures/learn.png'),
+    );
+  });
+
+  testWidgets('capture: zakat', (tester) async {
+    await pumpService(tester, const ZakatScreen());
+    await expectLater(
+      find.byType(ZakatScreen),
+      matchesGoldenFile('captures/zakat.png'),
+    );
+  });
+
+  testWidgets('capture: sadaqah', (tester) async {
+    await pumpService(tester, const SadaqahScreen());
+    await expectLater(
+      find.byType(SadaqahScreen),
+      matchesGoldenFile('captures/sadaqah.png'),
+    );
+  });
+
+  testWidgets('capture: qard', (tester) async {
+    await pumpService(tester, const QardScreen());
+    await expectLater(
+      find.byType(QardScreen),
+      matchesGoldenFile('captures/qard.png'),
+    );
+  });
+
+  testWidgets('capture: invite', (tester) async {
+    await pumpService(tester, const InviteScreen());
+    await expectLater(
+      find.byType(InviteScreen),
+      matchesGoldenFile('captures/invite.png'),
+    );
   });
 }

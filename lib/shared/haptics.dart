@@ -11,4 +11,8 @@ abstract final class RibhHaptics {
 
   /// A money movement was committed (invest, give, request recorded).
   static void commit() => HapticFeedback.mediumImpact();
+
+  /// A goal or target was reached (tasbih target, milestone). Stronger than
+  /// a tap so completion feels distinct.
+  static void success() => HapticFeedback.heavyImpact();
 }

@@ -32,8 +32,8 @@ on conflict (id) do nothing;
 -- content is TODO(board) and lives in the app's ARB files for review.
 insert into public.lessons (id, slug, title, sort)
 values
-  ('33333333-3333-4333-8333-333333333301', 'halal-investing-basics', 'TODO(board): Halal investing basics', 1),
-  ('33333333-3333-4333-8333-333333333302', 'murabaha-explained', 'TODO(board): Murabaha explained', 2),
+  ('33333333-3333-4333-8333-333333333301', 'halal-investing-basics', 'Halal investing basics (pending Shariah review)', 1),
+  ('33333333-3333-4333-8333-333333333302', 'murabaha-explained', 'Murabaha explained (pending Shariah review)', 2),
   ('33333333-3333-4333-8333-333333333303', 'understanding-risk', 'Understanding risk', 3),
-  ('33333333-3333-4333-8333-333333333304', 'zakat-on-investments', 'TODO(board): Zakat on investments', 4)
+  ('33333333-3333-4333-8333-333333333304', 'zakat-on-investments', 'Zakat on investments (pending Shariah review)', 4)
 on conflict (id) do nothing;

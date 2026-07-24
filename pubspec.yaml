@@ -49,6 +49,7 @@ dependencies:
   geolocator: ^14.0.3
   webview_flutter: ^4.14.1
   lucide_icons_flutter: ^3.1.15
+  flutter_animate: ^4.5.2
   http: ^1.6.0
   crypto: ^3.0.7
   share_plus: ^13.2.0

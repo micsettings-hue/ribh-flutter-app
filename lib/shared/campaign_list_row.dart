@@ -5,6 +5,7 @@ import '../app/l10n/app_localizations.dart';
 import '../app/theme/ribh_tokens.dart';
 import '../core/constants/profit_formula.dart';
 import '../data/models/models.dart';
+import 'animated_progress.dart';
 import 'pills.dart';
 import 'haptics.dart';
 
@@ -98,15 +99,7 @@ class CampaignListRow extends StatelessWidget {
                     children: [_CampaignPills(campaign: campaign)],
                   ),
                   const SizedBox(height: 12),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(999),
-                    child: LinearProgressIndicator(
-                      value: campaign.fundingPercent / 100,
-                      minHeight: 6,
-                      backgroundColor: tokens.mintSoft,
-                      color: tokens.teal,
-                    ),
-                  ),
+                  RibhProgressBar(value: campaign.fundingPercent / 100),
                   const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

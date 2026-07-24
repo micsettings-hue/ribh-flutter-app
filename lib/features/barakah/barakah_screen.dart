@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -6,8 +7,10 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../app/l10n/app_localizations.dart';
 import '../../app/router/routes.dart';
 import '../../app/theme/ribh_tokens.dart';
+import '../../app/theme/spacing.dart';
 import '../../core/constants/barakah_score.dart';
 import '../../core/failures/failure.dart';
+import '../../shared/animated_progress.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/haptics.dart';
 import '../../shared/motion.dart';
@@ -87,21 +90,38 @@ class _BarakahBody extends ConsumerWidget {
             ),
             borderRadius: BorderRadius.circular(18),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                l10n.barakahScoreTitle(data.score),
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
+              RibhScoreRing(
+                score: data.score,
+                max: 100,
+                size: 96,
+                stroke: 8,
+                trackColor: Colors.white.withValues(alpha: 0.22),
+                progressColor: Colors.white,
+                textColor: Colors.white,
               ),
-              const SizedBox(height: 6),
-              Text(
-                l10n.barakahScoreHonesty,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.85),
+              const SizedBox(width: RibhSpace.lg),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.tabBarakah,
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      l10n.barakahScoreHonesty,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -131,44 +151,23 @@ class _BarakahBody extends ConsumerWidget {
                       data.tasbihToday,
                       tasbihDailyTarget,
                     ),
-                    child: SizedBox(
-                      width: 120,
-                      height: 120,
-                      child: FilledButton(
-                        style: FilledButton.styleFrom(
-                          shape: const CircleBorder(),
-                          backgroundColor: tokens.teal,
-                        ),
-                        onPressed: () {
-                          RibhHaptics.tap();
-                          notifier.tapTasbih();
-                        },
-                        child: RibhSwap(
-                          child: Text(
-                            '${data.tasbihToday}',
-                            key: ValueKey(data.tasbihToday),
-                            style: theme.textTheme.headlineMedium?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
+                    child: _TasbihButton(
+                      count: data.tasbihToday,
+                      onTap: () {
+                        final reachedTarget =
+                            data.tasbihToday + 1 == tasbihDailyTarget;
+                        reachedTarget
+                            ? RibhHaptics.success()
+                            : RibhHaptics.tap();
+                        notifier.tapTasbih();
+                      },
                     ),
                   ),
                 ),
                 const SizedBox(height: 8),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(999),
-                  child: LinearProgressIndicator(
-                    value: (data.tasbihToday / tasbihDailyTarget).clamp(
-                      0.0,
-                      1.0,
-                    ),
-                    minHeight: 6,
-                    backgroundColor: tokens.mintSoft,
-                    color: tokens.green,
-                  ),
+                RibhProgressBar(
+                  value: (data.tasbihToday / tasbihDailyTarget).clamp(0.0, 1.0),
+                  color: tokens.green,
                 ),
               ],
             ),
@@ -295,6 +294,47 @@ class _BarakahBody extends ConsumerWidget {
         ),
       ],
     );
+  }
+}
+
+/// The tasbih tap target: a circular button whose number swaps on each tap
+/// and which pops with a small scale-bounce (gated on reduce-motion). Haptics
+/// are wired by the caller so the target tap can feel stronger.
+class _TasbihButton extends StatelessWidget {
+  const _TasbihButton({required this.count, required this.onTap});
+
+  final int count;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final theme = Theme.of(context);
+    final button = SizedBox(
+      width: 120,
+      height: 120,
+      child: FilledButton(
+        style: FilledButton.styleFrom(
+          shape: const CircleBorder(),
+          backgroundColor: tokens.teal,
+        ),
+        onPressed: onTap,
+        child: RibhSwap(
+          child: Text(
+            '$count',
+            key: ValueKey(count),
+            style: theme.textTheme.headlineMedium?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      ),
+    );
+    if (MediaQuery.of(context).disableAnimations) return button;
+    return button
+        .animate(key: ValueKey(count))
+        .scaleXY(begin: 0.92, end: 1, duration: 220.ms, curve: Curves.easeOutBack);
   }
 }
 

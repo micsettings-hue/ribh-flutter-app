@@ -477,4 +477,49 @@ void main() {
     expect(find.text('Machinery · 75%'), findsOneWidget);
     expect(find.text('Printing · 25%'), findsOneWidget);
   });
+
+  testWidgets('capture: grow', (tester) async {
+    final running = Campaign(
+      id: 'c2',
+      title: 'Machinery Purchase',
+      contract: 'murabaha',
+      sector: 'machinery',
+      pool: 800000000,
+      raised: 800000000,
+      profitPerLac: 1600000,
+      share: 60,
+      tenure: 9,
+      risk: 'moderate',
+      status: CampaignStatus.running,
+      createdAt: DateTime.utc(2026, 6, 1),
+    );
+    final goals = FakeGoalRepository();
+    goals.goals.add(
+      Goal(
+        id: 'g1',
+        profileId: 'u1',
+        title: 'Hajj fund',
+        icon: 'hajj',
+        target: 50000000,
+        saved: 12500000,
+        createdAt: DateTime.utc(2026, 7, 1),
+      ),
+    );
+    await pumpGrow(
+      tester,
+      autoInvest: FakeAutoInvestRepository(rule: rule(), queue: [pendingItem('q1')]),
+      campaigns: FakeCampaignRepository(campaigns: [_openCampaign, running]),
+      investments: FakeInvestmentRepository(
+        investments: [
+          _investment('c1', 10000000),
+          _investment('c2', 30000000),
+        ],
+      ),
+      goals: goals,
+    );
+    await expectLater(
+      find.byType(GrowScreen),
+      matchesGoldenFile('captures/grow.png'),
+    );
+  });
 }

@@ -278,4 +278,16 @@ void main() {
     expect(repo.withdrawalAmount, 50000);
     expect(find.text('Request recorded, pending'), findsOneWidget);
   });
+
+  testWidgets('capture: wallet', (tester) async {
+    tester.view.physicalSize = const Size(800, 3000);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(wrap(FakeWalletRepository()));
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byType(WalletScreen),
+      matchesGoldenFile('captures/wallet.png'),
+    );
+  });
 }

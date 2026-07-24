@@ -201,4 +201,12 @@ void main() {
     );
     expect(find.text('Retry'), findsOneWidget);
   });
+
+  testWidgets('capture: prayer', (tester) async {
+    await pumpPrayer(tester);
+    await expectLater(
+      find.byType(PrayerScreen),
+      matchesGoldenFile('captures/prayer.png'),
+    );
+  });
 }

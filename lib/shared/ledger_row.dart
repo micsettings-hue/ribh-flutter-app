@@ -6,6 +6,7 @@ import '../app/l10n/app_localizations.dart';
 import '../app/theme/ribh_tokens.dart';
 import '../core/formatters/taka.dart';
 import '../data/models/models.dart';
+import 'icon_chip.dart';
 
 /// One append-only ledger entry: kind, date, signed amount. Credits render
 /// in green with a plus; debits in ink with a minus. Nothing here is
@@ -25,18 +26,9 @@ class LedgerRow extends StatelessWidget {
 
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: tokens.mintSoft,
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          credit ? LucideIcons.arrowDownLeft : LucideIcons.arrowUpRight,
-          size: 18,
-          color: credit ? tokens.teal : tokens.inkSoft,
-        ),
+      leading: RibhIconChip(
+        icon: credit ? LucideIcons.arrowDownLeft : LucideIcons.arrowUpRight,
+        size: RibhIconChip.sm,
       ),
       title: Text(txKindLabel(l10n, transaction.kind)),
       subtitle: Text(

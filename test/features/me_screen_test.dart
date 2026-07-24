@@ -223,4 +223,16 @@ void main() {
     // Sheet closed and the Me row reflects the saved tier.
     expect(find.text('Short: steadier, shorter cycles'), findsOneWidget);
   });
+
+  testWidgets('capture: me', (tester) async {
+    tester.view.physicalSize = const Size(800, 3400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(wrap(FakeAuthRepository(), FakeKycRepository()));
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byType(MeScreen),
+      matchesGoldenFile('captures/me.png'),
+    );
+  });
 }

@@ -369,4 +369,20 @@ void main() {
     expect(runningX, lessThan(maturedX));
     expect(maturedX, lessThan(recoveryX));
   });
+
+  testWidgets('capture: invest marketplace', (tester) async {
+    await pumpTall(tester, const InvestScreen());
+    await expectLater(
+      find.byType(InvestScreen),
+      matchesGoldenFile('captures/invest.png'),
+    );
+  });
+
+  testWidgets('capture: campaign detail', (tester) async {
+    await pumpTall(tester, const CampaignDetailScreen(campaignId: 'c1'));
+    await expectLater(
+      find.byType(CampaignDetailScreen),
+      matchesGoldenFile('captures/campaign_detail.png'),
+    );
+  });
 }

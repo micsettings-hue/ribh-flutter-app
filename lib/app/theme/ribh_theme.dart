@@ -80,7 +80,8 @@ abstract final class RibhTheme {
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        titleTextStyle: textTheme.headlineSmall,
+        titleTextStyle: textTheme.headlineMedium,
+        toolbarHeight: 64,
       ),
       cardTheme: CardThemeData(
         color: t.card,

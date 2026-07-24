@@ -4,6 +4,8 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../app/theme/ribh_tokens.dart';
 import '../core/formatters/taka.dart';
 import '../data/models/models.dart';
+import 'animated_progress.dart';
+import 'icon_chip.dart';
 
 IconData goalIcon(String name) => switch (name) {
   'home' => LucideIcons.house,
@@ -34,15 +36,7 @@ class GoalRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              color: tokens.mintSoft,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(goalIcon(goal.icon), size: 18, color: tokens.teal),
-          ),
+          RibhIconChip(icon: goalIcon(goal.icon), size: RibhIconChip.sm),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -50,14 +44,10 @@ class GoalRow extends StatelessWidget {
               children: [
                 Text(goal.title, style: theme.textTheme.titleSmall),
                 const SizedBox(height: 4),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(999),
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    minHeight: 5,
-                    backgroundColor: tokens.mintSoft,
-                    color: tokens.green,
-                  ),
+                RibhProgressBar(
+                  value: progress,
+                  minHeight: 5,
+                  color: tokens.green,
                 ),
               ],
             ),

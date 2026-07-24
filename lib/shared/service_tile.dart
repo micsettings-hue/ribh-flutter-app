@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../app/theme/ribh_tokens.dart';
+import 'icon_chip.dart';
 
 /// One tile in the Home services grid. 44dp-plus target, stroke icon,
 /// optional SOON badge for honestly-not-yet services (Qard).
@@ -41,15 +42,7 @@ class ServiceTile extends StatelessWidget {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    width: 38,
-                    height: 38,
-                    decoration: BoxDecoration(
-                      color: tokens.mintSoft,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Icon(icon, size: 18, color: tokens.teal),
-                  ),
+                  RibhIconChip(icon: icon, size: RibhIconChip.md),
                   const SizedBox(height: 8),
                   Text(
                     label,

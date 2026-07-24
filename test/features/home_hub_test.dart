@@ -435,4 +435,20 @@ void main() {
 
     await teardownTree(tester);
   });
+
+  testWidgets('capture: home', (tester) async {
+    await pumpHome(
+      tester,
+      news: FakeNewsRepository(
+        items: [
+          _news('n1', 'update', 'Printing Zone reaches 42 percent funded'),
+          _news('n2', 'insight', 'How Murabaha profit is shared with investors'),
+        ],
+      ),
+    );
+    await expectLater(
+      find.byType(HomeScreen),
+      matchesGoldenFile('captures/home.png'),
+    );
+  });
 }

@@ -23,10 +23,12 @@ class MarketplaceData {
   );
 
   /// Filter plus case-insensitive search over title, sector, and contract.
+  /// Results lead with what the user can act on: open campaigns first, then
+  /// running, matured, and in-recovery, newest first within each group.
   List<Campaign> visible(MarketFilter filter, String query) {
     final q = query.trim().toLowerCase();
-    return campaigns
-        .where((c) {
+    final result =
+        campaigns.where((c) {
           final passesFilter = switch (filter) {
             MarketFilter.all => true,
             MarketFilter.open => c.status == CampaignStatus.open,
@@ -38,9 +40,21 @@ class MarketplaceData {
           return c.title.toLowerCase().contains(q) ||
               c.sector.toLowerCase().contains(q) ||
               c.contract.toLowerCase().contains(q);
-        })
-        .toList(growable: false);
+        }).toList();
+    result.sort((a, b) {
+      final byStatus = _statusRank(a.status).compareTo(_statusRank(b.status));
+      if (byStatus != 0) return byStatus;
+      return b.createdAt.compareTo(a.createdAt);
+    });
+    return result;
   }
+
+  static int _statusRank(CampaignStatus status) => switch (status) {
+    CampaignStatus.open => 0,
+    CampaignStatus.running => 1,
+    CampaignStatus.matured => 2,
+    CampaignStatus.inRecovery => 3,
+  };
 }
 
 @riverpod

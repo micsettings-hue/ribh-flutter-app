@@ -550,6 +550,16 @@ class AppLocalizationsBn extends AppLocalizations {
       'কোনো ক্যাম্পেইন মেলেনি। ফিল্টার বা অনুসন্ধান বদলে দেখুন।';
 
   @override
+  String marketCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি ক্যাম্পেইন',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get marketSaveTooltip => 'ওয়াচলিস্টে রাখুন';
 
   @override

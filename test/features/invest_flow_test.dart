@@ -200,6 +200,8 @@ void main() {
     expect(find.text('42% funded'), findsOneWidget);
     // 14,500 * 60% per lac over 6 months, annualised: 17.4%.
     expect(find.text('~17.4% p.a. projected'), findsOneWidget);
+    // Result count reflects the visible list.
+    expect(find.text('4 campaigns'), findsOneWidget);
   });
 
   testWidgets('filters and search narrow the list', (tester) async {

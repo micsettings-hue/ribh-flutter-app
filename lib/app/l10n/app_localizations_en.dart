@@ -550,6 +550,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get marketEmpty => 'No campaigns match. Adjust the filter or search.';
 
   @override
+  String marketCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count campaigns',
+      one: '1 campaign',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get marketSaveTooltip => 'Save to watchlist';
 
   @override

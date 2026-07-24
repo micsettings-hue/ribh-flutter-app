@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../app/l10n/app_localizations.dart';
 import '../../app/router/routes.dart';
+import '../../app/theme/ribh_tokens.dart';
 import '../../core/failures/failure.dart';
 import '../../shared/campaign_list_row.dart';
 import '../../shared/failure_l10n.dart';
@@ -116,7 +117,16 @@ class _InvestScreenState extends ConsumerState<InvestScreen> {
                     title: l10n.emptyTitle,
                     body: l10n.marketEmpty,
                   )
-                else
+                else ...[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      l10n.marketCount(visible.length),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: context.tokens.inkSoft,
+                      ),
+                    ),
+                  ),
                   for (final campaign in visible) ...[
                     CampaignListRow(
                       campaign: campaign,
@@ -129,6 +139,7 @@ class _InvestScreenState extends ConsumerState<InvestScreen> {
                     ),
                     const SizedBox(height: 4),
                   ],
+                ],
               ],
             ),
           );

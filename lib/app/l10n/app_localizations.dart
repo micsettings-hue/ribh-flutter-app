@@ -1088,6 +1088,12 @@ abstract class AppLocalizations {
   /// **'No campaigns match. Adjust the filter or search.'**
   String get marketEmpty;
 
+  /// No description provided for @marketCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 campaign} other{{count} campaigns}}'**
+  String marketCount(int count);
+
   /// No description provided for @marketSaveTooltip.
   ///
   /// In en, this message translates to:

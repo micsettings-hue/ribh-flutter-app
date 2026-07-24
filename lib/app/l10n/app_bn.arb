@@ -217,6 +217,14 @@
   "marketFilterMatured": "মেয়াদপূর্ণ",
   "marketFilterSaved": "সংরক্ষিত",
   "marketEmpty": "কোনো ক্যাম্পেইন মেলেনি। ফিল্টার বা অনুসন্ধান বদলে দেখুন।",
+  "marketCount": "{count, plural, other{{count}টি ক্যাম্পেইন}}",
+  "@marketCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "marketSaveTooltip": "ওয়াচলিস্টে রাখুন",
   "marketUnsaveTooltip": "ওয়াচলিস্ট থেকে সরান",
   "marketFundedPercent": "{percent}% সংগৃহীত",

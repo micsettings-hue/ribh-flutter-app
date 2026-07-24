@@ -235,6 +235,14 @@
   "marketFilterMatured": "Matured",
   "marketFilterSaved": "Saved",
   "marketEmpty": "No campaigns match. Adjust the filter or search.",
+  "marketCount": "{count, plural, =1{1 campaign} other{{count} campaigns}}",
+  "@marketCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "marketSaveTooltip": "Save to watchlist",
   "marketUnsaveTooltip": "Remove from watchlist",
   "marketFundedPercent": "{percent}% funded",

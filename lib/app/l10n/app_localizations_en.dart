@@ -786,6 +786,42 @@ class AppLocalizationsEn extends AppLocalizations {
       'Set aside funds to deploy through your chosen strategy. Every deployment still comes to your approval queue first; nothing moves silently, and nothing deploys while pending.';
 
   @override
+  String get growFundBlendedRate => 'Blended rate';
+
+  @override
+  String get growFundBlendedNote =>
+      'Amount-weighted across your earning deployments. Projected, not guaranteed.';
+
+  @override
+  String growFundSpread(int deployments, int sectors) {
+    String _temp0 = intl.Intl.pluralLogic(
+      deployments,
+      locale: localeName,
+      other: '$deployments deployments',
+      one: '1 deployment',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      sectors,
+      locale: localeName,
+      other: '$sectors sectors',
+      one: '1 sector',
+    );
+    return '$_temp0 across $_temp1';
+  }
+
+  @override
+  String get growFundDiversification => 'Diversification';
+
+  @override
+  String growFundSectorShare(String sector, String share) {
+    return '$sector · $share%';
+  }
+
+  @override
+  String get growFundEmpty =>
+      'No active deployments yet. Approve a proposal or invest in a campaign to put capital to work.';
+
+  @override
   String get growAutoInvestTitle => 'Auto-invest strategy';
 
   @override

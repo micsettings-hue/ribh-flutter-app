@@ -394,6 +394,32 @@
   },
   "growFundTitle": "Ribh Fund",
   "growFundBody": "Set aside funds to deploy through your chosen strategy. Every deployment still comes to your approval queue first; nothing moves silently, and nothing deploys while pending.",
+  "growFundBlendedRate": "Blended rate",
+  "growFundBlendedNote": "Amount-weighted across your earning deployments. Projected, not guaranteed.",
+  "growFundSpread": "{deployments, plural, =1{1 deployment} other{{deployments} deployments}} across {sectors, plural, =1{1 sector} other{{sectors} sectors}}",
+  "@growFundSpread": {
+    "placeholders": {
+      "deployments": {
+        "type": "int"
+      },
+      "sectors": {
+        "type": "int"
+      }
+    }
+  },
+  "growFundDiversification": "Diversification",
+  "growFundSectorShare": "{sector} · {share}%",
+  "@growFundSectorShare": {
+    "placeholders": {
+      "sector": {
+        "type": "String"
+      },
+      "share": {
+        "type": "String"
+      }
+    }
+  },
+  "growFundEmpty": "No active deployments yet. Approve a proposal or invest in a campaign to put capital to work.",
   "growAutoInvestTitle": "Auto-invest strategy",
   "growAutoInvestOff": "Off. Pick a strategy; you approve every deployment.",
   "growAutoInvestPaused": "Paused. Proposals stop until you switch it back on.",

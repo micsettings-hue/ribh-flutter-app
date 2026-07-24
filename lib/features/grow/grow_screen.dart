@@ -17,6 +17,7 @@ import 'approve_queue_sheet.dart';
 import 'auto_invest_sheet.dart';
 import 'goal_sheet.dart';
 import 'grow_controller.dart';
+import 'ribh_fund_controller.dart';
 
 /// Grow (M6): the Ribh Fund view under the approval-queue consent model,
 /// the auto-invest strategy, the pending-proposal queue, and goals.
@@ -103,35 +104,7 @@ class _GrowBody extends ConsumerWidget {
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(20),
       children: [
-        Container(
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [tokens.amanahGradientStart, tokens.amanahGradientEnd],
-            ),
-            borderRadius: BorderRadius.circular(18),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                l10n.growFundTitle,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                l10n.growFundBody,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.85),
-                ),
-              ),
-            ],
-          ),
-        ),
+        const _RibhFundCard(),
         const SizedBox(height: 16),
         Card(
           child: ListTile(
@@ -249,6 +222,200 @@ class _GrowBody extends ConsumerWidget {
         RiskTier.diversified => l10n.riskTierDiversified,
         null => strategy,
       };
+}
+
+/// The Ribh Fund view: the educational gradient header, plus a live picture
+/// of the user's participation derived from real holdings. Deployed and
+/// in-recovery mirror the Amanah summary; the blended rate is a projection
+/// carrying its own disclosure. Empty and error states are honest.
+class _RibhFundCard extends ConsumerWidget {
+  const _RibhFundCard();
+
+  static String _titleCase(String s) =>
+      s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final tokens = context.tokens;
+    final theme = Theme.of(context);
+    final locale = Localizations.localeOf(context).languageCode;
+    final onGradient = Colors.white;
+    final fund = ref.watch(ribhFundSummaryProvider);
+
+    Widget figure(String label, int poisha) => Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: onGradient.withValues(alpha: 0.75),
+          ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          formatTaka(poisha, localeCode: locale),
+          style: theme.textTheme.titleMedium?.copyWith(
+            color: onGradient,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    );
+
+    Widget header(Widget? footer) => Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [tokens.amanahGradientStart, tokens.amanahGradientEnd],
+        ),
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.growFundTitle,
+            style: theme.textTheme.titleMedium?.copyWith(color: onGradient),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            l10n.growFundBody,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: onGradient.withValues(alpha: 0.85),
+            ),
+          ),
+          if (footer != null) ...[const SizedBox(height: 16), footer],
+        ],
+      ),
+    );
+
+    return fund.when(
+      skipLoadingOnRefresh: false,
+      loading: () => header(
+        Row(
+          children: [
+            Expanded(child: figure(l10n.amanahDeployedLabel, 0)),
+            const Expanded(child: SizedBox.shrink()),
+          ],
+        ),
+      ),
+      error: (_, _) => header(
+        Text(
+          l10n.growFundBlendedNote,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: onGradient.withValues(alpha: 0.85),
+          ),
+        ),
+      ),
+      data: (data) {
+        if (data.isEmpty) {
+          return header(
+            Text(
+              l10n.growFundEmpty,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: onGradient.withValues(alpha: 0.9),
+              ),
+            ),
+          );
+        }
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            header(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: figure(l10n.amanahDeployedLabel, data.deployed)),
+                  if (data.inRecovery > 0)
+                    Expanded(
+                      child: figure(l10n.amanahInRecoveryLabel, data.inRecovery),
+                    ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (data.blendedProjectedRate case final rate?) ...[
+                      Text(
+                        l10n.growFundBlendedRate,
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: tokens.inkSoft,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        l10n.marketProjectedRate(rate.toStringAsFixed(1)),
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: tokens.tealDeep,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        l10n.growFundBlendedNote,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: tokens.inkSoft,
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                    ],
+                    Text(
+                      l10n.growFundSpread(data.deploymentCount, data.sectorCount),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      l10n.growFundDiversification,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: tokens.inkSoft,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    for (final slice in data.sectors)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n.growFundSectorShare(
+                                _titleCase(slice.sector),
+                                (slice.share * 100).toStringAsFixed(0),
+                              ),
+                              style: theme.textTheme.bodySmall,
+                            ),
+                            const SizedBox(height: 4),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(999),
+                              child: LinearProgressIndicator(
+                                value: slice.share,
+                                minHeight: 6,
+                                backgroundColor: tokens.mintSoft,
+                                color: tokens.teal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class _GrowGoals extends ConsumerWidget {

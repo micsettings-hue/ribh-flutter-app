@@ -1490,6 +1490,42 @@ abstract class AppLocalizations {
   /// **'Set aside funds to deploy through your chosen strategy. Every deployment still comes to your approval queue first; nothing moves silently, and nothing deploys while pending.'**
   String get growFundBody;
 
+  /// No description provided for @growFundBlendedRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Blended rate'**
+  String get growFundBlendedRate;
+
+  /// No description provided for @growFundBlendedNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount-weighted across your earning deployments. Projected, not guaranteed.'**
+  String get growFundBlendedNote;
+
+  /// No description provided for @growFundSpread.
+  ///
+  /// In en, this message translates to:
+  /// **'{deployments, plural, =1{1 deployment} other{{deployments} deployments}} across {sectors, plural, =1{1 sector} other{{sectors} sectors}}'**
+  String growFundSpread(int deployments, int sectors);
+
+  /// No description provided for @growFundDiversification.
+  ///
+  /// In en, this message translates to:
+  /// **'Diversification'**
+  String get growFundDiversification;
+
+  /// No description provided for @growFundSectorShare.
+  ///
+  /// In en, this message translates to:
+  /// **'{sector} · {share}%'**
+  String growFundSectorShare(String sector, String share);
+
+  /// No description provided for @growFundEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No active deployments yet. Approve a proposal or invest in a campaign to put capital to work.'**
+  String get growFundEmpty;
+
   /// No description provided for @growAutoInvestTitle.
   ///
   /// In en, this message translates to:

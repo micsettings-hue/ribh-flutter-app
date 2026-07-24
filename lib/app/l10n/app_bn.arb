@@ -376,6 +376,32 @@
   },
   "growFundTitle": "রিবহ ফান্ড",
   "growFundBody": "আপনার বাছাই করা রণনীতিতে বিনিয়োগের জন্য অর্থ আলাদা করুন। প্রতিটি বিনিয়োগ আগে আপনার অনুমোদন সারিতে আসে; কিছুই নীরবে যায় না, এবং অপেক্ষমাণ অবস্থায় কিছুই বিনিয়োজিত হয় না।",
+  "growFundBlendedRate": "মিশ্র হার",
+  "growFundBlendedNote": "আপনার আয়কারী বিনিয়োগগুলোর ওপর পরিমাণ-ভিত্তিক গড়। প্রক্ষেপিত, নিশ্চিত নয়।",
+  "growFundSpread": "{deployments, plural, other{{deployments}টি বিনিয়োগ}} {sectors, plural, other{{sectors}টি খাতে}}",
+  "@growFundSpread": {
+    "placeholders": {
+      "deployments": {
+        "type": "int"
+      },
+      "sectors": {
+        "type": "int"
+      }
+    }
+  },
+  "growFundDiversification": "বৈচিত্র্যকরণ",
+  "growFundSectorShare": "{sector} · {share}%",
+  "@growFundSectorShare": {
+    "placeholders": {
+      "sector": {
+        "type": "String"
+      },
+      "share": {
+        "type": "String"
+      }
+    }
+  },
+  "growFundEmpty": "এখনও কোনো সক্রিয় বিনিয়োগ নেই। মূলধন কাজে লাগাতে একটি প্রস্তাব অনুমোদন করুন বা কোনো ক্যাম্পেইনে বিনিয়োগ করুন।",
   "growAutoInvestTitle": "অটো-ইনভেস্ট রণনীতি",
   "growAutoInvestOff": "বন্ধ। রণনীতি বাছুন; প্রতিটি বিনিয়োগ আপনি অনুমোদন করবেন।",
   "growAutoInvestPaused": "বিরতিতে। আবার চালু না করা পর্যন্ত প্রস্তাব আসবে না।",

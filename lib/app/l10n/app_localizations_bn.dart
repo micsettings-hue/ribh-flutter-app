@@ -783,6 +783,40 @@ class AppLocalizationsBn extends AppLocalizations {
       'আপনার বাছাই করা রণনীতিতে বিনিয়োগের জন্য অর্থ আলাদা করুন। প্রতিটি বিনিয়োগ আগে আপনার অনুমোদন সারিতে আসে; কিছুই নীরবে যায় না, এবং অপেক্ষমাণ অবস্থায় কিছুই বিনিয়োজিত হয় না।';
 
   @override
+  String get growFundBlendedRate => 'মিশ্র হার';
+
+  @override
+  String get growFundBlendedNote =>
+      'আপনার আয়কারী বিনিয়োগগুলোর ওপর পরিমাণ-ভিত্তিক গড়। প্রক্ষেপিত, নিশ্চিত নয়।';
+
+  @override
+  String growFundSpread(int deployments, int sectors) {
+    String _temp0 = intl.Intl.pluralLogic(
+      deployments,
+      locale: localeName,
+      other: '$deploymentsটি বিনিয়োগ',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      sectors,
+      locale: localeName,
+      other: '$sectorsটি খাতে',
+    );
+    return '$_temp0 $_temp1';
+  }
+
+  @override
+  String get growFundDiversification => 'বৈচিত্র্যকরণ';
+
+  @override
+  String growFundSectorShare(String sector, String share) {
+    return '$sector · $share%';
+  }
+
+  @override
+  String get growFundEmpty =>
+      'এখনও কোনো সক্রিয় বিনিয়োগ নেই। মূলধন কাজে লাগাতে একটি প্রস্তাব অনুমোদন করুন বা কোনো ক্যাম্পেইনে বিনিয়োগ করুন।';
+
+  @override
   String get growAutoInvestTitle => 'অটো-ইনভেস্ট রণনীতি';
 
   @override

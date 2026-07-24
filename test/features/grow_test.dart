@@ -117,11 +117,15 @@ class FakeAutoInvestRepository extends AutoInvestRepository {
 }
 
 class FakeCampaignRepository extends CampaignRepository {
-  FakeCampaignRepository() : super(null);
+  FakeCampaignRepository({List<Campaign>? campaigns})
+    : campaignList = campaigns ?? [_openCampaign],
+      super(null);
+
+  final List<Campaign> campaignList;
 
   @override
   Future<Result<List<Campaign>>> campaigns({CampaignStatus? status}) async =>
-      Ok([_openCampaign]);
+      Ok(campaignList);
 
   @override
   Future<Result<Set<String>>> myWatchlist() async => const Ok({});
@@ -186,11 +190,24 @@ class FakeGoalRepository extends GoalRepository {
 }
 
 class FakeInvestmentRepository extends InvestmentRepository {
-  FakeInvestmentRepository() : super(null);
+  FakeInvestmentRepository({this.investments = const []}) : super(null);
+
+  final List<Investment> investments;
 
   @override
-  Future<Result<List<Investment>>> myInvestments() async => const Ok([]);
+  Future<Result<List<Investment>>> myInvestments() async => Ok(investments);
 }
+
+Investment _investment(String campaignId, int amount) => Investment(
+  id: 'i-$campaignId',
+  profileId: 'u1',
+  campaignId: campaignId,
+  amount: amount,
+  riskAck1: true,
+  riskAck2: true,
+  source: 'wallet',
+  createdAt: DateTime.utc(2026, 7, 10),
+);
 
 class FakeWalletRepository extends WalletRepository {
   FakeWalletRepository() : super(null);
@@ -221,6 +238,8 @@ Future<void> pumpGrow(
   WidgetTester tester, {
   required FakeAutoInvestRepository autoInvest,
   FakeGoalRepository? goals,
+  FakeCampaignRepository? campaigns,
+  FakeInvestmentRepository? investments,
 }) async {
   tester.view.physicalSize = const Size(800, 2400);
   tester.view.devicePixelRatio = 1.0;
@@ -230,10 +249,12 @@ Future<void> pumpGrow(
       retry: (retryCount, error) => null,
       overrides: [
         autoInvestRepositoryProvider.overrideWithValue(autoInvest),
-        campaignRepositoryProvider.overrideWithValue(FakeCampaignRepository()),
+        campaignRepositoryProvider.overrideWithValue(
+          campaigns ?? FakeCampaignRepository(),
+        ),
         goalRepositoryProvider.overrideWithValue(goals ?? FakeGoalRepository()),
         investmentRepositoryProvider.overrideWithValue(
-          FakeInvestmentRepository(),
+          investments ?? FakeInvestmentRepository(),
         ),
         walletRepositoryProvider.overrideWithValue(FakeWalletRepository()),
       ],
@@ -398,5 +419,62 @@ void main() {
     await tester.pumpAndSettle();
     expect(goalsRepo.deletedId, 'g1');
     expect(find.textContaining('No goals yet'), findsOneWidget);
+  });
+
+  testWidgets('Ribh Fund shows the empty state with no deployments', (
+    tester,
+  ) async {
+    await pumpGrow(tester, autoInvest: FakeAutoInvestRepository());
+
+    expect(find.text('Ribh Fund'), findsOneWidget);
+    expect(
+      find.textContaining('No active deployments yet'),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('Ribh Fund shows deployed, spread, blended rate, and sectors', (
+    tester,
+  ) async {
+    final campaigns = [
+      _openCampaign, // printing, open, rate 17.4%
+      Campaign(
+        id: 'c2',
+        title: 'Machinery Purchase',
+        contract: 'murabaha',
+        sector: 'machinery',
+        pool: 800000000,
+        raised: 800000000,
+        profitPerLac: 1600000,
+        share: 60,
+        tenure: 9, // running, rate 12.8%
+        risk: 'moderate',
+        status: CampaignStatus.running,
+        createdAt: DateTime.utc(2026, 6, 1),
+      ),
+    ];
+    await pumpGrow(
+      tester,
+      autoInvest: FakeAutoInvestRepository(),
+      campaigns: FakeCampaignRepository(campaigns: campaigns),
+      investments: FakeInvestmentRepository(
+        investments: [
+          _investment('c1', 10000000), // 100,000 taka, printing
+          _investment('c2', 30000000), // 300,000 taka, machinery
+        ],
+      ),
+    );
+
+    // Deployed total (100,000 + 300,000), western grouping in en.
+    expect(find.text('৳400,000'), findsOneWidget);
+    // 2 deployments across 2 sectors.
+    expect(find.text('2 deployments across 2 sectors'), findsOneWidget);
+    // Amount-weighted blended rate is shown with its projected disclosure.
+    expect(find.text('Blended rate'), findsOneWidget);
+    expect(find.textContaining('p.a. projected'), findsOneWidget);
+    expect(find.textContaining('Projected, not guaranteed'), findsOneWidget);
+    // Sector rows, largest first: machinery 75%, printing 25%.
+    expect(find.text('Machinery · 75%'), findsOneWidget);
+    expect(find.text('Printing · 25%'), findsOneWidget);
   });
 }

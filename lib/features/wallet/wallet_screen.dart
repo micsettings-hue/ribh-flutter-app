@@ -180,9 +180,10 @@ class _PerformanceChart extends StatelessWidget {
     final points = monthlyPerformance(transactions, now: DateTime.now());
 
     if (points.length < 2) {
-      return Text(
-        l10n.walletPerformanceEmpty,
-        style: theme.textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
+      return EmptyState(
+        icon: LucideIcons.chartLine,
+        title: l10n.walletPerformanceTitle,
+        body: l10n.walletPerformanceEmpty,
       );
     }
 

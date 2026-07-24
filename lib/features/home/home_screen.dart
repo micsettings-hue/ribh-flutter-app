@@ -14,6 +14,7 @@ import '../../shared/campaign_list_row.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/goal_row.dart';
 import '../../shared/money_flow.dart';
+import '../../shared/entrance.dart';
 import '../../shared/news_card.dart';
 import '../../shared/portfolio_card.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
@@ -217,14 +218,18 @@ class _PortfolioSection extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final holding = holdings[index];
                       final tag = 'portfolio-${holding.campaign.id}';
-                      return PortfolioCard(
-                        investment: holding.investment,
-                        campaign: holding.campaign,
-                        heroTag: tag,
-                        onTap: () => context.push(
-                          RibhRoutes.campaign(holding.campaign.id),
-                          extra: tag,
+                      return ribhEnter(
+                        context,
+                        PortfolioCard(
+                          investment: holding.investment,
+                          campaign: holding.campaign,
+                          heroTag: tag,
+                          onTap: () => context.push(
+                            RibhRoutes.campaign(holding.campaign.id),
+                            extra: tag,
+                          ),
                         ),
+                        delay: Duration(milliseconds: 55 * index),
                       );
                     },
                   ),
@@ -390,8 +395,11 @@ class _NewsSection extends ConsumerWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: items.length,
                     separatorBuilder: (_, _) => const SizedBox(width: 12),
-                    itemBuilder: (context, index) =>
-                        NewsCard(item: items[index]),
+                    itemBuilder: (context, index) => ribhEnter(
+                      context,
+                      NewsCard(item: items[index]),
+                      delay: Duration(milliseconds: 55 * index),
+                    ),
                   ),
                 ),
         ),

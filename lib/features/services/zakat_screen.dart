@@ -9,6 +9,7 @@ import '../../core/failures/failure.dart';
 import '../../core/formatters/taka.dart';
 import '../../data/models/models.dart';
 import '../../shared/barakah_banner.dart';
+import '../../shared/empty_state.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import 'give_sheet.dart';
@@ -175,27 +176,34 @@ class _ZakatScreenState extends ConsumerState<ZakatScreen> {
         Card(
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(l10n.zakatNisabTitle, style: theme.textTheme.titleMedium),
-                const SizedBox(height: 8),
-                Text(
-                  threshold == null
-                      ? l10n.zakatNisabUnavailable
-                      : total >= threshold
-                      ? l10n.zakatNisabAbove(
-                          formatTaka(threshold, localeCode: locale),
-                        )
-                      : l10n.zakatNisabBelow(
-                          formatTaka(threshold, localeCode: locale),
+            child: threshold == null
+                ? EmptyState(
+                    icon: LucideIcons.scale,
+                    title: l10n.zakatNisabTitle,
+                    body: l10n.zakatNisabUnavailable,
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.zakatNisabTitle,
+                        style: theme.textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        total >= threshold
+                            ? l10n.zakatNisabAbove(
+                                formatTaka(threshold, localeCode: locale),
+                              )
+                            : l10n.zakatNisabBelow(
+                                formatTaka(threshold, localeCode: locale),
+                              ),
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: tokens.ink,
                         ),
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: threshold == null ? tokens.inkSoft : tokens.ink,
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
           ),
         ),
         const SizedBox(height: 20),

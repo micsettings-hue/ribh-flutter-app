@@ -13,6 +13,7 @@ import '../../core/failures/failure.dart';
 import '../../data/prayer/prayer_service.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/haptics.dart';
+import '../../shared/icon_chip.dart';
 import 'prayer_controller.dart';
 
 /// Prayer: real times for the device location (Karachi method, board-gated),
@@ -230,6 +231,10 @@ class _PrayerBodyState extends ConsumerState<_PrayerBody> {
         for (final salah in Salah.values)
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
+            secondary: const RibhIconChip(
+              icon: LucideIcons.bellRing,
+              size: RibhIconChip.sm,
+            ),
             value: data.alarms.contains(salah),
             title: Text(salahLabel(l10n, salah)),
             subtitle: Text(timeFormat.format(snapshot.times[salah]!)),

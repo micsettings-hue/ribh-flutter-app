@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../app/l10n/app_localizations.dart';
 import '../../app/theme/ribh_tokens.dart';
+import '../../app/theme/spacing.dart';
 import '../../core/constants/risk_tiers.dart';
 import '../../core/failures/failure.dart';
 import '../../core/formatters/taka.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/goal_row.dart';
 import '../../shared/empty_state.dart';
+import '../../shared/icon_chip.dart';
 import '../../shared/skeleton_box.dart';
 import '../../shared/ribh_sheet_scaffold.dart';
 import '../home/home_controllers.dart';
@@ -95,7 +98,6 @@ class _GrowBody extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final tokens = context.tokens;
     final theme = Theme.of(context);
     final locale = Localizations.localeOf(context).languageCode;
     final rule = data.rule;
@@ -105,10 +107,13 @@ class _GrowBody extends ConsumerWidget {
       padding: const EdgeInsets.all(20),
       children: [
         const _RibhFundCard(),
-        const SizedBox(height: 16),
+        const SizedBox(height: RibhSpace.lg),
         Card(
           child: ListTile(
-            leading: const Icon(LucideIcons.refreshCw),
+            leading: const RibhIconChip(
+              icon: LucideIcons.refreshCw,
+              size: RibhIconChip.sm,
+            ),
             title: Text(l10n.growAutoInvestTitle),
             subtitle: Text(
               rule == null
@@ -127,9 +132,9 @@ class _GrowBody extends ConsumerWidget {
             ),
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: RibhSpace.xxl),
         Text(l10n.growQueueTitle, style: theme.textTheme.titleMedium),
-        const SizedBox(height: 4),
+        const SizedBox(height: RibhSpace.sm),
         if (data.pendingQueue.isEmpty)
           EmptyState(
             icon: LucideIcons.inbox,
@@ -138,60 +143,8 @@ class _GrowBody extends ConsumerWidget {
           )
         else
           for (final entry in data.pendingQueue)
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      entry.campaign.title.isEmpty
-                          ? entry.campaign.sector
-                          : entry.campaign.title,
-                      style: theme.textTheme.titleSmall,
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      l10n.growQueueProposal(
-                        formatTaka(rule?.budget ?? 0, localeCode: locale),
-                      ),
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: tokens.inkSoft,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: FilledButton(
-                            onPressed: rule == null
-                                ? null
-                                : () => showRibhSheet<void>(
-                                    context: context,
-                                    builder: (_) => ApproveQueueSheet(
-                                      entry: entry,
-                                      budget: rule.budget,
-                                    ),
-                                  ),
-                            child: Text(l10n.growQueueApprove),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () => ref
-                                .read(growControllerProvider.notifier)
-                                .decline(entry.item.id),
-                            child: Text(l10n.growQueueDecline),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-        const SizedBox(height: 20),
+            _QueueCard(entry: entry, budget: rule?.budget),
+        const SizedBox(height: RibhSpace.xxl),
         Row(
           children: [
             Expanded(
@@ -222,6 +175,108 @@ class _GrowBody extends ConsumerWidget {
         RiskTier.diversified => l10n.riskTierDiversified,
         null => strategy,
       };
+}
+
+/// One pending auto-invest proposal. Approve opens the consent sheet (which
+/// morphs to a checkmark on success); decline plays a slide-out before the
+/// list drops the row, so neither path is an instant cut. Gated on
+/// reduce-motion.
+class _QueueCard extends ConsumerStatefulWidget {
+  const _QueueCard({required this.entry, required this.budget});
+
+  final QueueEntry entry;
+
+  /// The rule budget in poisha; null when no rule exists (approve disabled).
+  final int? budget;
+
+  @override
+  ConsumerState<_QueueCard> createState() => _QueueCardState();
+}
+
+class _QueueCardState extends ConsumerState<_QueueCard> {
+  bool _declining = false;
+
+  Future<void> _decline() async {
+    setState(() => _declining = true);
+    if (!MediaQuery.of(context).disableAnimations) {
+      await Future<void>.delayed(const Duration(milliseconds: 260));
+    }
+    if (!mounted) return;
+    await ref
+        .read(growControllerProvider.notifier)
+        .decline(widget.entry.item.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final tokens = context.tokens;
+    final theme = Theme.of(context);
+    final locale = Localizations.localeOf(context).languageCode;
+    final entry = widget.entry;
+    final budget = widget.budget;
+
+    Widget card = Card(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              entry.campaign.title.isEmpty
+                  ? entry.campaign.sector
+                  : entry.campaign.title,
+              style: theme.textTheme.titleSmall,
+            ),
+            const SizedBox(height: RibhSpace.xs),
+            Text(
+              l10n.growQueueProposal(
+                formatTaka(budget ?? 0, localeCode: locale),
+              ),
+              style: theme.textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
+            ),
+            const SizedBox(height: RibhSpace.sm),
+            Row(
+              children: [
+                Expanded(
+                  child: FilledButton(
+                    onPressed: (budget == null || _declining)
+                        ? null
+                        : () => showRibhSheet<void>(
+                            context: context,
+                            builder: (_) => ApproveQueueSheet(
+                              entry: entry,
+                              budget: budget,
+                            ),
+                          ),
+                    child: Text(l10n.growQueueApprove),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: _declining ? null : _decline,
+                    child: Text(l10n.growQueueDecline),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (_declining && !MediaQuery.of(context).disableAnimations) {
+      card = card
+          .animate()
+          .slideX(begin: 0, end: 1.05, duration: 260.ms, curve: Curves.easeIn)
+          .fadeOut(duration: 260.ms);
+    }
+    return Padding(
+      padding: const EdgeInsets.only(bottom: RibhSpace.sm),
+      child: card,
+    );
+  }
 }
 
 /// The Ribh Fund view: the educational gradient header, plus a live picture

@@ -8,6 +8,7 @@ import '../../app/router/routes.dart';
 import '../../app/theme/ribh_tokens.dart';
 import '../../core/failures/failure.dart';
 import '../../shared/campaign_list_row.dart';
+import '../../shared/entrance.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/empty_state.dart';
 import '../../shared/haptics.dart';
@@ -127,18 +128,21 @@ class _InvestScreenState extends ConsumerState<InvestScreen> {
                       ),
                     ),
                   ),
-                  for (final campaign in visible) ...[
-                    CampaignListRow(
-                      campaign: campaign,
-                      saved: data.savedIds.contains(campaign.id),
-                      onTap: () =>
-                          context.push(RibhRoutes.campaign(campaign.id)),
-                      onToggleSaved: () => ref
-                          .read(marketplaceControllerProvider.notifier)
-                          .toggleSaved(campaign.id),
-                    ),
-                    const SizedBox(height: 4),
-                  ],
+                  ...ribhStagger(context, [
+                    for (final campaign in visible)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: CampaignListRow(
+                          campaign: campaign,
+                          saved: data.savedIds.contains(campaign.id),
+                          onTap: () =>
+                              context.push(RibhRoutes.campaign(campaign.id)),
+                          onToggleSaved: () => ref
+                              .read(marketplaceControllerProvider.notifier)
+                              .toggleSaved(campaign.id),
+                        ),
+                      ),
+                  ]),
                 ],
               ],
             ),

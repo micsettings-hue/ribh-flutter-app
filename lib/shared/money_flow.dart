@@ -35,40 +35,107 @@ class MoneyFlow extends StatelessWidget {
       (LucideIcons.sprout, l10n.flowProfit),
     ];
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        for (var i = 0; i < steps.length; i++)
-          Expanded(
-            child: Column(
+    final n = steps.length;
+    // The connecting line fills from the first step centre to the last
+    // completed step centre. One tap-to-target draw, gated on reduce-motion.
+    final targetFraction = n <= 1
+        ? 0.0
+        : ((completedSteps - 1) / (n - 1)).clamp(0.0, 1.0);
+    final reduce = MediaQuery.of(context).disableAnimations;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final colWidth = width / n;
+        final lineLeft = colWidth / 2;
+        final lineLength = width - colWidth;
+
+        Widget line(double fraction) => Stack(
+          children: [
+            Positioned(
+              left: lineLeft,
+              top: 15,
+              child: Container(width: lineLength, height: 2, color: tokens.line),
+            ),
+            Positioned(
+              left: lineLeft,
+              top: 15,
+              child: Container(
+                width: lineLength * fraction,
+                height: 2,
+                color: tokens.teal,
+              ),
+            ),
+          ],
+        );
+
+        return Column(
+          children: [
+            SizedBox(
+              height: 32,
+              child: Stack(
+                children: [
+                  if (reduce)
+                    line(targetFraction)
+                  else
+                    TweenAnimationBuilder<double>(
+                      tween: Tween(begin: 0, end: targetFraction),
+                      duration: const Duration(milliseconds: 900),
+                      curve: Curves.easeOutCubic,
+                      builder: (context, f, _) => line(f),
+                    ),
+                  Row(
+                    children: [
+                      for (var i = 0; i < n; i++)
+                        Expanded(
+                          child: Center(
+                            child: Container(
+                              width: 32,
+                              height: 32,
+                              decoration: BoxDecoration(
+                                color: i < completedSteps
+                                    ? tokens.teal
+                                    : tokens.mintSoft,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: tokens.line,
+                                  width: 1.5,
+                                ),
+                              ),
+                              child: Icon(
+                                steps[i].$1,
+                                size: 14,
+                                color: i < completedSteps
+                                    ? Colors.white
+                                    : tokens.inkSoft,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 4),
+            Row(
               children: [
-                Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: i < completedSteps ? tokens.teal : tokens.mintSoft,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: tokens.line, width: 1.5),
+                for (var i = 0; i < n; i++)
+                  Expanded(
+                    child: Text(
+                      steps[i].$2,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        fontSize: 10,
+                        color: i < completedSteps ? tokens.ink : tokens.inkSoft,
+                      ),
+                    ),
                   ),
-                  child: Icon(
-                    steps[i].$1,
-                    size: 14,
-                    color: i < completedSteps ? Colors.white : tokens.inkSoft,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  steps[i].$2,
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    fontSize: 10,
-                    color: i < completedSteps ? tokens.ink : tokens.inkSoft,
-                  ),
-                ),
               ],
             ),
-          ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

@@ -131,6 +131,10 @@ Widget wrap(FakeWalletRepository repo, {Locale? locale}) => ProviderScope(
 void main() {
   testWidgets('happy path: derived balance, ledger rows, honest derivation '
       'note', (tester) async {
+    // Tall surface so the ledger below the performance empty-state builds.
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
     await tester.pumpWidget(wrap(FakeWalletRepository()));
     await tester.pumpAndSettle();
 

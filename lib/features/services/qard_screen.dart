@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../app/l10n/app_localizations.dart';
 import '../../app/theme/ribh_tokens.dart';
 import '../../core/failures/failure.dart';
+import '../../shared/empty_state.dart';
 import '../../shared/failure_l10n.dart';
 import 'services_controllers.dart';
 
@@ -26,76 +27,64 @@ class QardScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: tokens.amberSoft,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              children: [
-                Icon(LucideIcons.clock, size: 16, color: tokens.amber),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    l10n.qardComingSoon,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: tokens.amber,
-                    ),
-                  ),
+          EmptyState(
+            icon: LucideIcons.clock,
+            title: l10n.qardComingSoon,
+            body: l10n.qardBody,
+            action: qard.when(
+              skipLoadingOnRefresh: false,
+              loading: () => const Padding(
+                padding: EdgeInsets.only(top: 4),
+                child: SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(l10n.qardBody, style: theme.textTheme.bodyMedium),
-          const SizedBox(height: 20),
-          qard.when(
-            skipLoadingOnRefresh: false,
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error, _) => Row(
-              children: [
-                Expanded(
-                  child: Text(
+              ),
+              error: (error, _) => Column(
+                children: [
+                  Text(
                     failureText(
                       l10n,
                       error is Failure ? error : UnknownFailure('$error'),
                     ),
+                    textAlign: TextAlign.center,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: tokens.inkSoft,
                     ),
                   ),
-                ),
-                TextButton(
-                  onPressed: () => ref.invalidate(qardControllerProvider),
-                  child: Text(l10n.retry),
-                ),
-              ],
-            ),
-            data: (registered) => registered
-                ? Row(
-                    children: [
-                      Icon(
-                        LucideIcons.circleCheck,
-                        size: 18,
-                        color: tokens.teal,
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          l10n.qardRegistered,
-                          style: theme.textTheme.bodyMedium,
-                        ),
-                      ),
-                    ],
-                  )
-                : FilledButton.icon(
-                    icon: const Icon(LucideIcons.bell, size: 18),
-                    label: Text(l10n.qardNotify),
-                    onPressed: () => ref
-                        .read(qardControllerProvider.notifier)
-                        .registerInterest(),
+                  TextButton(
+                    onPressed: () => ref.invalidate(qardControllerProvider),
+                    child: Text(l10n.retry),
                   ),
+                ],
+              ),
+              data: (registered) => registered
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          LucideIcons.circleCheck,
+                          size: 18,
+                          color: tokens.teal,
+                        ),
+                        const SizedBox(width: 8),
+                        Flexible(
+                          child: Text(
+                            l10n.qardRegistered,
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                        ),
+                      ],
+                    )
+                  : FilledButton.icon(
+                      icon: const Icon(LucideIcons.bell, size: 18),
+                      label: Text(l10n.qardNotify),
+                      onPressed: () => ref
+                          .read(qardControllerProvider.notifier)
+                          .registerInterest(),
+                    ),
+            ),
           ),
         ],
       ),

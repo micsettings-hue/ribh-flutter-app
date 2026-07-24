@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/l10n/app_localizations.dart';
@@ -106,7 +107,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   : () => ref
                         .read(authControllerProvider.notifier)
                         .signInWithGoogle(),
-              icon: const Icon(Icons.g_mobiledata, size: 24),
+              icon: const Icon(LucideIcons.logIn, size: 18),
               label: Text(l10n.authGoogle),
             ),
           ],

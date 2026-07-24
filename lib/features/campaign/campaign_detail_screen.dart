@@ -8,6 +8,7 @@ import '../../core/constants/profit_formula.dart';
 import '../../core/failures/failure.dart';
 import '../../core/formatters/taka.dart';
 import '../../data/models/models.dart';
+import '../../shared/animated_progress.dart';
 import '../../shared/campaign_list_row.dart' show campaignHeroTag;
 import '../../shared/failure_l10n.dart';
 import '../../shared/pills.dart';
@@ -117,14 +118,9 @@ class _DetailBody extends ConsumerWidget {
                       ],
                     ),
                     const SizedBox(height: 14),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(999),
-                      child: LinearProgressIndicator(
-                        value: campaign.fundingPercent / 100,
-                        minHeight: 8,
-                        backgroundColor: tokens.mintSoft,
-                        color: tokens.teal,
-                      ),
+                    RibhProgressBar(
+                      value: campaign.fundingPercent / 100,
+                      minHeight: 8,
                     ),
                     const SizedBox(height: 8),
                     Text(

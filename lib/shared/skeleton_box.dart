@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../app/theme/ribh_tokens.dart';
 
 /// The loading placeholder from the design system: a mint-soft rounded box
-/// with a slow breathing pulse. Static under reduce-motion. Marked as a
+/// with a soft shimmer sweep. Static under reduce-motion. Marked as a
 /// placeholder for screen readers so loading layouts stay quiet.
 class SkeletonBox extends StatefulWidget {
   const SkeletonBox({
@@ -25,7 +25,7 @@ class _SkeletonBoxState extends State<SkeletonBox>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 1100),
+    duration: const Duration(milliseconds: 1400),
   );
 
   @override
@@ -38,7 +38,7 @@ class _SkeletonBoxState extends State<SkeletonBox>
       if (!mounted) return;
       if (!MediaQuery.of(context).disableAnimations &&
           !_controller.isAnimating) {
-        _controller.repeat(reverse: true);
+        _controller.repeat();
       }
     });
   }
@@ -52,18 +52,44 @@ class _SkeletonBoxState extends State<SkeletonBox>
   @override
   Widget build(BuildContext context) {
     final tokens = context.tokens;
-    return ExcludeSemantics(
-      child: FadeTransition(
-        opacity: Tween<double>(begin: 0.55, end: 1).animate(
-          CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-        ),
+    final base = tokens.mintSoft;
+    final highlight = Color.alphaBlend(
+      Colors.white.withValues(alpha: 0.45),
+      tokens.mint,
+    );
+    final shape = BorderRadius.circular(widget.radius);
+
+    if (MediaQuery.of(context).disableAnimations) {
+      return ExcludeSemantics(
         child: Container(
           height: widget.height,
           width: widget.width,
-          decoration: BoxDecoration(
-            color: tokens.mintSoft,
-            borderRadius: BorderRadius.circular(widget.radius),
-          ),
+          decoration: BoxDecoration(color: base, borderRadius: shape),
+        ),
+      );
+    }
+
+    return ExcludeSemantics(
+      child: ClipRRect(
+        borderRadius: shape,
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, _) {
+            // Sweep a highlight band left to right across the box.
+            final t = _controller.value;
+            return Container(
+              height: widget.height,
+              width: widget.width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment(-2 + 3 * t, 0),
+                  end: Alignment(-1 + 3 * t, 0),
+                  colors: [base, highlight, base],
+                  stops: const [0.0, 0.5, 1.0],
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

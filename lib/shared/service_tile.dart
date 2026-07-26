@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../app/theme/ribh_tokens.dart';
 import 'icon_chip.dart';
+import 'pressable.dart';
 
 /// One tile in the Home services grid. 44dp-plus target, stroke icon,
 /// optional SOON badge for honestly-not-yet services (Qard).
@@ -24,7 +25,8 @@ class ServiceTile extends StatelessWidget {
     final tokens = context.tokens;
     final theme = Theme.of(context);
 
-    return Material(
+    return RibhPressable(
+      child: Material(
       color: tokens.card,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
@@ -78,6 +80,7 @@ class ServiceTile extends StatelessWidget {
             ],
           ),
         ),
+      ),
       ),
     );
   }

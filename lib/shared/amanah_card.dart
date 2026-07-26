@@ -57,19 +57,44 @@ class AmanahCard extends StatelessWidget {
     );
 
     return Container(
-      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [tokens.amanahGradientStart, tokens.amanahGradientEnd],
         ),
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: tokens.amanahGradientEnd.withValues(alpha: 0.28),
+            blurRadius: 24,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Stack(
+          children: [
+            // Soft depth: a faint outsized ring bleeding off the top-right.
+            Positioned(
+              right: -48,
+              top: -60,
+              child: Container(
+                width: 168,
+                height: 168,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: onGradient.withValues(alpha: 0.06),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
             children: [
               Expanded(
                 child: Text(
@@ -105,14 +130,16 @@ class AmanahCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           Text(
             formatTaka(available, localeCode: locale),
-            style: theme.textTheme.headlineMedium?.copyWith(
+            style: theme.textTheme.displaySmall?.copyWith(
               color: onGradient,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w800,
+              height: 1.0,
             ),
           ),
+          const SizedBox(height: 2),
           Text(
             l10n.amanahAvailableLabel,
             style: theme.textTheme.labelSmall?.copyWith(
@@ -157,7 +184,11 @@ class AmanahCard extends StatelessWidget {
               ),
             ],
           ),
-        ],
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

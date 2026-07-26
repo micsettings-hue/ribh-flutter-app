@@ -6,6 +6,7 @@ import '../core/formatters/taka.dart';
 import '../data/models/models.dart';
 import 'campaign_list_row.dart' show campaignHeroTag;
 import 'pills.dart';
+import 'pressable.dart';
 
 /// One holding on the Home portfolio row: campaign title, invested amount,
 /// and status. Hero-transitions into the campaign detail.
@@ -34,7 +35,8 @@ class PortfolioCard extends StatelessWidget {
 
     return Hero(
       tag: heroTag ?? campaignHeroTag(campaign.id),
-      child: SizedBox(
+      child: RibhPressable(
+        child: SizedBox(
         width: 220,
         child: Card(
           child: InkWell(
@@ -67,6 +69,7 @@ class PortfolioCard extends StatelessWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }

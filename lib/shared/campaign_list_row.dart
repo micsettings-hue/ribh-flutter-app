@@ -7,6 +7,7 @@ import '../core/constants/profit_formula.dart';
 import '../data/models/models.dart';
 import 'animated_progress.dart';
 import 'pills.dart';
+import 'pressable.dart';
 import 'haptics.dart';
 
 /// Hero tag shared by the marketplace card and the campaign detail header.
@@ -50,7 +51,8 @@ class CampaignListRow extends StatelessWidget {
       // During Hero flights this card is laid out at interpolated sizes;
       // the non-scrolling scroll view lets content clip for those frames
       // instead of overflowing the flex.
-      child: Card(
+      child: RibhPressable(
+        child: Card(
         clipBehavior: Clip.hardEdge,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
@@ -125,6 +127,7 @@ class CampaignListRow extends StatelessWidget {
               ),
             ),
           ),
+        ),
         ),
       ),
     );

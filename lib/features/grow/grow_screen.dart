@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +10,7 @@ import '../../app/theme/spacing.dart';
 import '../../core/constants/risk_tiers.dart';
 import '../../core/failures/failure.dart';
 import '../../core/formatters/taka.dart';
+import '../../shared/chart_palette.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/goal_row.dart';
 import '../../shared/empty_state.dart';
@@ -279,6 +281,116 @@ class _QueueCardState extends ConsumerState<_QueueCard> {
   }
 }
 
+/// Deployed capital by sector as a donut with a labelled legend. Colour
+/// encodes sector identity from the validated categorical palette (fixed
+/// order); the legend carries name + share so identity is never colour-alone
+/// and the share is directly labelled. A 7th+ sector folds into "Other".
+class _DiversificationDonut extends StatelessWidget {
+  const _DiversificationDonut({required this.sectors});
+
+  final List<SectorSlice> sectors;
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final theme = Theme.of(context);
+    final palette = categoricalPalette(context);
+    final reduce = MediaQuery.of(context).disableAnimations;
+
+    // Fold any sectors beyond the palette into a single "Other" slice.
+    final max = palette.length;
+    final display = <({String label, double share, Color color})>[];
+    if (sectors.length <= max) {
+      for (var i = 0; i < sectors.length; i++) {
+        display.add((
+          label: _RibhFundCard._titleCase(sectors[i].sector),
+          share: sectors[i].share,
+          color: palette[i],
+        ));
+      }
+    } else {
+      for (var i = 0; i < max - 1; i++) {
+        display.add((
+          label: _RibhFundCard._titleCase(sectors[i].sector),
+          share: sectors[i].share,
+          color: palette[i],
+        ));
+      }
+      final rest = sectors
+          .skip(max - 1)
+          .fold<double>(0, (sum, s) => sum + s.share);
+      display.add((label: 'Other', share: rest, color: tokens.inkSoft));
+    }
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 108,
+          height: 108,
+          child: PieChart(
+            duration: reduce
+                ? Duration.zero
+                : const Duration(milliseconds: 700),
+            PieChartData(
+              sectionsSpace: 2,
+              centerSpaceRadius: 30,
+              startDegreeOffset: -90,
+              sections: [
+                for (final d in display)
+                  PieChartSectionData(
+                    value: d.share * 100,
+                    color: d.color,
+                    radius: 20,
+                    showTitle: false,
+                  ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: RibhSpace.lg),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (final d in display)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: RibhSpace.sm),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          color: d.color,
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                      ),
+                      const SizedBox(width: RibhSpace.sm),
+                      Expanded(
+                        child: Text(
+                          l10nSectorShare(context, d.label, d.share),
+                          style: theme.textTheme.bodySmall,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// "Sector · NN%" from the shared ARB string.
+String l10nSectorShare(BuildContext context, String label, double share) {
+  final l10n = AppLocalizations.of(context)!;
+  return l10n.growFundSectorShare(label, (share * 100).toStringAsFixed(0));
+}
+
 /// The Ribh Fund view: the educational gradient header, plus a live picture
 /// of the user's participation derived from real holdings. Deployed and
 /// in-recovery mirror the Amanah summary; the blended rate is a projection
@@ -435,33 +547,8 @@ class _RibhFundCard extends ConsumerWidget {
                         color: tokens.inkSoft,
                       ),
                     ),
-                    const SizedBox(height: 6),
-                    for (final slice in data.sectors)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              l10n.growFundSectorShare(
-                                _titleCase(slice.sector),
-                                (slice.share * 100).toStringAsFixed(0),
-                              ),
-                              style: theme.textTheme.bodySmall,
-                            ),
-                            const SizedBox(height: 4),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(999),
-                              child: LinearProgressIndicator(
-                                value: slice.share,
-                                minHeight: 6,
-                                backgroundColor: tokens.mintSoft,
-                                color: tokens.teal,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    const SizedBox(height: RibhSpace.md),
+                    _DiversificationDonut(sectors: data.sectors),
                   ],
                 ),
               ),

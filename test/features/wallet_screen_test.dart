@@ -116,11 +116,12 @@ class FakeWalletRepository extends WalletRepository {
   }
 }
 
-Widget wrap(FakeWalletRepository repo, {Locale? locale}) => ProviderScope(
+Widget wrap(FakeWalletRepository repo, {Locale? locale, bool dark = false}) =>
+    ProviderScope(
   retry: (retryCount, error) => null,
   overrides: [walletRepositoryProvider.overrideWithValue(repo)],
   child: MaterialApp(
-    theme: RibhTheme.light(),
+    theme: dark ? RibhTheme.dark() : RibhTheme.light(),
     locale: locale,
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
@@ -292,6 +293,18 @@ void main() {
     await expectLater(
       find.byType(WalletScreen),
       matchesGoldenFile('captures/wallet.png'),
+    );
+  });
+
+  testWidgets('capture: wallet dark', (tester) async {
+    tester.view.physicalSize = const Size(800, 3000);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(wrap(FakeWalletRepository(), dark: true));
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byType(WalletScreen),
+      matchesGoldenFile('captures/wallet_dark.png'),
     );
   });
 }

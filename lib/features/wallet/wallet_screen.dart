@@ -9,6 +9,7 @@ import '../../app/theme/ribh_tokens.dart';
 import '../../core/failures/failure.dart';
 import '../../core/formatters/taka.dart';
 import '../../data/models/models.dart';
+import '../../shared/chart_palette.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/ledger_row.dart';
 import '../../shared/empty_state.dart';
@@ -187,6 +188,10 @@ class _PerformanceChart extends StatelessWidget {
       );
     }
 
+    final palette = categoricalPalette(context);
+    final investedColor = palette[0];
+    final profitColor = palette[1];
+
     List<FlSpot> spots(int Function(MonthPoint) pick) => [
       for (var i = 0; i < points.length; i++)
         FlSpot(i.toDouble(), pick(points[i]) / 100),
@@ -230,19 +235,44 @@ class _PerformanceChart extends StatelessWidget {
                   ),
                 ),
               ),
-              lineTouchData: const LineTouchData(enabled: false),
+              lineTouchData: LineTouchData(
+                touchTooltipData: LineTouchTooltipData(
+                  getTooltipColor: (_) => tokens.tealDeep,
+                  getTooltipItems: (spots) => [
+                    for (final s in spots)
+                      LineTooltipItem(
+                        formatTaka((s.y * 100).round(), localeCode: locale),
+                        theme.textTheme.labelSmall!.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
               lineBarsData: [
                 LineChartBarData(
                   spots: spots((p) => p.cumulativeInvested),
-                  color: tokens.teal,
-                  barWidth: 2.5,
+                  color: investedColor,
+                  barWidth: 2,
                   dotData: const FlDotData(show: false),
                   isCurved: false,
+                  belowBarData: BarAreaData(
+                    show: true,
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        investedColor.withValues(alpha: 0.18),
+                        investedColor.withValues(alpha: 0.0),
+                      ],
+                    ),
+                  ),
                 ),
                 LineChartBarData(
                   spots: spots((p) => p.cumulativeProfit),
-                  color: tokens.goldText,
-                  barWidth: 2.5,
+                  color: profitColor,
+                  barWidth: 2,
                   dotData: const FlDotData(show: false),
                   isCurved: false,
                 ),
@@ -253,9 +283,9 @@ class _PerformanceChart extends StatelessWidget {
         const SizedBox(height: 8),
         Row(
           children: [
-            _legendDot(tokens.teal, l10n.walletChartInvested, theme),
+            _legendDot(investedColor, l10n.walletChartInvested, theme),
             const SizedBox(width: 16),
-            _legendDot(tokens.goldText, l10n.walletChartProfit, theme),
+            _legendDot(profitColor, l10n.walletChartProfit, theme),
           ],
         ),
         const SizedBox(height: 4),

@@ -485,6 +485,20 @@
     "description": "TODO(board): all lesson content requires board sign-off before launch."
   },
   "learnMarkRead": "পড়া হয়েছে চিহ্নিত করুন",
+  "learnReadMinutes": "{minutes} মিনিট পড়া",
+  "@learnReadMinutes": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "learnDraftBanner": "খসড়া বিষয়বস্তু, শরিয়াহ বোর্ড পর্যালোচনার অপেক্ষায়। চূড়ান্ত ধর্মীয় নির্দেশনা নয়।",
+  "@learnDraftBanner": {
+    "description": "Board-gate disclaimer shown atop every lesson. TODO(board): review before launch."
+  },
+  "learnBodyPending": "এই পাঠের বিষয়বস্তু প্রস্তুত করা হচ্ছে এবং শরিয়াহ বোর্ড পর্যালোচনার পর এখানে আসবে।",
+  "@learnBodyPending": {
+    "description": "Shown when a lesson has no body yet. TODO(board)."
+  },
   "learnReadCount": "{count} বার পড়া হয়েছে",
   "@learnReadCount": {
     "placeholders": {

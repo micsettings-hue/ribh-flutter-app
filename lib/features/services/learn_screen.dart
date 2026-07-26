@@ -6,7 +6,7 @@ import '../../app/l10n/app_localizations.dart';
 import '../../app/theme/ribh_tokens.dart';
 import '../../core/failures/failure.dart';
 import '../../shared/failure_l10n.dart';
-import '../../shared/ribh_sheet_scaffold.dart';
+import 'lesson_reader.dart';
 import 'services_controllers.dart';
 
 /// Learn: the lesson catalogue with per-user progress persisted to
@@ -81,81 +81,15 @@ class LearnScreen extends ConsumerWidget {
                     ).textTheme.bodySmall?.copyWith(color: tokens.inkSoft),
                   ),
                   trailing: const Icon(LucideIcons.chevronRight),
-                  onTap: () => showRibhSheet<void>(
-                    context: context,
-                    builder: (_) =>
-                        _ModuleSheet(lessonId: lesson.id, title: lesson.title),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => LessonReaderScreen(lesson: lesson),
+                    ),
                   ),
                 ),
               ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _ModuleSheet extends ConsumerStatefulWidget {
-  const _ModuleSheet({required this.lessonId, required this.title});
-
-  final String lessonId;
-  final String title;
-
-  @override
-  ConsumerState<_ModuleSheet> createState() => _ModuleSheetState();
-}
-
-class _ModuleSheetState extends ConsumerState<_ModuleSheet> {
-  bool _busy = false;
-  String? _error;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final tokens = context.tokens;
-    return RibhSheetScaffold(
-      title: widget.title,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            l10n.learnModuleBody,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-          if (_error != null) ...[
-            const SizedBox(height: 8),
-            Text(
-              _error!,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: tokens.danger),
-            ),
-          ],
-          const SizedBox(height: 16),
-          FilledButton(
-            onPressed: _busy
-                ? null
-                : () async {
-                    setState(() {
-                      _busy = true;
-                      _error = null;
-                    });
-                    final result = await ref
-                        .read(learnControllerProvider.notifier)
-                        .markRead(widget.lessonId);
-                    if (!mounted) return;
-                    result.fold(
-                      (_) => Navigator.of(context).pop(),
-                      (failure) => setState(() {
-                        _busy = false;
-                        _error = failureText(l10n, failure);
-                      }),
-                    );
-                  },
-            child: Text(_busy ? l10n.submitting : l10n.learnMarkRead),
-          ),
-        ],
       ),
     );
   }

@@ -17,6 +17,7 @@ import 'package:ribh/data/repositories/wallet_repository.dart';
 import 'package:ribh/data/repositories/welfare_repository.dart';
 import 'package:ribh/features/services/invite_screen.dart';
 import 'package:ribh/features/services/learn_screen.dart';
+import 'package:ribh/features/services/lesson_reader.dart';
 import 'package:ribh/features/services/qard_screen.dart';
 import 'package:ribh/features/services/sadaqah_screen.dart';
 import 'package:ribh/features/services/zakat_screen.dart';
@@ -46,6 +47,11 @@ class FakeLearnRepository extends LearnRepository {
       title: 'Halal investing basics (pending Shariah review)',
       sort: 1,
       createdAt: DateTime.utc(2026, 6, 1),
+      body: '## The core idea\n\n'
+          'Money funds real activity, and the investor shares the genuine '
+          'outcome, good or bad. Return is earned by taking real risk.\n\n'
+          '## Risk is not optional\n\n'
+          'A projection is an estimate, never a promise. Capital can be lost.',
     ),
     Lesson(
       id: 'l2',
@@ -543,6 +549,82 @@ void main() {
     await expectLater(
       find.byType(InviteScreen),
       matchesGoldenFile('captures/invite.png'),
+    );
+  });
+
+  test('lessonReadMinutes estimates at ~200 wpm, minimum one', () {
+    expect(lessonReadMinutes(''), 1);
+    expect(lessonReadMinutes('one two three'), 1);
+    expect(lessonReadMinutes(List.filled(200, 'word').join(' ')), 1);
+    expect(lessonReadMinutes(List.filled(201, 'word').join(' ')), 2);
+    expect(lessonReadMinutes(List.filled(1000, 'word').join(' ')), 5);
+  });
+
+  Lesson lessonWithBody() => Lesson(
+    id: 'l1',
+    slug: 'halal-investing-basics',
+    title: 'Halal investing basics (pending Shariah review)',
+    sort: 1,
+    createdAt: DateTime.utc(2026, 6, 1),
+    body: '## The core idea\n\nMoney funds real activity and the investor '
+        'shares the outcome.\n\n## Risk is not optional\n\nA projection is an '
+        'estimate, never a promise.',
+  );
+
+  testWidgets('lesson reader shows title, draft banner, reading time, body', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 2200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          learnRepositoryProvider.overrideWithValue(FakeLearnRepository()),
+        ],
+        child: MaterialApp(
+          theme: RibhTheme.light(),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: LessonReaderScreen(lesson: lessonWithBody()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Halal investing basics (pending Shariah review)'),
+        findsOneWidget);
+    expect(
+      find.textContaining('pending Shariah board review'),
+      findsOneWidget,
+    );
+    expect(find.text('1 min read'), findsOneWidget);
+    expect(find.text('The core idea'), findsOneWidget);
+    expect(find.text('Risk is not optional'), findsOneWidget);
+    expect(find.widgetWithText(FilledButton, 'Mark as read'), findsOneWidget);
+  });
+
+  testWidgets('capture: lesson reader', (tester) async {
+    tester.view.physicalSize = const Size(800, 2200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          learnRepositoryProvider.overrideWithValue(FakeLearnRepository()),
+        ],
+        child: MaterialApp(
+          theme: RibhTheme.light(),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: LessonReaderScreen(lesson: lessonWithBody()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byType(LessonReaderScreen),
+      matchesGoldenFile('captures/lesson_reader.png'),
     );
   });
 }

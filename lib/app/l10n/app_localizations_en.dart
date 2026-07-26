@@ -971,6 +971,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get learnMarkRead => 'Mark as read';
 
   @override
+  String learnReadMinutes(int minutes) {
+    return '$minutes min read';
+  }
+
+  @override
+  String get learnDraftBanner =>
+      'Draft content, pending Shariah board review. Not final religious guidance.';
+
+  @override
+  String get learnBodyPending =>
+      'This lesson\'s content is being prepared and will appear here after Shariah board review.';
+
+  @override
   String learnReadCount(int count) {
     return 'Read $count times';
   }

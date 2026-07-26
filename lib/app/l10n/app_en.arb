@@ -503,6 +503,20 @@
     "description": "TODO(board): all lesson content requires board sign-off before launch."
   },
   "learnMarkRead": "Mark as read",
+  "learnReadMinutes": "{minutes} min read",
+  "@learnReadMinutes": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "learnDraftBanner": "Draft content, pending Shariah board review. Not final religious guidance.",
+  "@learnDraftBanner": {
+    "description": "Board-gate disclaimer shown atop every lesson. TODO(board): review before launch."
+  },
+  "learnBodyPending": "This lesson's content is being prepared and will appear here after Shariah board review.",
+  "@learnBodyPending": {
+    "description": "Shown when a lesson has no body yet. TODO(board)."
+  },
   "learnReadCount": "Read {count} times",
   "@learnReadCount": {
     "placeholders": {

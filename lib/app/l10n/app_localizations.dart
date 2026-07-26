@@ -1784,6 +1784,24 @@ abstract class AppLocalizations {
   /// **'Mark as read'**
   String get learnMarkRead;
 
+  /// No description provided for @learnReadMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min read'**
+  String learnReadMinutes(int minutes);
+
+  /// Board-gate disclaimer shown atop every lesson. TODO(board): review before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft content, pending Shariah board review. Not final religious guidance.'**
+  String get learnDraftBanner;
+
+  /// Shown when a lesson has no body yet. TODO(board).
+  ///
+  /// In en, this message translates to:
+  /// **'This lesson\'s content is being prepared and will appear here after Shariah board review.'**
+  String get learnBodyPending;
+
   /// No description provided for @learnReadCount.
   ///
   /// In en, this message translates to:

@@ -965,6 +965,19 @@ class AppLocalizationsBn extends AppLocalizations {
   String get learnMarkRead => 'পড়া হয়েছে চিহ্নিত করুন';
 
   @override
+  String learnReadMinutes(int minutes) {
+    return '$minutes মিনিট পড়া';
+  }
+
+  @override
+  String get learnDraftBanner =>
+      'খসড়া বিষয়বস্তু, শরিয়াহ বোর্ড পর্যালোচনার অপেক্ষায়। চূড়ান্ত ধর্মীয় নির্দেশনা নয়।';
+
+  @override
+  String get learnBodyPending =>
+      'এই পাঠের বিষয়বস্তু প্রস্তুত করা হচ্ছে এবং শরিয়াহ বোর্ড পর্যালোচনার পর এখানে আসবে।';
+
+  @override
   String learnReadCount(int count) {
     return '$count বার পড়া হয়েছে';
   }

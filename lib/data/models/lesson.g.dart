@@ -12,6 +12,7 @@ _Lesson _$LessonFromJson(Map<String, dynamic> json) => _Lesson(
   title: json['title'] as String,
   sort: (json['sort'] as num).toInt(),
   createdAt: DateTime.parse(json['created_at'] as String),
+  body: json['body'] as String? ?? '',
 );
 
 Map<String, dynamic> _$LessonToJson(_Lesson instance) => <String, dynamic>{
@@ -20,4 +21,5 @@ Map<String, dynamic> _$LessonToJson(_Lesson instance) => <String, dynamic>{
   'title': instance.title,
   'sort': instance.sort,
   'created_at': instance.createdAt.toIso8601String(),
+  'body': instance.body,
 };

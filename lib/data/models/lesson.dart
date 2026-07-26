@@ -11,6 +11,10 @@ abstract class Lesson with _$Lesson {
     required String title,
     required int sort,
     required DateTime createdAt,
+    // Long-form article body. Board-gated placeholder until sign-off; empty
+    // when a lesson has no body yet. Simple markup: lines starting with
+    // "## " are section headings, blank lines separate paragraphs.
+    @Default('') String body,
   }) = _Lesson;
 
   factory Lesson.fromJson(Map<String, dynamic> json) => _$LessonFromJson(json);

@@ -1240,6 +1240,26 @@ class AppLocalizationsEn extends AppLocalizations {
       'This reflects your app habits only: giving, your own check-ins, and counter use. It never measures worship itself, and it is never shown to anyone else.';
 
   @override
+  String get barakahBreakdownTitle => 'What builds this score';
+
+  @override
+  String get barakahBreakdownGiving => 'Giving, last 30 days';
+
+  @override
+  String get barakahBreakdownPrayer => 'Prayer check-in streak';
+
+  @override
+  String get barakahBreakdownAdhkar => 'Adhkar, last 7 days';
+
+  @override
+  String barakahBreakdownPoints(int points, int cap) {
+    return '$points of $cap pts';
+  }
+
+  @override
+  String get barakahAdhkarWeek => 'Adhkar this week';
+
+  @override
   String get tasbihTitle => 'Adhkar and tasbih';
 
   @override

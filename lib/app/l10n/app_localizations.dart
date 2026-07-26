@@ -2222,6 +2222,42 @@ abstract class AppLocalizations {
   /// **'This reflects your app habits only: giving, your own check-ins, and counter use. It never measures worship itself, and it is never shown to anyone else.'**
   String get barakahScoreHonesty;
 
+  /// No description provided for @barakahBreakdownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What builds this score'**
+  String get barakahBreakdownTitle;
+
+  /// No description provided for @barakahBreakdownGiving.
+  ///
+  /// In en, this message translates to:
+  /// **'Giving, last 30 days'**
+  String get barakahBreakdownGiving;
+
+  /// Faith-adjacent metric label. TODO(board): sign-off before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer check-in streak'**
+  String get barakahBreakdownPrayer;
+
+  /// Faith-adjacent metric label. TODO(board): sign-off before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Adhkar, last 7 days'**
+  String get barakahBreakdownAdhkar;
+
+  /// No description provided for @barakahBreakdownPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'{points} of {cap} pts'**
+  String barakahBreakdownPoints(int points, int cap);
+
+  /// Faith-adjacent label for the 7-day consistency row. TODO(board): sign-off before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Adhkar this week'**
+  String get barakahAdhkarWeek;
+
   /// Faith-facing. TODO(board): the adhkar set and target need board sign-off.
   ///
   /// In en, this message translates to:

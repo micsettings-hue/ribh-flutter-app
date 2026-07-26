@@ -130,6 +130,21 @@ void main() {
         100,
       );
     });
+
+    test('component points cap independently and sum to the score', () {
+      // Giving caps at 40 (11+ days), prayer at 30 (11+ streak), adhkar at 30.
+      expect(barakahGivingPoints(5), 20);
+      expect(barakahGivingPoints(20), barakahGivingCap);
+      expect(barakahPrayerPoints(4), 12);
+      expect(barakahPrayerPoints(20), barakahPrayerCap);
+      expect(barakahAdhkarPoints(2), 12);
+      expect(barakahAdhkarPoints(7), barakahAdhkarCap);
+      // The breakdown can never disagree with the score.
+      expect(
+        barakahGivingPoints(5) + barakahPrayerPoints(4) + barakahAdhkarPoints(2),
+        barakahScore(givingDays30: 5, prayerStreak: 4, adhkarDays7: 2),
+      );
+    });
   });
 
   group('nextPrayerStreak (never punitive)', () {
@@ -176,6 +191,10 @@ void main() {
       find.textContaining('It never measures worship itself'),
       findsOneWidget,
     );
+    // Score breakdown and the 7-day adhkar row.
+    expect(find.text('What builds this score'), findsOneWidget);
+    expect(find.text('Prayer check-in streak'), findsOneWidget);
+    expect(find.text('Adhkar this week'), findsOneWidget);
     expect(find.text('Adhkar and tasbih'), findsOneWidget);
     expect(find.text('Daily reflection'), findsOneWidget);
     expect(find.text('Prayer check-in'), findsOneWidget);

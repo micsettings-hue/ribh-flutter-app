@@ -13,7 +13,9 @@ import '../../core/failures/failure.dart';
 import '../../shared/animated_progress.dart';
 import '../../shared/failure_l10n.dart';
 import '../../shared/haptics.dart';
+import '../../shared/icon_chip.dart';
 import '../../shared/motion.dart';
+import '../../shared/pressable.dart';
 import 'barakah_controller.dart';
 
 /// Barakah (M8): the six blocks. The score reflects app habits only and the
@@ -127,6 +129,9 @@ class _BarakahBody extends ConsumerWidget {
             ],
           ),
         ),
+        const SizedBox(height: RibhSpace.md),
+        // 1b. What builds the score: the three real app-habit components.
+        _ScoreBreakdown(data: data),
         const SizedBox(height: 16),
         // 2. Adhkar and tasbih counter.
         Card(
@@ -169,6 +174,8 @@ class _BarakahBody extends ConsumerWidget {
                   value: (data.tasbihToday / tasbihDailyTarget).clamp(0.0, 1.0),
                   color: tokens.green,
                 ),
+                const SizedBox(height: RibhSpace.md),
+                _AdhkarWeek(days: data.adhkarLast7Days),
               ],
             ),
           ),
@@ -272,26 +279,152 @@ class _BarakahBody extends ConsumerWidget {
         const SizedBox(height: 12),
         // 5. Learn shortcut to the next unread module.
         if (data.nextUnreadLesson case final lesson?)
-          Card(
-            child: ListTile(
-              leading: const Icon(LucideIcons.bookOpen),
-              title: Text(l10n.barakahLearnNext),
-              subtitle: Text(lesson.title),
-              trailing: const Icon(LucideIcons.chevronRight),
-              onTap: () => context.push(RibhRoutes.service('learn')),
+          RibhPressable(
+            child: Card(
+              child: ListTile(
+                leading: const RibhIconChip(
+                  icon: LucideIcons.bookOpen,
+                  size: RibhIconChip.sm,
+                ),
+                title: Text(l10n.barakahLearnNext),
+                subtitle: Text(lesson.title),
+                trailing: const Icon(LucideIcons.chevronRight),
+                onTap: () => context.push(RibhRoutes.service('learn')),
+              ),
             ),
           ),
         const SizedBox(height: 12),
         // 6. Sadaqah nudge.
-        Card(
-          child: ListTile(
-            leading: const Icon(LucideIcons.heart),
-            title: Text(l10n.barakahSadaqahNudge),
-            subtitle: Text(l10n.bannerSlide3Sub),
-            trailing: const Icon(LucideIcons.chevronRight),
-            onTap: () => context.push(RibhRoutes.service('sadaqah')),
+        RibhPressable(
+          child: Card(
+            child: ListTile(
+              leading: const RibhIconChip(
+                icon: LucideIcons.heart,
+                size: RibhIconChip.sm,
+              ),
+              title: Text(l10n.barakahSadaqahNudge),
+              subtitle: Text(l10n.bannerSlide3Sub),
+              trailing: const Icon(LucideIcons.chevronRight),
+              onTap: () => context.push(RibhRoutes.service('sadaqah')),
+            ),
           ),
         ),
+      ],
+    );
+  }
+}
+
+/// Transparent breakdown of the score into its three real app-habit
+/// components, each with points earned of its cap and a bar. Reinforces that
+/// the score is app habits only, never worship.
+class _ScoreBreakdown extends StatelessWidget {
+  const _ScoreBreakdown({required this.data});
+
+  final BarakahData data;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final tokens = context.tokens;
+    final theme = Theme.of(context);
+
+    final rows = <({String label, int points, int cap})>[
+      (
+        label: l10n.barakahBreakdownGiving,
+        points: barakahGivingPoints(data.givingDays30),
+        cap: barakahGivingCap,
+      ),
+      (
+        label: l10n.barakahBreakdownPrayer,
+        points: barakahPrayerPoints(data.engagement.prayerStreak),
+        cap: barakahPrayerCap,
+      ),
+      (
+        label: l10n.barakahBreakdownAdhkar,
+        points: barakahAdhkarPoints(data.adhkarDays7),
+        cap: barakahAdhkarCap,
+      ),
+    ];
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.barakahBreakdownTitle,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: RibhSpace.md),
+            for (final row in rows)
+              Padding(
+                padding: const EdgeInsets.only(bottom: RibhSpace.md),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(row.label, style: theme.textTheme.bodySmall),
+                        Text(
+                          l10n.barakahBreakdownPoints(row.points, row.cap),
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: tokens.inkSoft,
+                            fontFeatures: const [FontFeature.tabularFigures()],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: RibhSpace.xs),
+                    RibhProgressBar(
+                      value: row.cap == 0 ? 0 : row.points / row.cap,
+                      minHeight: 5,
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// A quiet 7-day consistency row for adhkar: a filled dot per day with counter
+/// use, an outline dot otherwise. Never punitive, never public.
+class _AdhkarWeek extends StatelessWidget {
+  const _AdhkarWeek({required this.days});
+
+  final List<bool> days;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final tokens = context.tokens;
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        Text(
+          l10n.barakahAdhkarWeek,
+          style: theme.textTheme.labelSmall?.copyWith(color: tokens.inkSoft),
+        ),
+        const Spacer(),
+        for (final done in days)
+          Padding(
+            padding: const EdgeInsets.only(left: RibhSpace.sm),
+            child: Container(
+              width: 12,
+              height: 12,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: done ? tokens.teal : Colors.transparent,
+                border: done
+                    ? null
+                    : Border.all(color: tokens.line, width: 1.5),
+              ),
+            ),
+          ),
       ],
     );
   }

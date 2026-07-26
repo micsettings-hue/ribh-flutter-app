@@ -701,6 +701,27 @@
     }
   },
   "barakahScoreHonesty": "এটি শুধু আপনার অ্যাপ-অভ্যাস প্রতিফলিত করে: দান, আপনার নিজের চেক-ইন ও কাউন্টার ব্যবহার। এটি কখনও ইবাদত নিজে মাপে না, এবং অন্য কাউকে কখনও দেখানো হয় না।",
+  "barakahBreakdownTitle": "এই স্কোর যা থেকে তৈরি",
+  "barakahBreakdownGiving": "দান, গত ৩০ দিন",
+  "barakahBreakdownPrayer": "নামাজ চেক-ইন ধারা",
+  "@barakahBreakdownPrayer": {
+    "description": "Faith-adjacent metric label. TODO(board): sign-off before launch."
+  },
+  "barakahBreakdownAdhkar": "আযকার, গত ৭ দিন",
+  "@barakahBreakdownAdhkar": {
+    "description": "Faith-adjacent metric label. TODO(board): sign-off before launch."
+  },
+  "barakahBreakdownPoints": "{cap}-এর মধ্যে {points} পয়েন্ট",
+  "@barakahBreakdownPoints": {
+    "placeholders": {
+      "points": { "type": "int" },
+      "cap": { "type": "int" }
+    }
+  },
+  "barakahAdhkarWeek": "এই সপ্তাহের আযকার",
+  "@barakahAdhkarWeek": {
+    "description": "Faith-adjacent label for the 7-day consistency row. TODO(board): sign-off before launch."
+  },
   "tasbihTitle": "আযকার ও তাসবিহ",
   "@tasbihTitle": {
     "description": "Faith-facing. TODO(board): the adhkar set and target need board sign-off."

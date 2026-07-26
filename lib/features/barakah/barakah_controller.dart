@@ -74,6 +74,16 @@ class BarakahData {
   int get givingDays30 => _daysWithin(engagement.habitDays.keys, 30);
   int get adhkarDays7 => _daysWithin(_tasbih.keys, 7);
 
+  /// Whether each of the last 7 days had adhkar counter use, oldest first
+  /// (index 6 is today). Drives the consistency row; feeds nothing punitive.
+  List<bool> get adhkarLast7Days {
+    final days = _tasbih.keys.toSet();
+    return [
+      for (var back = 6; back >= 0; back--)
+        days.contains(isoDay(now.subtract(Duration(days: back)))),
+    ];
+  }
+
   int get score => barakahScore(
     givingDays30: givingDays30,
     prayerStreak: engagement.prayerStreak,

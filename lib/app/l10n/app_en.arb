@@ -719,6 +719,27 @@
     }
   },
   "barakahScoreHonesty": "This reflects your app habits only: giving, your own check-ins, and counter use. It never measures worship itself, and it is never shown to anyone else.",
+  "barakahBreakdownTitle": "What builds this score",
+  "barakahBreakdownGiving": "Giving, last 30 days",
+  "barakahBreakdownPrayer": "Prayer check-in streak",
+  "@barakahBreakdownPrayer": {
+    "description": "Faith-adjacent metric label. TODO(board): sign-off before launch."
+  },
+  "barakahBreakdownAdhkar": "Adhkar, last 7 days",
+  "@barakahBreakdownAdhkar": {
+    "description": "Faith-adjacent metric label. TODO(board): sign-off before launch."
+  },
+  "barakahBreakdownPoints": "{points} of {cap} pts",
+  "@barakahBreakdownPoints": {
+    "placeholders": {
+      "points": { "type": "int" },
+      "cap": { "type": "int" }
+    }
+  },
+  "barakahAdhkarWeek": "Adhkar this week",
+  "@barakahAdhkarWeek": {
+    "description": "Faith-adjacent label for the 7-day consistency row. TODO(board): sign-off before launch."
+  },
   "tasbihTitle": "Adhkar and tasbih",
   "@tasbihTitle": {
     "description": "Faith-facing. TODO(board): the adhkar set and target need board sign-off."

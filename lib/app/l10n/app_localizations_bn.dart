@@ -1233,6 +1233,26 @@ class AppLocalizationsBn extends AppLocalizations {
       'এটি শুধু আপনার অ্যাপ-অভ্যাস প্রতিফলিত করে: দান, আপনার নিজের চেক-ইন ও কাউন্টার ব্যবহার। এটি কখনও ইবাদত নিজে মাপে না, এবং অন্য কাউকে কখনও দেখানো হয় না।';
 
   @override
+  String get barakahBreakdownTitle => 'এই স্কোর যা থেকে তৈরি';
+
+  @override
+  String get barakahBreakdownGiving => 'দান, গত ৩০ দিন';
+
+  @override
+  String get barakahBreakdownPrayer => 'নামাজ চেক-ইন ধারা';
+
+  @override
+  String get barakahBreakdownAdhkar => 'আযকার, গত ৭ দিন';
+
+  @override
+  String barakahBreakdownPoints(int points, int cap) {
+    return '$cap-এর মধ্যে $points পয়েন্ট';
+  }
+
+  @override
+  String get barakahAdhkarWeek => 'এই সপ্তাহের আযকার';
+
+  @override
   String get tasbihTitle => 'আযকার ও তাসবিহ';
 
   @override
